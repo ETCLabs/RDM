@@ -192,6 +192,22 @@ typedef struct RdmUid
 #define get_device_id(uidptr) ((uidptr)->id)
 
 #ifdef __cplusplus
+/* C++ utilities */
+
+// Comparison operators for UIDs
+
+inline bool operator<(const RdmUid &a, const RdmUid &b)
+{
+	return ((a.manu == b.manu) ? (a.id < b.id) : (a.manu < b.manu));
+}
+
+inline bool operator==(const RdmUid &a, const RdmUid &b)
+{
+	return ((a.manu == b.manu && a.id == b.id));
+}
+#endif
+
+#ifdef __cplusplus
 extern "C" {
 #endif
 
