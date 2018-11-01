@@ -19,8 +19,8 @@
 #include "rdm/responder.h"
 
 #include <string.h>
-#include "lwpa_int.h"
-#include "lwpa_pack.h"
+#include "lwpa/int.h"
+#include "lwpa/pack.h"
 #include "rdm/defs.h"
 
 /*************************** Function definitions ****************************/

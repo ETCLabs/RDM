@@ -18,18 +18,16 @@
  ******************************************************************************/
 
 /*! \file rdm/uid.h
- *  \brief A type and helper functions for the Unique ID (UID) used in the
- *         RDM family of protocols.
+ *  \brief A type and helper functions for the Unique ID (UID) used in the RDM family of protocols.
  *  \author Sam Kearney*/
 #ifndef _RDM_UID_H_
 #define _RDM_UID_H_
 
-#include "lwpa_int.h"
+#include "lwpa/int.h"
 
-/*! \defgroup uid uid
+/*! \defgroup uid UID
  *  \ingroup rdm
- *  \brief Type and helper functions for the Unique ID (UID) used in the RDM
- *         family of protocols.
+ *  \brief Type and helper functions for the Unique ID (UID) used in the RDM family of protocols.
  *
  *  RDM-based protocols use an identifier called a UID to identify an entity that generates or
  *  consumes RDM messages.
@@ -198,12 +196,12 @@ typedef struct RdmUid
 
 inline bool operator<(const RdmUid &a, const RdmUid &b)
 {
-	return ((a.manu == b.manu) ? (a.id < b.id) : (a.manu < b.manu));
+  return ((a.manu == b.manu) ? (a.id < b.id) : (a.manu < b.manu));
 }
 
 inline bool operator==(const RdmUid &a, const RdmUid &b)
 {
-	return ((a.manu == b.manu && a.id == b.id));
+  return ((a.manu == b.manu && a.id == b.id));
 }
 #endif
 

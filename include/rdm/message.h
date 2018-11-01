@@ -1,21 +1,21 @@
 /******************************************************************************
-* Copyright 2018 ETC Inc.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*******************************************************************************
-* This file is a part of RDM. For more information, go to:
-* https://github.com/ETCLabs/RDM
-******************************************************************************/
+ * Copyright 2018 ETC Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************
+ * This file is a part of RDM. For more information, go to:
+ * https://github.com/ETCLabs/RDM
+ ******************************************************************************/
 
 /*! \file rdm/message.h
  *  \brief Contains type definitions for use with RDM (E1.20) messages.
@@ -24,11 +24,12 @@
 #define _RDM_MESSAGE_H_
 
 #include <stddef.h>
-#include "lwpa_int.h"
-#include "lwpa_bool.h"
+#include "lwpa/int.h"
+#include "lwpa/bool.h"
 #include "rdm/uid.h"
 
-/*! \defgroup rdm RDM
+/*! \defgroup message Message
+ *  \ingroup rdm
  *  \brief Basic RDM message packing and unpacking.
  *
  *  @{
@@ -73,14 +74,12 @@ typedef struct RdmBuffer
 } RdmBuffer;
 
 /*! \brief Get the command class value from a packed RDM command.
- *  \param rdmbufptr Pointer to RdmBuffer containing the packed RDM
- *         command.
+ *  \param rdmbufptr Pointer to RdmBuffer containing the packed RDM command.
  *  \return Command class (uint8_t).
  */
 #define get_command_class(rdmbufptr) ((rdmbufptr)->data[RDM_OFFSET_COMMAND_CLASS])
 /*! \brief Get the RDM transaction number from a packed RDM command.
- *  \param rdmbufptr Pointer to RdmBuffer containing the packed RDM
- *         command.
+ *  \param rdmbufptr Pointer to RdmBuffer containing the packed RDM command.
  *  \return Transaction number (uint8_t).
  */
 #define get_transaction_num(rdmbufptr) ((rdmbufptr)->data[RDM_OFFSET_TRANSACTION])
@@ -96,14 +95,12 @@ typedef struct RdmCommand
   uint8_t transaction_num;
   /*! Port ID of the port on which this command is being sent. */
   uint8_t port_id;
-  /*! The sub-device to which this command is addressed, or 0 for the root
-   *  device. */
+  /*! The sub-device to which this command is addressed, or 0 for the root device. */
   uint16_t subdevice;
-  /*! The command class for this command, one of the values from E1.20 Table
-   *  A-1. */
+  /*! The command class for this command, one of the values from E1.20 Table A-1. */
   uint8_t command_class;
-  /*! The RDM Parameter ID of this command. One of the values from E1.20
-   *  Table A-3, or any of the relevant extension standards. */
+  /*! The RDM Parameter ID of this command. One of the values from E1.20 Table A-3, or any of the
+   *  relevant extension standards. */
   uint16_t param_id;
   /*! The length of the parameter data. */
   uint8_t datalen;
@@ -126,11 +123,10 @@ typedef struct RdmResponse
   uint8_t msg_count;
   /*! The sub-device generating this response, or 0 for the root device. */
   uint16_t subdevice;
-  /*! The command class for this response, one of the values from E1.20 Table
-   *  A-1. */
+  /*! The command class for this response, one of the values from E1.20 Table A-1. */
   uint8_t command_class;
-  /*! The RDM Parameter ID of this response. One of the values from E1.20
-   *  Table A-3, or any of the relevant extension standards. */
+  /*! The RDM Parameter ID of this response. One of the values from E1.20 Table A-3, or any of the
+   *  relevant extension standards. */
   uint16_t param_id;
   /*! The length of the parameter data. */
   uint8_t datalen;

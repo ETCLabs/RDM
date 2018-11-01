@@ -17,34 +17,38 @@
  * https://github.com/ETCLabs/RDM
  ******************************************************************************/
 
-/*! \file rdm/responder.h
- *  \brief Contains functions for unpacking RDM commands and creating responses.
- *  \author Sam Kearney */
-#ifndef _RDM_RESPONDER_H_
-#define _RDM_RESPONDER_H_
+/*! \file rdm/version.h
+ *  \brief Provides the current version of the RDM library.
+ *  \author Sam Kearney
+ */
+#ifndef _RDM_VERSION_H_
+#define _RDM_VERSION_H_
 
-#include "lwpa/int.h"
-#include "lwpa/error.h"
-#include "rdm/message.h"
+/* clang-format off */
 
-/*! \defgroup responder Responder
- *  \ingroup rdm
- *  \brief Implementation of RDM responder functionality.
+/*! \defgroup rdm RDM
+ *  \brief Implementation of the RDM protocol.
  *
  *  @{
  */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-lwpa_error_t rdmresp_unpack_command(const RdmBuffer *buffer, RdmCommand *cmd);
-lwpa_error_t rdmresp_create_response(const RdmResponse *resp_data, RdmBuffer *buffer);
-
-#ifdef __cplusplus
-};
-#endif
-
+/*! \name RDM version numbers
+ *  @{
+ */
+#define RDM_VERSION_MAJOR 0 /*!< The major version. */
+#define RDM_VERSION_MINOR 1 /*!< The minor version. */
+#define RDM_VERSION_PATCH 0 /*!< The patch version. */
+#define RDM_VERSION_BUILD 1 /*!< The build number. */
 /*!@}*/
 
-#endif /* _RDM_RESPONDER_H_ */
+/*! \name RDM version strings
+ *  @{
+ */
+#define RDM_VERSION_STRING "0.1.0.1"
+#define RDM_VERSION_DATESTR "1.Nov.2018"
+#define RDM_VERSION_COPYRIGHT "Copyright 2018 Electronic Theatre Controls, Inc."
+#define RDM_VERSION_PRODUCTNAME "RDM"
+/*!@}*/
+
+/*!@}*/
+#endif /* _RDM_VERSION_H_ */

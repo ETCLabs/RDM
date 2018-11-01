@@ -3,13 +3,33 @@ set(RDM_INCLUDE ${RDM_ROOT}/include)
 
 ################################# Dependencies ################################
 
-if(NOT TARGET lwpa)
-  if(NOT DEFINED LWPA_DIR)
-    # Set a default for the lwpa location; assume it is named 'lwpa' and at the same level as RDM.
-    set(LWPA_DIR ${RDM_ROOT}/../lwpa)
+function(rdm_add_dependency target loc_variable)
+  # Step 1 - see if the target has already been included
+  if(NOT TARGET ${target})
+    message(STATUS "Attempting to locate dependency ${target}...")
+    message(STATUS "Checking user-provided variable ${loc_variable}...")
+    # Step 2 - if the user has provided a location for the dependency, use that
+    if(DEFINED ${loc_variable})
+      message(STATUS "Found. Adding dependency from ${${loc_variable}}.")
+      add_subdirectory(${${loc_variable}} ${target})
+    else()
+      message(STATUS "Not defined. Checking if already downloaded at the same level as this directory...")
+      # Step 3 - look for the dependency in a folder with the same name as the
+      # target, at the same level as this folder
+      if (EXISTS ${RDM_ROOT}/../${target})
+        message(STATUS "Found. Adding dependency from [RDM_DIR]/../${target}.")
+        add_subdirectory(${RDM_ROOT}/../${target} ${target})
+      else()
+        # TODO: add package manager step
+        message(FATAL_ERROR "Dependency ${target} not satisfied.")
+      endif()
+    endif()
   endif()
-  add_subdirectory(${LWPA_DIR} lwpa)
-endif()
+endfunction()
+
+rdm_add_dependency(lwpa LWPA_DIR)
+
+################################# RDM library #################################
 
 add_library(RDM
   # RDM headers

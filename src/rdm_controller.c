@@ -19,7 +19,7 @@
 #include "rdm/controller.h"
 
 #include <string.h>
-#include "lwpa_pack.h"
+#include "lwpa/pack.h"
 #include "rdm/defs.h"
 
 /*************************** Function definitions ****************************/
