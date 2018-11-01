@@ -4,7 +4,7 @@
 
 RDM is a lightweight library that provides type definitions and message parsing
 utilities for the Remote Device Management (RDM) protocol, defined in ANSI
-E1.20. More information about RDM can be found [here](http://www.rdmprotocol.org)
+E1.20. More information about RDM can be found [here](http://www.rdmprotocol.org).
 
 To jump right into the documentation, check out the [Modules Overview](@ref rdm).
 
