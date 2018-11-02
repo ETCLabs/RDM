@@ -1,5 +1,7 @@
 # RDM
 
+[![Build status](https://ci.appveyor.com/api/projects/status/5m3td4brd59l8flv?svg=true)](https://ci.appveyor.com/project/ETCLabs/rdm)
+
 A helper library for the ANSI E1.20 (RDM) protocol.
 
 *RDM* is an ANSI standard for remotely configuring devices which are controlled
