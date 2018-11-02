@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['rdm',['RDM',['../group__rdm.html',1,'']]],
-  ['responder',['Responder',['../group__responder.html',1,'']]]
+  ['uid',['UID',['../group__uid.html',1,'']]]
 ];

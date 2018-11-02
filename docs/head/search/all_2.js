@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['cmp',['cmp',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_rb_tree.html#a3b4d0c1a0e7f6eac13267a7ae55d4179',1,'LwpaRbTree']]],
-  ['command_5fclass',['command_class',['../struct_rdm_command.html#a4420a5c558963cb84d88b6f6ae4fdaec',1,'RdmCommand::command_class()'],['../struct_rdm_response.html#a4420a5c558963cb84d88b6f6ae4fdaec',1,'RdmResponse::command_class()']]],
-  ['context',['context',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_log_params.html#ae376f130b17d169ee51be68077a89ed0',1,'LwpaLogParams']]],
-  ['controller',['Controller',['../group__controller.html',1,'']]],
-  ['controller_2eh',['controller.h',['../controller_8h.html',1,'']]],
-  ['current_5fused',['current_used',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_mempool_desc.html#aff331a9d3e0fdee5a3a504a3fe685bf0',1,'LwpaMempoolDesc']]]
+  ['get_5fcommand_5fclass',['get_command_class',['../group__message.html#gabc8df9e7d72916d85184b6ac2880549e',1,'message.h']]],
+  ['get_5fdevice_5fid',['get_device_id',['../group__uid.html#ga5826ef4fbeab6938db9c83e396a616aa',1,'uid.h']]],
+  ['get_5fmanufacturer_5fid',['get_manufacturer_id',['../group__uid.html#ga8b42d44d069f01298595e0bd2b52096f',1,'uid.h']]],
+  ['get_5ftransaction_5fnum',['get_transaction_num',['../group__message.html#ga60cd644214c2cae1e83cbcaef4ba3aea',1,'message.h']]]
 ];
