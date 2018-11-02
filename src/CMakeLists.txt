@@ -20,6 +20,7 @@ function(rdm_add_dependency target loc_variable)
         message(STATUS "Found. Adding dependency from RDM_DIR/../${target}.")
         add_subdirectory(${RDM_ROOT}/../${target} ${target})
       else()
+        message(STATUS "Not found.")
         # TODO: add package manager step
         message(FATAL_ERROR "Dependency ${target} not satisfied.")
       endif()

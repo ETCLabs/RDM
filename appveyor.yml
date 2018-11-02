@@ -34,6 +34,7 @@ configuration:
 
 before_build:
   - cmd: |-
+      git clone -b %APPVEYOR_REPO_BRANCH% https://github.com/ETCLabs/lwpa ../lwpa
       mkdir build
       cd build
       cmake --version
