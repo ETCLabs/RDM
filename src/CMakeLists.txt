@@ -17,7 +17,7 @@ function(rdm_add_dependency target loc_variable)
       # Step 3 - look for the dependency in a folder with the same name as the
       # target, at the same level as this folder
       if (EXISTS ${RDM_ROOT}/../${target})
-        message(STATUS "Found. Adding dependency from [RDM_DIR]/../${target}.")
+        message(STATUS "Found. Adding dependency from RDM_DIR/../${target}.")
         add_subdirectory(${RDM_ROOT}/../${target} ${target})
       else()
         # TODO: add package manager step

@@ -192,7 +192,7 @@ typedef struct RdmUid
 #ifdef __cplusplus
 /* C++ utilities */
 
-// Comparison operators for UIDs
+/* Comparison operators for UIDs */
 
 inline bool operator<(const RdmUid &a, const RdmUid &b)
 {
@@ -203,7 +203,8 @@ inline bool operator==(const RdmUid &a, const RdmUid &b)
 {
   return ((a.manu == b.manu && a.id == b.id));
 }
-#endif
+
+#endif /* __cplusplus */
 
 #ifdef __cplusplus
 extern "C" {
