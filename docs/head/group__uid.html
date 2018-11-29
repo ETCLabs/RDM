@@ -209,11 +209,11 @@ Variables</h2></td></tr>
 <tr class="separator:ga9a8e7cd056b52e54e8a66d84908b82fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p class="">Type and helper functions for the Unique ID (UID) used in the RDM family of protocols. </p>
-<p class="">RDM-based protocols use an identifier called a UID to identify an entity that generates or consumes RDM messages.</p>
-<p class="">The top bit of the UID is reserved for indicating broadcast values, or indicating Dynamic UIDs in ANSI E1.33.</p>
-<p class="">The next 15 bits is the ESTA Manufacturer ID; each manufacturer of RDM equipment has a unique Manufacturer ID registered with ESTA. The MSB of the UID is reserved for indicating broadcast values, or indicating Dynamic UIDs in ANSI E1.33.</p>
-<p class="">The remaining 32 bits is the Device ID. The Device ID is unique within a given scope; in the case of a Static UID, it is unique across all products made by the manufacturer indicated by the ESTA Manufacturer ID. In the case of a Dynamic UID, it is unique within its current E1.33 Scope. </p>
+<p>Type and helper functions for the Unique ID (UID) used in the RDM family of protocols. </p>
+<p>RDM-based protocols use an identifier called a UID to identify an entity that generates or consumes RDM messages.</p>
+<p>The top bit of the UID is reserved for indicating broadcast values, or indicating Dynamic UIDs in ANSI E1.33.</p>
+<p>The next 15 bits is the ESTA Manufacturer ID; each manufacturer of RDM equipment has a unique Manufacturer ID registered with ESTA. The MSB of the UID is reserved for indicating broadcast values, or indicating Dynamic UIDs in ANSI E1.33.</p>
+<p>The remaining 32 bits is the Device ID. The Device ID is unique within a given scope; in the case of a Static UID, it is unique across all products made by the manufacturer indicated by the ESTA Manufacturer ID. In the case of a Dynamic UID, it is unique within its current E1.33 Scope. </p>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ga5826ef4fbeab6938db9c83e396a616aa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga5826ef4fbeab6938db9c83e396a616aa">&#9670;&nbsp;</a></span>get_device_id</h2>
@@ -374,7 +374,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the ESTA Manufacturer ID from an RDMnet Device Manufacturer Broadcast UID. </p>
-<p class="">Use <a class="el" href="group__uid.html#ga8ef4f2936b3b944c3cceca1d7ebf1801" title="Determine whether a UID is one of the E1.33 values defined by RPT_ALL_MID_DEVICES.">uid_is_rdmnet_device_manu_broadcast()</a> first to determine whether this UID is an RDMnet Device Manufacturer Broadcast.</p>
+<p>Use <a class="el" href="group__uid.html#ga8ef4f2936b3b944c3cceca1d7ebf1801" title="Determine whether a UID is one of the E1.33 values defined by RPT_ALL_MID_DEVICES.">uid_is_rdmnet_device_manu_broadcast()</a> first to determine whether this UID is an RDMnet Device Manufacturer Broadcast.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uidptr</td><td>Pointer to <a class="el" href="struct_rdm_uid.html" title="The UID type.">RdmUid</a> from which to get the Broadcast Manufacturer ID. </td></tr>
@@ -412,7 +412,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Determine whether an RDMnet Device Manufacturer Broadcast UID matches a specific ESTA Manufacturer ID. </p>
-<p class="">Use <a class="el" href="group__uid.html#ga8ef4f2936b3b944c3cceca1d7ebf1801" title="Determine whether a UID is one of the E1.33 values defined by RPT_ALL_MID_DEVICES.">uid_is_rdmnet_device_manu_broadcast()</a> first to determine whether this UID is an RDMnet Device Manufacturer Broadcast.</p>
+<p>Use <a class="el" href="group__uid.html#ga8ef4f2936b3b944c3cceca1d7ebf1801" title="Determine whether a UID is one of the E1.33 values defined by RPT_ALL_MID_DEVICES.">uid_is_rdmnet_device_manu_broadcast()</a> first to determine whether this UID is an RDMnet Device Manufacturer Broadcast.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uidptr</td><td>Pointer to <a class="el" href="struct_rdm_uid.html" title="The UID type.">RdmUid</a> to check. </td></tr>
@@ -630,7 +630,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Determine whether a UID is one of the E1.33 values defined by RPT_ALL_MID_DEVICES. </p>
-<p class="">RDMnet Device Manufacturer Broadcasts are directed to all Devices with a specific ESTA Manufacturer ID. If this check returns true, use <a class="el" href="group__uid.html#ga98d12a84da72b76c2173a46fdc25027b" title="Get the ESTA Manufacturer ID from an RDMnet Device Manufacturer Broadcast UID.">rdmnet_device_broadcast_manu_id()</a> to determine which Manufacturer ID this broadcast is directed to, or <a class="el" href="group__uid.html#gaa173f304e2e1c469670cef664260f543" title="Determine whether an RDMnet Device Manufacturer Broadcast UID matches a specific ESTA Manufacturer ID...">rdmnet_device_broadcast_manu_matches()</a> to determine whether it matches a specific Manufacturer ID.</p>
+<p>RDMnet Device Manufacturer Broadcasts are directed to all Devices with a specific ESTA Manufacturer ID. If this check returns true, use <a class="el" href="group__uid.html#ga98d12a84da72b76c2173a46fdc25027b" title="Get the ESTA Manufacturer ID from an RDMnet Device Manufacturer Broadcast UID.">rdmnet_device_broadcast_manu_id()</a> to determine which Manufacturer ID this broadcast is directed to, or <a class="el" href="group__uid.html#gaa173f304e2e1c469670cef664260f543" title="Determine whether an RDMnet Device Manufacturer Broadcast UID matches a specific ESTA Manufacturer ID...">rdmnet_device_broadcast_manu_matches()</a> to determine whether it matches a specific Manufacturer ID.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uidptr</td><td>Pointer to <a class="el" href="struct_rdm_uid.html" title="The UID type.">RdmUid</a> to check. </td></tr>
@@ -655,7 +655,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The UID type. </p>
-<p class="">Don't forget that the top bit of the manu field has special meaning. The helper macros are your friend! </p>
+<p>Don't forget that the top bit of the manu field has special meaning. The helper macros are your friend! </p>
 
 </div>
 </div>

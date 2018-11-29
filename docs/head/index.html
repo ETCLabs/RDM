@@ -134,11 +134,11 @@ $(document).ready(function(){initNavTree('index.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><h2>Introduction</h2>
-<p class="">RDM is a lightweight library that provides type definitions and message parsing utilities for the Remote Device Management (RDM) protocol, defined in ANSI E1.20. More information about RDM can be found <a href="http://www.rdmprotocol.org">here</a>.</p>
-<p class="">To jump right into the documentation, check out the <a class="el" href="group__rdm.html">Modules Overview</a>.</p>
+<p>RDM is a lightweight library that provides type definitions and message parsing utilities for the Remote Device Management (RDM) protocol, defined in ANSI E1.20. More information about RDM can be found <a href="http://www.rdmprotocol.org">here</a>.</p>
+<p>To jump right into the documentation, check out the <a class="el" href="group__rdm.html">Modules Overview</a>.</p>
 <h2>Building RDM for Your Platform</h2>
-<p class="">RDM is built with <a href="https://cmake.org">CMake</a>, a popular cross-platform build system generator. CMake can also be used to include RDM as a dependency to other projects, i.e. using the <code>add_subdirectory()</code> command.</p>
-<p class="">To configure and build RDM on its own using CMake, follow these steps:</p>
+<p>RDM is built with <a href="https://cmake.org">CMake</a>, a popular cross-platform build system generator. CMake can also be used to include RDM as a dependency to other projects, i.e. using the <code>add_subdirectory()</code> command.</p>
+<p>To configure and build RDM on its own using CMake, follow these steps:</p>
 <ol type="1">
 <li><a href="https://cmake.org/download/">Download and install</a> CMake version 3.3 or higher.</li>
 <li>Create a directory in your location of choice to hold your build projects or Makefiles: <div class="fragment"><div class="line">$ mkdir build</div><div class="line">$ cd build</div></div><!-- fragment --> This directory can be inside or outside the RDM repository.</li>
@@ -146,11 +146,11 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>Use CMake to invoke the generated build system to build the RDM library and unit tests: <div class="fragment"><div class="line">$ cmake --build .</div></div><!-- fragment --> If you are generating IDE project files, you can use CMake to open the projects in the IDE: <div class="fragment"><div class="line">$ cmake --open .</div></div><!-- fragment --></li>
 <li>To run the unit tests after building: <div class="fragment"><div class="line"># On Windows</div><div class="line">&gt; .\test\[Build_Configuration]\test_rdm.exe</div><div class="line"></div><div class="line"># Elsewhere</div><div class="line">$ ./test/test_rdm</div></div><!-- fragment --> Or, if you are generating IDE project files, simply run the test_rdm project from your IDE.</li>
 </ol>
-<p class="">Alternatively, if you don't want to use CMake, your project can simply build in the RDM sources directly using the src/ and include/ directories.</p>
+<p>Alternatively, if you don't want to use CMake, your project can simply build in the RDM sources directly using the src/ and include/ directories.</p>
 <h2>Dependencies</h2>
 <h3>lwpa</h3>
-<p class="">RDM depends on the LightWeight Platform Abstraction (lwpa) library for platform abstraction. See the <a href="https://etclabs.github.io/lwpa">documentation for lwpa</a> for details on how to include lwpa in your project.</p>
-<p class="">If you want to configure and build lwpa from source along with RDM, simply clone the lwpa repository at the same level as the RDM repository, like so: </p><div class="fragment"><div class="line">|- RDM/</div><div class="line">|- lwpa/</div></div><!-- fragment --><p class="">The RDM CMakeLists.txt file contains directives to try to find lwpa at that location. </p>
+<p>RDM depends on the LightWeight Platform Abstraction (lwpa) library for platform abstraction. See the <a href="https://etclabs.github.io/lwpa">documentation for lwpa</a> for details on how to include lwpa in your project.</p>
+<p>If you want to configure and build lwpa from source along with RDM, simply clone the lwpa repository at the same level as the RDM repository, like so: </p><div class="fragment"><div class="line">|- RDM/</div><div class="line">|- lwpa/</div></div><!-- fragment --><p>The RDM CMakeLists.txt file contains directives to try to find lwpa at that location. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
