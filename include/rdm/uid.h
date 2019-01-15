@@ -98,7 +98,7 @@ typedef struct RdmUid
   {                                                       \
     (uidptr)->manu = (0x8000u | (manu_val));              \
     (uidptr)->id = 0;                                     \
-  }
+  } while (0)
 
 /**************************** UID Broadcast Macros ***************************/
 
@@ -166,12 +166,16 @@ typedef struct RdmUid
 /******************************* UID Inspection ******************************/
 
 /*! \brief Determine whether a UID is a Dynamic UID as defined in ANSI E1.33.
+ *
+ *  Note that !rdmnet_uid_is_dynamic() does not imply rdmnet_uid_is_static(), because broadcast UID
+ *  values are neither dynamic nor static UIDs.
+ *
  *  \param uidptr Pointer to RdmUid to check.
  *  \return true (UID is an E1.33 Dynamic UID) or false (UID is not an E1.33 Dynamic UID).
  */
 #define rdmnet_uid_is_dynamic(uidptr)                                                  \
-  ((((uidptr)->manu & 0x8000u) != 0) && !uid_is_rdmnet_controller_broadcast(uidptr) && \
-   !uid_is_rdmnet_device_manu_broadcast(uidptr) && !uid_is_broadcast(uidptr))
+  ((((uidptr)->manu & 0x8000u) != 0) && !rdmnet_uid_is_controller_broadcast(uidptr) && \
+   !rdmnet_uid_is_device_manu_broadcast(uidptr) && !rdm_uid_is_broadcast(uidptr))
 
 /*! \brief Determine whether a UID is a Dynamic UID Request as defined in ANSI E1.33.
  *  \param uidptr Pointer to RdmUid to check.
@@ -179,6 +183,16 @@ typedef struct RdmUid
  *          Request).
  */
 #define rdmnet_uid_is_dynamic_uid_request(uidptr) (rdmnet_uid_is_dynamic(uidptr) && (uidptr)->id == 0u)
+
+/*! \brief Determine whether a UID is a Static UID as defined in ANSI E1.33.
+ *
+ *  Note that !rdmnet_uid_is_static() does not imply rdmnet_uid_is_dynamic(), because broadcast UID
+ *  values are neither dynamic nor static UIDs.
+ * 
+ *  \param uidptr Pointer to RdmUid to check.
+ *  \return true (UID is an E1.33 Static UID) or false (UID is not an E1.33 Static UID).
+ */
+#define rdmnet_uid_is_static(uidptr) (((uidptr)->manu & 0x8000u) == 0)
 
 /*! \brief Get the ESTA Manufacturer ID from a UID.
  *  \param uidptr Pointer to RdmUid from which to get the ESTA Manufacturer ID.
