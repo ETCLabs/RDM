@@ -77,12 +77,12 @@ typedef struct RdmBuffer
  *  \param rdmbufptr Pointer to RdmBuffer containing the packed RDM command.
  *  \return Command class (uint8_t).
  */
-#define get_command_class(rdmbufptr) ((rdmbufptr)->data[RDM_OFFSET_COMMAND_CLASS])
+#define rdm_get_command_class(rdmbufptr) ((rdmbufptr)->data[RDM_OFFSET_COMMAND_CLASS])
 /*! \brief Get the RDM transaction number from a packed RDM command.
  *  \param rdmbufptr Pointer to RdmBuffer containing the packed RDM command.
  *  \return Transaction number (uint8_t).
  */
-#define get_transaction_num(rdmbufptr) ((rdmbufptr)->data[RDM_OFFSET_TRANSACTION])
+#define rdm_get_transaction_num(rdmbufptr) ((rdmbufptr)->data[RDM_OFFSET_TRANSACTION])
 
 /*! A structure that represents an RDM command message. */
 typedef struct RdmCommand

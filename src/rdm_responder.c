@@ -1,21 +1,21 @@
 /******************************************************************************
-* Copyright 2018 ETC Inc.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*******************************************************************************
-* This file is a part of RDMnet. For more information, go to:
-* https://github.com/ETCLabs/RDMnet
-******************************************************************************/
+ * Copyright 2018 ETC Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************
+ * This file is a part of RDMnet. For more information, go to:
+ * https://github.com/ETCLabs/RDMnet
+ ******************************************************************************/
 #include "rdm/responder.h"
 
 #include <string.h>
@@ -42,21 +42,21 @@ lwpa_error_t rdmresp_unpack_command(const RdmBuffer *buffer, RdmCommand *cmd)
     return LWPA_PROTERR;
 
   cur_ptr = &buffer->data[RDM_OFFSET_DEST_MANUFACTURER];
-  cmd->dest_uid.manu = upack_16b(cur_ptr);
+  cmd->dest_uid.manu = lwpa_upack_16b(cur_ptr);
   cur_ptr += 2;
-  cmd->dest_uid.id = upack_32b(cur_ptr);
+  cmd->dest_uid.id = lwpa_upack_32b(cur_ptr);
   cur_ptr += 4;
-  cmd->src_uid.manu = upack_16b(cur_ptr);
+  cmd->src_uid.manu = lwpa_upack_16b(cur_ptr);
   cur_ptr += 2;
-  cmd->src_uid.id = upack_32b(cur_ptr);
+  cmd->src_uid.id = lwpa_upack_32b(cur_ptr);
   cur_ptr += 4;
   cmd->transaction_num = *cur_ptr++;
   cmd->port_id = *cur_ptr++;
   cur_ptr++; /* Message Count field is ignored */
-  cmd->subdevice = upack_16b(cur_ptr);
+  cmd->subdevice = lwpa_upack_16b(cur_ptr);
   cur_ptr += 2;
   cmd->command_class = *cur_ptr++;
-  cmd->param_id = upack_16b(cur_ptr);
+  cmd->param_id = lwpa_upack_16b(cur_ptr);
   cur_ptr += 2;
   cmd->datalen = *cur_ptr++;
   memcpy(cmd->data, cur_ptr, cmd->datalen);
@@ -64,8 +64,7 @@ lwpa_error_t rdmresp_unpack_command(const RdmBuffer *buffer, RdmCommand *cmd)
 }
 
 /*! \brief Create a packed RDM response.
- *  \param[in] resp_data The data that will be used for this RDM response
- *                       packet.
+ *  \param[in] resp_data The data that will be used for this RDM response packet.
  *  \param[out] buffer The buffer into which to pack this RDM response.
  *  \return #LWPA_OK: Response created successfully.\n
  *          #LWPA_INVALID: Invalid argument provided.\n
@@ -89,21 +88,21 @@ lwpa_error_t rdmresp_create_response(const RdmResponse *resp_data, RdmBuffer *bu
   *cur_ptr++ = E120_SC_RDM;
   *cur_ptr++ = E120_SC_SUB_MESSAGE;
   *cur_ptr++ = rdm_length;
-  pack_16b(cur_ptr, resp_data->dest_uid.manu);
+  lwpa_pack_16b(cur_ptr, resp_data->dest_uid.manu);
   cur_ptr += 2;
-  pack_32b(cur_ptr, resp_data->dest_uid.id);
+  lwpa_pack_32b(cur_ptr, resp_data->dest_uid.id);
   cur_ptr += 4;
-  pack_16b(cur_ptr, resp_data->src_uid.manu);
+  lwpa_pack_16b(cur_ptr, resp_data->src_uid.manu);
   cur_ptr += 2;
-  pack_32b(cur_ptr, resp_data->src_uid.id);
+  lwpa_pack_32b(cur_ptr, resp_data->src_uid.id);
   cur_ptr += 4;
   *cur_ptr++ = resp_data->transaction_num;
   *cur_ptr++ = resp_data->resp_type;
   *cur_ptr++ = resp_data->msg_count;
-  pack_16b(cur_ptr, resp_data->subdevice);
+  lwpa_pack_16b(cur_ptr, resp_data->subdevice);
   cur_ptr += 2;
   *cur_ptr++ = resp_data->command_class;
-  pack_16b(cur_ptr, resp_data->param_id);
+  lwpa_pack_16b(cur_ptr, resp_data->param_id);
   cur_ptr += 2;
   *cur_ptr++ = resp_data->datalen;
   memcpy(cur_ptr, resp_data->data, resp_data->datalen);
