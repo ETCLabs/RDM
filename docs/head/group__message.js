@@ -27,8 +27,8 @@ var group__message =
       [ "subdevice", "struct_rdm_response.html#a08af6f95b61e2695caf7b11ebb8e0953", null ],
       [ "transaction_num", "struct_rdm_response.html#a94aea5f05dbb840df368f865f4e57cb3", null ]
     ] ],
-    [ "get_command_class", "group__message.html#gabc8df9e7d72916d85184b6ac2880549e", null ],
-    [ "get_transaction_num", "group__message.html#ga60cd644214c2cae1e83cbcaef4ba3aea", null ],
+    [ "rdm_get_command_class", "group__message.html#gabe3e1bccb598291f2b27c84d748a26de", null ],
+    [ "rdm_get_transaction_num", "group__message.html#ga68baf4ddfa1b084d1339839260d31e38", null ],
     [ "RDM_MAX_BYTES", "group__message.html#ga18306dd74c16b502547003bd8b55f6dc", null ],
     [ "RDM_MAX_PDL", "group__message.html#ga4592ed22b54c1daabb9c506b72a83756", null ],
     [ "RDM_MIN_BYTES", "group__message.html#ga49d73615b42b8b11ebf70a1570724fca", null ],

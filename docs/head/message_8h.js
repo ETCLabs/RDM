@@ -1,7 +1,7 @@
 var message_8h =
 [
-    [ "get_command_class", "group__message.html#gabc8df9e7d72916d85184b6ac2880549e", null ],
-    [ "get_transaction_num", "group__message.html#ga60cd644214c2cae1e83cbcaef4ba3aea", null ],
+    [ "rdm_get_command_class", "group__message.html#gabe3e1bccb598291f2b27c84d748a26de", null ],
+    [ "rdm_get_transaction_num", "group__message.html#ga68baf4ddfa1b084d1339839260d31e38", null ],
     [ "RDM_HEADER_SIZE", "group__message.html#gaa829a9423b849e07e59d42cf07943e71", null ],
     [ "RDM_MAX_BYTES", "group__message.html#ga18306dd74c16b502547003bd8b55f6dc", null ],
     [ "RDM_MAX_PDL", "group__message.html#ga4592ed22b54c1daabb9c506b72a83756", null ],
