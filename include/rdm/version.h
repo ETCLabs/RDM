@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright 2018 ETC Inc.
+ * Copyright 2019 ETC Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@
  */
 #define RDM_VERSION_STRING "0.1.0.1"
 #define RDM_VERSION_DATESTR "1.Nov.2018"
-#define RDM_VERSION_COPYRIGHT "Copyright 2018 Electronic Theatre Controls, Inc."
+#define RDM_VERSION_COPYRIGHT "Copyright 2019 ETC Inc."
 #define RDM_VERSION_PRODUCTNAME "RDM"
 /*!@}*/
 

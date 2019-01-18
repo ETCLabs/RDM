@@ -2,9 +2,8 @@
 
 enable_testing()
 
-# Get and build the Googletest library at configure time: 
-include(../tools/cmake/get_googletest.cmake)
-get_googletest(${CMAKE_CURRENT_LIST_DIR}/..)
+message(STATUS "Adding GoogleTest dependency...")
+include(AddGoogleTest)
 
 set(TEST_SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/unit)
 
