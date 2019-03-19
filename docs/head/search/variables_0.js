@@ -8,6 +8,6 @@ var searchData=
   ['ai_5fflags',['ai_flags',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_addrinfo.html#a92528a848ebf34ab99687dd06a09cc93',1,'LwpaAddrinfo']]],
   ['ai_5fprotocol',['ai_protocol',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_addrinfo.html#a6ade486587feaa03d492eb84cfc83451',1,'LwpaAddrinfo']]],
   ['ai_5fsocktype',['ai_socktype',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_addrinfo.html#a2109130e73586150c41fed16311e1af6',1,'LwpaAddrinfo']]],
-  ['alloc_5ff',['alloc_f',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_rb_tree.html#a93e173200002f4685f94f14d4eb674e7',1,'LwpaRbTree']]],
+  ['alloc_5ff',['alloc_f',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_rb_tree.html#a7a4e85551fa2e1fb00d70745c1fd5a65',1,'LwpaRbTree']]],
   ['app_5fname',['app_name',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_syslog_params.html#ac56492caa804aa3574dec4e755384200',1,'LwpaSyslogParams']]]
 ];

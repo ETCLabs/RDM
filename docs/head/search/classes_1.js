@@ -18,11 +18,14 @@ var searchData=
   ['lwparbiter',['LwpaRbIter',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_rb_iter.html',1,'']]],
   ['lwparbnode',['LwpaRbNode',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_rb_node.html',1,'']]],
   ['lwparbtree',['LwpaRbTree',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_rb_tree.html',1,'']]],
+  ['lwparootlayerpdu',['LwpaRootLayerPdu',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_root_layer_pdu.html',1,'']]],
   ['lwpasockaddr',['LwpaSockaddr',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_sockaddr.html',1,'']]],
   ['lwpasocketplatformdata',['LwpaSocketPlatformData',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_socket_platform_data.html',1,'']]],
   ['lwpasyslogparams',['LwpaSyslogParams',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_syslog_params.html',1,'']]],
+  ['lwpatcppreamble',['LwpaTcpPreamble',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_tcp_preamble.html',1,'']]],
   ['lwpathreadparams',['LwpaThreadParams',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_thread_params.html',1,'']]],
   ['lwpathreadparamsmqx',['LwpaThreadParamsMqx',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_thread_params_mqx.html',1,'']]],
   ['lwpatimer',['LwpaTimer',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_timer.html',1,'']]],
+  ['lwpaudppreamble',['LwpaUdpPreamble',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_udp_preamble.html',1,'']]],
   ['lwpauuid',['LwpaUuid',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_uuid.html',1,'']]]
 ];
