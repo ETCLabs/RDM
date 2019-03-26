@@ -27,6 +27,7 @@
 #include "lwpa/int.h"
 #include "lwpa/bool.h"
 #include "rdm/uid.h"
+#include "rdm/defs.h"
 
 /*! \defgroup message Message
  *  \ingroup rdm
@@ -66,6 +67,24 @@
 #define RDM_OFFSET_PARAM_DATA 24
 /*! @} */
 
+typedef enum
+{
+  kRdmCCDiscoveryCommand = E120_DISCOVERY_COMMAND,
+  kRdmCCDiscoveryCommandResponse = E120_DISCOVERY_COMMAND_RESPONSE,
+  kRdmCCGetCommand = E120_GET_COMMAND,
+  kRdmCCGetCommandResponse = E120_GET_COMMAND_RESPONSE,
+  kRdmCCSetCommand = E120_SET_COMMAND,
+  kRdmCCSetCommandResponse = E120_SET_COMMAND_RESPONSE
+} rdm_command_class_t;
+
+typedef enum
+{
+  kRdmResponseTypeAck = E120_RESPONSE_TYPE_ACK,
+  kRdmResponseTypeAckTimer = E120_RESPONSE_TYPE_ACK_TIMER,
+  kRdmResponseTypeNackReason = E120_RESPONSE_TYPE_NACK_REASON,
+  kRdmResponseTypeAckOverflow = E120_RESPONSE_TYPE_ACK_OVERFLOW
+} rdm_response_type_t;
+
 /*! A structure that represents a packed RDM message. */
 typedef struct RdmBuffer
 {
@@ -88,7 +107,7 @@ typedef struct RdmBuffer
 typedef struct RdmCommand
 {
   /*! UID of the controller generating this command. */
-  RdmUid src_uid;
+  RdmUid source_uid;
   /*! UID of the responder to which this command is addressed. */
   RdmUid dest_uid;
   /*! Transaction number, monotonically incrementing */
@@ -97,8 +116,8 @@ typedef struct RdmCommand
   uint8_t port_id;
   /*! The sub-device to which this command is addressed, or 0 for the root device. */
   uint16_t subdevice;
-  /*! The command class for this command, one of the values from E1.20 Table A-1. */
-  uint8_t command_class;
+  /*! The command class for this command. */
+  rdm_command_class_t command_class;
   /*! The RDM Parameter ID of this command. One of the values from E1.20 Table A-3, or any of the
    *  relevant extension standards. */
   uint16_t param_id;
@@ -112,19 +131,19 @@ typedef struct RdmCommand
 typedef struct RdmResponse
 {
   /*! UID of the responder generating this response. */
-  RdmUid src_uid;
+  RdmUid source_uid;
   /*! UID of the controller to which this response is addressed. */
   RdmUid dest_uid;
   /*! Transaction number, copied from the corresponding command. */
   uint8_t transaction_num;
-  /*! Response type, one of the values from E1.20 Table A-2. */
-  uint8_t resp_type;
+  /*! Response type, indicating the response status. */
+  rdm_response_type_t resp_type;
   /*! Current count of queued messages waiting to be retrieved. */
   uint8_t msg_count;
   /*! The sub-device generating this response, or 0 for the root device. */
   uint16_t subdevice;
-  /*! The command class for this response, one of the values from E1.20 Table A-1. */
-  uint8_t command_class;
+  /*! The command class for this response. */
+  rdm_command_class_t command_class;
   /*! The RDM Parameter ID of this response. One of the values from E1.20 Table A-3, or any of the
    *  relevant extension standards. */
   uint16_t param_id;
