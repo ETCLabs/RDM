@@ -146,6 +146,7 @@ $(document).ready(function(){initNavTree('group__message.html','');});
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">Message<div class="ingroups"><a class="el" href="group__rdm.html">RDM</a></div></div>  </div>
@@ -199,6 +200,26 @@ Typedefs</h2></td></tr>
 <tr class="memitem:gaa98249dee1f0de42cd77642fa18e0517"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_rdm_response.html">RdmResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__message.html#gaa98249dee1f0de42cd77642fa18e0517">RdmResponse</a></td></tr>
 <tr class="memdesc:gaa98249dee1f0de42cd77642fa18e0517"><td class="mdescLeft">&#160;</td><td class="mdescRight">A structure that represents an RDM response message.  <a href="#gaa98249dee1f0de42cd77642fa18e0517">More...</a><br /></td></tr>
 <tr class="separator:gaa98249dee1f0de42cd77642fa18e0517"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:gafda6b6d4c08788e755cb3cb6c1ca021b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gafda6b6d4c08788e755cb3cb6c1ca021b"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>rdm_command_class_t</b> { <br />
+&#160;&#160;<b>kRdmCCDiscoveryCommand</b> = E120_DISCOVERY_COMMAND, 
+<b>kRdmCCDiscoveryCommandResponse</b> = E120_DISCOVERY_COMMAND_RESPONSE, 
+<b>kRdmCCGetCommand</b> = E120_GET_COMMAND, 
+<b>kRdmCCGetCommandResponse</b> = E120_GET_COMMAND_RESPONSE, 
+<br />
+&#160;&#160;<b>kRdmCCSetCommand</b> = E120_SET_COMMAND, 
+<b>kRdmCCSetCommandResponse</b> = E120_SET_COMMAND_RESPONSE
+<br />
+ }</td></tr>
+<tr class="separator:gafda6b6d4c08788e755cb3cb6c1ca021b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6ecebd42ee8d90fe410cc4001a98e7f0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga6ecebd42ee8d90fe410cc4001a98e7f0"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>rdm_response_type_t</b> { <b>kRdmResponseTypeAck</b> = E120_RESPONSE_TYPE_ACK, 
+<b>kRdmResponseTypeAckTimer</b> = E120_RESPONSE_TYPE_ACK_TIMER, 
+<b>kRdmResponseTypeNackReason</b> = E120_RESPONSE_TYPE_NACK_REASON, 
+<b>kRdmResponseTypeAckOverflow</b> = E120_RESPONSE_TYPE_ACK_OVERFLOW
+ }</td></tr>
+<tr class="separator:ga6ecebd42ee8d90fe410cc4001a98e7f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>

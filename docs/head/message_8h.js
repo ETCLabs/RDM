@@ -24,6 +24,20 @@ var message_8h =
     [ "RdmBuffer", "group__message.html#ga2315bfee492030e1219b5d8fd7ce7d96", null ],
     [ "RdmCommand", "group__message.html#ga9654853f19d0bb92aba656165221c29c", null ],
     [ "RdmResponse", "group__message.html#gaa98249dee1f0de42cd77642fa18e0517", null ],
+    [ "rdm_command_class_t", "group__message.html#gafda6b6d4c08788e755cb3cb6c1ca021b", [
+      [ "kRdmCCDiscoveryCommand", "group__message.html#ggafda6b6d4c08788e755cb3cb6c1ca021ba0b0ef646e345b039036b1238a526dcd2", null ],
+      [ "kRdmCCDiscoveryCommandResponse", "group__message.html#ggafda6b6d4c08788e755cb3cb6c1ca021ba70eaf32858798b744a732c829bf1a374", null ],
+      [ "kRdmCCGetCommand", "group__message.html#ggafda6b6d4c08788e755cb3cb6c1ca021ba434701b28c3c83f9230b5da6d54e26ab", null ],
+      [ "kRdmCCGetCommandResponse", "group__message.html#ggafda6b6d4c08788e755cb3cb6c1ca021ba7ecfdb6ec568395f6691948051badf3c", null ],
+      [ "kRdmCCSetCommand", "group__message.html#ggafda6b6d4c08788e755cb3cb6c1ca021baf16a0108fda7d3470eb281147527ddbf", null ],
+      [ "kRdmCCSetCommandResponse", "group__message.html#ggafda6b6d4c08788e755cb3cb6c1ca021ba0832d12a2fa74545475e135bef44dfe1", null ]
+    ] ],
+    [ "rdm_response_type_t", "group__message.html#ga6ecebd42ee8d90fe410cc4001a98e7f0", [
+      [ "kRdmResponseTypeAck", "group__message.html#gga6ecebd42ee8d90fe410cc4001a98e7f0a532711bc8c0acf6c938dc2535fb223f0", null ],
+      [ "kRdmResponseTypeAckTimer", "group__message.html#gga6ecebd42ee8d90fe410cc4001a98e7f0ad89f498f1c63ac3274f7547c4277631f", null ],
+      [ "kRdmResponseTypeNackReason", "group__message.html#gga6ecebd42ee8d90fe410cc4001a98e7f0ab2a2bb15aa43e047c469efc21fd7fa8a", null ],
+      [ "kRdmResponseTypeAckOverflow", "group__message.html#gga6ecebd42ee8d90fe410cc4001a98e7f0af7fb4563b24d5aa1bbcd9e52b6fa49ff", null ]
+    ] ],
     [ "rdm_pack_checksum", "group__message.html#gabbcd7273b516c2a63692e038698856fd", null ],
     [ "rdm_validate_msg", "group__message.html#gae584f1424d687763fd6e560f4f49583f", null ]
 ];

@@ -161,9 +161,9 @@ $(document).ready(function(){initNavTree('struct_rdm_command.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a6c99d53ad4583f3f5dc719f57d6f0714"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_rdm_uid.html">RdmUid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_command.html#a6c99d53ad4583f3f5dc719f57d6f0714">src_uid</a></td></tr>
-<tr class="memdesc:a6c99d53ad4583f3f5dc719f57d6f0714"><td class="mdescLeft">&#160;</td><td class="mdescRight">UID of the controller generating this command.  <a href="#a6c99d53ad4583f3f5dc719f57d6f0714">More...</a><br /></td></tr>
-<tr class="separator:a6c99d53ad4583f3f5dc719f57d6f0714"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40cba7d6d1910fb740982421cf66c5d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_rdm_uid.html">RdmUid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_command.html#a40cba7d6d1910fb740982421cf66c5d6">source_uid</a></td></tr>
+<tr class="memdesc:a40cba7d6d1910fb740982421cf66c5d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">UID of the controller generating this command.  <a href="#a40cba7d6d1910fb740982421cf66c5d6">More...</a><br /></td></tr>
+<tr class="separator:a40cba7d6d1910fb740982421cf66c5d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa338a4490fb2e2c37a819966f75cc3e9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_rdm_uid.html">RdmUid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_command.html#aa338a4490fb2e2c37a819966f75cc3e9">dest_uid</a></td></tr>
 <tr class="memdesc:aa338a4490fb2e2c37a819966f75cc3e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">UID of the responder to which this command is addressed.  <a href="#aa338a4490fb2e2c37a819966f75cc3e9">More...</a><br /></td></tr>
 <tr class="separator:aa338a4490fb2e2c37a819966f75cc3e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -177,9 +177,9 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="s
 <tr class="memitem:a08af6f95b61e2695caf7b11ebb8e0953"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_command.html#a08af6f95b61e2695caf7b11ebb8e0953">subdevice</a></td></tr>
 <tr class="memdesc:a08af6f95b61e2695caf7b11ebb8e0953"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-device to which this command is addressed, or 0 for the root device.  <a href="#a08af6f95b61e2695caf7b11ebb8e0953">More...</a><br /></td></tr>
 <tr class="separator:a08af6f95b61e2695caf7b11ebb8e0953"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4420a5c558963cb84d88b6f6ae4fdaec"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_command.html#a4420a5c558963cb84d88b6f6ae4fdaec">command_class</a></td></tr>
-<tr class="memdesc:a4420a5c558963cb84d88b6f6ae4fdaec"><td class="mdescLeft">&#160;</td><td class="mdescRight">The command class for this command, one of the values from E1.20 Table A-1.  <a href="#a4420a5c558963cb84d88b6f6ae4fdaec">More...</a><br /></td></tr>
-<tr class="separator:a4420a5c558963cb84d88b6f6ae4fdaec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8627e24459da221d560b593ea2d9f5f6"><td class="memItemLeft" align="right" valign="top">rdm_command_class_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_command.html#a8627e24459da221d560b593ea2d9f5f6">command_class</a></td></tr>
+<tr class="memdesc:a8627e24459da221d560b593ea2d9f5f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The command class for this command.  <a href="#a8627e24459da221d560b593ea2d9f5f6">More...</a><br /></td></tr>
+<tr class="separator:a8627e24459da221d560b593ea2d9f5f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43f5e73445b99b42061429682fdc78fc"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_command.html#a43f5e73445b99b42061429682fdc78fc">param_id</a></td></tr>
 <tr class="memdesc:a43f5e73445b99b42061429682fdc78fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The RDM Parameter ID of this command.  <a href="#a43f5e73445b99b42061429682fdc78fc">More...</a><br /></td></tr>
 <tr class="separator:a43f5e73445b99b42061429682fdc78fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -193,17 +193,17 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="s
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A structure that represents an RDM command message. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a class="anchor" id="a4420a5c558963cb84d88b6f6ae4fdaec"></a>
+<a class="anchor" id="a8627e24459da221d560b593ea2d9f5f6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t command_class</td>
+          <td class="memname">rdm_command_class_t command_class</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The command class for this command, one of the values from E1.20 Table A-1. </p>
+<p>The command class for this command. </p>
 
 </div>
 </div>
@@ -278,12 +278,12 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="s
 
 </div>
 </div>
-<a class="anchor" id="a6c99d53ad4583f3f5dc719f57d6f0714"></a>
+<a class="anchor" id="a40cba7d6d1910fb740982421cf66c5d6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_rdm_uid.html">RdmUid</a> src_uid</td>
+          <td class="memname"><a class="el" href="struct_rdm_uid.html">RdmUid</a> source_uid</td>
         </tr>
       </table>
 </div><div class="memdoc">

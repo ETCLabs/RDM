@@ -38,7 +38,7 @@ var searchData=
   ['rdmuid',['RdmUid',['../struct_rdm_uid.html',1,'RdmUid'],['../group__uid.html#gad467bfae3ada73c70aaeb29b192ee351',1,'RdmUid():&#160;uid.h']]],
   ['red',['red',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_rb_node.html#a6761340706096510fd89edca40a63b9b',1,'LwpaRbNode']]],
   ['reset_5ftime',['reset_time',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_timer.html#a8fb66f63094794fbbdacc69af5cc55fa',1,'LwpaTimer']]],
-  ['resp_5ftype',['resp_type',['../struct_rdm_response.html#a63b9744e96ce785c7a108904e1408c23',1,'RdmResponse']]],
+  ['resp_5ftype',['resp_type',['../struct_rdm_response.html#a9241c33b6955e810316a2764d7738d63',1,'RdmResponse']]],
   ['responder',['Responder',['../group__responder.html',1,'']]],
   ['responder_2eh',['responder.h',['../responder_8h.html',1,'']]],
   ['revents',['revents',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_pollfd.html#ae9f68e4cc4edb4a9f8413e62e6167fde',1,'LwpaPollfd']]],
