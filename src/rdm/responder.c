@@ -28,18 +28,18 @@
 /*! \brief Unpack an RDM command.
  *  \param[in] buffer The packed RDM command.
  *  \param[out] cmd The RDM command data that was unpacked from buffer.
- *  \return #LWPA_OK: Command unpacked successfully.\n
- *          #LWPA_INVALID: Invalid argument provided.\n
- *          #LWPA_PROTERR: Packed RDM command was invalid.\n
+ *  \return #kLwpaErrOk: Command unpacked successfully.\n
+ *          #kLwpaErrInvalid: Invalid argument provided.\n
+ *          #kLwpaErrProtocol: Packed RDM command was invalid.\n
  */
 lwpa_error_t rdmresp_unpack_command(const RdmBuffer *buffer, RdmCommand *cmd)
 {
   const uint8_t *cur_ptr;
 
   if (!buffer || !cmd)
-    return LWPA_INVALID;
+    return kLwpaErrInvalid;
   if (!rdm_validate_msg(buffer))
-    return LWPA_PROTERR;
+    return kLwpaErrProtocol;
 
   cur_ptr = &buffer->data[RDM_OFFSET_DEST_MANUFACTURER];
   cmd->dest_uid.manu = lwpa_upack_16b(cur_ptr);
@@ -60,15 +60,15 @@ lwpa_error_t rdmresp_unpack_command(const RdmBuffer *buffer, RdmCommand *cmd)
   cur_ptr += 2;
   cmd->datalen = *cur_ptr++;
   memcpy(cmd->data, cur_ptr, cmd->datalen);
-  return LWPA_OK;
+  return kLwpaErrOk;
 }
 
 /*! \brief Create a packed RDM response.
  *  \param[in] resp_data The data that will be used for this RDM response packet.
  *  \param[out] buffer The buffer into which to pack this RDM response.
- *  \return #LWPA_OK: Response created successfully.\n
- *          #LWPA_INVALID: Invalid argument provided.\n
- *          #LWPA_MSGSIZE: The parameter data was too long.\n
+ *  \return #kLwpaErrOk: Response created successfully.\n
+ *          #kLwpaErrInvalid: Invalid argument provided.\n
+ *          #kLwpaErrMsgSize: The parameter data was too long.\n
  */
 lwpa_error_t rdmresp_create_response(const RdmResponse *resp_data, RdmBuffer *buffer)
 {
@@ -77,9 +77,9 @@ lwpa_error_t rdmresp_create_response(const RdmResponse *resp_data, RdmBuffer *bu
 
   /* Check for invalid parameters */
   if (!resp_data || !buffer)
-    return LWPA_INVALID;
+    return kLwpaErrInvalid;
   if (resp_data->datalen > RDM_MAX_PDL)
-    return LWPA_MSGSIZE;
+    return kLwpaErrMsgSize;
 
   cur_ptr = buffer->data;
   rdm_length = resp_data->datalen + RDM_HEADER_SIZE;
@@ -110,5 +110,5 @@ lwpa_error_t rdmresp_create_response(const RdmResponse *resp_data, RdmBuffer *bu
   /* pack checksum and set packet length */
   rdm_pack_checksum(buffer->data, rdm_length);
   buffer->datalen = rdm_length + 2;
-  return LWPA_OK;
+  return kLwpaErrOk;
 }
