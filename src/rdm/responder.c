@@ -23,6 +23,24 @@
 #include "lwpa/pack.h"
 #include "rdm/defs.h"
 
+/***************************** Private macros ********************************/
+
+// clang-format off
+#define rdmresp_resp_type_valid(resptypeval) \
+  ((resptypeval) == kRdmResponseTypeAck || \
+   (resptypeval) == kRdmResponseTypeAckTimer || \
+   (resptypeval) == kRdmResponseTypeNackReason || \
+   (resptypeval) == kRdmResponseTypeAckOverflow)
+#define rdmresp_command_class_valid(ccval)      \
+  ((ccval) == kRdmCCDiscoveryCommandResponse || \
+   (ccval) == kRdmCCGetCommandResponse       || \
+   (ccval) == kRdmCCSetCommandResponse)
+// clang-format on
+
+/*********************** Private function prototypes *************************/
+
+static bool rdm_resp_data_valid(const RdmResponse *resp_data);
+
 /*************************** Function definitions ****************************/
 
 /*! \brief Unpack an RDM command.
@@ -61,6 +79,25 @@ lwpa_error_t rdmresp_unpack_command(const RdmBuffer *buffer, RdmCommand *cmd)
   cmd->datalen = *cur_ptr++;
   memcpy(cmd->data, cur_ptr, cmd->datalen);
   return kLwpaErrOk;
+}
+
+/*! \brief Determine whether a packed RDM message is a non-discovery RDM command.
+ *
+ *  More specifically, whether the command class of the response is one of GET_COMMAND or
+ *  SET_COMMAND.
+ *
+ *  \param[in] buffer The packed RDM message.
+ *  \return true (the message is a valid non-discovery RDM command) or false (the message is invalid
+ *          RDM or not a non-discovery command).
+ */
+bool rdmresp_is_non_disc_command(const RdmBuffer *buffer)
+{
+  if (buffer && rdm_validate_msg(buffer))
+  {
+    return (buffer->data[RDM_OFFSET_COMMAND_CLASS] == E120_GET_COMMAND ||
+            buffer->data[RDM_OFFSET_COMMAND_CLASS] == E120_SET_COMMAND);
+  }
+  return false;
 }
 
 /*! \brief Create a packed RDM response.
@@ -111,4 +148,11 @@ lwpa_error_t rdmresp_create_response(const RdmResponse *resp_data, RdmBuffer *bu
   rdm_pack_checksum(buffer->data, rdm_length);
   buffer->datalen = rdm_length + 2;
   return kLwpaErrOk;
+}
+
+/* Do some basic validation on an RDM response provided by a library user. */
+static bool rdm_resp_data_valid(const RdmResponse *resp_data)
+{
+  return (!rdm_uid_is_broadcast(&resp_data->source_uid) && rdmresp_resp_type_valid(resp_data->resp_type) &&
+          rdmresp_command_class_valid(resp_data->command_class));
 }

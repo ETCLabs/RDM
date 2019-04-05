@@ -39,6 +39,7 @@ extern "C" {
 #endif
 
 lwpa_error_t rdmresp_unpack_command(const RdmBuffer *buffer, RdmCommand *cmd);
+bool rdmresp_is_non_disc_command(const RdmBuffer *buffer);
 lwpa_error_t rdmresp_create_response(const RdmResponse *resp_data, RdmBuffer *buffer);
 
 #ifdef __cplusplus

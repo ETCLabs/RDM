@@ -22,13 +22,27 @@
 #include "lwpa/pack.h"
 #include "rdm/defs.h"
 
+/***************************** Private macros ********************************/
+
+#define rdmcmd_port_id_valid(portidval) ((portidval) > 0)
+// clang-format off
+#define rdmcmd_command_class_valid(ccval) \
+  ((ccval) == kRdmCCDiscoveryCommand   || \
+   (ccval) == kRdmCCGetCommand         || \
+   (ccval) == kRdmCCSetCommand)
+// clang-format on
+
+/*********************** Private function prototypes *************************/
+
+static bool rdm_cmd_data_valid(const RdmCommand *cmd_data);
+
 /*************************** Function definitions ****************************/
 
 /*! \brief Create a packed RDM command.
  *  \param[in] cmd_data The data that will be used for this RDM command packet.
  *  \param[out] buffer The buffer into which to pack this RDM command.
  *  \return #kLwpaErrOk: Command created successfully.\n
- *          #kLwpaErrInvalid: Invalid argument provided.\n
+ *          #kLwpaErrInvalid: Invalid argument provided (including invalid RDM values in cmd_data).\n
  *          #kLwpaErrMsgSize: The parameter data was too long.\n
  */
 lwpa_error_t rdmctl_create_command(const RdmCommand *cmd_data, RdmBuffer *buffer)
@@ -36,7 +50,7 @@ lwpa_error_t rdmctl_create_command(const RdmCommand *cmd_data, RdmBuffer *buffer
   uint8_t *cur_ptr;
   uint8_t rdm_length;
 
-  if (!cmd_data || !buffer)
+  if (!cmd_data || !buffer || !rdm_cmd_data_valid(cmd_data))
     return kLwpaErrInvalid;
   if (cmd_data->datalen > RDM_MAX_PDL)
     return kLwpaErrMsgSize;
@@ -70,6 +84,25 @@ lwpa_error_t rdmctl_create_command(const RdmCommand *cmd_data, RdmBuffer *buffer
   rdm_pack_checksum(buffer->data, rdm_length);
   buffer->datalen = rdm_length + 2;
   return kLwpaErrOk;
+}
+
+/*! \brief Determine whether a packed RDM message is a non-discovery RDM command response.
+ *
+ *  More specifically, whether the command class of the response is one of GET_COMMAND_RESPONSE or
+ *  SET_COMMAND_RESPONSE.
+ *
+ *  \param[in] buffer The packed RDM message.
+ *  \return true (the message is a valid non-discovery RDM command response) or false (the message
+ *          is invalid RDM or not a non-discovery command response).
+ */
+bool rdmctl_is_non_disc_response(const RdmBuffer *buffer)
+{
+  if (buffer && rdm_validate_msg(buffer))
+  {
+    return (buffer->data[RDM_OFFSET_COMMAND_CLASS] == E120_GET_COMMAND_RESPONSE ||
+            buffer->data[RDM_OFFSET_COMMAND_CLASS] == E120_SET_COMMAND_RESPONSE);
+  }
+  return false;
 }
 
 /*! \brief Unpack an RDM repsonse.
@@ -106,4 +139,11 @@ lwpa_error_t rdmctl_unpack_response(const RdmBuffer *buffer, RdmResponse *resp)
   resp->datalen = *cur_ptr++;
   memcpy(resp->data, cur_ptr, resp->datalen);
   return kLwpaErrOk;
+}
+
+/* Do some basic validation on an RDM command provided by a library user. */
+static bool rdm_cmd_data_valid(const RdmCommand *cmd_data)
+{
+  return (!rdm_uid_is_broadcast(&cmd_data->source_uid) && rdmcmd_port_id_valid(cmd_data->port_id) &&
+          rdmcmd_command_class_valid(cmd_data->command_class));
 }
