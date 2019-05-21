@@ -3,7 +3,7 @@ set(RDM_INCLUDE ${RDM_ROOT}/include)
 
 ################################# Dependencies ################################
 
-include(AddDependency)
+include(RdmAddDependency)
 
 # option(RDM_BUILD_MOCK_LIB "Build the RDM_mock library" OFF)
 #
