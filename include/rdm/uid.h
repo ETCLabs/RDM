@@ -188,7 +188,7 @@ typedef struct RdmUid
  *
  *  Note that !rdmnet_uid_is_static() does not imply rdmnet_uid_is_dynamic(), because broadcast UID
  *  values are neither dynamic nor static UIDs.
- * 
+ *
  *  \param uidptr Pointer to RdmUid to check.
  *  \return true (UID is an E1.33 Static UID) or false (UID is not an E1.33 Static UID).
  */
@@ -219,6 +219,11 @@ inline bool operator<(const RdmUid &a, const RdmUid &b)
 inline bool operator==(const RdmUid &a, const RdmUid &b)
 {
   return ((a.manu == b.manu && a.id == b.id));
+}
+
+inline bool operator!=(const RdmUid &a, const RdmUid &b)
+{
+  return ((a.manu != b.manu || a.id != b.id));
 }
 
 #endif /* __cplusplus */

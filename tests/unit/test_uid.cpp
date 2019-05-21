@@ -17,13 +17,48 @@
  * https://github.com/ETCLabs/RDM
  ******************************************************************************/
 #include "gtest/gtest.h"
+#include "rdm/uid.h"
 
 class UidTest : public ::testing::Test
 {
 };
 
-// Placeholder for future unit tests!
-TEST_F(UidTest, placeholder)
+// Test the operator== and operator!= functions for RdmUid structs
+TEST_F(UidTest, operator_equal)
 {
-  ASSERT_TRUE(true);
+  RdmUid uid_1{0, 0};
+  RdmUid uid_2{0, 0};
+
+  EXPECT_EQ(uid_1, uid_2);
+  EXPECT_EQ(uid_2, uid_1);
+
+  uid_1.manu = 1;
+  EXPECT_NE(uid_1, uid_2);
+  EXPECT_NE(uid_2, uid_1);
+
+  uid_1.manu = 0;
+  uid_1.id = 1;
+  EXPECT_NE(uid_1, uid_2);
+  EXPECT_NE(uid_2, uid_1);
+}
+
+TEST_F(UidTest, operator_less)
+{
+  RdmUid uid_1{0, 0};
+  RdmUid uid_2{0, 0};
+
+  EXPECT_FALSE(uid_1 < uid_2);
+
+  uid_2.manu = 1;
+  EXPECT_TRUE(uid_1 < uid_2);
+  EXPECT_FALSE(uid_2 < uid_1);
+
+  uid_2.manu = 0;
+  uid_2.id = 1;
+  EXPECT_TRUE(uid_1 < uid_2);
+  EXPECT_FALSE(uid_2 < uid_1);
+
+  uid_2.manu = 1;
+  EXPECT_TRUE(uid_1 < uid_2);
+  EXPECT_FALSE(uid_2 < uid_1);
 }
