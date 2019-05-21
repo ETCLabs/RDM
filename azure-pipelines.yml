@@ -26,11 +26,11 @@ jobs:
       cmake -G "Visual Studio 15 2017 Win64" ..
       cmake --build . --config %RDM_BUILD_CONFIG%
     displayName: 'RDM Windows build'
-  - script: build\tests\%RDM_BUILD_CONFIG%\test_lwpa.exe
+  - script: build\tests\%RDM_BUILD_CONFIG%\test_rdm.exe
     displayName: 'RDM Windows test'
 # Generate documentation with doxygen. Documentation is generated from the
 # develop branch and posted to the 'head' portion of the Github page
-# (etclabs.github.io/lwpa)
+# (etclabs.github.io/RDM)
 - job: docs
   displayName: 'Deploy documentation'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
