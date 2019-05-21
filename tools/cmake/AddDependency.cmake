@@ -19,14 +19,14 @@ function(rdm_add_dependency target loc_variable)
 
       # Step 3 - look for the dependency in a folder with the same name as the
       # target, at the same level as this folder
-      if (EXISTS ${RDMNET_ROOT}/../${target})
+      if (EXISTS ${RDM_ROOT}/../${target})
 
         message(STATUS "Found directory for ${target} at same level as RDM. Overriding submodule dependency with that directory.")
-        add_subdirectory(${RDMNET_ROOT}/../${target} ${target})
+        add_subdirectory(${RDM_ROOT}/../${target} ${target})
 
       else()
 
-        if(GIT_FOUND AND EXISTS ${RDMNET_ROOT}/.git)
+        if(GIT_FOUND AND EXISTS ${RDM_ROOT}/.git)
           # Update submodules as needed
           option(GIT_SUBMODULE "Check submodules during build" ON)
           if(GIT_SUBMODULE)
@@ -39,11 +39,11 @@ function(rdm_add_dependency target loc_variable)
           endif()
         endif()
 
-        if(NOT EXISTS ${RDMNET_ROOT}/external/${target}/CMakeLists.txt)
+        if(NOT EXISTS ${RDM_ROOT}/external/${target}/CMakeLists.txt)
             message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
         endif()
 
-        add_subdirectory(${RDMNET_ROOT}/external/${target} ${CMAKE_BINARY_DIR}/external/${target})
+        add_subdirectory(${RDM_ROOT}/external/${target} ${CMAKE_BINARY_DIR}/external/${target})
       endif()
     endif()
   endif()
