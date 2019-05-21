@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['addrunion',['AddrUnion',['http://etclabs.github.io/lwpa/docs/head/union_lwpa_ip_addr_1_1_addr_union.html',1,'LwpaIpAddr']]]
+  ['rdmbuffer',['RdmBuffer',['../struct_rdm_buffer.html',1,'']]],
+  ['rdmcommand',['RdmCommand',['../struct_rdm_command.html',1,'']]],
+  ['rdmresponse',['RdmResponse',['../struct_rdm_response.html',1,'']]],
+  ['rdmuid',['RdmUid',['../struct_rdm_uid.html',1,'']]]
 ];

@@ -182,12 +182,12 @@ Macros</h2></td></tr>
 <tr class="memitem:gaa829a9423b849e07e59d42cf07943e71"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaa829a9423b849e07e59d42cf07943e71"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>RDM_HEADER_SIZE</b>&#160;&#160;&#160;24</td></tr>
 <tr class="separator:gaa829a9423b849e07e59d42cf07943e71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabe3e1bccb598291f2b27c84d748a26de"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__message.html#gabe3e1bccb598291f2b27c84d748a26de">rdm_get_command_class</a>(rdmbufptr)&#160;&#160;&#160;((rdmbufptr)-&gt;data[RDM_OFFSET_COMMAND_CLASS])</td></tr>
-<tr class="memdesc:gabe3e1bccb598291f2b27c84d748a26de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the command class value from a packed RDM command.  <a href="#gabe3e1bccb598291f2b27c84d748a26de">More...</a><br /></td></tr>
-<tr class="separator:gabe3e1bccb598291f2b27c84d748a26de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga68baf4ddfa1b084d1339839260d31e38"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__message.html#ga68baf4ddfa1b084d1339839260d31e38">rdm_get_transaction_num</a>(rdmbufptr)&#160;&#160;&#160;((rdmbufptr)-&gt;data[RDM_OFFSET_TRANSACTION])</td></tr>
-<tr class="memdesc:ga68baf4ddfa1b084d1339839260d31e38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the RDM transaction number from a packed RDM command.  <a href="#ga68baf4ddfa1b084d1339839260d31e38">More...</a><br /></td></tr>
-<tr class="separator:ga68baf4ddfa1b084d1339839260d31e38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga27ee6d5259d609fa25b83a94014692db"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__message.html#ga27ee6d5259d609fa25b83a94014692db">RDM_GET_COMMAND_CLASS</a>(rdmbufptr)&#160;&#160;&#160;((rdmbufptr)-&gt;data[RDM_OFFSET_COMMAND_CLASS])</td></tr>
+<tr class="memdesc:ga27ee6d5259d609fa25b83a94014692db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the command class value from a packed RDM command.  <a href="#ga27ee6d5259d609fa25b83a94014692db">More...</a><br /></td></tr>
+<tr class="separator:ga27ee6d5259d609fa25b83a94014692db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1a8181950bf393e5b5287dc025dc55bb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__message.html#ga1a8181950bf393e5b5287dc025dc55bb">RDM_GET_TRANSACTION_NUM</a>(rdmbufptr)&#160;&#160;&#160;((rdmbufptr)-&gt;data[RDM_OFFSET_TRANSACTION])</td></tr>
+<tr class="memdesc:ga1a8181950bf393e5b5287dc025dc55bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the RDM transaction number from a packed RDM command.  <a href="#ga1a8181950bf393e5b5287dc025dc55bb">More...</a><br /></td></tr>
+<tr class="separator:ga1a8181950bf393e5b5287dc025dc55bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -226,7 +226,7 @@ Functions</h2></td></tr>
 <tr class="memitem:gabbcd7273b516c2a63692e038698856fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__message.html#gabbcd7273b516c2a63692e038698856fd">rdm_pack_checksum</a> (uint8_t *buffer, size_t datalen_without_checksum)</td></tr>
 <tr class="memdesc:gabbcd7273b516c2a63692e038698856fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate and pack an RDM checksum at the end of an RDM message.  <a href="#gabbcd7273b516c2a63692e038698856fd">More...</a><br /></td></tr>
 <tr class="separator:gabbcd7273b516c2a63692e038698856fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae584f1424d687763fd6e560f4f49583f"><td class="memItemLeft" align="right" valign="top"><a class="elRef" doxygen="/home/travis/build/ETCLabs/lwpa/docs/lwpa.tag:http://etclabs.github.io/lwpa/docs/head/" href="http://etclabs.github.io/lwpa/docs/head/group__lwpa__bool.html#gabb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__message.html#gae584f1424d687763fd6e560f4f49583f">rdm_validate_msg</a> (const <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *buffer)</td></tr>
+<tr class="memitem:gae584f1424d687763fd6e560f4f49583f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__message.html#gae584f1424d687763fd6e560f4f49583f">rdm_validate_msg</a> (const <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *buffer)</td></tr>
 <tr class="memdesc:gae584f1424d687763fd6e560f4f49583f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform basic validation of an RDM message.  <a href="#gae584f1424d687763fd6e560f4f49583f">More...</a><br /></td></tr>
 <tr class="separator:gae584f1424d687763fd6e560f4f49583f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -281,12 +281,12 @@ RDM packet offsets</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Basic RDM message packing and unpacking. </p>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a class="anchor" id="gabe3e1bccb598291f2b27c84d748a26de"></a>
+<a class="anchor" id="ga27ee6d5259d609fa25b83a94014692db"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define rdm_get_command_class</td>
+          <td class="memname">#define RDM_GET_COMMAND_CLASS</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">rdmbufptr</td><td>)</td>
@@ -306,12 +306,12 @@ RDM packet offsets</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga68baf4ddfa1b084d1339839260d31e38"></a>
+<a class="anchor" id="ga1a8181950bf393e5b5287dc025dc55bb"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define rdm_get_transaction_num</td>
+          <td class="memname">#define RDM_GET_TRANSACTION_NUM</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">rdmbufptr</td><td>)</td>
@@ -457,7 +457,7 @@ RDM packet offsets</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" doxygen="/home/travis/build/ETCLabs/lwpa/docs/lwpa.tag:http://etclabs.github.io/lwpa/docs/head/" href="http://etclabs.github.io/lwpa/docs/head/group__lwpa__bool.html#gabb452686968e48b67397da5f97445f5b">bool</a> rdm_validate_msg </td>
+          <td class="memname">bool rdm_validate_msg </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *&#160;</td>
           <td class="paramname"><em>buffer</em></td><td>)</td>

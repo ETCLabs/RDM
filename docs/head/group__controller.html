@@ -154,25 +154,51 @@ $(document).ready(function(){initNavTree('group__controller.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga8dd7e45b8f81aee38b235c2fb2152f0a"><td class="memItemLeft" align="right" valign="top"><a class="elRef" doxygen="/home/travis/build/ETCLabs/lwpa/docs/lwpa.tag:http://etclabs.github.io/lwpa/docs/head/" href="http://etclabs.github.io/lwpa/docs/head/group__lwpa__error.html#ga4de447127cf0baaa9afb0188e1e6afbf">lwpa_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__controller.html#ga8dd7e45b8f81aee38b235c2fb2152f0a">rdmctl_create_command</a> (const <a class="el" href="struct_rdm_command.html">RdmCommand</a> *cmd_data, <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *buffer)</td></tr>
-<tr class="memdesc:ga8dd7e45b8f81aee38b235c2fb2152f0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a packed RDM command.  <a href="#ga8dd7e45b8f81aee38b235c2fb2152f0a">More...</a><br /></td></tr>
-<tr class="separator:ga8dd7e45b8f81aee38b235c2fb2152f0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga62a94b697a099eea6bad03f10a592277"><td class="memItemLeft" align="right" valign="top"><a class="elRef" doxygen="/home/travis/build/ETCLabs/lwpa/docs/lwpa.tag:http://etclabs.github.io/lwpa/docs/head/" href="http://etclabs.github.io/lwpa/docs/head/group__lwpa__bool.html#gabb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__controller.html#ga62a94b697a099eea6bad03f10a592277">rdmctl_is_non_disc_response</a> (const <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *buffer)</td></tr>
+<tr class="memitem:gab45fa70dd7009730b2ad6569851f4bf4"><td class="memItemLeft" align="right" valign="top">lwpa_error_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__controller.html#gab45fa70dd7009730b2ad6569851f4bf4">rdmctl_pack_command</a> (const <a class="el" href="struct_rdm_command.html">RdmCommand</a> *cmd_data, <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *buffer)</td></tr>
+<tr class="memdesc:gab45fa70dd7009730b2ad6569851f4bf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a packed RDM command.  <a href="#gab45fa70dd7009730b2ad6569851f4bf4">More...</a><br /></td></tr>
+<tr class="separator:gab45fa70dd7009730b2ad6569851f4bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga62a94b697a099eea6bad03f10a592277"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__controller.html#ga62a94b697a099eea6bad03f10a592277">rdmctl_is_non_disc_response</a> (const <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *buffer)</td></tr>
 <tr class="memdesc:ga62a94b697a099eea6bad03f10a592277"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine whether a packed RDM message is a non-discovery RDM command response.  <a href="#ga62a94b697a099eea6bad03f10a592277">More...</a><br /></td></tr>
 <tr class="separator:ga62a94b697a099eea6bad03f10a592277"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa38b3690b6efebbc86cd2a6d51bbe2ad"><td class="memItemLeft" align="right" valign="top"><a class="elRef" doxygen="/home/travis/build/ETCLabs/lwpa/docs/lwpa.tag:http://etclabs.github.io/lwpa/docs/head/" href="http://etclabs.github.io/lwpa/docs/head/group__lwpa__error.html#ga4de447127cf0baaa9afb0188e1e6afbf">lwpa_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__controller.html#gaa38b3690b6efebbc86cd2a6d51bbe2ad">rdmctl_unpack_response</a> (const <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *buffer, <a class="el" href="struct_rdm_response.html">RdmResponse</a> *resp)</td></tr>
+<tr class="memitem:gaa38b3690b6efebbc86cd2a6d51bbe2ad"><td class="memItemLeft" align="right" valign="top">lwpa_error_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__controller.html#gaa38b3690b6efebbc86cd2a6d51bbe2ad">rdmctl_unpack_response</a> (const <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *buffer, <a class="el" href="struct_rdm_response.html">RdmResponse</a> *resp)</td></tr>
 <tr class="memdesc:gaa38b3690b6efebbc86cd2a6d51bbe2ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unpack an RDM repsonse.  <a href="#gaa38b3690b6efebbc86cd2a6d51bbe2ad">More...</a><br /></td></tr>
 <tr class="separator:gaa38b3690b6efebbc86cd2a6d51bbe2ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Implementation of RDM controller functionality. </p>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ga8dd7e45b8f81aee38b235c2fb2152f0a"></a>
+<a class="anchor" id="ga62a94b697a099eea6bad03f10a592277"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" doxygen="/home/travis/build/ETCLabs/lwpa/docs/lwpa.tag:http://etclabs.github.io/lwpa/docs/head/" href="http://etclabs.github.io/lwpa/docs/head/group__lwpa__error.html#ga4de447127cf0baaa9afb0188e1e6afbf">lwpa_error_t</a> rdmctl_create_command </td>
+          <td class="memname">bool rdmctl_is_non_disc_response </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *&#160;</td>
+          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determine whether a packed RDM message is a non-discovery RDM command response. </p>
+<p>More specifically, whether the command class of the response is one of GET_COMMAND_RESPONSE or SET_COMMAND_RESPONSE.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">buffer</td><td>The packed RDM message. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true (the message is a valid non-discovery RDM command response) or false (the message is invalid RDM or not a non-discovery command response). </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gab45fa70dd7009730b2ad6569851f4bf4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">lwpa_error_t rdmctl_pack_command </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="struct_rdm_command.html">RdmCommand</a> *&#160;</td>
           <td class="paramname"><em>cmd_data</em>, </td>
@@ -199,36 +225,10 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="elRef" doxygen="/home/travis/build/ETCLabs/lwpa/docs/lwpa.tag:http://etclabs.github.io/lwpa/docs/head/" href="http://etclabs.github.io/lwpa/docs/head/group__lwpa__error.html#gga4de447127cf0baaa9afb0188e1e6afbfa857ed78ba3e816c71b69c16c85c21647">kLwpaErrOk</a>: Command created successfully.<br />
- <a class="elRef" doxygen="/home/travis/build/ETCLabs/lwpa/docs/lwpa.tag:http://etclabs.github.io/lwpa/docs/head/" href="http://etclabs.github.io/lwpa/docs/head/group__lwpa__error.html#gga4de447127cf0baaa9afb0188e1e6afbfa9cf2f92a879c1eacc80a024bae41cd96">kLwpaErrInvalid</a>: Invalid argument provided (including invalid RDM values in cmd_data).<br />
- <a class="elRef" doxygen="/home/travis/build/ETCLabs/lwpa/docs/lwpa.tag:http://etclabs.github.io/lwpa/docs/head/" href="http://etclabs.github.io/lwpa/docs/head/group__lwpa__error.html#gga4de447127cf0baaa9afb0188e1e6afbfa854b24c13e687336e7cb4ae0110866f3">kLwpaErrMsgSize</a>: The parameter data was too long.<br />
+<dl class="section return"><dt>Returns</dt><dd>#kLwpaErrOk: Command created successfully.<br />
+ #kLwpaErrInvalid: Invalid argument provided (including invalid RDM values in cmd_data).<br />
+ #kLwpaErrMsgSize: The parameter data was too long.<br />
 </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ga62a94b697a099eea6bad03f10a592277"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="elRef" doxygen="/home/travis/build/ETCLabs/lwpa/docs/lwpa.tag:http://etclabs.github.io/lwpa/docs/head/" href="http://etclabs.github.io/lwpa/docs/head/group__lwpa__bool.html#gabb452686968e48b67397da5f97445f5b">bool</a> rdmctl_is_non_disc_response </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *&#160;</td>
-          <td class="paramname"><em>buffer</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Determine whether a packed RDM message is a non-discovery RDM command response. </p>
-<p>More specifically, whether the command class of the response is one of GET_COMMAND_RESPONSE or SET_COMMAND_RESPONSE.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">buffer</td><td>The packed RDM message. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true (the message is a valid non-discovery RDM command response) or false (the message is invalid RDM or not a non-discovery command response). </dd></dl>
 
 </div>
 </div>
@@ -237,7 +237,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" doxygen="/home/travis/build/ETCLabs/lwpa/docs/lwpa.tag:http://etclabs.github.io/lwpa/docs/head/" href="http://etclabs.github.io/lwpa/docs/head/group__lwpa__error.html#ga4de447127cf0baaa9afb0188e1e6afbf">lwpa_error_t</a> rdmctl_unpack_response </td>
+          <td class="memname">lwpa_error_t rdmctl_unpack_response </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *&#160;</td>
           <td class="paramname"><em>buffer</em>, </td>
@@ -264,9 +264,9 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="elRef" doxygen="/home/travis/build/ETCLabs/lwpa/docs/lwpa.tag:http://etclabs.github.io/lwpa/docs/head/" href="http://etclabs.github.io/lwpa/docs/head/group__lwpa__error.html#gga4de447127cf0baaa9afb0188e1e6afbfa857ed78ba3e816c71b69c16c85c21647">kLwpaErrOk</a>: Response unpacked successfully.<br />
- <a class="elRef" doxygen="/home/travis/build/ETCLabs/lwpa/docs/lwpa.tag:http://etclabs.github.io/lwpa/docs/head/" href="http://etclabs.github.io/lwpa/docs/head/group__lwpa__error.html#gga4de447127cf0baaa9afb0188e1e6afbfa9cf2f92a879c1eacc80a024bae41cd96">kLwpaErrInvalid</a>: Invalid argument provided.<br />
- <a class="elRef" doxygen="/home/travis/build/ETCLabs/lwpa/docs/lwpa.tag:http://etclabs.github.io/lwpa/docs/head/" href="http://etclabs.github.io/lwpa/docs/head/group__lwpa__error.html#gga4de447127cf0baaa9afb0188e1e6afbfa60397db549f16a805fb4553d0cc2d5d9">kLwpaErrProtocol</a>: Packed RDM response was invalid.<br />
+<dl class="section return"><dt>Returns</dt><dd>#kLwpaErrOk: Response unpacked successfully.<br />
+ #kLwpaErrInvalid: Invalid argument provided.<br />
+ #kLwpaErrProtocol: Packed RDM response was invalid.<br />
 </dd></dl>
 
 </div>

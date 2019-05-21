@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['gate',['gate',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_netint_info.html#aab794a1d7268e4cf399af0600c73e0d8',1,'LwpaNetintInfo']]],
-  ['group',['group',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_mreq.html#a9d92abf5e7c4488e5d9dfc5ab9376e89',1,'LwpaMreq']]]
+  ['resp_5ftype',['resp_type',['../struct_rdm_response.html#a9241c33b6955e810316a2764d7738d63',1,'RdmResponse']]]
 ];
