@@ -26,12 +26,13 @@
 /***************************** Private macros ********************************/
 
 // clang-format off
-#define rdmresp_resp_type_valid(resptypeval) \
-  ((resptypeval) == kRdmResponseTypeAck || \
-   (resptypeval) == kRdmResponseTypeAckTimer || \
-   (resptypeval) == kRdmResponseTypeNackReason || \
+#define RDMRESP_RESP_TYPE_VALID(resptypeval)        \
+  ((resptypeval) == kRdmResponseTypeAck          || \
+   (resptypeval) == kRdmResponseTypeAckTimer     || \
+   (resptypeval) == kRdmResponseTypeNackReason   || \
    (resptypeval) == kRdmResponseTypeAckOverflow)
-#define rdmresp_command_class_valid(ccval)      \
+
+#define RDMRESP_COMMAND_CLASS_VALID(ccval)      \
   ((ccval) == kRdmCCDiscoveryCommandResponse || \
    (ccval) == kRdmCCGetCommandResponse       || \
    (ccval) == kRdmCCSetCommandResponse)
@@ -107,7 +108,7 @@ bool rdmresp_is_non_disc_command(const RdmBuffer *buffer)
  *          #kLwpaErrInvalid: Invalid argument provided.\n
  *          #kLwpaErrMsgSize: The parameter data was too long.\n
  */
-lwpa_error_t rdmresp_create_response(const RdmResponse *resp_data, RdmBuffer *buffer)
+lwpa_error_t rdmresp_pack_response(const RdmResponse *resp_data, RdmBuffer *buffer)
 {
   uint8_t *cur_ptr;
   uint8_t rdm_length;
@@ -153,6 +154,6 @@ lwpa_error_t rdmresp_create_response(const RdmResponse *resp_data, RdmBuffer *bu
 /* Do some basic validation on an RDM response provided by a library user. */
 static bool rdm_resp_data_valid(const RdmResponse *resp_data)
 {
-  return (!rdm_uid_is_broadcast(&resp_data->source_uid) && rdmresp_resp_type_valid(resp_data->resp_type) &&
-          rdmresp_command_class_valid(resp_data->command_class));
+  return (!rdm_uid_is_broadcast(&resp_data->source_uid) && RDMRESP_RESP_TYPE_VALID(resp_data->resp_type) &&
+          RDMRESP_COMMAND_CLASS_VALID(resp_data->command_class));
 }

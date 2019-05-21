@@ -24,11 +24,11 @@
 
 /***************************** Private macros ********************************/
 
-#define rdmcmd_port_id_valid(portidval) ((portidval) > 0)
+#define RDMCMD_PORT_ID_VALID(portidval) ((portidval) > 0)
 // clang-format off
-#define rdmcmd_command_class_valid(ccval) \
-  ((ccval) == kRdmCCDiscoveryCommand   || \
-   (ccval) == kRdmCCGetCommand         || \
+#define RDMCMD_COMMAND_CLASS_VALID(ccval)    \
+  ((ccval) == kRdmCCDiscoveryCommand      || \
+   (ccval) == kRdmCCGetCommand            || \
    (ccval) == kRdmCCSetCommand)
 // clang-format on
 
@@ -45,7 +45,7 @@ static bool rdm_cmd_data_valid(const RdmCommand *cmd_data);
  *          #kLwpaErrInvalid: Invalid argument provided (including invalid RDM values in cmd_data).\n
  *          #kLwpaErrMsgSize: The parameter data was too long.\n
  */
-lwpa_error_t rdmctl_create_command(const RdmCommand *cmd_data, RdmBuffer *buffer)
+lwpa_error_t rdmctl_pack_command(const RdmCommand *cmd_data, RdmBuffer *buffer)
 {
   uint8_t *cur_ptr;
   uint8_t rdm_length;
@@ -144,6 +144,6 @@ lwpa_error_t rdmctl_unpack_response(const RdmBuffer *buffer, RdmResponse *resp)
 /* Do some basic validation on an RDM command provided by a library user. */
 static bool rdm_cmd_data_valid(const RdmCommand *cmd_data)
 {
-  return (!rdm_uid_is_broadcast(&cmd_data->source_uid) && rdmcmd_port_id_valid(cmd_data->port_id) &&
-          rdmcmd_command_class_valid(cmd_data->command_class));
+  return (!RDM_UID_IS_BROADCAST(&cmd_data->source_uid) && RDMCMD_PORT_ID_VALID(cmd_data->port_id) &&
+          RDMCMD_COMMAND_CLASS_VALID(cmd_data->command_class));
 }

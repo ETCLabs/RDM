@@ -37,7 +37,7 @@
 extern "C" {
 #endif
 
-lwpa_error_t rdmctl_create_command(const RdmCommand *cmd_data, RdmBuffer *buffer);
+lwpa_error_t rdmctl_pack_command(const RdmCommand *cmd_data, RdmBuffer *buffer);
 bool rdmctl_is_non_disc_response(const RdmBuffer *buffer);
 lwpa_error_t rdmctl_unpack_response(const RdmBuffer *buffer, RdmResponse *resp);
 

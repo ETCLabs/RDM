@@ -64,7 +64,7 @@ typedef struct RdmUid
  *            0 (uidptr1 is equal to uidptr2)\n
  *          > 0 (uidptr1 is greater than uidptr2)
  */
-#define rdm_uid_cmp(uidptr1, uidptr2)                                               \
+#define RDM_UID_CMP(uidptr1, uidptr2)                                               \
   (((uidptr1)->manu == (uidptr2)->manu) ? ((int)(uidptr1)->id - (int)(uidptr2)->id) \
                                         : ((int)(uidptr1)->manu - (int)(uidptr2)->manu))
 
@@ -73,7 +73,7 @@ typedef struct RdmUid
  *  \param uidptr2 Pointer to second RdmUid.
  *  \return true (UIDs are equal) or false (UIDs are not equal).
  */
-#define rdm_uid_equal(uidptr1, uidptr2) ((uidptr1)->manu == (uidptr2)->manu && (uidptr1)->id == (uidptr2)->id)
+#define RDM_UID_EQUAL(uidptr1, uidptr2) ((uidptr1)->manu == (uidptr2)->manu && (uidptr1)->id == (uidptr2)->id)
 
 /************************* UID Initialization Macros *************************/
 
@@ -82,7 +82,7 @@ typedef struct RdmUid
  *  \param manu_val ESTA Manufacturer ID.
  *  \param id_val Device ID.
  */
-#define rdm_init_static_uid(uidptr, manu_val, id_val) \
+#define RDM_INIT_STATIC_UID(uidptr, manu_val, id_val) \
   do                                                  \
   {                                                   \
     (uidptr)->manu = (manu_val);                      \
@@ -93,7 +93,7 @@ typedef struct RdmUid
  *  \param uidptr Pointer to RdmUid to initialize.
  *  \param manu_val ESTA Manufacturer ID.
  */
-#define rdmnet_init_dynamic_uid_request(uidptr, manu_val) \
+#define RDMNET_INIT_DYNAMIC_UID_REQUEST(uidptr, manu_val) \
   do                                                      \
   {                                                       \
     (uidptr)->manu = (0x8000u | (manu_val));              \
@@ -107,14 +107,14 @@ typedef struct RdmUid
  *  \return true (uidptr is equal to BROADCAST_ALL_DEVICES_ID) or false (uidptr is not equal to
  *          BROADCAST_ALL_DEVICES_ID).
  */
-#define rdm_uid_is_broadcast(uidptr) ((uidptr)->manu == kBroadcastUid.manu && (uidptr)->id == kBroadcastUid.id)
+#define RDM_UID_IS_BROADCAST(uidptr) ((uidptr)->manu == kBroadcastUid.manu && (uidptr)->id == kBroadcastUid.id)
 
 /*! \brief Determine whether a UID is the E1.33 value RPT_ALL_CONTROLLERS.
  *  \param uidptr Pointer to RdmUid to check.
  *  \return true (uidptr is equal to RPT_ALL_CONTROLLERS) or false (uidptr is not equal to
  *          RPT_ALL_CONTROLLERS).
  */
-#define rdmnet_uid_is_controller_broadcast(uidptr) \
+#define RDMNET_UID_IS_CONTROLLER_BROADCAST(uidptr) \
   ((uidptr)->manu == kRdmnetControllerBroadcastUid.manu && (uidptr)->id == kRdmnetControllerBroadcastUid.id)
 
 /*! \brief Determine whether a UID is the E1.33 value RPT_ALL_DEVICES.
@@ -122,21 +122,21 @@ typedef struct RdmUid
  *  \return true (uidptr is equal to RPT_ALL_DEVICES) or false (uidptr is not equal to
  *          RPT_ALL_DEVICES).
  */
-#define rdmnet_uid_is_device_broadcast(uidptr) \
+#define RDMNET_UID_IS_DEVICE_BROADCAST(uidptr) \
   ((uidptr)->manu == kRdmnetDeviceBroadcastUid.manu && (uidptr)->id == kRdmnetDeviceBroadcastUid.id)
 
 /*! \brief Determine whether a UID is one of the E1.33 values defined by RPT_ALL_MID_DEVICES.
  *
  *  RDMnet Device Manufacturer Broadcasts are directed to all Devices with a specific ESTA
- *  Manufacturer ID. If this check returns true, use rdmnet_device_broadcast_manu_id() to determine
- *  which Manufacturer ID this broadcast is directed to, or rdmnet_device_broadcast_manu_matches()
+ *  Manufacturer ID. If this check returns true, use RDMNET_DEVICE_BROADCAST_MANU_ID() to determine
+ *  which Manufacturer ID this broadcast is directed to, or RDMNET_DEVICE_BROADCAST_MANU_MATCHES()
  *  to determine whether it matches a specific Manufacturer ID.
  *
  *  \param uidptr Pointer to RdmUid to check.
  *  \return true (uidptr is one of the values defined by RPT_ALL_MID_DEVICES) or false (uidptr is
  *          not one of the values defined by RPT_ALL_MID_DEVICES).
  */
-#define rdmnet_uid_is_device_manu_broadcast(uidptr) \
+#define RDMNET_UID_IS_DEVICE_MANU_BROADCAST(uidptr) \
   ((uidptr)->manu == kRdmnetControllerBroadcastUid.manu && (((uidptr)->id & 0xffffu) == 0xffffu))
 
 /*! \brief Determine whether an RDMnet Device Manufacturer Broadcast UID
@@ -150,7 +150,7 @@ typedef struct RdmUid
  *  \return true (RDMnet Device Manufacturer Broadcast matches this Manufacturer ID) or false
  *          (RDMnet Device Manufacturer Broadcast does not match this Manufacturer ID).
  */
-#define rdmnet_device_broadcast_manu_matches(uidptr, manu_val) (rdmnet_device_broadcast_manu_id(uidptr) == manu_val)
+#define RDMNET_DEVICE_BROADCAST_MANU_MATCHES(uidptr, manu_val) (RDMNET_DEVICE_BROADCAST_MANU_ID(uidptr) == manu_val)
 
 /*! \brief Get the ESTA Manufacturer ID from an RDMnet Device Manufacturer
  *         Broadcast UID.
@@ -161,50 +161,50 @@ typedef struct RdmUid
  *  \param uidptr Pointer to RdmUid from which to get the Broadcast Manufacturer ID.
  *  \return ESTA Manufacturer ID.
  */
-#define rdmnet_device_broadcast_manu_id(uidptr) ((uint16_t)((uidptr)->id >> 16))
+#define RDMNET_DEVICE_BROADCAST_MANU_ID(uidptr) ((uint16_t)((uidptr)->id >> 16))
 
 /******************************* UID Inspection ******************************/
 
 /*! \brief Determine whether a UID is a Dynamic UID as defined in ANSI E1.33.
  *
- *  Note that !rdmnet_uid_is_dynamic() does not imply rdmnet_uid_is_static(), because broadcast UID
+ *  Note that !RDMNET_UID_IS_DYNAMIC() does not imply RDMNET_UID_IS_STATIC(), because broadcast UID
  *  values are neither dynamic nor static UIDs.
  *
  *  \param uidptr Pointer to RdmUid to check.
  *  \return true (UID is an E1.33 Dynamic UID) or false (UID is not an E1.33 Dynamic UID).
  */
-#define rdmnet_uid_is_dynamic(uidptr)                                                  \
-  ((((uidptr)->manu & 0x8000u) != 0) && !rdmnet_uid_is_controller_broadcast(uidptr) && \
-   !rdmnet_uid_is_device_manu_broadcast(uidptr) && !rdm_uid_is_broadcast(uidptr))
+#define RDMNET_UID_IS_DYNAMIC(uidptr)                                                  \
+  ((((uidptr)->manu & 0x8000u) != 0) && !RDMNET_UID_IS_CONTROLLER_BROADCAST(uidptr) && \
+   !RDMNET_UID_IS_DEVICE_MANU_BROADCAST(uidptr) && !RDM_UID_IS_BROADCAST(uidptr))
 
 /*! \brief Determine whether a UID is a Dynamic UID Request as defined in ANSI E1.33.
  *  \param uidptr Pointer to RdmUid to check.
  *  \return true (UID is an E1.33 Dynamic UID Request) or false (UID is not an E1.33 Dynamic UID
  *          Request).
  */
-#define rdmnet_uid_is_dynamic_uid_request(uidptr) (rdmnet_uid_is_dynamic(uidptr) && (uidptr)->id == 0u)
+#define RDMNET_UID_IS_DYNAMIC_UID_REQUEST(uidptr) (RDMNET_UID_IS_DYNAMIC(uidptr) && (uidptr)->id == 0u)
 
 /*! \brief Determine whether a UID is a Static UID as defined in ANSI E1.33.
  *
- *  Note that !rdmnet_uid_is_static() does not imply rdmnet_uid_is_dynamic(), because broadcast UID
+ *  Note that !RDMNET_UID_IS_STATIC() does not imply RDMNET_UID_IS_DYNAMIC(), because broadcast UID
  *  values are neither dynamic nor static UIDs.
  *
  *  \param uidptr Pointer to RdmUid to check.
  *  \return true (UID is an E1.33 Static UID) or false (UID is not an E1.33 Static UID).
  */
-#define rdmnet_uid_is_static(uidptr) (((uidptr)->manu & 0x8000u) == 0)
+#define RDMNET_UID_IS_STATIC(uidptr) (((uidptr)->manu & 0x8000u) == 0)
 
 /*! \brief Get the ESTA Manufacturer ID from a UID.
  *  \param uidptr Pointer to RdmUid from which to get the ESTA Manufacturer ID.
  *  \return ESTA Manufacturer ID.
  */
-#define rdm_get_manufacturer_id(uidptr) ((uidptr)->manu & 0x7fffu)
+#define RDM_GET_MANUFACTURER_ID(uidptr) ((uidptr)->manu & 0x7fffu)
 
 /*! \brief Get the Device ID from a UID.
  *  \param uidptr Pointer to RdmUid from which to get the Device ID.
  *  \return Device ID.
  */
-#define rdm_get_device_id(uidptr) ((uidptr)->id)
+#define RDM_GET_DEVICE_ID(uidptr) ((uidptr)->id)
 
 #ifdef __cplusplus
 /* C++ utilities */
