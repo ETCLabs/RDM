@@ -1,6 +1,6 @@
 # RDM
 
-[![Build status](https://ci.appveyor.com/api/projects/status/5m3td4brd59l8flv?svg=true)](https://ci.appveyor.com/project/ETCLabs/rdm)
+[![Build Status](https://dev.azure.com/ETCLabs/RDM/_apis/build/status/ETCLabs.RDM?branchName=develop)](https://dev.azure.com/ETCLabs/RDM/_build/latest?definitionId=3&branchName=develop)
 
 A helper library for the ANSI E1.20 (RDM) protocol.
 
