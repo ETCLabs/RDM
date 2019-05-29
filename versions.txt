@@ -1,1 +1,2 @@
-head:latest
+v0.1:latest
+head
