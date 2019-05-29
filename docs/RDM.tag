@@ -7,10 +7,17 @@
     <includes id="message_8h" name="message.h" local="yes" imported="no">rdm/message.h</includes>
     <member kind="function">
       <type>lwpa_error_t</type>
-      <name>rdmctl_create_command</name>
+      <name>rdmctl_pack_command</name>
       <anchorfile>group__controller.html</anchorfile>
-      <anchor>ga8dd7e45b8f81aee38b235c2fb2152f0a</anchor>
+      <anchor>gab45fa70dd7009730b2ad6569851f4bf4</anchor>
       <arglist>(const RdmCommand *cmd_data, RdmBuffer *buffer)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>rdmctl_is_non_disc_response</name>
+      <anchorfile>group__controller.html</anchorfile>
+      <anchor>ga62a94b697a099eea6bad03f10a592277</anchor>
+      <arglist>(const RdmBuffer *buffer)</arglist>
     </member>
     <member kind="function">
       <type>lwpa_error_t</type>
@@ -51,16 +58,16 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>get_command_class</name>
+      <name>RDM_GET_COMMAND_CLASS</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>gabc8df9e7d72916d85184b6ac2880549e</anchor>
+      <anchor>ga27ee6d5259d609fa25b83a94014692db</anchor>
       <arglist>(rdmbufptr)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>get_transaction_num</name>
+      <name>RDM_GET_TRANSACTION_NUM</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>ga60cd644214c2cae1e83cbcaef4ba3aea</anchor>
+      <anchor>ga1a8181950bf393e5b5287dc025dc55bb</anchor>
       <arglist>(rdmbufptr)</arglist>
     </member>
     <member kind="typedef">
@@ -104,6 +111,20 @@
     <path>D:/git/ETCLabs/RDM/include/rdm/</path>
     <filename>responder_8h</filename>
     <includes id="message_8h" name="message.h" local="yes" imported="no">rdm/message.h</includes>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDM_CREATE_NACK_FROM_COMMAND</name>
+      <anchorfile>group__responder.html</anchorfile>
+      <anchor>ga7fde9a18eaadff320f7654426f88ffa5</anchor>
+      <arglist>(nack_resp, cmd, nack_reason)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDM_CREATE_NACK_FROM_COMMAND_WITH_MSG_COUNT</name>
+      <anchorfile>group__responder.html</anchorfile>
+      <anchor>gaf9ccbcd229f2aecea436d51f0f206028</anchor>
+      <arglist>(nack_resp, cmd, nack_reason, msgcount)</arglist>
+    </member>
     <member kind="function">
       <type>lwpa_error_t</type>
       <name>rdmresp_unpack_command</name>
@@ -112,10 +133,17 @@
       <arglist>(const RdmBuffer *buffer, RdmCommand *cmd)</arglist>
     </member>
     <member kind="function">
-      <type>lwpa_error_t</type>
-      <name>rdmresp_create_response</name>
+      <type>bool</type>
+      <name>rdmresp_is_non_disc_command</name>
       <anchorfile>group__responder.html</anchorfile>
-      <anchor>gac086fc597854cdb099737a66dc457344</anchor>
+      <anchor>ga4f3587c5330568a286873f8d392d8233</anchor>
+      <arglist>(const RdmBuffer *buffer)</arglist>
+    </member>
+    <member kind="function">
+      <type>lwpa_error_t</type>
+      <name>rdmresp_pack_response</name>
+      <anchorfile>group__responder.html</anchorfile>
+      <anchor>ga740b888afac86d090e561bb2d5fb805b</anchor>
       <arglist>(const RdmResponse *resp_data, RdmBuffer *buffer)</arglist>
     </member>
   </compound>
@@ -126,93 +154,107 @@
     <class kind="struct">RdmUid</class>
     <member kind="define">
       <type>#define</type>
-      <name>uid_cmp</name>
+      <name>RDM_UID_CMP</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga1f0e587d7bc26d1adab103e5ed6db9d7</anchor>
+      <anchor>ga7005751d0cd0ae4270cd8e87feccaa5b</anchor>
       <arglist>(uidptr1, uidptr2)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>uid_equal</name>
+      <name>RDM_UID_EQUAL</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>gab57e197a69d465b71089c5f36e5a510f</anchor>
+      <anchor>gae538a395a7b22c4fcac46fa0f5554b78</anchor>
       <arglist>(uidptr1, uidptr2)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>init_static_uid</name>
+      <name>RDM_INIT_STATIC_UID</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga51b8dcb487d19cc07d3cd926a017b698</anchor>
+      <anchor>ga0daf30670c9321b7a3d0d7a69dd6b4e5</anchor>
       <arglist>(uidptr, manu_val, id_val)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>init_dynamic_uid</name>
+      <name>RDMNET_INIT_DYNAMIC_UID_REQUEST</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga7f7bee2337e45eb27c8180e8b1178046</anchor>
-      <arglist>(uidptr, manu_val, id_val)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>uid_is_broadcast</name>
-      <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga2fc7f8e2cea15e4fd1a2e903d0ad23ea</anchor>
-      <arglist>(uidptr)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>uid_is_rdmnet_controller_broadcast</name>
-      <anchorfile>group__uid.html</anchorfile>
-      <anchor>gaabd65340080b6d7d083b9719b2d9723e</anchor>
-      <arglist>(uidptr)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>uid_is_rdmnet_device_broadcast</name>
-      <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga51f99ed4b8f1edddf2068ee8c68e8e11</anchor>
-      <arglist>(uidptr)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>uid_is_rdmnet_device_manu_broadcast</name>
-      <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga8ef4f2936b3b944c3cceca1d7ebf1801</anchor>
-      <arglist>(uidptr)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>rdmnet_device_broadcast_manu_matches</name>
-      <anchorfile>group__uid.html</anchorfile>
-      <anchor>gaa173f304e2e1c469670cef664260f543</anchor>
+      <anchor>gaad2d26ff7d08e1fcc134c1be979fcdc8</anchor>
       <arglist>(uidptr, manu_val)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>rdmnet_device_broadcast_manu_id</name>
+      <name>RDM_UID_IS_BROADCAST</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga98d12a84da72b76c2173a46fdc25027b</anchor>
+      <anchor>ga65209ad8850eef83a6249f93bd215da6</anchor>
       <arglist>(uidptr)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>uid_is_dynamic</name>
+      <name>RDMNET_UID_IS_CONTROLLER_BROADCAST</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga00667ebd9ba8321637134546cfb3b69f</anchor>
+      <anchor>ga53c88cbe60ef6f037d8c2a9fdff9894a</anchor>
       <arglist>(uidptr)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>get_manufacturer_id</name>
+      <name>RDMNET_UID_IS_DEVICE_BROADCAST</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga8b42d44d069f01298595e0bd2b52096f</anchor>
+      <anchor>ga6f623f06ac3b14f1becf06ec4faf65f6</anchor>
       <arglist>(uidptr)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>get_device_id</name>
+      <name>RDMNET_UID_IS_DEVICE_MANU_BROADCAST</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga5826ef4fbeab6938db9c83e396a616aa</anchor>
+      <anchor>ga224755484593f73ac68fe0ad974c192f</anchor>
+      <arglist>(uidptr)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDMNET_DEVICE_BROADCAST_MANU_MATCHES</name>
+      <anchorfile>group__uid.html</anchorfile>
+      <anchor>gaeaca39dc0f8d229d9966652e53be634f</anchor>
+      <arglist>(uidptr, manu_val)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDMNET_DEVICE_BROADCAST_MANU_ID</name>
+      <anchorfile>group__uid.html</anchorfile>
+      <anchor>gaa0bde1cfb88ecf6741ab5b088c79d107</anchor>
+      <arglist>(uidptr)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDMNET_UID_IS_DYNAMIC</name>
+      <anchorfile>group__uid.html</anchorfile>
+      <anchor>ga6513e844d7b58f9cdee40244fe5a682f</anchor>
+      <arglist>(uidptr)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDMNET_UID_IS_DYNAMIC_UID_REQUEST</name>
+      <anchorfile>group__uid.html</anchorfile>
+      <anchor>ga7309e3ce684e0d96d6a5ac019d6b8892</anchor>
+      <arglist>(uidptr)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDMNET_UID_IS_STATIC</name>
+      <anchorfile>group__uid.html</anchorfile>
+      <anchor>gaaaf8226917bc3e83e12f8b4d51d11ac8</anchor>
+      <arglist>(uidptr)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDM_GET_MANUFACTURER_ID</name>
+      <anchorfile>group__uid.html</anchorfile>
+      <anchor>ga0918dda49918646bc3e77c82f4c04221</anchor>
+      <arglist>(uidptr)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDM_GET_DEVICE_ID</name>
+      <anchorfile>group__uid.html</anchorfile>
+      <anchor>gaa014f2b3e799431e08b951b3edb794f8</anchor>
       <arglist>(uidptr)</arglist>
     </member>
     <member kind="typedef">
@@ -328,9 +370,9 @@
     <filename>struct_rdm_command.html</filename>
     <member kind="variable">
       <type>RdmUid</type>
-      <name>src_uid</name>
+      <name>source_uid</name>
       <anchorfile>struct_rdm_command.html</anchorfile>
-      <anchor>a6c99d53ad4583f3f5dc719f57d6f0714</anchor>
+      <anchor>a40cba7d6d1910fb740982421cf66c5d6</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -362,10 +404,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>uint8_t</type>
+      <type>rdm_command_class_t</type>
       <name>command_class</name>
       <anchorfile>struct_rdm_command.html</anchorfile>
-      <anchor>a4420a5c558963cb84d88b6f6ae4fdaec</anchor>
+      <anchor>a8627e24459da221d560b593ea2d9f5f6</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -395,9 +437,9 @@
     <filename>struct_rdm_response.html</filename>
     <member kind="variable">
       <type>RdmUid</type>
-      <name>src_uid</name>
+      <name>source_uid</name>
       <anchorfile>struct_rdm_response.html</anchorfile>
-      <anchor>a6c99d53ad4583f3f5dc719f57d6f0714</anchor>
+      <anchor>a40cba7d6d1910fb740982421cf66c5d6</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -415,10 +457,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>uint8_t</type>
+      <type>rdm_response_type_t</type>
       <name>resp_type</name>
       <anchorfile>struct_rdm_response.html</anchorfile>
-      <anchor>a63b9744e96ce785c7a108904e1408c23</anchor>
+      <anchor>a9241c33b6955e810316a2764d7738d63</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -436,10 +478,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>uint8_t</type>
+      <type>rdm_command_class_t</type>
       <name>command_class</name>
       <anchorfile>struct_rdm_response.html</anchorfile>
-      <anchor>a4420a5c558963cb84d88b6f6ae4fdaec</anchor>
+      <anchor>a8627e24459da221d560b593ea2d9f5f6</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -474,10 +516,17 @@
     <filename>group__controller.html</filename>
     <member kind="function">
       <type>lwpa_error_t</type>
-      <name>rdmctl_create_command</name>
+      <name>rdmctl_pack_command</name>
       <anchorfile>group__controller.html</anchorfile>
-      <anchor>ga8dd7e45b8f81aee38b235c2fb2152f0a</anchor>
+      <anchor>gab45fa70dd7009730b2ad6569851f4bf4</anchor>
       <arglist>(const RdmCommand *cmd_data, RdmBuffer *buffer)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>rdmctl_is_non_disc_response</name>
+      <anchorfile>group__controller.html</anchorfile>
+      <anchor>ga62a94b697a099eea6bad03f10a592277</anchor>
+      <arglist>(const RdmBuffer *buffer)</arglist>
     </member>
     <member kind="function">
       <type>lwpa_error_t</type>
@@ -517,16 +566,16 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>get_command_class</name>
+      <name>RDM_GET_COMMAND_CLASS</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>gabc8df9e7d72916d85184b6ac2880549e</anchor>
+      <anchor>ga27ee6d5259d609fa25b83a94014692db</anchor>
       <arglist>(rdmbufptr)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>get_transaction_num</name>
+      <name>RDM_GET_TRANSACTION_NUM</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>ga60cd644214c2cae1e83cbcaef4ba3aea</anchor>
+      <anchor>ga1a8181950bf393e5b5287dc025dc55bb</anchor>
       <arglist>(rdmbufptr)</arglist>
     </member>
     <member kind="typedef">
@@ -569,6 +618,20 @@
     <name>responder</name>
     <title>Responder</title>
     <filename>group__responder.html</filename>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDM_CREATE_NACK_FROM_COMMAND</name>
+      <anchorfile>group__responder.html</anchorfile>
+      <anchor>ga7fde9a18eaadff320f7654426f88ffa5</anchor>
+      <arglist>(nack_resp, cmd, nack_reason)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDM_CREATE_NACK_FROM_COMMAND_WITH_MSG_COUNT</name>
+      <anchorfile>group__responder.html</anchorfile>
+      <anchor>gaf9ccbcd229f2aecea436d51f0f206028</anchor>
+      <arglist>(nack_resp, cmd, nack_reason, msgcount)</arglist>
+    </member>
     <member kind="function">
       <type>lwpa_error_t</type>
       <name>rdmresp_unpack_command</name>
@@ -577,10 +640,17 @@
       <arglist>(const RdmBuffer *buffer, RdmCommand *cmd)</arglist>
     </member>
     <member kind="function">
-      <type>lwpa_error_t</type>
-      <name>rdmresp_create_response</name>
+      <type>bool</type>
+      <name>rdmresp_is_non_disc_command</name>
       <anchorfile>group__responder.html</anchorfile>
-      <anchor>gac086fc597854cdb099737a66dc457344</anchor>
+      <anchor>ga4f3587c5330568a286873f8d392d8233</anchor>
+      <arglist>(const RdmBuffer *buffer)</arglist>
+    </member>
+    <member kind="function">
+      <type>lwpa_error_t</type>
+      <name>rdmresp_pack_response</name>
+      <anchorfile>group__responder.html</anchorfile>
+      <anchor>ga740b888afac86d090e561bb2d5fb805b</anchor>
       <arglist>(const RdmResponse *resp_data, RdmBuffer *buffer)</arglist>
     </member>
   </compound>
@@ -591,93 +661,107 @@
     <class kind="struct">RdmUid</class>
     <member kind="define">
       <type>#define</type>
-      <name>uid_cmp</name>
+      <name>RDM_UID_CMP</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga1f0e587d7bc26d1adab103e5ed6db9d7</anchor>
+      <anchor>ga7005751d0cd0ae4270cd8e87feccaa5b</anchor>
       <arglist>(uidptr1, uidptr2)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>uid_equal</name>
+      <name>RDM_UID_EQUAL</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>gab57e197a69d465b71089c5f36e5a510f</anchor>
+      <anchor>gae538a395a7b22c4fcac46fa0f5554b78</anchor>
       <arglist>(uidptr1, uidptr2)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>init_static_uid</name>
+      <name>RDM_INIT_STATIC_UID</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga51b8dcb487d19cc07d3cd926a017b698</anchor>
+      <anchor>ga0daf30670c9321b7a3d0d7a69dd6b4e5</anchor>
       <arglist>(uidptr, manu_val, id_val)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>init_dynamic_uid</name>
+      <name>RDMNET_INIT_DYNAMIC_UID_REQUEST</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga7f7bee2337e45eb27c8180e8b1178046</anchor>
-      <arglist>(uidptr, manu_val, id_val)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>uid_is_broadcast</name>
-      <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga2fc7f8e2cea15e4fd1a2e903d0ad23ea</anchor>
-      <arglist>(uidptr)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>uid_is_rdmnet_controller_broadcast</name>
-      <anchorfile>group__uid.html</anchorfile>
-      <anchor>gaabd65340080b6d7d083b9719b2d9723e</anchor>
-      <arglist>(uidptr)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>uid_is_rdmnet_device_broadcast</name>
-      <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga51f99ed4b8f1edddf2068ee8c68e8e11</anchor>
-      <arglist>(uidptr)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>uid_is_rdmnet_device_manu_broadcast</name>
-      <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga8ef4f2936b3b944c3cceca1d7ebf1801</anchor>
-      <arglist>(uidptr)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>rdmnet_device_broadcast_manu_matches</name>
-      <anchorfile>group__uid.html</anchorfile>
-      <anchor>gaa173f304e2e1c469670cef664260f543</anchor>
+      <anchor>gaad2d26ff7d08e1fcc134c1be979fcdc8</anchor>
       <arglist>(uidptr, manu_val)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>rdmnet_device_broadcast_manu_id</name>
+      <name>RDM_UID_IS_BROADCAST</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga98d12a84da72b76c2173a46fdc25027b</anchor>
+      <anchor>ga65209ad8850eef83a6249f93bd215da6</anchor>
       <arglist>(uidptr)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>uid_is_dynamic</name>
+      <name>RDMNET_UID_IS_CONTROLLER_BROADCAST</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga00667ebd9ba8321637134546cfb3b69f</anchor>
+      <anchor>ga53c88cbe60ef6f037d8c2a9fdff9894a</anchor>
       <arglist>(uidptr)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>get_manufacturer_id</name>
+      <name>RDMNET_UID_IS_DEVICE_BROADCAST</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga8b42d44d069f01298595e0bd2b52096f</anchor>
+      <anchor>ga6f623f06ac3b14f1becf06ec4faf65f6</anchor>
       <arglist>(uidptr)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>get_device_id</name>
+      <name>RDMNET_UID_IS_DEVICE_MANU_BROADCAST</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga5826ef4fbeab6938db9c83e396a616aa</anchor>
+      <anchor>ga224755484593f73ac68fe0ad974c192f</anchor>
+      <arglist>(uidptr)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDMNET_DEVICE_BROADCAST_MANU_MATCHES</name>
+      <anchorfile>group__uid.html</anchorfile>
+      <anchor>gaeaca39dc0f8d229d9966652e53be634f</anchor>
+      <arglist>(uidptr, manu_val)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDMNET_DEVICE_BROADCAST_MANU_ID</name>
+      <anchorfile>group__uid.html</anchorfile>
+      <anchor>gaa0bde1cfb88ecf6741ab5b088c79d107</anchor>
+      <arglist>(uidptr)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDMNET_UID_IS_DYNAMIC</name>
+      <anchorfile>group__uid.html</anchorfile>
+      <anchor>ga6513e844d7b58f9cdee40244fe5a682f</anchor>
+      <arglist>(uidptr)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDMNET_UID_IS_DYNAMIC_UID_REQUEST</name>
+      <anchorfile>group__uid.html</anchorfile>
+      <anchor>ga7309e3ce684e0d96d6a5ac019d6b8892</anchor>
+      <arglist>(uidptr)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDMNET_UID_IS_STATIC</name>
+      <anchorfile>group__uid.html</anchorfile>
+      <anchor>gaaaf8226917bc3e83e12f8b4d51d11ac8</anchor>
+      <arglist>(uidptr)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDM_GET_MANUFACTURER_ID</name>
+      <anchorfile>group__uid.html</anchorfile>
+      <anchor>ga0918dda49918646bc3e77c82f4c04221</anchor>
+      <arglist>(uidptr)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDM_GET_DEVICE_ID</name>
+      <anchorfile>group__uid.html</anchorfile>
+      <anchor>gaa014f2b3e799431e08b951b3edb794f8</anchor>
       <arglist>(uidptr)</arglist>
     </member>
     <member kind="typedef">
