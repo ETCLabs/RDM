@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['source_5fuid',['source_uid',['../struct_rdm_command.html#a40cba7d6d1910fb740982421cf66c5d6',1,'RdmCommand::source_uid()'],['../struct_rdm_response.html#a40cba7d6d1910fb740982421cf66c5d6',1,'RdmResponse::source_uid()']]],
-  ['subdevice',['subdevice',['../struct_rdm_command.html#a08af6f95b61e2695caf7b11ebb8e0953',1,'RdmCommand::subdevice()'],['../struct_rdm_response.html#a08af6f95b61e2695caf7b11ebb8e0953',1,'RdmResponse::subdevice()']]]
+  ['gate',['gate',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_netint_info.html#aab794a1d7268e4cf399af0600c73e0d8',1,'LwpaNetintInfo']]],
+  ['group',['group',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_mreq.html#a9d92abf5e7c4488e5d9dfc5ab9376e89',1,'LwpaMreq']]]
 ];
