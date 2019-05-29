@@ -60,15 +60,16 @@ the RDM sources directly using the src/ and include/ directories.
 ### lwpa
 
 RDM depends on the LightWeight Platform Abstraction (lwpa) library for platform
-abstraction. See the [documentation for lwpa](https://etclabs.github.io/lwpa)
-for details on how to include lwpa in your project.
+abstraction. By default, lwpa is included as a submodule in the `external`
+directory. The CMake configuration will automatically update and pull the
+submodule before building.
 
-If you want to configure and build lwpa from source along with RDM, simply clone
-the lwpa repository at the same level as the RDM repository, like so:
+If you want to develop lwpa simultaneously alongside RDM, simply clone the lwpa
+repository at the same level as the RDM repository, like so:
 ```
 |- RDM/
 |- lwpa/
 ```
 
 The RDM CMakeLists.txt file contains directives to try to find lwpa at that
-location.
+location before using the submodule.
