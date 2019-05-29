@@ -4,6 +4,8 @@
 - [ ] Make sure there is a clean/working build on the `develop` branch.
 - [ ] Review and update `CHANGELOG.md`
 - [ ] Check `docs/mainpage.md` and `README.md` to make sure they are still accurate
+- [ ] Check `ThirdPartySoftware.txt` to make sure it is still accurate and doesn't need any
+      additions
 - [ ] Generate docs for the version
   * Update `TAGFILES` in Doxyfile to refer to correct versions of dependencies
   * Follow `tools/ci/publish_docs.sh` manually, except replace "head" with version number in the
