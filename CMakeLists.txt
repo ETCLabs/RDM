@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.3)
 
 ########################## Global Project Attributes ##########################
 
-project(RDM VERSION 0.1.0)
+project(RDM VERSION 0.2.0)
 
 if(PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
   if (MSVC)
