@@ -5,6 +5,7 @@
 - [ ] Review and update `CHANGELOG.md`
 - [ ] Check `docs/mainpage.md` and `README.md` to make sure they are still accurate
 - [ ] Generate docs for the version
+  * Update `TAGFILES` in Doxyfile to refer to correct versions of dependencies
   * Follow `tools/ci/publish_docs.sh` manually, except replace "head" with version number in the
     form "vM.m"
   * Add the version number to `versions.txt` on the `gh-pages` branch and mark it as latest

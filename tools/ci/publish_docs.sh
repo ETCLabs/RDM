@@ -16,6 +16,9 @@ echo 'Publishing documentation...'
 # Exit with nonzero exit code if anything fails
 set -e
 
+# Make sure we have our dependencies.
+git submodule update --init
+
 # Create a clean working directory for this script.
 cd ${BUILD_SOURCESDIRECTORY}/docs
 mkdir output
