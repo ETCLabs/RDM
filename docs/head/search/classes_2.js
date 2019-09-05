@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['md5_5fctx',['MD5_CTX',['http://etclabs.github.io/lwpa/docs/head/struct_m_d5___c_t_x.html',1,'']]],
-  ['mutexguard',['MutexGuard',['http://etclabs.github.io/lwpa/docs/head/classlwpa_1_1_mutex_guard.html',1,'lwpa']]]
+  ['defaultnetint',['DefaultNetint',['http://etclabs.github.io/EtcPal/docs/head/struct_default_netint.html',1,'']]]
 ];

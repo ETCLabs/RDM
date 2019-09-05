@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['thread_5fname',['thread_name',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_thread_params.html#aff53d286a69bd6b453eeb29ab3a75326',1,'LwpaThreadParams']]],
-  ['thread_5fpriority',['thread_priority',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_thread_params.html#a9cc3e9ae3970c47e150dc77065abd75f',1,'LwpaThreadParams']]],
-  ['time_5ffn',['time_fn',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_log_params.html#aeb908ea1d2aeaea8c56ef914948986cc',1,'LwpaLogParams']]],
-  ['top',['top',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_rb_iter.html#ab9332a87d0af5aa12cac847eff68b7af',1,'LwpaRbIter']]],
+  ['thread_5fname',['thread_name',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_thread_params.html#a9c15c6e0b10239673fa9d8be6ad08128',1,'EtcPalThreadParams']]],
+  ['thread_5fpriority',['thread_priority',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_thread_params.html#a9cc3e9ae3970c47e150dc77065abd75f',1,'EtcPalThreadParams']]],
+  ['time_5ffn',['time_fn',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_log_params.html#aaeb7319ba51e6b5fe1f4df5dea2eabce',1,'EtcPalLogParams']]],
+  ['top',['top',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_rb_iter.html#ab9332a87d0af5aa12cac847eff68b7af',1,'EtcPalRbIter']]],
   ['transaction_5fnum',['transaction_num',['../struct_rdm_command.html#a94aea5f05dbb840df368f865f4e57cb3',1,'RdmCommand::transaction_num()'],['../struct_rdm_response.html#a94aea5f05dbb840df368f865f4e57cb3',1,'RdmResponse::transaction_num()']]],
-  ['tree',['tree',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_rb_iter.html#ac7b99c0a7b935ddc4664f3301c3642d8',1,'LwpaRbIter']]],
-  ['type',['type',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_ip_addr.html#a43f11ca9456afc383d0d550f16e3c420',1,'LwpaIpAddr']]]
+  ['tree',['tree',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_rb_iter.html#a3dc7beb088200d742f70c0c895b376c4',1,'EtcPalRbIter']]],
+  ['type',['type',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_ip_addr.html#a89368dca599010efedd3d8ca663d5953',1,'EtcPalIpAddr']]]
 ];

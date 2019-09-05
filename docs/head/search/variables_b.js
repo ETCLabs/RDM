@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['name',['name',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_netint_info.html#abbe9b559861b88e242f78e5eb27b0fd5',1,'LwpaNetintInfo']]],
-  ['netint',['netint',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_mreq.html#aeb9189718092613b721ca97f43942753',1,'LwpaMreq']]],
-  ['node',['node',['http://etclabs.github.io/lwpa/docs/head/struct_lwpa_rb_iter.html#aa53715d827987acdffce1862294c8349',1,'LwpaRbIter']]]
+  ['name',['name',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_netint_info.html#a6eaa1f18016764aa8812196745e36463',1,'EtcPalNetintInfo']]],
+  ['netint',['netint',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_mreq.html#af4d9906a2a7fca6dfe6daf61b1ac55d2',1,'EtcPalMreq']]],
+  ['node',['node',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_rb_iter.html#a46745baa1082347489f1dd6dd68c7afa',1,'EtcPalRbIter']]]
 ];
