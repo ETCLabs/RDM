@@ -1,0 +1,3 @@
+[submodule "external/EtcPal"]
+	path = external/EtcPal
+	url = https://github.com/ETCLabs/EtcPal
