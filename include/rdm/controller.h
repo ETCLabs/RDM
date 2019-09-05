@@ -23,7 +23,7 @@
 #ifndef _RDM_CONTROLLER_H_
 #define _RDM_CONTROLLER_H_
 
-#include "lwpa/error.h"
+#include "etcpal/error.h"
 #include "rdm/message.h"
 
 /*! \defgroup controller Controller
@@ -37,9 +37,9 @@
 extern "C" {
 #endif
 
-lwpa_error_t rdmctl_pack_command(const RdmCommand *cmd_data, RdmBuffer *buffer);
+etcpal_error_t rdmctl_pack_command(const RdmCommand *cmd_data, RdmBuffer *buffer);
 bool rdmctl_is_non_disc_response(const RdmBuffer *buffer);
-lwpa_error_t rdmctl_unpack_response(const RdmBuffer *buffer, RdmResponse *resp);
+etcpal_error_t rdmctl_unpack_response(const RdmBuffer *buffer, RdmResponse *resp);
 
 #ifdef __cplusplus
 }

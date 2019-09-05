@@ -57,19 +57,19 @@ the RDM sources directly using the src/ and include/ directories.
 
 ## Dependencies
 
-### lwpa
+### EtcPal
 
-RDM depends on the LightWeight Platform Abstraction (lwpa) library for platform
-abstraction. By default, lwpa is included as a submodule in the `external`
-directory. The CMake configuration will automatically update and pull the
-submodule before building.
+RDM depends on the ETC's Platform Abstraction Layer (EtcPal) so that it can be
+platform-neutral. By default, EtcPal is included as a submodule in the
+`external` directory. The CMake configuration will automatically update and
+pull the submodule before building.
 
-If you want to develop lwpa simultaneously alongside RDM, simply clone the lwpa
-repository at the same level as the RDM repository, like so:
+If you want to develop EtcPal simultaneously alongside RDM, simply clone the
+EtcPal repository at the same level as the RDM repository, like so:
 ```
 |- RDM/
-|- lwpa/
+|- EtcPal/
 ```
 
-The RDM CMakeLists.txt file contains directives to try to find lwpa at that
+The RDM CMakeLists.txt file contains directives to try to find EtcPal at that
 location before using the submodule.

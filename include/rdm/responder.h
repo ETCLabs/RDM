@@ -23,9 +23,9 @@
 #ifndef _RDM_RESPONDER_H_
 #define _RDM_RESPONDER_H_
 
-#include "lwpa/int.h"
-#include "lwpa/error.h"
-#include "lwpa/pack.h"
+#include "etcpal/int.h"
+#include "etcpal/error.h"
+#include "etcpal/pack.h"
 #include "rdm/message.h"
 
 /*! \defgroup responder Responder
@@ -69,16 +69,16 @@
         ((cmd)->command_class == kRdmCCSetCommand ? kRdmCCSetCommandResponse : kRdmCCGetCommandResponse); \
     (nack_resp)->param_id = (cmd)->param_id;                                                              \
     (nack_resp)->datalen = 2;                                                                             \
-    lwpa_pack_16b((nack_resp)->data, nack_reason);                                                        \
+    etcpal_pack_16b((nack_resp)->data, nack_reason);                                                        \
   } while (0)
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-lwpa_error_t rdmresp_unpack_command(const RdmBuffer *buffer, RdmCommand *cmd);
+etcpal_error_t rdmresp_unpack_command(const RdmBuffer *buffer, RdmCommand *cmd);
 bool rdmresp_is_non_disc_command(const RdmBuffer *buffer);
-lwpa_error_t rdmresp_pack_response(const RdmResponse *resp_data, RdmBuffer *buffer);
+etcpal_error_t rdmresp_pack_response(const RdmResponse *resp_data, RdmBuffer *buffer);
 
 #ifdef __cplusplus
 };

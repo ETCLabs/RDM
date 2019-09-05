@@ -18,7 +18,7 @@
  ******************************************************************************/
 #include "rdm/message.h"
 
-#include "lwpa/pack.h"
+#include "etcpal/pack.h"
 #include "rdm/defs.h"
 
 /*********************** Private function prototypes *************************/
@@ -47,7 +47,7 @@ void rdm_pack_checksum(uint8_t *buffer, size_t datalen_without_checksum)
   if (buffer)
   {
     uint16_t sum = calc_checksum(buffer, datalen_without_checksum);
-    lwpa_pack_16b(&buffer[datalen_without_checksum], sum);
+    etcpal_pack_16b(&buffer[datalen_without_checksum], sum);
   }
 }
 
@@ -71,7 +71,7 @@ bool rdm_validate_msg(const RdmBuffer *buffer)
   }
 
   sum = calc_checksum(buffer->data, buffer->datalen - 2);
-  if (sum != lwpa_upack_16b(&buffer->data[buffer->data[RDM_OFFSET_LENGTH]]))
+  if (sum != etcpal_upack_16b(&buffer->data[buffer->data[RDM_OFFSET_LENGTH]]))
     return false;
 
   return true;

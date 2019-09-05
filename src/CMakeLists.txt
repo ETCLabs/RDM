@@ -8,9 +8,9 @@ include(RdmAddDependency)
 # option(RDM_BUILD_MOCK_LIB "Build the RDM_mock library" OFF)
 #
 # if(RDM_BUILD_TESTS OR RDM_BUILD_MOCK_LIB)
-#   set(LWPA_BUILD_MOCK_LIB ON)
+#   set(etcpal_BUILD_MOCK_LIB ON)
 # endif()
-rdm_add_dependency(lwpa LWPA_DIR)
+rdm_add_dependency(EtcPal etcpal_DIR)
 
 ################################# RDM library #################################
 
@@ -29,7 +29,7 @@ add_library(RDM
   rdm/uid.c
 )
 target_include_directories(RDM PUBLIC ${RDM_INCLUDE})
-target_link_libraries(RDM PUBLIC lwpa)
+target_link_libraries(RDM PUBLIC EtcPal)
 
 ############################### RDM mock library ##############################
 
@@ -50,5 +50,5 @@ target_link_libraries(RDM PUBLIC lwpa)
 #     rdm/uid.c
 #   )
 #   target_include_directories(RDM_mock PUBLIC ${RDM_INCLUDE})
-#   target_link_libraries(RDM_mock PUBLIC lwpa_mock)
+#   target_link_libraries(RDM_mock PUBLIC etcpal_mock)
 # endif()

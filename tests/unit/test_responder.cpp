@@ -18,7 +18,7 @@
  ******************************************************************************/
 #include "gtest/gtest.h"
 #include "rdm/responder.h"
-#include "lwpa/pack.h"
+#include "etcpal/pack.h"
 
 class ResponderTest : public ::testing::Test
 {
@@ -49,7 +49,7 @@ TEST_F(ResponderTest, create_nack)
   EXPECT_EQ(nack.command_class, kRdmCCGetCommandResponse);
   EXPECT_EQ(nack.param_id, E120_DMX_START_ADDRESS);
   EXPECT_EQ(nack.datalen, 2);
-  EXPECT_EQ(lwpa_upack_16b(nack.data), E120_NR_BUFFER_FULL);
+  EXPECT_EQ(etcpal_upack_16b(nack.data), E120_NR_BUFFER_FULL);
 
   RDM_CREATE_NACK_FROM_COMMAND_WITH_MSG_COUNT(&nack, &test_cmd, E120_NR_BUFFER_FULL, 20);
 
@@ -59,5 +59,5 @@ TEST_F(ResponderTest, create_nack)
   RDM_CREATE_NACK_FROM_COMMAND(&nack, &test_cmd, E120_NR_FORMAT_ERROR);
 
   EXPECT_EQ(nack.command_class, kRdmCCSetCommandResponse);
-  EXPECT_EQ(lwpa_upack_16b(nack.data), E120_NR_FORMAT_ERROR);
+  EXPECT_EQ(etcpal_upack_16b(nack.data), E120_NR_FORMAT_ERROR);
 }

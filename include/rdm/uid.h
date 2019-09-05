@@ -23,7 +23,7 @@
 #ifndef _RDM_UID_H_
 #define _RDM_UID_H_
 
-#include "lwpa/int.h"
+#include "etcpal/int.h"
 
 /*! \defgroup uid UID
  *  \ingroup rdm
@@ -247,4 +247,4 @@ extern const RdmUid kRdmnetDeviceBroadcastUid;
 
 /*!@}*/
 
-#endif /* _LWPA_UID_H_ */
+#endif /* _etcpal_UID_H_ */

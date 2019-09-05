@@ -24,8 +24,8 @@
 #define _RDM_MESSAGE_H_
 
 #include <stddef.h>
-#include "lwpa/int.h"
-#include "lwpa/bool.h"
+#include "etcpal/int.h"
+#include "etcpal/bool.h"
 #include "rdm/uid.h"
 #include "rdm/defs.h"
 
