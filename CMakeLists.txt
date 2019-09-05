@@ -15,6 +15,13 @@ if(PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
       add_compile_options(-Wno-sign-compare)
     endif()
   endif()
+
+  # Allow folder grouping in generated IDE projects
+  set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+  set(OPTION_DEFAULTS ON)
+else()
+  set(OPTION_DEFAULTS OFF)
 endif()
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/tools/cmake)
@@ -22,12 +29,6 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/tools/cmake)
 # Main library
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src)
-
-if(PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
-  set(OPTION_DEFAULTS ON)
-else()
-  set(OPTION_DEFAULTS OFF)
-endif()
 
 # Tests
 

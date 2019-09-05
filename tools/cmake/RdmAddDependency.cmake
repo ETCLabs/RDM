@@ -44,6 +44,7 @@ function(rdm_add_dependency target loc_variable)
       endif()
 
       add_subdirectory(${RDM_ROOT}/external/${target} ${CMAKE_BINARY_DIR}/external/${target})
+      set_target_properties(${target} PROPERTIES FOLDER dependencies)
     endif()
   endif()
 endfunction()

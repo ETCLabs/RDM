@@ -13,5 +13,5 @@ add_executable(test_rdm
   ${TEST_SRC_DIR}/test_responder.cpp
   ${TEST_SRC_DIR}/test_uid.cpp
 )
-
+set_target_properties(test_rdm PROPERTIES FOLDER tests)
 target_link_libraries(test_rdm RDM gtest)
