@@ -31,6 +31,10 @@ add_library(RDM
 target_include_directories(RDM PUBLIC ${RDM_INCLUDE})
 target_link_libraries(RDM PUBLIC EtcPal)
 
+# Installation
+install(TARGETS RDM ARCHIVE DESTINATION lib)
+install(DIRECTORY ${RDM_ROOT}/include/rdm DESTINATION include FILES_MATCHING PATTERN "*.h")
+
 ############################### RDM mock library ##############################
 
 # if(RDM_BUILD_MOCK_LIB)
