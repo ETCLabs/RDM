@@ -682,29 +682,29 @@
 
 /********************************************************************************************************************************/
 /********************************************************************************************************************************/
-/* BSR E1.37-7 DEFINES */
+/* ANSI E1.37-7 DEFINES */
 /********************************************************************************************************************************/
 /********************************************************************************************************************************/
 
 /********************************************************/
 /* E1.37-7 Table A-1: RDM Parameter ID Defines          */
 /********************************************************/
-#define E137_7_ENDPOINT_LIST                             0x7FD3
-#define E137_7_ENDPOINT_LIST_CHANGE                      0x7FEE
-#define E137_7_IDENTIFY_ENDPOINT                         0x7FE9
-#define E137_7_ENDPOINT_TO_UNIVERSE                      0x7FE1
-#define E137_7_RDM_TRAFFIC_ENABLE                        0x7FE2
-#define E137_7_ENDPOINT_MODE                             0x7FE3
-#define E137_7_ENDPOINT_LABEL                            0x7FE4
-#define E137_7_DISCOVERY_STATE                           0x7FE5
-#define E137_7_BACKGROUND_DISCOVERY                      0x7FEA
-#define E137_7_ENDPOINT_TIMING                           0x7FE6
-#define E137_7_ENDPOINT_TIMING_DESCRIPTION               0x7FE7
-#define E137_7_ENDPOINT_RESPONDER_LIST_CHANGE            0x7FEB
-#define E137_7_ENDPOINT_RESPONDERS                       0x7FEC
-#define E137_7_BINDING_AND_CONTROL_FIELDS                0x7FE8
-#define E137_7_BACKGROUND_QUEUED_STATUS_POLICY           0x7FD0
-#define E137_7_BACKGROUND_QUEUED_STATUS_POLICY_DESCRIPTION 0x7FD1
+#define E137_7_ENDPOINT_LIST                             0x0900
+#define E137_7_ENDPOINT_LIST_CHANGE                      0x0901
+#define E137_7_IDENTIFY_ENDPOINT                         0x0902
+#define E137_7_ENDPOINT_TO_UNIVERSE                      0x0903
+#define E137_7_ENDPOINT_MODE                             0x0904
+#define E137_7_ENDPOINT_LABEL                            0x0905
+#define E137_7_RDM_TRAFFIC_ENABLE                        0x0906
+#define E137_7_DISCOVERY_STATE                           0x0907
+#define E137_7_BACKGROUND_DISCOVERY                      0x0908
+#define E137_7_ENDPOINT_TIMING                           0x0909
+#define E137_7_ENDPOINT_TIMING_DESCRIPTION               0x090A
+#define E137_7_ENDPOINT_RESPONDERS                       0x090B
+#define E137_7_ENDPOINT_RESPONDER_LIST_CHANGE            0x090C
+#define E137_7_BINDING_CONTROL_FIELDS                    0x090D
+#define E137_7_BACKGROUND_QUEUED_STATUS_POLICY           0x090E
+#define E137_7_BACKGROUND_QUEUED_STATUS_POLICY_DESCRIPTION 0x090F
 
 /********************************************************/
 /* E1.37-7 Table A-2: Discovery State Defines           */
@@ -715,7 +715,13 @@
 #define E137_7_DISCOVERY_NOT_ACTIVE                      0x04
 
 /********************************************************/
-/* Table A-11: Endpoint Mode Defines                    */
+/* E1.37-7 Table A-3: Discovery Status Defines          */
+/********************************************************/
+#define E137_7_DISCOVERY_COUNT_INCOMPLETE                0x0000
+#define E137_7_DISCOVERY_COUNT_UNKNOWN                   0xFFFF
+
+/********************************************************/
+/* E1.37-7 Table A-4: Endpoint Mode Defines             */
 /********************************************************/
 #define E137_7_ENDPOINT_MODE_DISABLED                    0x00
 #define E137_7_ENDPOINT_MODE_INPUT                       0x01
@@ -732,5 +738,5 @@
 /********************************************************/
 #define E137_7_NR_ACTION_NOT_SUPPORTED                   0x000B /* The specified action is not supported. */
 #define E137_7_NR_ENDPOINT_NUMBER_INVALID                0x000C /* The specified endpoint is invalid. */
-#define E137_7_NR_INVALID_ENDPOINT_MODE                  0x000D
-#define E137_7_NR_UNKNOWN_UID                            0x000E
+#define E137_7_NR_INVALID_ENDPOINT_MODE                  0x000D /* The specified endpoint is in an invalid Endpoint Mode for the requested action. */
+#define E137_7_NR_UNKNOWN_UID                            0x000E /* The specified UID is not recognized. */
