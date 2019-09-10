@@ -2,7 +2,8 @@
  * http://www.rdmprotocol.org. The file has the following changes from the original version:
  *
  *  - File renamed to rdm/defs.h
- *  - BSR E1.37-7 definitions added (NOTE: DRAFT VALUES, WILL CHANGE, USE WITH CAUTION)
+ *  - BSR E1.37-7 definitions added
+ *  - clang-format off directive added
  *
  * Used per the terms of the original copyright notice, which can be found below.
  */
@@ -29,6 +30,8 @@
 /* Permission to use, copy, modify, and distribute this software */
 /* is freely granted, provided that this notice is preserved.    */
 /*****************************************************************/
+
+/* clang-format off */
 
 /* Protocol version. */
 #define E120_PROTOCOL_VERSION                             0x0100
