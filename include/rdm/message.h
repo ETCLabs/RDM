@@ -103,6 +103,13 @@ typedef struct RdmBuffer
  */
 #define RDM_GET_TRANSACTION_NUM(rdmbufptr) ((rdmbufptr)->data[RDM_OFFSET_TRANSACTION])
 
+/*! A structure that represents packed parameter data. */
+typedef struct RdmParamData
+{
+  uint8_t data[RDM_MAX_PDL]; /*!< The parameter data. */
+  size_t datalen;            /*!< The length of the parameter data. */
+} RdmParamData;
+
 /*! A structure that represents an RDM command message. */
 typedef struct RdmCommand
 {
@@ -121,10 +128,8 @@ typedef struct RdmCommand
   /*! The RDM Parameter ID of this command. One of the values from E1.20 Table A-3, or any of the
    *  relevant extension standards. */
   uint16_t param_id;
-  /*! The length of the parameter data. */
-  uint8_t datalen;
   /*! The parameter data. */
-  uint8_t data[RDM_MAX_PDL];
+  RdmParamData parameter_data;
 } RdmCommand;
 
 /*! A structure that represents an RDM response message. */
@@ -147,10 +152,8 @@ typedef struct RdmResponse
   /*! The RDM Parameter ID of this response. One of the values from E1.20 Table A-3, or any of the
    *  relevant extension standards. */
   uint16_t param_id;
-  /*! The length of the parameter data. */
-  uint8_t datalen;
   /*! The parameter data. */
-  uint8_t data[RDM_MAX_PDL];
+  RdmParamData parameter_data;
 } RdmResponse;
 
 #ifdef __cplusplus

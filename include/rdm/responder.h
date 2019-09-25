@@ -80,6 +80,80 @@ etcpal_error_t rdmresp_unpack_command(const RdmBuffer *buffer, RdmCommand *cmd);
 bool rdmresp_is_non_disc_command(const RdmBuffer *buffer);
 etcpal_error_t rdmresp_pack_response(const RdmResponse *resp_data, RdmBuffer *buffer);
 
+typedef enum
+{
+  kRespAck = E120_RESPONSE_TYPE_ACK,
+  kRespAckTimer = E120_RESPONSE_TYPE_ACK_TIMER,
+  kRespNackReason = E120_RESPONSE_TYPE_NACK_REASON,
+  kRespAckOverflow = E120_RESPONSE_TYPE_ACK_OVERFLOW,
+  kRespNoSend
+} resp_process_result_t;
+
+typedef struct PidHandlerData
+{
+  uint8_t port;
+  uint8_t cmd_class;
+  uint8_t sub_device;
+  size_t overflow_index;
+
+  const RdmParamData *pd_in;
+  RdmParamData *pd_out;
+} PidHandlerData;
+
+typedef struct RdmPidHandlerEntry
+{
+  uint16_t pid;
+  resp_process_result_t (*handler)(PidHandlerData *data);
+  int flags;
+} RdmPidHandlerEntry;
+
+typedef struct GetNextQueueMessageData
+{
+  uint8_t port;
+  uint8_t status_type;
+  uint8_t *response_type;
+  uint16_t *sub_device;
+  uint8_t *cmd_class;
+  uint16_t *param_id;
+  RdmParamData *pd;
+} GetNextQueueMessageData;
+
+typedef struct RdmResponderState
+{
+  uint8_t port_number;
+  RdmUid uid;
+  uint8_t number_of_subdevices;
+
+  RdmPidHandlerEntry *handler_array;
+  size_t handler_array_size;
+
+  uint8_t (*get_message_count)();
+  void (*get_next_queue_message)(GetNextQueueMessageData *data);
+
+} RdmResponderState;
+
+bool rdmresp_init(const RdmResponderState *state);
+
+typedef enum
+{
+  kRespValid,
+  kRespInvalidRdm,
+  kRespNotRdm
+} resp_valid_result_t;
+resp_valid_result_t rdmresp_validate_packet(const RdmBuffer *buffer, uint8_t calc_checksum);
+
+resp_process_result_t rdmresp_process_packet(const RdmResponderState *state, const RdmBuffer *bufferIn,
+                                             RdmBuffer *bufferOut, bool *no_break);
+
+resp_process_result_t rdmresp_process_packet_shared_buffer(const RdmResponderState *state, RdmBuffer *bufferInOut,
+                                                           bool *no_break);
+
+resp_process_result_t rdmresp_process_command(const RdmResponderState *state, const RdmCommand *pcmd,
+                                              RdmResponse *presp);
+
+resp_process_result_t rdmresp_process_command_with_discovery(const RdmResponderState *state, const RdmCommand *pcmd,
+                                                             RdmBuffer *bufferOut, bool *no_break);
+
 #ifdef __cplusplus
 };
 #endif
