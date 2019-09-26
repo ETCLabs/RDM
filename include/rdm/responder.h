@@ -68,8 +68,8 @@
     (nack_resp)->command_class =                                                                          \
         ((cmd)->command_class == kRdmCCSetCommand ? kRdmCCSetCommandResponse : kRdmCCGetCommandResponse); \
     (nack_resp)->param_id = (cmd)->param_id;                                                              \
-    (nack_resp)->datalen = 2;                                                                             \
-    etcpal_pack_16b((nack_resp)->data, nack_reason);                                                        \
+    (nack_resp)->parameter_data.datalen = 2;                                                                             \
+    etcpal_pack_16b((nack_resp)->parameter_data.data, nack_reason);                                                        \
   } while (0)
 
 #ifdef __cplusplus
@@ -140,19 +140,19 @@ typedef enum
   kRespInvalidRdm,
   kRespNotRdm
 } resp_valid_result_t;
-resp_valid_result_t rdmresp_validate_packet(const RdmBuffer *buffer, uint8_t calc_checksum);
+resp_valid_result_t rdmresp_validate_packet(const RdmBufferRef buffer, uint8_t calc_checksum);
 
-resp_process_result_t rdmresp_process_packet(const RdmResponderState *state, const RdmBuffer *bufferIn,
-                                             RdmBuffer *bufferOut, bool *no_break);
+resp_process_result_t rdmresp_process_packet(const RdmResponderState *state, const RdmBufferRef bufferIn,
+                                             RdmBufferRef bufferOut, bool *no_break);
 
-resp_process_result_t rdmresp_process_packet_shared_buffer(const RdmResponderState *state, RdmBuffer *bufferInOut,
+resp_process_result_t rdmresp_process_packet_shared_buffer(const RdmResponderState *state, RdmBufferRef bufferInOut,
                                                            bool *no_break);
 
 resp_process_result_t rdmresp_process_command(const RdmResponderState *state, const RdmCommand *pcmd,
                                               RdmResponse *presp);
 
 resp_process_result_t rdmresp_process_command_with_discovery(const RdmResponderState *state, const RdmCommand *pcmd,
-                                                             RdmBuffer *bufferOut, bool *no_break);
+                                                             RdmBufferRef bufferOut, bool *no_break);
 
 #ifdef __cplusplus
 };

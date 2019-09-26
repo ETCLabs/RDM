@@ -103,6 +103,18 @@ typedef struct RdmBuffer
  */
 #define RDM_GET_TRANSACTION_NUM(rdmbufptr) ((rdmbufptr)->data[RDM_OFFSET_TRANSACTION])
 
+/*! A structure that represents a reference to a packed RDM message. */
+typedef struct RdmBufferRef
+{
+  uint8_t *data;  /*!< Points to the RDM message bytes. */
+  size_t datalen; /*!< The length of the RDM message. */
+} RdmBufferRef;
+
+#define RDM_REF_FROM_BUFFER(buffer) \
+  {                                 \
+    buffer.data, buffer.datalen     \
+  }
+
 /*! A structure that represents packed parameter data. */
 typedef struct RdmParamData
 {

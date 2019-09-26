@@ -77,8 +77,8 @@ etcpal_error_t rdmresp_unpack_command(const RdmBuffer *buffer, RdmCommand *cmd)
   cmd->command_class = (rdm_command_class_t)*cur_ptr++;
   cmd->param_id = etcpal_upack_16b(cur_ptr);
   cur_ptr += 2;
-  cmd->datalen = *cur_ptr++;
-  memcpy(cmd->data, cur_ptr, cmd->datalen);
+  cmd->parameter_data.datalen = *cur_ptr++;
+  memcpy(cmd->parameter_data.data, cur_ptr, cmd->parameter_data.datalen);
   return kEtcPalErrOk;
 }
 
@@ -116,11 +116,11 @@ etcpal_error_t rdmresp_pack_response(const RdmResponse *resp_data, RdmBuffer *bu
   /* Check for invalid parameters */
   if (!resp_data || !buffer)
     return kEtcPalErrInvalid;
-  if (resp_data->datalen > RDM_MAX_PDL)
+  if (resp_data->parameter_data.datalen > RDM_MAX_PDL)
     return kEtcPalErrMsgSize;
 
   cur_ptr = buffer->data;
-  rdm_length = resp_data->datalen + RDM_HEADER_SIZE;
+  rdm_length = resp_data->parameter_data.datalen + RDM_HEADER_SIZE;
 
   /* Pack the header and data into the buffer */
   *cur_ptr++ = E120_SC_RDM;
@@ -142,8 +142,8 @@ etcpal_error_t rdmresp_pack_response(const RdmResponse *resp_data, RdmBuffer *bu
   *cur_ptr++ = (uint8_t)resp_data->command_class;
   etcpal_pack_16b(cur_ptr, resp_data->param_id);
   cur_ptr += 2;
-  *cur_ptr++ = resp_data->datalen;
-  memcpy(cur_ptr, resp_data->data, resp_data->datalen);
+  *cur_ptr++ = resp_data->parameter_data.datalen;
+  memcpy(cur_ptr, resp_data->parameter_data.data, resp_data->parameter_data.datalen);
 
   /* pack checksum and set packet length */
   rdm_pack_checksum(buffer->data, rdm_length);
