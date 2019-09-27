@@ -89,12 +89,21 @@ typedef enum
   kRespNoSend
 } resp_process_result_t;
 
+typedef enum
+{
+  kRespTypeRDM,
+  kRespTypeController,
+  kRespTypeBroker,
+  kRespTypeDevice
+} resp_type_t;
+
 typedef struct PidHandlerData
 {
   uint8_t port;
   uint8_t cmd_class;
   uint8_t sub_device;
   size_t overflow_index;
+  void *context;
 
   const RdmParamData *pd_in;
   RdmParamData *pd_out;
@@ -123,8 +132,10 @@ typedef struct RdmResponderState
   uint8_t port_number;
   RdmUid uid;
   uint8_t number_of_subdevices;
+  resp_type_t responder_type;
+  void *callback_context;
 
-  RdmPidHandlerEntry *handler_array;
+  const RdmPidHandlerEntry *handler_array;
   size_t handler_array_size;
 
   uint8_t (*get_message_count)();
@@ -132,6 +143,7 @@ typedef struct RdmResponderState
 
 } RdmResponderState;
 
+void rdmresp_sort_handler_array(RdmPidHandlerEntry *handler_array, size_t handler_array_size);
 bool rdmresp_init(const RdmResponderState *state);
 
 typedef enum
