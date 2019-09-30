@@ -72,6 +72,16 @@
     etcpal_pack_16b((nack_resp)->parameter_data.data, nack_reason);                                                        \
   } while (0)
 
+/*! \brief Parameter support flag definitions.
+ */
+#define RDM_PS_ROOT 0x00000001
+#define RDM_PS_SUBS 0x00000002
+#define RDM_PS_ALL (RDM_PS_ROOT | RDM_PS_SUBS)
+#define RDM_PS_SHOWSUP 0x80000000
+#define RDM_PS_GET 0x40000000
+#define RDM_PS_SET 0x20000000
+#define RDM_PS_GET_SET (RDM_PS_GET | RDM_PS_SET)
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -113,7 +123,7 @@ typedef struct RdmPidHandlerEntry
 {
   uint16_t pid;
   resp_process_result_t (*handler)(PidHandlerData *data);
-  int flags;
+  uint32_t flags;
 } RdmPidHandlerEntry;
 
 typedef struct GetNextQueueMessageData
@@ -144,7 +154,7 @@ typedef struct RdmResponderState
 } RdmResponderState;
 
 void rdmresp_sort_handler_array(RdmPidHandlerEntry *handler_array, size_t handler_array_size);
-bool rdmresp_init(const RdmResponderState *state);
+bool rdmresp_validate_state(const RdmResponderState *state);
 
 typedef enum
 {
