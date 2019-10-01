@@ -157,3 +157,42 @@ static bool rdm_resp_data_valid(const RdmResponse *resp_data)
   return (!RDM_UID_IS_BROADCAST(&resp_data->source_uid) && RDMRESP_RESP_TYPE_VALID(resp_data->resp_type) &&
           RDMRESP_COMMAND_CLASS_VALID(resp_data->command_class));
 }
+
+void rdmresp_sort_handler_array(RdmPidHandlerEntry *handler_array, size_t handler_array_size)
+{
+  // TODO: Not yet implemented
+}
+
+bool rdmresp_validate_state(const RdmResponderState *state)
+{
+  return false;  // TODO: Not yet implemented
+}
+
+resp_valid_result_t rdmresp_validate_packet(RdmBufferConstRef buffer, uint8_t calc_checksum)
+{
+  return kRespInvalidRdm;  // TODO: Not yet implemented
+}
+
+resp_process_result_t rdmresp_process_packet(const RdmResponderState *state, RdmBufferConstRef bufferIn,
+                                             RdmBufferRef bufferOut, bool *no_break)
+{
+  return kRespNoSend;  // TODO: Not yet implemented
+}
+
+resp_process_result_t rdmresp_process_packet_shared_buffer(const RdmResponderState *state, RdmBufferRef bufferInOut,
+                                                           bool *no_break)
+{
+  return kRespNoSend;  // TODO: Not yet implemented
+}
+
+resp_process_result_t rdmresp_process_command(const RdmResponderState *state, const RdmCommand *pcmd,
+                                              RdmResponse *presp)
+{
+  return kRespNoSend;  // TODO: Not yet implemented
+}
+
+resp_process_result_t rdmresp_process_command_with_discovery(const RdmResponderState *state, const RdmCommand *pcmd,
+                                                             RdmBufferRef bufferOut, bool *no_break)
+{
+  return kRespNoSend;  // TODO: Not yet implemented
+}

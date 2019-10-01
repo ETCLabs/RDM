@@ -110,6 +110,13 @@ typedef struct RdmBufferRef
   size_t datalen; /*!< The length of the RDM message. */
 } RdmBufferRef;
 
+/*! A structure that represents a const reference to a packed RDM message. */
+typedef struct RdmBufferConstRef
+{
+  const uint8_t *data;  /*!< Points to the RDM message bytes. */
+  size_t datalen; /*!< The length of the RDM message. */
+} RdmBufferConstRef;
+
 #define RDM_REF_FROM_BUFFER(buffer) \
   {                                 \
     buffer.data, buffer.datalen     \

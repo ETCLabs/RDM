@@ -162,9 +162,9 @@ typedef enum
   kRespInvalidRdm,
   kRespNotRdm
 } resp_valid_result_t;
-resp_valid_result_t rdmresp_validate_packet(const RdmBufferRef buffer, uint8_t calc_checksum);
+resp_valid_result_t rdmresp_validate_packet(RdmBufferConstRef buffer, uint8_t calc_checksum);
 
-resp_process_result_t rdmresp_process_packet(const RdmResponderState *state, const RdmBufferRef bufferIn,
+resp_process_result_t rdmresp_process_packet(const RdmResponderState *state, RdmBufferConstRef bufferIn,
                                              RdmBufferRef bufferOut, bool *no_break);
 
 resp_process_result_t rdmresp_process_packet_shared_buffer(const RdmResponderState *state, RdmBufferRef bufferInOut,
