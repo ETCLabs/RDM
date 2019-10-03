@@ -38,14 +38,14 @@
 #define RDM_VERSION_MAJOR 0 /*!< The major version. */
 #define RDM_VERSION_MINOR 2 /*!< The minor version. */
 #define RDM_VERSION_PATCH 0 /*!< The patch version. */
-#define RDM_VERSION_BUILD 3 /*!< The build number. */
+#define RDM_VERSION_BUILD 4 /*!< The build number. */
 /*!@}*/
 
 /*! \name RDM version strings
  *  @{
  */
-#define RDM_VERSION_STRING "0.2.0.3"
-#define RDM_VERSION_DATESTR "10.Sep.2019"
+#define RDM_VERSION_STRING "0.2.0.4"
+#define RDM_VERSION_DATESTR "03.Oct.2019"
 #define RDM_VERSION_COPYRIGHT "Copyright 2019 ETC Inc."
 #define RDM_VERSION_PRODUCTNAME "RDM"
 /*!@}*/
