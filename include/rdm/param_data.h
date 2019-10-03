@@ -73,7 +73,9 @@ typedef enum
   kRdmPdDtUnsignedWord = 0x05,
   kRdmPdDtSignedWord = 0x06,
   kRdmPdDtUnsignedDword = 0x07,
-  kRdmPdDtSignedDword = 0x08
+  kRdmPdDtSignedDword = 0x08,
+  kRdmPdDtManuSpecificStart = 0x80,
+  kRdmPdDtManuSpecificEnd = 0xdf
 } rdmpd_data_type_t;
 
 /*! Command class enumeration (get, set, or both) */
@@ -84,16 +86,75 @@ typedef enum
   kRdmPdCcGetSet = 0x03
 } rdmpd_param_desc_cc_t;
 
+typedef enum
+{
+  kRdmPdSuNone = 0x00,
+  kRdmPdSuCentigrade = 0x01,
+  kRdmPdSuVoltsDc = 0x02,
+  kRdmPdSuVoltsAcPeak = 0x03,
+  kRdmPdSuVoltsAcRms = 0x04,
+  kRdmPdSuAmpereDc = 0x05,
+  kRdmPdSuAmpereAcPeak = 0x06,
+  kRdmPdSuAmpereAcRms = 0x07,
+  kRdmPdSuHertz = 0x08,
+  kRdmPdSuOhm = 0x09,
+  kRdmPdSuWatt = 0x0a,
+  kRdmPdSuKilogram = 0x0b,
+  kRdmPdSuMeters = 0x0c,
+  kRdmPdSuMetersSquared = 0x0d,
+  kRdmPdSuMetersCubed = 0x0e,
+  kRdmPdSuKilogrammesPerMeterCubed = 0x0f,
+  kRdmPdSuMetersPerSecond = 0x10,
+  kRdmPdSuMetersPerSecondSquared = 0x11,
+  kRdmPdSuNewton = 0x12,
+  kRdmPdSuJoule = 0x13,
+  kRdmPdSuPascal = 0x14,
+  kRdmPdSuSecond = 0x15,
+  kRdmPdSuDegree = 0x16,
+  kRdmPdSuSteradian = 0x17,
+  kRdmPdSuCandela = 0x18,
+  kRdmPdSuLumen = 0x19,
+  kRdmPdSuLux = 0x1a,
+  kRdmPdSuIre = 0x1b,
+  kRdmPdSuByte = 0x1c,
+  kRdmPdSuManuSpecificStart = 0x80,
+  kRdmPdSuManuSpecificEnd = 0xdf
+} rdmpd_sensor_unit_t;
+
+typedef enum
+{
+  kRdmPdSuPfxNone = 0x00,
+  kRdmPdSuPfxDeci = 0x01,
+  kRdmPdSuPfxCenti = 0x02,
+  kRdmPdSuPfxMilli = 0x03,
+  kRdmPdSuPfxMicro = 0x04,
+  kRdmPdSuPfxNano = 0x05,
+  kRdmPdSuPfxPico = 0x06,
+  kRdmPdSuPfxFempto = 0x07,
+  kRdmPdSuPfxAtto = 0x08,
+  kRdmPdSuPfxZepto = 0x09,
+  kRdmPdSuPfxYocto = 0x0a,
+  kRdmPdSuPfxDeca = 0x11,
+  kRdmPdSuPfxHecto = 0x12,
+  kRdmPdSuPfxKilo = 0x13,
+  kRdmPdSuPfxMega = 0x14,
+  kRdmPdSuPfxGiga = 0x15,
+  kRdmPdSuPfxTerra = 0x16,
+  kRdmPdSuPfxPeta = 0x17,
+  kRdmPdSuPfxExa = 0x18,
+  kRdmPdSuPfxZetta = 0x19,
+  kRdmPdSuPfxYotta = 0x1a
+} rdmpd_sensor_unit_prefix_t;
+
 /*! A structure representing a parameter description. */
 typedef struct RdmPdParameterDescription
 {
   uint16_t pid_number_requested; /*!< The manufacturer specific PID requested by the controller. */
-  uint8_t
-      pdl_size; /*!< The number used for the PDL field in all GET_RESPONSE and SET messages associated with this PID. */
+  uint8_t pdl_size; /*!< The number used for the PDL field in all GET_RESPONSE and SET messages for this PID. */
   rdmpd_data_type_t data_type;         /*!< The size of the data entries in the PD of the message for this PID. */
   rdmpd_param_desc_cc_t command_class; /*!< Whether Get and or Set messages are implemented for the specified PID. */
-  uint8_t unit;                        /*!< The SI (International System of units) unit of the specified PID data. */
-  uint8_t prefix;                      /*!< The SI Prefix and multiplication factor of the units. */
+  rdmpd_sensor_unit_t unit;            /*!< The SI (International System of units) unit of the specified PID data. */
+  rdmpd_sensor_unit_prefix_t prefix;   /*!< The SI Prefix and multiplication factor of the units. */
   uint32_t min_valid_value;            /*!< The lowest value the data can reach. */
   uint32_t max_valid_value;            /*!< The highest value the data can reach. */
   uint32_t default_value;              /*!< The default value of the data. */
@@ -178,10 +239,17 @@ etcpal_error_t rdmpd_unpack_set_tcp_comms_status(const RdmParamData *pd, RdmPdSc
 etcpal_error_t rdmpd_pack_set_tcp_comms_status(const RdmPdScopeString *scope, RdmParamData *pd_out);
 
 // Get/Set BROKER_STATUS
+typedef enum
+{
+  kRdmPdBrokerStateDisabled = 0x00,
+  kRdmPdBrokerStateActive = 0x01,
+  kRdmPdBrokerStateStandby = 0x02
+} rdmpd_broker_state_t;
+
 typedef struct RdmPdBrokerStatus
 {
   bool set_allowed;
-  uint8_t broker_state;
+  rdmpd_broker_state_t broker_state;
 } RdmPdBrokerStatus;
 
 etcpal_error_t rdmpd_unpack_get_resp_broker_status(const RdmParamData *pd, RdmPdBrokerStatus *status_out);
@@ -191,10 +259,16 @@ etcpal_error_t rdmpd_pack_set_broker_status(uint8_t broker_state, RdmParamData *
 
 /* e1.37-7 Table A-1: RDM Parameter ID Defines */
 // Get ENDPOINT_LIST
+typedef enum
+{
+  kRdmPdEndptTypeVirtual = 0x00,
+  kRdmPdEndptTypePhysical = 0x01
+} rdmpd_endpoint_type_t;
+
 typedef struct RdmPdEndpointListEntry
 {
   uint16_t endpoint_id;
-  uint8_t endpoint_type;
+  rdmpd_endpoint_type_t endpoint_type;
 } RdmPdEndpointListEntry;
 
 /*! The maximum number of 24-bit endpoint list entries in an ACK (not overflow) response. */
@@ -260,10 +334,17 @@ etcpal_error_t rdmpd_unpack_set_resp_endpt_to_universe(const RdmParamData *pd, u
 etcpal_error_t rdmpd_pack_set_resp_endpt_to_universe(uint16_t endpt_id, RdmParamData *pd_out);
 
 // Get/Set ENDPOINT_MODE
+typedef enum
+{
+  kRdmPdEndptModeDisabled = 0x00,
+  kRdmPdEndptModeInput = 0x01,
+  kRdmPdEndptModeOutput = 0x02
+} rdmpd_endpoint_mode_t;
+
 typedef struct RdmPdEndpointMode
 {
   uint16_t endpoint_id;
-  uint8_t endpoint_mode;
+  rdmpd_endpoint_mode_t endpoint_mode;
 } RdmPdEndpointMode;
 
 etcpal_error_t rdmpd_unpack_get_endpt_mode(const RdmParamData *pd, uint16_t *endpt_id_out);
@@ -308,10 +389,20 @@ etcpal_error_t rdmpd_unpack_set_resp_traffic_enable(const RdmParamData *pd, uint
 etcpal_error_t rdmpd_pack_set_resp_traffic_enable(uint16_t endpt_id, RdmParamData *pd_out);
 
 // Get/Set DISCOVERY_STATE
+typedef enum
+{
+  kRdmPdDsDiscoveryIncomplete = 0x00,
+  kRdmPdDsDiscoveryIncremental = 0x01,
+  kRdmPdDsDiscoveryFull = 0x02,
+  kRdmPdDsDiscoveryNotActive = 0x04,
+  kRdmPdDsManuSpecificStart = 0x80,
+  kRdmPdDsManuSpecificEnd = 0xdf
+} rdmpd_discovery_state_t;
+
 typedef struct RdmPdDiscoveryState
 {
   uint16_t endpoint_id;
-  uint8_t discovery_state;
+  rdmpd_discovery_state_t discovery_state;
 } RdmPdDiscoveryState;
 
 typedef struct RdmPdDeviceCountDiscState
@@ -450,9 +541,19 @@ etcpal_error_t rdmpd_pack_get_resp_binding_control_fields(const RdmPdBindingCont
                                                           RdmParamData *pd_out);
 
 // Get/Set BACKGROUND_QUEUED_STATUS_POLICY
+typedef enum
+{
+  kRdmPdBqspsStatusNone = 0x00,
+  kRdmPdBqspsStatusAdvisory = 0x01,
+  kRdmPdBqspsStatusWarning = 0x02,
+  kRdmPdBqspsStatusError = 0x03,
+  kRdmPdBqspsManuSpecificStart = 0x04,
+  kRdmPdBqspsManuSpecificEnd = 0xff
+} rdmpd_backgnd_qd_status_policy_setting_t;
+
 typedef struct RdmPdBackgroundQdStatusPolicy
 {
-  uint8_t current_policy_setting;
+  rdmpd_backgnd_qd_status_policy_setting_t current_policy_setting;
   uint8_t num_policy_settings;
 } RdmPdBackgroundQdStatusPolicy;
 
@@ -460,18 +561,22 @@ etcpal_error_t rdmpd_unpack_get_resp_backgnd_qd_status_policy(const RdmParamData
                                                               RdmPdBackgroundQdStatusPolicy *policy_out);
 etcpal_error_t rdmpd_pack_get_resp_backgnd_qd_status_policy(const RdmPdBackgroundQdStatusPolicy *policy,
                                                             RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_backgnd_qd_status_policy(const RdmParamData *pd, uint8_t *policy_out);
-etcpal_error_t rdmpd_pack_set_backgnd_qd_status_policy(uint8_t policy, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_set_backgnd_qd_status_policy(const RdmParamData *pd,
+                                                         rdmpd_backgnd_qd_status_policy_setting_t *policy_out);
+etcpal_error_t rdmpd_pack_set_backgnd_qd_status_policy(rdmpd_backgnd_qd_status_policy_setting_t policy,
+                                                       RdmParamData *pd_out);
 
 // Get BACKGROUND_QUEUED_STATUS_POLICY_DESCRIPTION
 typedef struct RdmPdBkgndQdStatusPolicyDescription
 {
-  uint8_t policy_number_requested;
+  rdmpd_backgnd_qd_status_policy_setting_t policy_number_requested;
   RdmPdString description;
 } RdmPdBkgndQdStatusPolicyDescription;
 
-etcpal_error_t rdmpd_unpack_get_bkgnd_qd_status_policy_desc(const RdmParamData *pd, uint8_t *policy_out);
-etcpal_error_t rdmpd_pack_get_bkgnd_qd_status_policy_desc(uint8_t policy, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_bkgnd_qd_status_policy_desc(const RdmParamData *pd,
+                                                            rdmpd_backgnd_qd_status_policy_setting_t *policy_out);
+etcpal_error_t rdmpd_pack_get_bkgnd_qd_status_policy_desc(rdmpd_backgnd_qd_status_policy_setting_t policy,
+                                                          RdmParamData *pd_out);
 etcpal_error_t rdmpd_unpack_get_resp_bkgnd_qd_status_policy_desc(const RdmParamData *pd,
                                                                  RdmPdBkgndQdStatusPolicyDescription *description_out);
 etcpal_error_t rdmpd_pack_get_resp_bkgnd_qd_status_policy_desc(const RdmPdBkgndQdStatusPolicyDescription *description,

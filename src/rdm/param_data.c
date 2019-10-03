@@ -754,12 +754,14 @@ etcpal_error_t rdmpd_pack_get_resp_backgnd_qd_status_policy(const RdmPdBackgroun
   return kEtcPalErrNotImpl;  // TODO - Not yet implemented
 }
 
-etcpal_error_t rdmpd_unpack_set_backgnd_qd_status_policy(const RdmParamData *pd, uint8_t *policy_out)
+etcpal_error_t rdmpd_unpack_set_backgnd_qd_status_policy(const RdmParamData *pd,
+                                                         rdmpd_backgnd_qd_status_policy_setting_t *policy_out)
 {
   return kEtcPalErrNotImpl;  // TODO - Not yet implemented
 }
 
-etcpal_error_t rdmpd_pack_set_backgnd_qd_status_policy(uint8_t policy, RdmParamData *pd_out)
+etcpal_error_t rdmpd_pack_set_backgnd_qd_status_policy(rdmpd_backgnd_qd_status_policy_setting_t policy,
+                                                       RdmParamData *pd_out)
 {
   return kEtcPalErrNotImpl;  // TODO - Not yet implemented
 }
@@ -767,12 +769,14 @@ etcpal_error_t rdmpd_pack_set_backgnd_qd_status_policy(uint8_t policy, RdmParamD
 
 
 // Get BACKGROUND_QUEUED_STATUS_POLICY_DESCRIPTION
-etcpal_error_t rdmpd_unpack_get_bkgnd_qd_status_policy_desc(const RdmParamData *pd, uint8_t *policy_out)
+etcpal_error_t rdmpd_unpack_get_bkgnd_qd_status_policy_desc(const RdmParamData *pd,
+                                                            rdmpd_backgnd_qd_status_policy_setting_t *policy_out)
 {
   return kEtcPalErrNotImpl;  // TODO - Not yet implemented
 }
 
-etcpal_error_t rdmpd_pack_get_bkgnd_qd_status_policy_desc(uint8_t policy, RdmParamData *pd_out)
+etcpal_error_t rdmpd_pack_get_bkgnd_qd_status_policy_desc(rdmpd_backgnd_qd_status_policy_setting_t policy,
+                                                          RdmParamData *pd_out)
 {
   return kEtcPalErrNotImpl;  // TODO - Not yet implemented
 }
