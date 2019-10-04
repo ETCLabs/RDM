@@ -26,6 +26,7 @@
 #include "etcpal/bool.h"
 #include "etcpal/error.h"
 #include "etcpal/inet.h"
+#include "rdm/defs.h"
 #include "rdm/message.h"
 
 /*! The maximum length of a typical string in the parameter data, including one extra byte for a null terminator. */
@@ -65,15 +66,15 @@ etcpal_error_t rdmpd_pack_get_parameter_description(uint16_t requested_pid, RdmP
 /*! Data type enumeration */
 typedef enum
 {
-  kRdmPdDtNotDefined = 0x00,
-  kRdmPdDtBitField = 0x01,
-  kRdmPdDtAscii = 0x02,
-  kRdmPdDtUnsignedByte = 0x03,
-  kRdmPdDtSignedByte = 0x04,
-  kRdmPdDtUnsignedWord = 0x05,
-  kRdmPdDtSignedWord = 0x06,
-  kRdmPdDtUnsignedDword = 0x07,
-  kRdmPdDtSignedDword = 0x08,
+  kRdmPdDtNotDefined = E120_DS_NOT_DEFINED,
+  kRdmPdDtBitField = E120_DS_BIT_FIELD,
+  kRdmPdDtAscii = E120_DS_ASCII,
+  kRdmPdDtUnsignedByte = E120_DS_UNSIGNED_BYTE,
+  kRdmPdDtSignedByte = E120_DS_SIGNED_BYTE,
+  kRdmPdDtUnsignedWord = E120_DS_UNSIGNED_WORD,
+  kRdmPdDtSignedWord = E120_DS_SIGNED_WORD,
+  kRdmPdDtUnsignedDword = E120_DS_UNSIGNED_DWORD,
+  kRdmPdDtSignedDword = E120_DS_SIGNED_DWORD,
   kRdmPdDtManuSpecificStart = 0x80,
   kRdmPdDtManuSpecificEnd = 0xdf
 } rdmpd_data_type_t;
@@ -81,69 +82,69 @@ typedef enum
 /*! Command class enumeration (get, set, or both) */
 typedef enum
 {
-  kRdmPdCcGet = 0x01,
-  kRdmPdCcSet = 0x02,
-  kRdmPdCcGetSet = 0x03
+  kRdmPdCcGet = E120_CC_GET,
+  kRdmPdCcSet = E120_CC_SET,
+  kRdmPdCcGetSet = E120_CC_GET_SET
 } rdmpd_param_desc_cc_t;
 
 typedef enum
 {
-  kRdmPdSuNone = 0x00,
-  kRdmPdSuCentigrade = 0x01,
-  kRdmPdSuVoltsDc = 0x02,
-  kRdmPdSuVoltsAcPeak = 0x03,
-  kRdmPdSuVoltsAcRms = 0x04,
-  kRdmPdSuAmpereDc = 0x05,
-  kRdmPdSuAmpereAcPeak = 0x06,
-  kRdmPdSuAmpereAcRms = 0x07,
-  kRdmPdSuHertz = 0x08,
-  kRdmPdSuOhm = 0x09,
-  kRdmPdSuWatt = 0x0a,
-  kRdmPdSuKilogram = 0x0b,
-  kRdmPdSuMeters = 0x0c,
-  kRdmPdSuMetersSquared = 0x0d,
-  kRdmPdSuMetersCubed = 0x0e,
-  kRdmPdSuKilogrammesPerMeterCubed = 0x0f,
-  kRdmPdSuMetersPerSecond = 0x10,
-  kRdmPdSuMetersPerSecondSquared = 0x11,
-  kRdmPdSuNewton = 0x12,
-  kRdmPdSuJoule = 0x13,
-  kRdmPdSuPascal = 0x14,
-  kRdmPdSuSecond = 0x15,
-  kRdmPdSuDegree = 0x16,
-  kRdmPdSuSteradian = 0x17,
-  kRdmPdSuCandela = 0x18,
-  kRdmPdSuLumen = 0x19,
-  kRdmPdSuLux = 0x1a,
-  kRdmPdSuIre = 0x1b,
-  kRdmPdSuByte = 0x1c,
+  kRdmPdSuNone = E120_UNITS_NONE,
+  kRdmPdSuCentigrade = E120_UNITS_CENTIGRADE,
+  kRdmPdSuVoltsDc = E120_UNITS_VOLTS_DC,
+  kRdmPdSuVoltsAcPeak = E120_UNITS_VOLTS_AC_PEAK,
+  kRdmPdSuVoltsAcRms = E120_UNITS_VOLTS_AC_RMS,
+  kRdmPdSuAmpereDc = E120_UNITS_AMPERE_DC,
+  kRdmPdSuAmpereAcPeak = E120_UNITS_AMPERE_AC_PEAK,
+  kRdmPdSuAmpereAcRms = E120_UNITS_AMPERE_AC_RMS,
+  kRdmPdSuHertz = E120_UNITS_HERTZ,
+  kRdmPdSuOhm = E120_UNITS_OHM,
+  kRdmPdSuWatt = E120_UNITS_WATT,
+  kRdmPdSuKilogram = E120_UNITS_KILOGRAM,
+  kRdmPdSuMeters = E120_UNITS_METERS,
+  kRdmPdSuMetersSquared = E120_UNITS_METERS_SQUARED,
+  kRdmPdSuMetersCubed = E120_UNITS_METERS_CUBED,
+  kRdmPdSuKilogrammesPerMeterCubed = E120_UNITS_KILOGRAMMES_PER_METER_CUBED,
+  kRdmPdSuMetersPerSecond = E120_UNITS_METERS_PER_SECOND,
+  kRdmPdSuMetersPerSecondSquared = E120_UNITS_METERS_PER_SECOND_SQUARED,
+  kRdmPdSuNewton = E120_UNITS_NEWTON,
+  kRdmPdSuJoule = E120_UNITS_JOULE,
+  kRdmPdSuPascal = E120_UNITS_PASCAL,
+  kRdmPdSuSecond = E120_UNITS_SECOND,
+  kRdmPdSuDegree = E120_UNITS_DEGREE,
+  kRdmPdSuSteradian = E120_UNITS_STERADIAN,
+  kRdmPdSuCandela = E120_UNITS_CANDELA,
+  kRdmPdSuLumen = E120_UNITS_LUMEN,
+  kRdmPdSuLux = E120_UNITS_LUX,
+  kRdmPdSuIre = E120_UNITS_IRE,
+  kRdmPdSuByte = E120_UNITS_BYTE,
   kRdmPdSuManuSpecificStart = 0x80,
-  kRdmPdSuManuSpecificEnd = 0xdf
+  kRdmPdSuManuSpecificEnd = 0xff
 } rdmpd_sensor_unit_t;
 
 typedef enum
 {
-  kRdmPdSuPfxNone = 0x00,
-  kRdmPdSuPfxDeci = 0x01,
-  kRdmPdSuPfxCenti = 0x02,
-  kRdmPdSuPfxMilli = 0x03,
-  kRdmPdSuPfxMicro = 0x04,
-  kRdmPdSuPfxNano = 0x05,
-  kRdmPdSuPfxPico = 0x06,
-  kRdmPdSuPfxFempto = 0x07,
-  kRdmPdSuPfxAtto = 0x08,
-  kRdmPdSuPfxZepto = 0x09,
-  kRdmPdSuPfxYocto = 0x0a,
-  kRdmPdSuPfxDeca = 0x11,
-  kRdmPdSuPfxHecto = 0x12,
-  kRdmPdSuPfxKilo = 0x13,
-  kRdmPdSuPfxMega = 0x14,
-  kRdmPdSuPfxGiga = 0x15,
-  kRdmPdSuPfxTerra = 0x16,
-  kRdmPdSuPfxPeta = 0x17,
-  kRdmPdSuPfxExa = 0x18,
-  kRdmPdSuPfxZetta = 0x19,
-  kRdmPdSuPfxYotta = 0x1a
+  kRdmPdSuPfxNone = E120_PREFIX_NONE,
+  kRdmPdSuPfxDeci = E120_PREFIX_DECI,
+  kRdmPdSuPfxCenti = E120_PREFIX_CENTI,
+  kRdmPdSuPfxMilli = E120_PREFIX_MILLI,
+  kRdmPdSuPfxMicro = E120_PREFIX_MICRO,
+  kRdmPdSuPfxNano = E120_PREFIX_NANO,
+  kRdmPdSuPfxPico = E120_PREFIX_PICO,
+  kRdmPdSuPfxFempto = E120_PREFIX_FEMPTO,
+  kRdmPdSuPfxAtto = E120_PREFIX_ATTO,
+  kRdmPdSuPfxZepto = E120_PREFIX_ZEPTO,
+  kRdmPdSuPfxYocto = E120_PREFIX_YOCTO,
+  kRdmPdSuPfxDeca = E120_PREFIX_DECA,
+  kRdmPdSuPfxHecto = E120_PREFIX_HECTO,
+  kRdmPdSuPfxKilo = E120_PREFIX_KILO,
+  kRdmPdSuPfxMega = E120_PREFIX_MEGA,
+  kRdmPdSuPfxGiga = E120_PREFIX_GIGA,
+  kRdmPdSuPfxTerra = E120_PREFIX_TERRA,
+  kRdmPdSuPfxPeta = E120_PREFIX_PETA,
+  kRdmPdSuPfxExa = E120_PREFIX_EXA,
+  kRdmPdSuPfxZetta = E120_PREFIX_ZETTA,
+  kRdmPdSuPfxYotta = E120_PREFIX_YOTTA
 } rdmpd_sensor_unit_prefix_t;
 
 /*! A structure representing a parameter description. */
@@ -261,8 +262,8 @@ etcpal_error_t rdmpd_pack_set_broker_status(uint8_t broker_state, RdmParamData *
 // Get ENDPOINT_LIST
 typedef enum
 {
-  kRdmPdEndptTypeVirtual = 0x00,
-  kRdmPdEndptTypePhysical = 0x01
+  kRdmPdEndptTypeVirtual = E137_7_ENDPOINT_TYPE_VIRTUAL,
+  kRdmPdEndptTypePhysical = E137_7_ENDPOINT_TYPE_PHYSICAL
 } rdmpd_endpoint_type_t;
 
 typedef struct RdmPdEndpointListEntry
@@ -336,9 +337,9 @@ etcpal_error_t rdmpd_pack_set_resp_endpt_to_universe(uint16_t endpt_id, RdmParam
 // Get/Set ENDPOINT_MODE
 typedef enum
 {
-  kRdmPdEndptModeDisabled = 0x00,
-  kRdmPdEndptModeInput = 0x01,
-  kRdmPdEndptModeOutput = 0x02
+  kRdmPdEndptModeDisabled = E137_7_ENDPOINT_MODE_DISABLED,
+  kRdmPdEndptModeInput = E137_7_ENDPOINT_MODE_INPUT,
+  kRdmPdEndptModeOutput = E137_7_ENDPOINT_MODE_OUTPUT
 } rdmpd_endpoint_mode_t;
 
 typedef struct RdmPdEndpointMode
@@ -391,10 +392,10 @@ etcpal_error_t rdmpd_pack_set_resp_traffic_enable(uint16_t endpt_id, RdmParamDat
 // Get/Set DISCOVERY_STATE
 typedef enum
 {
-  kRdmPdDsDiscoveryIncomplete = 0x00,
-  kRdmPdDsDiscoveryIncremental = 0x01,
-  kRdmPdDsDiscoveryFull = 0x02,
-  kRdmPdDsDiscoveryNotActive = 0x04,
+  kRdmPdDsDiscoveryIncomplete = E137_7_DISCOVERY_INCOMPLETE,
+  kRdmPdDsDiscoveryIncremental = E137_7_DISCOVERY_INCREMENTAL,
+  kRdmPdDsDiscoveryFull = E137_7_DISCOVERY_FULL,
+  kRdmPdDsDiscoveryNotActive = E137_7_DISCOVERY_NOT_ACTIVE,
   kRdmPdDsManuSpecificStart = 0x80,
   kRdmPdDsManuSpecificEnd = 0xdf
 } rdmpd_discovery_state_t;
