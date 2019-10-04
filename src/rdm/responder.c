@@ -173,26 +173,25 @@ resp_valid_result_t rdmresp_validate_packet(RdmBufferConstRef buffer, uint8_t ca
   return kRespInvalidRdm;  // TODO: Not yet implemented
 }
 
-resp_process_result_t rdmresp_process_packet(const RdmResponderState *state, RdmBufferConstRef bufferIn,
-                                             RdmBufferRef bufferOut, bool *no_break)
+resp_process_result_t rdmresp_process_packet(const RdmResponderState *state, RdmBufferConstRef buffer_in,
+                                             RdmBufferRef *buffer_out, bool *no_break)
 {
   return kRespNoSend;  // TODO: Not yet implemented
 }
 
-resp_process_result_t rdmresp_process_packet_shared_buffer(const RdmResponderState *state, RdmBufferRef bufferInOut,
+resp_process_result_t rdmresp_process_packet_shared_buffer(const RdmResponderState *state, RdmBufferRef *buffer_in_out,
                                                            bool *no_break)
 {
   return kRespNoSend;  // TODO: Not yet implemented
 }
 
-resp_process_result_t rdmresp_process_command(const RdmResponderState *state, const RdmCommand *pcmd,
-                                              RdmResponse *presp)
+resp_process_result_t rdmresp_process_command(const RdmResponderState *state, const RdmCommand *cmd, RdmResponse *resp)
 {
   return kRespNoSend;  // TODO: Not yet implemented
 }
 
-resp_process_result_t rdmresp_process_command_with_discovery(const RdmResponderState *state, const RdmCommand *pcmd,
-                                                             RdmBufferRef bufferOut, bool *no_break)
+resp_process_result_t rdmresp_process_command_with_discovery(const RdmResponderState *state, const RdmCommand *cmd,
+                                                             RdmBufferRef *buffer_out, bool *no_break)
 {
   return kRespNoSend;  // TODO: Not yet implemented
 }

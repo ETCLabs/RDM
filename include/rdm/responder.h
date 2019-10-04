@@ -101,7 +101,7 @@ typedef enum
 
 typedef enum
 {
-  kRespTypeRDM,
+  kRespTypeRdm,
   kRespTypeController,
   kRespTypeBroker,
   kRespTypeDevice
@@ -126,7 +126,7 @@ typedef struct RdmPidHandlerEntry
   uint32_t flags;
 } RdmPidHandlerEntry;
 
-typedef struct GetNextQueueMessageData
+typedef struct GetNextQueuedMessageData
 {
   uint8_t port;
   uint8_t status_type;
@@ -135,7 +135,7 @@ typedef struct GetNextQueueMessageData
   uint8_t *cmd_class;
   uint16_t *param_id;
   RdmParamData *pd;
-} GetNextQueueMessageData;
+} GetNextQueuedMessageData;
 
 typedef struct RdmResponderState
 {
@@ -149,7 +149,7 @@ typedef struct RdmResponderState
   size_t handler_array_size;
 
   uint8_t (*get_message_count)();
-  void (*get_next_queue_message)(GetNextQueueMessageData *data);
+  void (*get_next_queued_message)(GetNextQueuedMessageData *data);
 
 } RdmResponderState;
 
@@ -162,19 +162,19 @@ typedef enum
   kRespInvalidRdm,
   kRespNotRdm
 } resp_valid_result_t;
+
 resp_valid_result_t rdmresp_validate_packet(RdmBufferConstRef buffer, uint8_t calc_checksum);
 
-resp_process_result_t rdmresp_process_packet(const RdmResponderState *state, RdmBufferConstRef bufferIn,
-                                             RdmBufferRef bufferOut, bool *no_break);
+resp_process_result_t rdmresp_process_packet(const RdmResponderState *state, RdmBufferConstRef buffer_in,
+                                             RdmBufferRef *buffer_out, bool *no_break);
 
-resp_process_result_t rdmresp_process_packet_shared_buffer(const RdmResponderState *state, RdmBufferRef bufferInOut,
+resp_process_result_t rdmresp_process_packet_shared_buffer(const RdmResponderState *state, RdmBufferRef *buffer_in_out,
                                                            bool *no_break);
 
-resp_process_result_t rdmresp_process_command(const RdmResponderState *state, const RdmCommand *pcmd,
-                                              RdmResponse *presp);
+resp_process_result_t rdmresp_process_command(const RdmResponderState *state, const RdmCommand *cmd, RdmResponse *resp);
 
-resp_process_result_t rdmresp_process_command_with_discovery(const RdmResponderState *state, const RdmCommand *pcmd,
-                                                             RdmBufferRef bufferOut, bool *no_break);
+resp_process_result_t rdmresp_process_command_with_discovery(const RdmResponderState *state, const RdmCommand *cmd,
+                                                             RdmBufferRef *buffer_out, bool *no_break);
 
 #ifdef __cplusplus
 };

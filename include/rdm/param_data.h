@@ -40,10 +40,10 @@ typedef struct RdmPdString
 
 /* e1.33 Table 7-1: Required E1.20 Parameter IDs for the Default Responder */
 // Get/Set IDENTIFY_DEVICE See Section 10.11.1 of [RDM]
-etcpal_error_t rdmpd_unpack_get_resp_identify_device(const RdmParamData *pd, bool *identify_state_out);
-etcpal_error_t rdmpd_pack_get_resp_identify_device(bool identify_state, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_identify_device(const RdmParamData *pd, bool *identify_out);
-etcpal_error_t rdmpd_pack_set_identify_device(bool identify, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_resp_identify_device(const RdmParamData *pd, bool *identify_state);
+etcpal_error_t rdmpd_pack_get_resp_identify_device(bool identify_state, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_identify_device(const RdmParamData *pd, bool *identify);
+etcpal_error_t rdmpd_pack_set_identify_device(bool identify, RdmParamData *pd);
 
 // Get SUPPORTED_PARAMETERS See Section 10.4.1 of [RDM]
 /*! The maximum number of 16-bit parameter IDs in the Get Supported Parameters Response PD. */
@@ -56,12 +56,12 @@ typedef struct RdmPdSupportedParameters
   size_t length;                                       /*!< The number of supported PIDs in the array. */
 } RdmPdSupportedParameters;
 
-etcpal_error_t rdmpd_unpack_get_resp_supported_parameters(const RdmParamData *pd, RdmPdSupportedParameters *params_out);
-etcpal_error_t rdmpd_pack_get_resp_supported_parameters(const RdmPdSupportedParameters *params, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_resp_supported_parameters(const RdmParamData *pd, RdmPdSupportedParameters *params);
+etcpal_error_t rdmpd_pack_get_resp_supported_parameters(const RdmPdSupportedParameters *params, RdmParamData *pd);
 
 // Get PARAMETER_DESCRIPTION See Section 10.4.2 of [RDM]
-etcpal_error_t rdmpd_unpack_get_parameter_description(const RdmParamData *pd, uint16_t *requested_pid_out);
-etcpal_error_t rdmpd_pack_get_parameter_description(uint16_t requested_pid, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_parameter_description(const RdmParamData *pd, uint16_t *requested_pid);
+etcpal_error_t rdmpd_pack_get_parameter_description(uint16_t requested_pid, RdmParamData *pd);
 
 /*! Data type enumeration */
 typedef enum
@@ -124,27 +124,27 @@ typedef enum
 
 typedef enum
 {
-  kRdmPdSuPfxNone = E120_PREFIX_NONE,
-  kRdmPdSuPfxDeci = E120_PREFIX_DECI,
-  kRdmPdSuPfxCenti = E120_PREFIX_CENTI,
-  kRdmPdSuPfxMilli = E120_PREFIX_MILLI,
-  kRdmPdSuPfxMicro = E120_PREFIX_MICRO,
-  kRdmPdSuPfxNano = E120_PREFIX_NANO,
-  kRdmPdSuPfxPico = E120_PREFIX_PICO,
-  kRdmPdSuPfxFempto = E120_PREFIX_FEMPTO,
-  kRdmPdSuPfxAtto = E120_PREFIX_ATTO,
-  kRdmPdSuPfxZepto = E120_PREFIX_ZEPTO,
-  kRdmPdSuPfxYocto = E120_PREFIX_YOCTO,
-  kRdmPdSuPfxDeca = E120_PREFIX_DECA,
-  kRdmPdSuPfxHecto = E120_PREFIX_HECTO,
-  kRdmPdSuPfxKilo = E120_PREFIX_KILO,
-  kRdmPdSuPfxMega = E120_PREFIX_MEGA,
-  kRdmPdSuPfxGiga = E120_PREFIX_GIGA,
-  kRdmPdSuPfxTerra = E120_PREFIX_TERRA,
-  kRdmPdSuPfxPeta = E120_PREFIX_PETA,
-  kRdmPdSuPfxExa = E120_PREFIX_EXA,
-  kRdmPdSuPfxZetta = E120_PREFIX_ZETTA,
-  kRdmPdSuPfxYotta = E120_PREFIX_YOTTA
+  kRdmPdSuPrefixNone = E120_PREFIX_NONE,
+  kRdmPdSuPrefixDeci = E120_PREFIX_DECI,
+  kRdmPdSuPrefixCenti = E120_PREFIX_CENTI,
+  kRdmPdSuPrefixMilli = E120_PREFIX_MILLI,
+  kRdmPdSuPrefixMicro = E120_PREFIX_MICRO,
+  kRdmPdSuPrefixNano = E120_PREFIX_NANO,
+  kRdmPdSuPrefixPico = E120_PREFIX_PICO,
+  kRdmPdSuPrefixFempto = E120_PREFIX_FEMPTO,
+  kRdmPdSuPrefixAtto = E120_PREFIX_ATTO,
+  kRdmPdSuPrefixZepto = E120_PREFIX_ZEPTO,
+  kRdmPdSuPrefixYocto = E120_PREFIX_YOCTO,
+  kRdmPdSuPrefixDeca = E120_PREFIX_DECA,
+  kRdmPdSuPrefixHecto = E120_PREFIX_HECTO,
+  kRdmPdSuPrefixKilo = E120_PREFIX_KILO,
+  kRdmPdSuPrefixMega = E120_PREFIX_MEGA,
+  kRdmPdSuPrefixGiga = E120_PREFIX_GIGA,
+  kRdmPdSuPrefixTerra = E120_PREFIX_TERRA,
+  kRdmPdSuPrefixPeta = E120_PREFIX_PETA,
+  kRdmPdSuPrefixExa = E120_PREFIX_EXA,
+  kRdmPdSuPrefixZetta = E120_PREFIX_ZETTA,
+  kRdmPdSuPrefixYotta = E120_PREFIX_YOTTA
 } rdmpd_sensor_unit_prefix_t;
 
 /*! A structure representing a parameter description. */
@@ -163,35 +163,35 @@ typedef struct RdmPdParameterDescription
 } RdmPdParameterDescription;
 
 etcpal_error_t rdmpd_unpack_get_resp_parameter_description(const RdmParamData *pd,
-                                                           RdmPdParameterDescription *description_out);
+                                                           RdmPdParameterDescription *description);
 etcpal_error_t rdmpd_pack_get_resp_parameter_description(const RdmPdParameterDescription *description,
-                                                         RdmParamData *pd_out);
+                                                         RdmParamData *pd);
 
 // Get MANUFACTURER_LABEL See Section 10.5.4 of [RDM]
-etcpal_error_t rdmpd_unpack_get_resp_manufacturer_label(const RdmParamData *pd, RdmPdString *label_out);
-etcpal_error_t rdmpd_pack_get_resp_manufacturer_label(const RdmPdString *label, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_resp_manufacturer_label(const RdmParamData *pd, RdmPdString *label);
+etcpal_error_t rdmpd_pack_get_resp_manufacturer_label(const RdmPdString *label, RdmParamData *pd);
 
 // Get DEVICE_MODEL_DESCRIPTION See Section 10.5.3 of [RDM]
-etcpal_error_t rdmpd_unpack_get_resp_device_model_description(const RdmParamData *pd, RdmPdString *description_out);
-etcpal_error_t rdmpd_pack_get_resp_device_model_description(const RdmPdString *description, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_resp_device_model_description(const RdmParamData *pd, RdmPdString *description);
+etcpal_error_t rdmpd_pack_get_resp_device_model_description(const RdmPdString *description, RdmParamData *pd);
 
 // Get SOFTWARE_VERSION_LABEL See Section 10.5.9 of [RDM]
-etcpal_error_t rdmpd_unpack_get_resp_software_version_label(const RdmParamData *pd, RdmPdString *label_out);
-etcpal_error_t rdmpd_pack_get_resp_software_version_label(const RdmPdString *label, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_resp_software_version_label(const RdmParamData *pd, RdmPdString *label);
+etcpal_error_t rdmpd_pack_get_resp_software_version_label(const RdmPdString *label, RdmParamData *pd);
 
 // Get/Set DEVICE_LABEL See Section 10.5.5 of [RDM]
-etcpal_error_t rdmpd_unpack_get_resp_device_label(const RdmParamData *pd, RdmPdString *label_out);
-etcpal_error_t rdmpd_pack_get_resp_device_label(const RdmPdString *label, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_device_label(const RdmParamData *pd, RdmPdString *label_out);
-etcpal_error_t rdmpd_pack_set_device_label(const RdmPdString *label, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_resp_device_label(const RdmParamData *pd, RdmPdString *label);
+etcpal_error_t rdmpd_pack_get_resp_device_label(const RdmPdString *label, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_device_label(const RdmParamData *pd, RdmPdString *label);
+etcpal_error_t rdmpd_pack_set_device_label(const RdmPdString *label, RdmParamData *pd);
 
 /* e1.33 Table A-15: RDM Parameter ID Defines */
 // Get/Set COMPONENT_SCOPE
-etcpal_error_t rdmpd_unpack_get_component_scope(const RdmParamData *pd, uint16_t *scope_slot_out);
-etcpal_error_t rdmpd_pack_get_component_scope(uint16_t scope_slot, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_component_scope(const RdmParamData *pd, uint16_t *scope_slot);
+etcpal_error_t rdmpd_pack_get_component_scope(uint16_t scope_slot, RdmParamData *pd);
 
 /*! The maximum length of a scope string, including one extra byte for a null terminator. */
-#define RDMPD_MAX_SCOPE_STR_LEN 64
+#define RDMPD_MAX_SCOPE_STR_LEN 63
 
 /*! A structure representing a scope string. */
 typedef struct RdmPdScopeString
@@ -203,13 +203,13 @@ typedef struct RdmPdComponentScope
 {
   uint16_t scope_slot;
   RdmPdScopeString scope_string;
-  EtcPalSockaddr static_broker_saddr;
+  EtcPalSockaddr static_broker_addr;
 } RdmPdComponentScope;
 
-etcpal_error_t rdmpd_unpack_get_resp_component_scope(const RdmParamData *pd, RdmPdComponentScope *scope_out);
-etcpal_error_t rdmpd_pack_get_resp_component_scope(const RdmPdComponentScope *scope, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_component_scope(const RdmParamData *pd, RdmPdComponentScope *scope_out);
-etcpal_error_t rdmpd_pack_set_component_scope(const RdmPdComponentScope *scope, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_resp_component_scope(const RdmParamData *pd, RdmPdComponentScope *scope);
+etcpal_error_t rdmpd_pack_get_resp_component_scope(const RdmPdComponentScope *scope, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_component_scope(const RdmParamData *pd, RdmPdComponentScope *scope);
+etcpal_error_t rdmpd_pack_set_component_scope(const RdmPdComponentScope *scope, RdmParamData *pd);
 
 // Get/Set SEARCH_DOMAIN
 /*! The maximum length of a search domain string, including one extra byte for a null terminator. */
@@ -221,23 +221,23 @@ typedef struct RdmPdSearchDomain
   char string[RDMPD_MAX_SEARCH_DOMAIN_STR_LEN]; /*!< The string data. */
 } RdmPdSearchDomain;
 
-etcpal_error_t rdmpd_unpack_get_resp_search_domain(const RdmParamData *pd, RdmPdSearchDomain *domain_name_out);
-etcpal_error_t rdmpd_pack_get_resp_search_domain(const RdmPdSearchDomain *domain_name, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_search_domain(const RdmParamData *pd, RdmPdSearchDomain *domain_name_out);
-etcpal_error_t rdmpd_pack_set_search_domain(const RdmPdSearchDomain *domain_name, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_resp_search_domain(const RdmParamData *pd, RdmPdSearchDomain *domain_name);
+etcpal_error_t rdmpd_pack_get_resp_search_domain(const RdmPdSearchDomain *domain_name, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_search_domain(const RdmParamData *pd, RdmPdSearchDomain *domain_name);
+etcpal_error_t rdmpd_pack_set_search_domain(const RdmPdSearchDomain *domain_name, RdmParamData *pd);
 
 // Get/Set TCP_COMMS_STATUS
 typedef struct RdmPdTcpCommsEntry
 {
   RdmPdScopeString scope_string;
-  EtcPalSockaddr broker_saddr;
+  EtcPalSockaddr broker_addr;
   uint16_t unhealthy_tcp_events;
 } RdmPdTcpCommsEntry;
 
-etcpal_error_t rdmpd_unpack_get_resp_tcp_comms_status(const RdmParamData *pd, RdmPdTcpCommsEntry *entry_out);
-etcpal_error_t rdmpd_pack_get_resp_tcp_comms_status(const RdmPdTcpCommsEntry *entry, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_tcp_comms_status(const RdmParamData *pd, RdmPdScopeString *scope_out);
-etcpal_error_t rdmpd_pack_set_tcp_comms_status(const RdmPdScopeString *scope, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_resp_tcp_comms_status(const RdmParamData *pd, RdmPdTcpCommsEntry *entry);
+etcpal_error_t rdmpd_pack_get_resp_tcp_comms_status(const RdmPdTcpCommsEntry *entry, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_tcp_comms_status(const RdmParamData *pd, RdmPdScopeString *scope);
+etcpal_error_t rdmpd_pack_set_tcp_comms_status(const RdmPdScopeString *scope, RdmParamData *pd);
 
 // Get/Set BROKER_STATUS
 typedef enum
@@ -253,17 +253,17 @@ typedef struct RdmPdBrokerStatus
   rdmpd_broker_state_t broker_state;
 } RdmPdBrokerStatus;
 
-etcpal_error_t rdmpd_unpack_get_resp_broker_status(const RdmParamData *pd, RdmPdBrokerStatus *status_out);
-etcpal_error_t rdmpd_pack_get_resp_broker_status(const RdmPdBrokerStatus *status, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_broker_status(const RdmParamData *pd, uint8_t *broker_state_out);
-etcpal_error_t rdmpd_pack_set_broker_status(uint8_t broker_state, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_resp_broker_status(const RdmParamData *pd, RdmPdBrokerStatus *status);
+etcpal_error_t rdmpd_pack_get_resp_broker_status(const RdmPdBrokerStatus *status, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_broker_status(const RdmParamData *pd, uint8_t *broker_state);
+etcpal_error_t rdmpd_pack_set_broker_status(uint8_t broker_state, RdmParamData *pd);
 
 /* e1.37-7 Table A-1: RDM Parameter ID Defines */
 // Get ENDPOINT_LIST
 typedef enum
 {
-  kRdmPdEndptTypeVirtual = E137_7_ENDPOINT_TYPE_VIRTUAL,
-  kRdmPdEndptTypePhysical = E137_7_ENDPOINT_TYPE_PHYSICAL
+  kRdmPdEndpointTypeVirtual = E137_7_ENDPOINT_TYPE_VIRTUAL,
+  kRdmPdEndpointTypePhysical = E137_7_ENDPOINT_TYPE_PHYSICAL
 } rdmpd_endpoint_type_t;
 
 typedef struct RdmPdEndpointListEntry
@@ -291,15 +291,15 @@ typedef struct RdmPdEndpointListOverflow
   size_t number_of_entries;
 } RdmPdEndpointListOverflow;
 
-etcpal_error_t rdmpd_unpack_get_resp_endpt_list(const RdmParamData *pd, RdmPdEndpointList *list_out);
-etcpal_error_t rdmpd_pack_get_resp_endpt_list(const RdmPdEndpointList *list, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_resp_endpt_list(const RdmParamData *pd, RdmPdEndpointList *list);
+etcpal_error_t rdmpd_pack_get_resp_endpt_list(const RdmPdEndpointList *list, RdmParamData *pd);
 
-etcpal_error_t rdmpd_unpack_get_resp_endpt_list_overflow(const RdmParamData *pd, RdmPdEndpointListOverflow *list_out);
-etcpal_error_t rdmpd_pack_get_resp_endpt_list_overflow(const RdmPdEndpointListOverflow *list, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_resp_endpt_list_overflow(const RdmParamData *pd, RdmPdEndpointListOverflow *list);
+etcpal_error_t rdmpd_pack_get_resp_endpt_list_overflow(const RdmPdEndpointListOverflow *list, RdmParamData *pd);
 
 // Get ENDPOINT_LIST_CHANGE
-etcpal_error_t rdmpd_unpack_get_resp_endpt_list_change(const RdmParamData *pd, uint32_t *list_change_number_out);
-etcpal_error_t rdmpd_pack_get_resp_endpt_list_change(uint32_t list_change_number, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_resp_endpt_list_change(const RdmParamData *pd, uint32_t *list_change_number);
+etcpal_error_t rdmpd_pack_get_resp_endpt_list_change(uint32_t list_change_number, RdmParamData *pd);
 
 // Get/Set IDENTIFY_ENDPOINT
 typedef struct RdmPdIdentifyEndpoint
@@ -308,14 +308,14 @@ typedef struct RdmPdIdentifyEndpoint
   bool identify_state;
 } RdmPdIdentifyEndpoint;
 
-etcpal_error_t rdmpd_unpack_get_identify_endpt(const RdmParamData *pd, uint16_t *endpt_id_out);
-etcpal_error_t rdmpd_pack_get_identify_endpt(uint16_t endpt_id, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_get_resp_identify_endpt(const RdmParamData *pd, RdmPdIdentifyEndpoint *identify_endpt_out);
-etcpal_error_t rdmpd_pack_get_resp_identify_endpt(const RdmPdIdentifyEndpoint *identify_endpt, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_identify_endpt(const RdmParamData *pd, RdmPdIdentifyEndpoint *identify_endpt_out);
-etcpal_error_t rdmpd_pack_set_identify_endpt(const RdmPdIdentifyEndpoint *identify_endpt, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_resp_identify_endpt(const RdmParamData *pd, uint16_t *endpt_id_out);
-etcpal_error_t rdmpd_pack_set_resp_identify_endpt(uint16_t endpt_id, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_identify_endpt(const RdmParamData *pd, uint16_t *endpt_id);
+etcpal_error_t rdmpd_pack_get_identify_endpt(uint16_t endpt_id, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_get_resp_identify_endpt(const RdmParamData *pd, RdmPdIdentifyEndpoint *identify_endpt);
+etcpal_error_t rdmpd_pack_get_resp_identify_endpt(const RdmPdIdentifyEndpoint *identify_endpt, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_identify_endpt(const RdmParamData *pd, RdmPdIdentifyEndpoint *identify_endpt);
+etcpal_error_t rdmpd_pack_set_identify_endpt(const RdmPdIdentifyEndpoint *identify_endpt, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_resp_identify_endpt(const RdmParamData *pd, uint16_t *endpt_id);
+etcpal_error_t rdmpd_pack_set_resp_identify_endpt(uint16_t endpt_id, RdmParamData *pd);
 
 // Get/Set ENDPOINT_TO_UNIVERSE
 typedef struct RdmPdEndpointUniverse
@@ -324,15 +324,15 @@ typedef struct RdmPdEndpointUniverse
   uint16_t universe_number;
 } RdmPdEndpointUniverse;
 
-etcpal_error_t rdmpd_unpack_get_endpt_to_universe(const RdmParamData *pd, uint16_t *endpt_id_out);
-etcpal_error_t rdmpd_pack_get_endpt_to_universe(uint16_t endpt_id, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_endpt_to_universe(const RdmParamData *pd, uint16_t *endpt_id);
+etcpal_error_t rdmpd_pack_get_endpt_to_universe(uint16_t endpt_id, RdmParamData *pd);
 etcpal_error_t rdmpd_unpack_get_resp_endpt_to_universe(const RdmParamData *pd,
-                                                       RdmPdEndpointUniverse *endpt_universe_out);
-etcpal_error_t rdmpd_pack_get_resp_endpt_to_universe(const RdmPdEndpointUniverse *endpt_universe, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_endpt_to_universe(const RdmParamData *pd, RdmPdEndpointUniverse *endpt_universe_out);
-etcpal_error_t rdmpd_pack_set_endpt_to_universe(const RdmPdEndpointUniverse *endpt_universe, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_resp_endpt_to_universe(const RdmParamData *pd, uint16_t *endpt_id_out);
-etcpal_error_t rdmpd_pack_set_resp_endpt_to_universe(uint16_t endpt_id, RdmParamData *pd_out);
+                                                       RdmPdEndpointUniverse *endpt_universe);
+etcpal_error_t rdmpd_pack_get_resp_endpt_to_universe(const RdmPdEndpointUniverse *endpt_universe, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_endpt_to_universe(const RdmParamData *pd, RdmPdEndpointUniverse *endpt_universe);
+etcpal_error_t rdmpd_pack_set_endpt_to_universe(const RdmPdEndpointUniverse *endpt_universe, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_resp_endpt_to_universe(const RdmParamData *pd, uint16_t *endpt_id);
+etcpal_error_t rdmpd_pack_set_resp_endpt_to_universe(uint16_t endpt_id, RdmParamData *pd);
 
 // Get/Set ENDPOINT_MODE
 typedef enum
@@ -348,14 +348,14 @@ typedef struct RdmPdEndpointMode
   rdmpd_endpoint_mode_t endpoint_mode;
 } RdmPdEndpointMode;
 
-etcpal_error_t rdmpd_unpack_get_endpt_mode(const RdmParamData *pd, uint16_t *endpt_id_out);
-etcpal_error_t rdmpd_pack_get_endpt_mode(uint16_t endpt_id, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_get_resp_endpt_mode(const RdmParamData *pd, RdmPdEndpointMode *endpt_mode_out);
-etcpal_error_t rdmpd_pack_get_resp_endpt_mode(const RdmPdEndpointMode *endpt_mode, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_endpt_mode(const RdmParamData *pd, RdmPdEndpointMode *endpt_mode_out);
-etcpal_error_t rdmpd_pack_set_endpt_mode(const RdmPdEndpointMode *endpt_mode, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_resp_endpt_mode(const RdmParamData *pd, uint16_t *endpt_id_out);
-etcpal_error_t rdmpd_pack_set_resp_endpt_mode(uint16_t endpt_id, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_endpt_mode(const RdmParamData *pd, uint16_t *endpt_id);
+etcpal_error_t rdmpd_pack_get_endpt_mode(uint16_t endpt_id, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_get_resp_endpt_mode(const RdmParamData *pd, RdmPdEndpointMode *endpt_mode);
+etcpal_error_t rdmpd_pack_get_resp_endpt_mode(const RdmPdEndpointMode *endpt_mode, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_endpt_mode(const RdmParamData *pd, RdmPdEndpointMode *endpt_mode);
+etcpal_error_t rdmpd_pack_set_endpt_mode(const RdmPdEndpointMode *endpt_mode, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_resp_endpt_mode(const RdmParamData *pd, uint16_t *endpt_id);
+etcpal_error_t rdmpd_pack_set_resp_endpt_mode(uint16_t endpt_id, RdmParamData *pd);
 
 // Get/Set ENDPOINT_LABEL
 typedef struct RdmPdEndpointLabel
@@ -364,14 +364,14 @@ typedef struct RdmPdEndpointLabel
   RdmPdString endpoint_label;
 } RdmPdEndpointLabel;
 
-etcpal_error_t rdmpd_unpack_get_endpt_label(const RdmParamData *pd, uint16_t *endpt_id_out);
-etcpal_error_t rdmpd_pack_get_endpt_label(uint16_t endpt_id, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_get_resp_endpt_label(const RdmParamData *pd, RdmPdEndpointLabel *endpt_label_out);
-etcpal_error_t rdmpd_pack_get_resp_endpt_label(const RdmPdEndpointLabel *endpt_label, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_endpt_label(const RdmParamData *pd, RdmPdEndpointLabel *endpt_label_out);
-etcpal_error_t rdmpd_pack_set_endpt_label(const RdmPdEndpointLabel *endpt_label, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_resp_endpt_label(const RdmParamData *pd, uint16_t *endpt_id_out);
-etcpal_error_t rdmpd_pack_set_resp_endpt_label(uint16_t endpt_id, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_endpt_label(const RdmParamData *pd, uint16_t *endpt_id);
+etcpal_error_t rdmpd_pack_get_endpt_label(uint16_t endpt_id, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_get_resp_endpt_label(const RdmParamData *pd, RdmPdEndpointLabel *endpt_label);
+etcpal_error_t rdmpd_pack_get_resp_endpt_label(const RdmPdEndpointLabel *endpt_label, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_endpt_label(const RdmParamData *pd, RdmPdEndpointLabel *endpt_label);
+etcpal_error_t rdmpd_pack_set_endpt_label(const RdmPdEndpointLabel *endpt_label, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_resp_endpt_label(const RdmParamData *pd, uint16_t *endpt_id);
+etcpal_error_t rdmpd_pack_set_resp_endpt_label(uint16_t endpt_id, RdmParamData *pd);
 
 // Get/Set RDM_TRAFFIC_ENABLE
 typedef struct RdmPdTrafficEnable
@@ -380,14 +380,14 @@ typedef struct RdmPdTrafficEnable
   bool rdm_enabled;
 } RdmPdTrafficEnable;
 
-etcpal_error_t rdmpd_unpack_get_traffic_enable(const RdmParamData *pd, uint16_t *endpt_id_out);
-etcpal_error_t rdmpd_pack_get_traffic_enable(uint16_t endpt_id, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_get_resp_traffic_enable(const RdmParamData *pd, RdmPdTrafficEnable *traffic_enable_out);
-etcpal_error_t rdmpd_pack_get_resp_traffic_enable(const RdmPdTrafficEnable *traffic_enable, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_traffic_enable(const RdmParamData *pd, RdmPdTrafficEnable *traffic_enable_out);
-etcpal_error_t rdmpd_pack_set_traffic_enable(const RdmPdTrafficEnable *traffic_enable, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_resp_traffic_enable(const RdmParamData *pd, uint16_t *endpt_id_out);
-etcpal_error_t rdmpd_pack_set_resp_traffic_enable(uint16_t endpt_id, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_traffic_enable(const RdmParamData *pd, uint16_t *endpt_id);
+etcpal_error_t rdmpd_pack_get_traffic_enable(uint16_t endpt_id, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_get_resp_traffic_enable(const RdmParamData *pd, RdmPdTrafficEnable *traffic_enable);
+etcpal_error_t rdmpd_pack_get_resp_traffic_enable(const RdmPdTrafficEnable *traffic_enable, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_traffic_enable(const RdmParamData *pd, RdmPdTrafficEnable *traffic_enable);
+etcpal_error_t rdmpd_pack_set_traffic_enable(const RdmPdTrafficEnable *traffic_enable, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_resp_traffic_enable(const RdmParamData *pd, uint16_t *endpt_id);
+etcpal_error_t rdmpd_pack_set_resp_traffic_enable(uint16_t endpt_id, RdmParamData *pd);
 
 // Get/Set DISCOVERY_STATE
 typedef enum
@@ -412,14 +412,14 @@ typedef struct RdmPdDeviceCountDiscState
   uint16_t device_count;
 } RdmPdDeviceCountDiscState;
 
-etcpal_error_t rdmpd_unpack_get_discovery_state(const RdmParamData *pd, uint16_t *endpt_id_out);
-etcpal_error_t rdmpd_pack_get_discovery_state(uint16_t endpt_id, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_get_resp_discovery_state(const RdmParamData *pd, RdmPdDeviceCountDiscState *state_out);
-etcpal_error_t rdmpd_pack_get_resp_discovery_state(const RdmPdDeviceCountDiscState *state, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_discovery_state(const RdmParamData *pd, RdmPdDiscoveryState *state_out);
-etcpal_error_t rdmpd_pack_set_discovery_state(const RdmPdDiscoveryState *state, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_resp_discovery_state(const RdmParamData *pd, uint16_t *endpt_id_out);
-etcpal_error_t rdmpd_pack_set_resp_discovery_state(uint16_t endpt_id, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_discovery_state(const RdmParamData *pd, uint16_t *endpt_id);
+etcpal_error_t rdmpd_pack_get_discovery_state(uint16_t endpt_id, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_get_resp_discovery_state(const RdmParamData *pd, RdmPdDeviceCountDiscState *state);
+etcpal_error_t rdmpd_pack_get_resp_discovery_state(const RdmPdDeviceCountDiscState *state, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_discovery_state(const RdmParamData *pd, RdmPdDiscoveryState *state);
+etcpal_error_t rdmpd_pack_set_discovery_state(const RdmPdDiscoveryState *state, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_resp_discovery_state(const RdmParamData *pd, uint16_t *endpt_id);
+etcpal_error_t rdmpd_pack_set_resp_discovery_state(uint16_t endpt_id, RdmParamData *pd);
 
 // Get/Set BACKGROUND_DISCOVERY
 typedef struct RdmPdBackgroundDiscovery
@@ -428,18 +428,18 @@ typedef struct RdmPdBackgroundDiscovery
   bool background_discovery_enabled;
 } RdmPdBackgroundDiscovery;
 
-etcpal_error_t rdmpd_unpack_get_background_discovery(const RdmParamData *pd, uint16_t *endpt_id_out);
-etcpal_error_t rdmpd_pack_get_background_discovery(uint16_t endpt_id, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_background_discovery(const RdmParamData *pd, uint16_t *endpt_id);
+etcpal_error_t rdmpd_pack_get_background_discovery(uint16_t endpt_id, RdmParamData *pd);
 etcpal_error_t rdmpd_unpack_get_resp_background_discovery(const RdmParamData *pd,
-                                                          RdmPdBackgroundDiscovery *background_discovery_out);
+                                                          RdmPdBackgroundDiscovery *background_discovery);
 etcpal_error_t rdmpd_pack_get_resp_background_discovery(const RdmPdBackgroundDiscovery *background_discovery,
-                                                        RdmParamData *pd_out);
+                                                        RdmParamData *pd);
 etcpal_error_t rdmpd_unpack_set_background_discovery(const RdmParamData *pd,
-                                                     RdmPdBackgroundDiscovery *background_discovery_out);
+                                                     RdmPdBackgroundDiscovery *background_discovery);
 etcpal_error_t rdmpd_pack_set_background_discovery(const RdmPdBackgroundDiscovery *background_discovery,
-                                                   RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_resp_background_discovery(const RdmParamData *pd, uint16_t *endpt_id_out);
-etcpal_error_t rdmpd_pack_set_resp_background_discovery(uint16_t endpt_id, RdmParamData *pd_out);
+                                                   RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_resp_background_discovery(const RdmParamData *pd, uint16_t *endpt_id);
+etcpal_error_t rdmpd_pack_set_resp_background_discovery(uint16_t endpt_id, RdmParamData *pd);
 
 // Get/Set ENDPOINT_TIMING
 typedef struct RdmPdEndpointTimingSetting
@@ -454,14 +454,14 @@ typedef struct RdmPdEndpointTiming
   uint8_t num_settings_available;
 } RdmPdEndpointTiming;
 
-etcpal_error_t rdmpd_unpack_get_endpt_timing(const RdmParamData *pd, uint16_t *endpt_id_out);
-etcpal_error_t rdmpd_pack_get_endpt_timing(uint16_t endpt_id, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_get_resp_endpt_timing(const RdmParamData *pd, RdmPdEndpointTiming *timing_out);
-etcpal_error_t rdmpd_pack_get_resp_endpt_timing(const RdmPdEndpointTiming *timing, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_endpt_timing(const RdmParamData *pd, RdmPdEndpointTimingSetting *timing_out);
-etcpal_error_t rdmpd_pack_set_endpt_timing(const RdmPdEndpointTimingSetting *timing, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_set_resp_endpt_timing(const RdmParamData *pd, uint16_t *endpt_id_out);
-etcpal_error_t rdmpd_pack_set_resp_endpt_timing(uint16_t endpt_id, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_endpt_timing(const RdmParamData *pd, uint16_t *endpt_id);
+etcpal_error_t rdmpd_pack_get_endpt_timing(uint16_t endpt_id, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_get_resp_endpt_timing(const RdmParamData *pd, RdmPdEndpointTiming *timing);
+etcpal_error_t rdmpd_pack_get_resp_endpt_timing(const RdmPdEndpointTiming *timing, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_endpt_timing(const RdmParamData *pd, RdmPdEndpointTimingSetting *timing);
+etcpal_error_t rdmpd_pack_set_endpt_timing(const RdmPdEndpointTimingSetting *timing, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_resp_endpt_timing(const RdmParamData *pd, uint16_t *endpt_id);
+etcpal_error_t rdmpd_pack_set_resp_endpt_timing(uint16_t endpt_id, RdmParamData *pd);
 
 // Get ENDPOINT_TIMING_DESCRIPTION
 typedef struct RdmPdEndptTimingDescription
@@ -470,12 +470,12 @@ typedef struct RdmPdEndptTimingDescription
   RdmPdString description;
 } RdmPdEndptTimingDescription;
 
-etcpal_error_t rdmpd_unpack_get_endpt_timing_description(const RdmParamData *pd, uint8_t *setting_out);
-etcpal_error_t rdmpd_pack_get_endpt_timing_description(uint8_t setting, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_endpt_timing_description(const RdmParamData *pd, uint8_t *setting);
+etcpal_error_t rdmpd_pack_get_endpt_timing_description(uint8_t setting, RdmParamData *pd);
 etcpal_error_t rdmpd_unpack_get_resp_endpt_timing_description(const RdmParamData *pd,
-                                                              RdmPdEndptTimingDescription *description_out);
+                                                              RdmPdEndptTimingDescription *description);
 etcpal_error_t rdmpd_pack_get_resp_endpt_timing_description(const RdmPdEndptTimingDescription *description,
-                                                            RdmParamData *pd_out);
+                                                            RdmParamData *pd);
 
 // Get ENDPOINT_RESPONDERS
 /*! The maximum number of endpoint responder list UIDs in an ACK (not overflow) response. */
@@ -498,14 +498,14 @@ typedef struct RdmPdEndptResponderListOverflow
   size_t number_of_uids;
 } RdmPdEndptResponderListOverflow;
 
-etcpal_error_t rdmpd_unpack_get_endpt_resp_list(const RdmParamData *pd, uint16_t *endpt_id_out);
-etcpal_error_t rdmpd_pack_get_endpt_resp_list(uint16_t endpt_id, RdmParamData *pd_out);
-etcpal_error_t rdmpd_unpack_get_resp_endpt_resp_list(const RdmParamData *pd, RdmPdEndptResponderList *list_out);
-etcpal_error_t rdmpd_pack_get_resp_endpt_resp_list(const RdmPdEndptResponderList *list, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_endpt_resp_list(const RdmParamData *pd, uint16_t *endpt_id);
+etcpal_error_t rdmpd_pack_get_endpt_resp_list(uint16_t endpt_id, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_get_resp_endpt_resp_list(const RdmParamData *pd, RdmPdEndptResponderList *list);
+etcpal_error_t rdmpd_pack_get_resp_endpt_resp_list(const RdmPdEndptResponderList *list, RdmParamData *pd);
 etcpal_error_t rdmpd_unpack_get_resp_endpt_resp_list_overflow(const RdmParamData *pd,
-                                                              RdmPdEndptResponderListOverflow *list_out);
+                                                              RdmPdEndptResponderListOverflow *list);
 etcpal_error_t rdmpd_pack_get_resp_endpt_resp_list_overflow(const RdmPdEndptResponderListOverflow *list,
-                                                            RdmParamData *pd_out);
+                                                            RdmParamData *pd);
 
 // Get ENDPOINT_RESPONDER_LIST_CHANGE
 typedef struct RdmPdEndptRespListChange
@@ -514,11 +514,11 @@ typedef struct RdmPdEndptRespListChange
   uint32_t list_change_number;
 } RdmPdEndptRespListChange;
 
-etcpal_error_t rdmpd_unpack_get_endpt_resp_list_change(const RdmParamData *pd, uint16_t *endpoint_id_out);
-etcpal_error_t rdmpd_pack_get_endpt_resp_list_change(uint16_t endpoint_id, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_endpt_resp_list_change(const RdmParamData *pd, uint16_t *endpoint_id);
+etcpal_error_t rdmpd_pack_get_endpt_resp_list_change(uint16_t endpoint_id, RdmParamData *pd);
 etcpal_error_t rdmpd_unpack_get_resp_endpt_resp_list_change(const RdmParamData *pd,
-                                                            RdmPdEndptRespListChange *change_out);
-etcpal_error_t rdmpd_pack_get_resp_endpt_resp_list_change(const RdmPdEndptRespListChange *change, RdmParamData *pd_out);
+                                                            RdmPdEndptRespListChange *change);
+etcpal_error_t rdmpd_pack_get_resp_endpt_resp_list_change(const RdmPdEndptRespListChange *change, RdmParamData *pd);
 
 // Get BINDING_CONTROL_FIELDS
 typedef struct RdmPdEndpointUid
@@ -534,12 +534,12 @@ typedef struct RdmPdBindingControlFields
   RdmUid binding_uid;
 } RdmPdBindingControlFields;
 
-etcpal_error_t rdmpd_unpack_get_binding_control_fields(const RdmParamData *pd, RdmPdEndpointUid *endpoint_uid_out);
-etcpal_error_t rdmpd_pack_get_binding_control_fields(const RdmPdEndpointUid *endpoint_uid, RdmParamData *pd_out);
+etcpal_error_t rdmpd_unpack_get_binding_control_fields(const RdmParamData *pd, RdmPdEndpointUid *endpoint_uid);
+etcpal_error_t rdmpd_pack_get_binding_control_fields(const RdmPdEndpointUid *endpoint_uid, RdmParamData *pd);
 etcpal_error_t rdmpd_unpack_get_resp_binding_control_fields(const RdmParamData *pd,
-                                                            RdmPdBindingControlFields *binding_ctrl_fields_out);
+                                                            RdmPdBindingControlFields *binding_ctrl_fields);
 etcpal_error_t rdmpd_pack_get_resp_binding_control_fields(const RdmPdBindingControlFields *binding_ctrl_fields,
-                                                          RdmParamData *pd_out);
+                                                          RdmParamData *pd);
 
 // Get/Set BACKGROUND_QUEUED_STATUS_POLICY
 typedef enum
@@ -559,13 +559,13 @@ typedef struct RdmPdBackgroundQdStatusPolicy
 } RdmPdBackgroundQdStatusPolicy;
 
 etcpal_error_t rdmpd_unpack_get_resp_backgnd_qd_status_policy(const RdmParamData *pd,
-                                                              RdmPdBackgroundQdStatusPolicy *policy_out);
+                                                              RdmPdBackgroundQdStatusPolicy *policy);
 etcpal_error_t rdmpd_pack_get_resp_backgnd_qd_status_policy(const RdmPdBackgroundQdStatusPolicy *policy,
-                                                            RdmParamData *pd_out);
+                                                            RdmParamData *pd);
 etcpal_error_t rdmpd_unpack_set_backgnd_qd_status_policy(const RdmParamData *pd,
-                                                         rdmpd_backgnd_qd_status_policy_setting_t *policy_out);
+                                                         rdmpd_backgnd_qd_status_policy_setting_t *policy);
 etcpal_error_t rdmpd_pack_set_backgnd_qd_status_policy(rdmpd_backgnd_qd_status_policy_setting_t policy,
-                                                       RdmParamData *pd_out);
+                                                       RdmParamData *pd);
 
 // Get BACKGROUND_QUEUED_STATUS_POLICY_DESCRIPTION
 typedef struct RdmPdBkgndQdStatusPolicyDescription
@@ -575,12 +575,12 @@ typedef struct RdmPdBkgndQdStatusPolicyDescription
 } RdmPdBkgndQdStatusPolicyDescription;
 
 etcpal_error_t rdmpd_unpack_get_bkgnd_qd_status_policy_desc(const RdmParamData *pd,
-                                                            rdmpd_backgnd_qd_status_policy_setting_t *policy_out);
+                                                            rdmpd_backgnd_qd_status_policy_setting_t *policy);
 etcpal_error_t rdmpd_pack_get_bkgnd_qd_status_policy_desc(rdmpd_backgnd_qd_status_policy_setting_t policy,
-                                                          RdmParamData *pd_out);
+                                                          RdmParamData *pd);
 etcpal_error_t rdmpd_unpack_get_resp_bkgnd_qd_status_policy_desc(const RdmParamData *pd,
-                                                                 RdmPdBkgndQdStatusPolicyDescription *description_out);
+                                                                 RdmPdBkgndQdStatusPolicyDescription *description);
 etcpal_error_t rdmpd_pack_get_resp_bkgnd_qd_status_policy_desc(const RdmPdBkgndQdStatusPolicyDescription *description,
-                                                               RdmParamData *pd_out);
+                                                               RdmParamData *pd);
 
 #endif /* _RDM_PARAM_DATA_H_ */
