@@ -29,6 +29,14 @@
 #include "rdm/defs.h"
 #include "rdm/message.h"
 
+/*! \defgroup param_data Parameter Data
+ *  \ingroup rdm
+ *  \brief Parameter data packing and unpacking functions, supporting structures, and enums, for PIDs
+ *         in e1.20, e1.33, and e1.37.
+ *
+ *  @{
+ */
+
 /*! The maximum length of a typical string in the parameter data, including one extra byte for a null terminator. */
 #define RDMPD_STRING_MAX_LENGTH 33
 
@@ -242,9 +250,9 @@ etcpal_error_t rdmpd_pack_set_tcp_comms_status(const RdmPdScopeString *scope, Rd
 // Get/Set BROKER_STATUS
 typedef enum
 {
-  kRdmPdBrokerStateDisabled = 0x00,
-  kRdmPdBrokerStateActive = 0x01,
-  kRdmPdBrokerStateStandby = 0x02
+  kRdmPdBrokerStateDisabled = E133_BROKER_DISABLED,
+  kRdmPdBrokerStateActive = E133_BROKER_ACTIVE,
+  kRdmPdBrokerStateStandby = E133_BROKER_STANDBY
 } rdmpd_broker_state_t;
 
 typedef struct RdmPdBrokerStatus
@@ -582,5 +590,7 @@ etcpal_error_t rdmpd_unpack_get_resp_bkgnd_qd_status_policy_desc(const RdmParamD
                                                                  RdmPdBkgndQdStatusPolicyDescription *description);
 etcpal_error_t rdmpd_pack_get_resp_bkgnd_qd_status_policy_desc(const RdmPdBkgndQdStatusPolicyDescription *description,
                                                                RdmParamData *pd);
+
+/*!@}*/
 
 #endif /* _RDM_PARAM_DATA_H_ */
