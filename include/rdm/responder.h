@@ -68,8 +68,8 @@
     (nack_resp)->command_class =                                                                          \
         ((cmd)->command_class == kRdmCCSetCommand ? kRdmCCSetCommandResponse : kRdmCCGetCommandResponse); \
     (nack_resp)->param_id = (cmd)->param_id;                                                              \
-    (nack_resp)->parameter_data.datalen = 2;                                                                             \
-    etcpal_pack_16b((nack_resp)->parameter_data.data, nack_reason);                                                        \
+    (nack_resp)->parameter_data.datalen = 2;                                                              \
+    etcpal_pack_16b((nack_resp)->parameter_data.data, nack_reason);                                       \
   } while (0)
 
 /*! \brief Parameter support flag definitions.
@@ -92,20 +92,20 @@ etcpal_error_t rdmresp_pack_response(const RdmResponse *resp_data, RdmBuffer *bu
 
 typedef enum
 {
-  kRespAck = E120_RESPONSE_TYPE_ACK,
-  kRespAckTimer = E120_RESPONSE_TYPE_ACK_TIMER,
-  kRespNackReason = E120_RESPONSE_TYPE_NACK_REASON,
-  kRespAckOverflow = E120_RESPONSE_TYPE_ACK_OVERFLOW,
-  kRespNoSend
-} resp_process_result_t;
+  kRdmRespRtAck = E120_RESPONSE_TYPE_ACK,
+  kRdmRespRtAckTimer = E120_RESPONSE_TYPE_ACK_TIMER,
+  kRdmRespRtNackReason = E120_RESPONSE_TYPE_NACK_REASON,
+  kRdmRespRtAckOverflow = E120_RESPONSE_TYPE_ACK_OVERFLOW,
+  kRdmRespRtNoSend
+} rdmresp_response_type_t;
 
 typedef enum
 {
-  kRespTypeRdm,
-  kRespTypeController,
-  kRespTypeBroker,
-  kRespTypeDevice
-} resp_type_t;
+  kRdmRespTypeRdm,
+  kRdmRespTypeController,
+  kRdmRespTypeBroker,
+  kRdmRespTypeDevice
+} rdmresp_type_t;
 
 typedef struct PidHandlerData
 {
@@ -117,12 +117,13 @@ typedef struct PidHandlerData
 
   const RdmParamData *pd_in;
   RdmParamData *pd_out;
+  rdmresp_response_type_t process_result;
 } PidHandlerData;
 
 typedef struct RdmPidHandlerEntry
 {
   uint16_t pid;
-  resp_process_result_t (*handler)(PidHandlerData *data);
+  etcpal_error_t (*handler)(PidHandlerData *data);
   uint32_t flags;
 } RdmPidHandlerEntry;
 
@@ -142,7 +143,7 @@ typedef struct RdmResponderState
   uint8_t port_number;
   RdmUid uid;
   uint8_t number_of_subdevices;
-  resp_type_t responder_type;
+  rdmresp_type_t responder_type;
   void *callback_context;
 
   const RdmPidHandlerEntry *handler_array;
@@ -161,20 +162,24 @@ typedef enum
   kRespValid,
   kRespInvalidRdm,
   kRespNotRdm
-} resp_valid_result_t;
+} rdmresp_validate_result_t;
 
-resp_valid_result_t rdmresp_validate_packet(RdmBufferConstRef buffer, uint8_t calc_checksum);
+etcpal_error_t rdmresp_validate_packet(RdmBufferConstRef buffer, uint8_t calc_checksum,
+                                       rdmresp_validate_result_t *validate_result);
 
-resp_process_result_t rdmresp_process_packet(const RdmResponderState *state, RdmBufferConstRef buffer_in,
-                                             RdmBufferRef *buffer_out, bool *no_break);
+// CONTRACT NOTES: If you get an error, we packed a NACK in buffer_out for you and we recommend sending that.
+etcpal_error_t rdmresp_process_packet(const RdmResponderState *state, RdmBufferConstRef buffer_in,
+                                      RdmBufferRef *buffer_out, rdmresp_response_type_t *response_type, bool *no_break);
 
-resp_process_result_t rdmresp_process_packet_shared_buffer(const RdmResponderState *state, RdmBufferRef *buffer_in_out,
-                                                           bool *no_break);
+etcpal_error_t rdmresp_process_packet_shared_buffer(const RdmResponderState *state, RdmBufferRef *buffer_in_out,
+                                                    rdmresp_response_type_t *response_type, bool *no_break);
 
-resp_process_result_t rdmresp_process_command(const RdmResponderState *state, const RdmCommand *cmd, RdmResponse *resp);
+etcpal_error_t rdmresp_process_command(const RdmResponderState *state, const RdmCommand *cmd, RdmResponse *resp,
+                                       rdmresp_response_type_t *response_type);
 
-resp_process_result_t rdmresp_process_command_with_discovery(const RdmResponderState *state, const RdmCommand *cmd,
-                                                             RdmBufferRef *buffer_out, bool *no_break);
+etcpal_error_t rdmresp_process_command_with_discovery(const RdmResponderState *state, const RdmCommand *cmd,
+                                                      RdmBufferRef *buffer_out, rdmresp_response_type_t *response_type,
+                                                      bool *no_break);
 
 #ifdef __cplusplus
 };

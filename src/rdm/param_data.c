@@ -18,6 +18,19 @@
  ******************************************************************************/
 #include "rdm/param_data.h"
 
+/* e1.20 NACK_REASON */
+etcpal_error_t rdmpd_unpack_nack_reason(const RdmParamData *pd, rdmpd_nack_reason_t *nack_reason)
+{
+  return kEtcPalErrNotImpl;  // TODO - Not yet implemented
+}
+
+etcpal_error_t rdmpd_pack_nack_reason(rdmpd_nack_reason_t nack_reason, RdmParamData *pd)
+{
+  return kEtcPalErrNotImpl;  // TODO - Not yet implemented
+}
+
+
+
 // e1.33 Table 7-1: Required E1.20 Parameter IDs for the Default Responder
 // Get/Set IDENTIFY_DEVICE See Section 10.11.1 of [RDM]
 etcpal_error_t rdmpd_unpack_get_resp_identify_device(const RdmParamData *pd, bool *identify_state)

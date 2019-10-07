@@ -168,30 +168,33 @@ bool rdmresp_validate_state(const RdmResponderState *state)
   return false;  // TODO: Not yet implemented
 }
 
-resp_valid_result_t rdmresp_validate_packet(RdmBufferConstRef buffer, uint8_t calc_checksum)
+etcpal_error_t rdmresp_validate_packet(RdmBufferConstRef buffer, uint8_t calc_checksum,
+                                       rdmresp_validate_result_t *validate_result)
 {
-  return kRespInvalidRdm;  // TODO: Not yet implemented
+  return kEtcPalErrNotImpl;  // TODO: Not yet implemented
 }
 
-resp_process_result_t rdmresp_process_packet(const RdmResponderState *state, RdmBufferConstRef buffer_in,
-                                             RdmBufferRef *buffer_out, bool *no_break)
+etcpal_error_t rdmresp_process_packet(const RdmResponderState *state, RdmBufferConstRef buffer_in,
+                                      RdmBufferRef *buffer_out, rdmresp_response_type_t *response_type, bool *no_break)
 {
-  return kRespNoSend;  // TODO: Not yet implemented
+  return kEtcPalErrNotImpl;  // TODO: Not yet implemented
 }
 
-resp_process_result_t rdmresp_process_packet_shared_buffer(const RdmResponderState *state, RdmBufferRef *buffer_in_out,
-                                                           bool *no_break)
+etcpal_error_t rdmresp_process_packet_shared_buffer(const RdmResponderState *state, RdmBufferRef *buffer_in_out,
+                                                    rdmresp_response_type_t *response_type, bool *no_break)
 {
-  return kRespNoSend;  // TODO: Not yet implemented
+  return kEtcPalErrNotImpl;  // TODO: Not yet implemented
 }
 
-resp_process_result_t rdmresp_process_command(const RdmResponderState *state, const RdmCommand *cmd, RdmResponse *resp)
+etcpal_error_t rdmresp_process_command(const RdmResponderState *state, const RdmCommand *cmd, RdmResponse *resp,
+                                       rdmresp_response_type_t *response_type)
 {
-  return kRespNoSend;  // TODO: Not yet implemented
+  return kEtcPalErrNotImpl;  // TODO: Not yet implemented
 }
 
-resp_process_result_t rdmresp_process_command_with_discovery(const RdmResponderState *state, const RdmCommand *cmd,
-                                                             RdmBufferRef *buffer_out, bool *no_break)
+etcpal_error_t rdmresp_process_command_with_discovery(const RdmResponderState *state, const RdmCommand *cmd,
+                                                      RdmBufferRef *buffer_out, rdmresp_response_type_t *response_type,
+                                                      bool *no_break)
 {
-  return kRespNoSend;  // TODO: Not yet implemented
+  return kEtcPalErrNotImpl;  // TODO: Not yet implemented
 }

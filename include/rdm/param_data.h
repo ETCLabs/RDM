@@ -46,6 +46,26 @@ typedef struct RdmPdString
   char string[RDMPD_STRING_MAX_LENGTH]; /*!< The string data. */
 } RdmPdString;
 
+/* e1.20 NACK_REASON */
+/*! Nack reason enumeration */
+typedef enum
+{
+  kRdmPdNrUnknownPid = E120_NR_UNKNOWN_PID,
+  kRdmPdNrFormatError = E120_NR_FORMAT_ERROR,
+  kRdmPdNrHardwareFault = E120_NR_HARDWARE_FAULT,
+  kRdmPdNrProxyReject = E120_NR_PROXY_REJECT,
+  kRdmPdNrWriteProtect = E120_NR_WRITE_PROTECT,
+  kRdmPdNrUnsupportedCommandClass = E120_NR_UNSUPPORTED_COMMAND_CLASS,
+  kRdmPdNrDataOutOfRange = E120_NR_DATA_OUT_OF_RANGE,
+  kRdmPdNrBufferFull = E120_NR_BUFFER_FULL,
+  kRdmPdNrPacketSizeUnsupported = E120_NR_PACKET_SIZE_UNSUPPORTED,
+  kRdmPdNrSubDeviceOutOfRange = E120_NR_SUB_DEVICE_OUT_OF_RANGE,
+  kRdmPdNrProxyBufferFull = E120_NR_PROXY_BUFFER_FULL
+} rdmpd_nack_reason_t;
+
+etcpal_error_t rdmpd_unpack_nack_reason(const RdmParamData *pd, rdmpd_nack_reason_t *nack_reason);
+etcpal_error_t rdmpd_pack_nack_reason(rdmpd_nack_reason_t nack_reason, RdmParamData *pd);
+
 /* e1.33 Table 7-1: Required E1.20 Parameter IDs for the Default Responder */
 // Get/Set IDENTIFY_DEVICE See Section 10.11.1 of [RDM]
 etcpal_error_t rdmpd_unpack_get_resp_identify_device(const RdmParamData *pd, bool *identify_state);
