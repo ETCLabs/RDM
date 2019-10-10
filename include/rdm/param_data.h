@@ -287,8 +287,8 @@ typedef struct RdmPdBrokerStatus
 
 etcpal_error_t rdmpd_unpack_get_resp_broker_status(const RdmParamData *pd, RdmPdBrokerStatus *status);
 etcpal_error_t rdmpd_pack_get_resp_broker_status(const RdmPdBrokerStatus *status, RdmParamData *pd);
-etcpal_error_t rdmpd_unpack_set_broker_status(const RdmParamData *pd, uint8_t *broker_state);
-etcpal_error_t rdmpd_pack_set_broker_status(uint8_t broker_state, RdmParamData *pd);
+etcpal_error_t rdmpd_unpack_set_broker_status(const RdmParamData *pd, rdmpd_broker_state_t *broker_state);
+etcpal_error_t rdmpd_pack_set_broker_status(rdmpd_broker_state_t broker_state, RdmParamData *pd);
 
 /* e1.37-7 Table A-1: RDM Parameter ID Defines */
 // Get ENDPOINT_LIST
