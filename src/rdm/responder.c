@@ -158,6 +158,21 @@ static bool rdm_resp_data_valid(const RdmResponse *resp_data)
           RDMRESP_COMMAND_CLASS_VALID(resp_data->command_class));
 }
 
+bool rdmresp_validate_pid_handler_data(const PidHandlerData *data, bool check_context)
+{
+  if (data == NULL)
+  {
+    return false;
+  }
+
+  if ((check_context && (data->context == NULL)) || (data->pd_in == NULL) || (data->pd_out == NULL))
+  {
+    return false;
+  }
+
+  return true;
+}
+
 void rdmresp_sort_handler_array(RdmPidHandlerEntry *handler_array, size_t handler_array_size)
 {
   // TODO: Not yet implemented

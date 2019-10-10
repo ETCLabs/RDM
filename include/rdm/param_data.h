@@ -37,6 +37,10 @@
  *  @{
  */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*! The maximum length of a typical string in the parameter data, including one extra byte for a null terminator. */
 #define RDMPD_STRING_MAX_LENGTH 33
 
@@ -610,6 +614,10 @@ etcpal_error_t rdmpd_unpack_get_resp_bkgnd_qd_status_policy_desc(const RdmParamD
                                                                  RdmPdBkgndQdStatusPolicyDescription *description);
 etcpal_error_t rdmpd_pack_get_resp_bkgnd_qd_status_policy_desc(const RdmPdBkgndQdStatusPolicyDescription *description,
                                                                RdmParamData *pd);
+
+#ifdef __cplusplus
+}
+#endif
 
 /*!@}*/
 

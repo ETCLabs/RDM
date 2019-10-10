@@ -117,7 +117,7 @@ typedef struct PidHandlerData
 
   const RdmParamData *pd_in;
   RdmParamData *pd_out;
-  rdmresp_response_type_t process_result;
+  rdmresp_response_type_t response_type;
 } PidHandlerData;
 
 typedef struct RdmPidHandlerEntry
@@ -153,6 +153,8 @@ typedef struct RdmResponderState
   void (*get_next_queued_message)(GetNextQueuedMessageData *data);
 
 } RdmResponderState;
+
+bool rdmresp_validate_pid_handler_data(const PidHandlerData *data, bool check_context);
 
 void rdmresp_sort_handler_array(RdmPidHandlerEntry *handler_array, size_t handler_array_size);
 bool rdmresp_validate_state(const RdmResponderState *state);
