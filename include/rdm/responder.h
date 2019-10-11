@@ -110,7 +110,7 @@ typedef enum
 typedef struct PidHandlerData
 {
   uint8_t port;
-  uint8_t cmd_class;
+  rdm_command_class_t cmd_class;
   uint8_t sub_device;
   size_t overflow_index;
   void *context;
@@ -127,13 +127,25 @@ typedef struct RdmPidHandlerEntry
   uint32_t flags;
 } RdmPidHandlerEntry;
 
+typedef enum
+{
+  kRdmRespStatusNone = E120_STATUS_NONE,
+  kRdmRespStatusGetLastMessage = E120_STATUS_GET_LAST_MESSAGE,
+  kRdmRespStatusAdvisory = E120_STATUS_ADVISORY,
+  kRdmRespStatusWarning = E120_STATUS_WARNING,
+  kRdmRespStatusError = E120_STATUS_ERROR,
+  kRdmRespStatusAdvisoryCleared = E120_STATUS_ADVISORY_CLEARED,
+  kRdmRespStatusWarningCleared = E120_STATUS_WARNING_CLEARED,
+  kRdmRespStatusErrorCleared = E120_STATUS_ERROR_CLEARED
+} rdmresp_status_t;
+
 typedef struct GetNextQueuedMessageData
 {
   uint8_t port;
-  uint8_t status_type;
-  uint8_t *response_type;
+  rdmresp_status_t status_type;
+  rdm_response_type_t *response_type;
   uint16_t *sub_device;
-  uint8_t *cmd_class;
+  rdm_command_class_t *cmd_class;
   uint16_t *param_id;
   RdmParamData *pd;
 } GetNextQueuedMessageData;
