@@ -44,6 +44,45 @@ static bool rdm_resp_data_valid(const RdmResponse *resp_data);
 
 /*************************** Function definitions ****************************/
 
+/*! \brief Initialize a NACK_REASON RdmResponse indicating a nonzero message count to a received
+ *         RdmCommand.
+ *
+ *  Provide the received command, the NACK reason code and the message count.
+ *
+ *  \param[out] nack_resp Response to initialize (RdmResponse *).
+ *  \param[in] cmd Received command (RdmCommand *).
+ *  \param[in] nack_reason NACK Reason code to send (uint16_t).
+ *  \param[in] msgcount Message count to send (uint8_t).
+ */
+void rdmresp_create_nack_from_command_with_msg_count(RdmResponse *nack_resp, const RdmCommand *cmd,
+                                                     uint16_t nack_reason, uint8_t msgcount)
+{
+  nack_resp->source_uid = cmd->dest_uid;
+  nack_resp->dest_uid = cmd->source_uid;
+  nack_resp->transaction_num = cmd->transaction_num;
+  nack_resp->resp_type = kRdmResponseTypeNackReason;
+  nack_resp->msg_count = msgcount;
+  nack_resp->subdevice = cmd->subdevice;
+  nack_resp->command_class =
+      (cmd->command_class == kRdmCCSetCommand ? kRdmCCSetCommandResponse : kRdmCCGetCommandResponse);
+  nack_resp->param_id = cmd->param_id;
+  nack_resp->parameter_data.datalen = 2;
+  etcpal_pack_16b(nack_resp->parameter_data.data, nack_reason);
+}
+
+/*! \brief Initialize a NACK_REASON RdmResponse to a received RdmCommand.
+ *
+ *  Provide the received command and the NACK reason code.
+ *
+ *  \param[out] nack_resp Response to initialize (RdmResponse *).
+ *  \param[in] cmd Received command (RdmCommand *).
+ *  \param[in] nack_reason NACK Reason code to send (uint16_t).
+ */
+void rdmresp_create_nack_from_command(RdmResponse *nack_resp, const RdmCommand *cmd, uint16_t nack_reason)
+{
+  rdmresp_create_nack_from_command_with_msg_count(nack_resp, cmd, nack_reason, 0);
+}
+
 /*! \brief Unpack an RDM command.
  *  \param[in] buffer The packed RDM command.
  *  \param[out] cmd The RDM command data that was unpacked from buffer.

@@ -35,43 +35,6 @@
  *  @{
  */
 
-/*! \brief Initialize a NACK_REASON RdmResponse to a received RdmCommand.
- *
- *  Provide the received command and the NACK reason code.
- *
- *  \param nack_resp Response to initialize (RdmResponse *).
- *  \param cmd Received command (RdmCommand *).
- *  \param nack_reason NACK Reason code to send (uint16_t).
- */
-#define RDM_CREATE_NACK_FROM_COMMAND(nack_resp, cmd, nack_reason) \
-  RDM_CREATE_NACK_FROM_COMMAND_WITH_MSG_COUNT(nack_resp, cmd, nack_reason, 0)
-
-/*! \brief Initialize a NACK_REASON RdmResponse indicating a nonzero message count to a received
- *         RdmCommand.
- *
- *  Provide the received command, the NACK reason code and the message count.
- *
- *  \param nack_resp Response to initialize (RdmResponse *).
- *  \param cmd Received command (RdmCommand *).
- *  \param nack_reason NACK Reason code to send (uint16_t).
- *  \param msgcount Message count to send (uint8_t).
- */
-#define RDM_CREATE_NACK_FROM_COMMAND_WITH_MSG_COUNT(nack_resp, cmd, nack_reason, msgcount)                \
-  do                                                                                                      \
-  {                                                                                                       \
-    (nack_resp)->source_uid = (cmd)->dest_uid;                                                            \
-    (nack_resp)->dest_uid = (cmd)->source_uid;                                                            \
-    (nack_resp)->transaction_num = (cmd)->transaction_num;                                                \
-    (nack_resp)->resp_type = kRdmResponseTypeNackReason;                                                  \
-    (nack_resp)->msg_count = msgcount;                                                                    \
-    (nack_resp)->subdevice = (cmd)->subdevice;                                                            \
-    (nack_resp)->command_class =                                                                          \
-        ((cmd)->command_class == kRdmCCSetCommand ? kRdmCCSetCommandResponse : kRdmCCGetCommandResponse); \
-    (nack_resp)->param_id = (cmd)->param_id;                                                              \
-    (nack_resp)->parameter_data.datalen = 2;                                                              \
-    etcpal_pack_16b((nack_resp)->parameter_data.data, nack_reason);                                       \
-  } while (0)
-
 /*! \brief Parameter support flag definitions.
  */
 #define RDM_PS_ROOT 0x00000001
@@ -85,6 +48,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+void rdmresp_create_nack_from_command_with_msg_count(RdmResponse *nack_resp, const RdmCommand *cmd,
+                                                     uint16_t nack_reason, uint8_t msgcount);
+void rdmresp_create_nack_from_command(RdmResponse *nack_resp, const RdmCommand *cmd, uint16_t nack_reason);
 
 etcpal_error_t rdmresp_unpack_command(const RdmBuffer *buffer, RdmCommand *cmd);
 bool rdmresp_is_non_disc_command(const RdmBuffer *buffer);
