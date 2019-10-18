@@ -64,7 +64,13 @@ typedef enum
   kRdmPdNrBufferFull = E120_NR_BUFFER_FULL,
   kRdmPdNrPacketSizeUnsupported = E120_NR_PACKET_SIZE_UNSUPPORTED,
   kRdmPdNrSubDeviceOutOfRange = E120_NR_SUB_DEVICE_OUT_OF_RANGE,
-  kRdmPdNrProxyBufferFull = E120_NR_PROXY_BUFFER_FULL
+  kRdmPdNrProxyBufferFull = E120_NR_PROXY_BUFFER_FULL,
+  kRdmPdNrActionNotSupported = E133_NR_ACTION_NOT_SUPPORTED,
+  kRdmPdNrUnknownScope = E133_NR_UNKNOWN_SCOPE,
+  kRdmPdNrInvalidStaticConfigType = E133_NR_INVALID_STATIC_CONFIG_TYPE,
+  kRdmPdNrInvalidIpv4Address = E133_NR_INVALID_IPV4_ADDRESS,
+  kRdmPdNrInvalidIpv6Address = E133_NR_INVALID_IPV6_ADDRESS,
+  kRdmPdNrInvalidPort = E133_NR_INVALID_PORT
 } rdmpd_nack_reason_t;
 
 etcpal_error_t rdmpd_unpack_nack_reason(const RdmParamData *pd, rdmpd_nack_reason_t *nack_reason);
