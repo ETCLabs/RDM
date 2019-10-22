@@ -26,13 +26,15 @@ endif()
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/tools/cmake)
 
+option(RDM_BUILD_MOCK_LIB "Build the RDMMock library" OFF)
+option(RDM_BUILD_TESTS "Build the RDM unit tests" ${OPTION_DEFAULTS})
+
 # Main library
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 # Tests
 
-option(RDM_BUILD_TESTS "Build the RDM unit tests" ${OPTION_DEFAULTS})
 if(RDM_BUILD_TESTS)
   add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/tests)
 endif()
