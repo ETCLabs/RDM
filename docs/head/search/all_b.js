@@ -9,5 +9,8 @@ var searchData=
   ['month',['month',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_log_time_params.html#aedb06abe5aff12fa3e7e0e71a374edfb',1,'EtcPalLogTimeParams']]],
   ['msec',['msec',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_log_time_params.html#ad957f34cd6e8272740bc231865080b22',1,'EtcPalLogTimeParams']]],
   ['msg_5fcount',['msg_count',['../struct_rdm_response.html#a7ddcf8e4afca9fbd2a1c27aa8cfa6651',1,'RdmResponse']]],
-  ['mutexguard',['MutexGuard',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_mutex_guard.html',1,'etcpal']]]
+  ['mutex',['Mutex',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_mutex.html',1,'etcpal']]],
+  ['mutex',['Mutex',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_mutex.html#a4b5dfbd24f5bc4c03b24b2da362f66d5',1,'etcpal::Mutex']]],
+  ['mutexguard',['MutexGuard',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_mutex_guard.html',1,'etcpal']]],
+  ['mutexguard',['MutexGuard',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_mutex_guard.html#a72577d0ea01f7607a671de23cc54eb06',1,'etcpal::MutexGuard::MutexGuard(Mutex &amp;mutex)'],['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_mutex_guard.html#a057d36a0206d67c6b8b9c5d8186c2e9e',1,'etcpal::MutexGuard::MutexGuard(etcpal_mutex_t &amp;mutex)']]]
 ];

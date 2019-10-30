@@ -2,6 +2,7 @@ var searchData=
 [
   ['cachednetintinfo',['CachedNetintInfo',['http://etclabs.github.io/EtcPal/docs/head/struct_cached_netint_info.html',1,'']]],
   ['cmp',['cmp',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_rb_tree.html#a10ccc54f5d61567cc7831f8f415687d8',1,'EtcPalRbTree']]],
+  ['code',['code',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_result.html#a911ed787decfceb8f34de72e8b534240',1,'etcpal::Result']]],
   ['command_5fclass',['command_class',['../struct_rdm_command.html#a8627e24459da221d560b593ea2d9f5f6',1,'RdmCommand::command_class()'],['../struct_rdm_response.html#a8627e24459da221d560b593ea2d9f5f6',1,'RdmResponse::command_class()']]],
   ['context',['context',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_log_params.html#ae376f130b17d169ee51be68077a89ed0',1,'EtcPalLogParams']]],
   ['controller',['Controller',['../group__controller.html',1,'']]],

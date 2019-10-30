@@ -2,6 +2,8 @@ var searchData=
 [
   ['second',['second',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_log_time_params.html#a6cf35be1947a62f134392fcb1b3c54d2',1,'EtcPalLogTimeParams']]],
   ['sender_5fcid',['sender_cid',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_root_layer_pdu.html#a341064da4798492e212c14a9aeede58d',1,'EtcPalRootLayerPdu']]],
+  ['signal',['Signal',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_signal.html',1,'etcpal']]],
+  ['signal',['Signal',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_signal.html#a44146dfdbec17a8ab7207e52ffae152c',1,'etcpal::Signal']]],
   ['size',['size',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_rb_tree.html#a854352f53b148adc24983a58a1866d66',1,'EtcPalRbTree']]],
   ['socket',['socket',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_poll_event.html#ad32899ff82c07979513229c6f83c5f05',1,'EtcPalPollEvent']]],
   ['source_5fuid',['source_uid',['../struct_rdm_command.html#a40cba7d6d1910fb740982421cf66c5d6',1,'RdmCommand::source_uid()'],['../struct_rdm_response.html#a40cba7d6d1910fb740982421cf66c5d6',1,'RdmResponse::source_uid()']]],
