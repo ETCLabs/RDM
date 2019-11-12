@@ -241,7 +241,7 @@ typedef struct RdmPdComponentScope
 {
   uint16_t scope_slot;
   RdmPdScopeString scope_string;
-  EtcPalSockaddr static_broker_addr;
+  EtcPalSockAddr static_broker_addr;
 } RdmPdComponentScope;
 
 etcpal_error_t rdmpd_unpack_get_resp_component_scope(const RdmParamData *pd, RdmPdComponentScope *scope);
@@ -268,7 +268,7 @@ etcpal_error_t rdmpd_pack_set_search_domain(const RdmPdSearchDomain *domain_name
 typedef struct RdmPdTcpCommsEntry
 {
   RdmPdScopeString scope_string;
-  EtcPalSockaddr broker_addr;
+  EtcPalSockAddr broker_addr;
   uint16_t unhealthy_tcp_events;
 } RdmPdTcpCommsEntry;
 
