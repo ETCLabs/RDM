@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************
- * This file is a part of RDMnet. For more information, go to:
- * https://github.com/ETCLabs/RDMnet
+ * This file is a part of RDM. For more information, go to:
+ * https://github.com/ETCLabs/RDM
  ******************************************************************************/
 #include "rdm/responder.h"
 
@@ -43,6 +43,45 @@
 static bool rdm_resp_data_valid(const RdmResponse *resp_data);
 
 /*************************** Function definitions ****************************/
+
+/*! \brief Initialize a NACK_REASON RdmResponse indicating a nonzero message count to a received
+ *         RdmCommand.
+ *
+ *  Provide the received command, the NACK reason code and the message count.
+ *
+ *  \param[out] nack_resp Response to initialize (RdmResponse *).
+ *  \param[in] cmd Received command (RdmCommand *).
+ *  \param[in] nack_reason NACK Reason code to send (uint16_t).
+ *  \param[in] msgcount Message count to send (uint8_t).
+ */
+void rdmresp_create_nack_from_command_with_msg_count(RdmResponse *nack_resp, const RdmCommand *cmd,
+                                                     uint16_t nack_reason, uint8_t msgcount)
+{
+  nack_resp->source_uid = cmd->dest_uid;
+  nack_resp->dest_uid = cmd->source_uid;
+  nack_resp->transaction_num = cmd->transaction_num;
+  nack_resp->resp_type = kRdmResponseTypeNackReason;
+  nack_resp->msg_count = msgcount;
+  nack_resp->subdevice = cmd->subdevice;
+  nack_resp->command_class =
+      (cmd->command_class == kRdmCCSetCommand ? kRdmCCSetCommandResponse : kRdmCCGetCommandResponse);
+  nack_resp->param_id = cmd->param_id;
+  nack_resp->parameter_data.datalen = 2;
+  etcpal_pack_16b(nack_resp->parameter_data.data, nack_reason);
+}
+
+/*! \brief Initialize a NACK_REASON RdmResponse to a received RdmCommand.
+ *
+ *  Provide the received command and the NACK reason code.
+ *
+ *  \param[out] nack_resp Response to initialize (RdmResponse *).
+ *  \param[in] cmd Received command (RdmCommand *).
+ *  \param[in] nack_reason NACK Reason code to send (uint16_t).
+ */
+void rdmresp_create_nack_from_command(RdmResponse *nack_resp, const RdmCommand *cmd, uint16_t nack_reason)
+{
+  rdmresp_create_nack_from_command_with_msg_count(nack_resp, cmd, nack_reason, 0);
+}
 
 /*! \brief Unpack an RDM command.
  *  \param[in] buffer The packed RDM command.
@@ -77,8 +116,8 @@ etcpal_error_t rdmresp_unpack_command(const RdmBuffer *buffer, RdmCommand *cmd)
   cmd->command_class = (rdm_command_class_t)*cur_ptr++;
   cmd->param_id = etcpal_upack_16b(cur_ptr);
   cur_ptr += 2;
-  cmd->datalen = *cur_ptr++;
-  memcpy(cmd->data, cur_ptr, cmd->datalen);
+  cmd->parameter_data.datalen = *cur_ptr++;
+  memcpy(cmd->parameter_data.data, cur_ptr, cmd->parameter_data.datalen);
   return kEtcPalErrOk;
 }
 
@@ -116,11 +155,11 @@ etcpal_error_t rdmresp_pack_response(const RdmResponse *resp_data, RdmBuffer *bu
   /* Check for invalid parameters */
   if (!resp_data || !buffer)
     return kEtcPalErrInvalid;
-  if (resp_data->datalen > RDM_MAX_PDL)
+  if (resp_data->parameter_data.datalen > RDM_MAX_PDL)
     return kEtcPalErrMsgSize;
 
   cur_ptr = buffer->data;
-  rdm_length = resp_data->datalen + RDM_HEADER_SIZE;
+  rdm_length = resp_data->parameter_data.datalen + RDM_HEADER_SIZE;
 
   /* Pack the header and data into the buffer */
   *cur_ptr++ = E120_SC_RDM;
@@ -142,8 +181,8 @@ etcpal_error_t rdmresp_pack_response(const RdmResponse *resp_data, RdmBuffer *bu
   *cur_ptr++ = (uint8_t)resp_data->command_class;
   etcpal_pack_16b(cur_ptr, resp_data->param_id);
   cur_ptr += 2;
-  *cur_ptr++ = resp_data->datalen;
-  memcpy(cur_ptr, resp_data->data, resp_data->datalen);
+  *cur_ptr++ = resp_data->parameter_data.datalen;
+  memcpy(cur_ptr, resp_data->parameter_data.data, resp_data->parameter_data.datalen);
 
   /* pack checksum and set packet length */
   rdm_pack_checksum(buffer->data, rdm_length);
@@ -156,4 +195,60 @@ static bool rdm_resp_data_valid(const RdmResponse *resp_data)
 {
   return (!RDM_UID_IS_BROADCAST(&resp_data->source_uid) && RDMRESP_RESP_TYPE_VALID(resp_data->resp_type) &&
           RDMRESP_COMMAND_CLASS_VALID(resp_data->command_class));
+}
+
+bool rdmresp_validate_pid_handler_data(const PidHandlerData *data, bool check_context)
+{
+  if (data == NULL)
+  {
+    return false;
+  }
+
+  if ((check_context && (data->context == NULL)) || (data->pd_in == NULL) || (data->pd_out == NULL))
+  {
+    return false;
+  }
+
+  return true;
+}
+
+void rdmresp_sort_handler_array(RdmPidHandlerEntry *handler_array, size_t handler_array_size)
+{
+  // TODO: Not yet implemented
+}
+
+bool rdmresp_validate_state(const RdmResponderState *state)
+{
+  return false;  // TODO: Not yet implemented
+}
+
+etcpal_error_t rdmresp_validate_packet(RdmBufferConstRef buffer, uint8_t calc_checksum,
+                                       rdmresp_validate_result_t *validate_result)
+{
+  return kEtcPalErrNotImpl;  // TODO: Not yet implemented
+}
+
+etcpal_error_t rdmresp_process_packet(const RdmResponderState *state, RdmBufferConstRef buffer_in,
+                                      RdmBufferRef *buffer_out, rdmresp_response_type_t *response_type, bool *no_break)
+{
+  return kEtcPalErrNotImpl;  // TODO: Not yet implemented
+}
+
+etcpal_error_t rdmresp_process_packet_shared_buffer(const RdmResponderState *state, RdmBufferRef *buffer_in_out,
+                                                    rdmresp_response_type_t *response_type, bool *no_break)
+{
+  return kEtcPalErrNotImpl;  // TODO: Not yet implemented
+}
+
+etcpal_error_t rdmresp_process_command(const RdmResponderState *state, const RdmCommand *cmd, RdmResponse *resp,
+                                       rdmresp_response_type_t *response_type)
+{
+  return kEtcPalErrNotImpl;  // TODO: Not yet implemented
+}
+
+etcpal_error_t rdmresp_process_command_with_discovery(const RdmResponderState *state, const RdmCommand *cmd,
+                                                      RdmBufferRef *buffer_out, rdmresp_response_type_t *response_type,
+                                                      bool *no_break)
+{
+  return kEtcPalErrNotImpl;  // TODO: Not yet implemented
 }

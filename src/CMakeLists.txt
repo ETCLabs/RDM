@@ -17,12 +17,14 @@ add_library(RDM
   ${RDM_INCLUDE}/rdm/controller.h
   ${RDM_INCLUDE}/rdm/defs.h
   ${RDM_INCLUDE}/rdm/message.h
+  ${RDM_INCLUDE}/rdm/param_data.h
   ${RDM_INCLUDE}/rdm/responder.h
   ${RDM_INCLUDE}/rdm/uid.h
 
   # RDM sources
   rdm/controller.c
   rdm/message.c
+  rdm/param_data.c
   rdm/responder.c
   rdm/uid.c
 )
@@ -40,6 +42,7 @@ if(RDM_BUILD_MOCK_LIB)
     ${RDM_INCLUDE}/rdm/controller.h
     ${RDM_INCLUDE}/rdm/defs.h
     ${RDM_INCLUDE}/rdm/message.h
+    ${RDM_INCLUDE}/rdm/param_data.h
     ${RDM_INCLUDE}/rdm/responder.h
     ${RDM_INCLUDE}/rdm/uid.h
 
@@ -47,6 +50,7 @@ if(RDM_BUILD_MOCK_LIB)
     # We will gradually substitute these with mocks as needed
     rdm/controller.c
     rdm/message.c
+    rdm/param_data.c
     rdm/responder.c
     rdm/uid.c
   )

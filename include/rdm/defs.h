@@ -4,6 +4,7 @@
  *  - File renamed to rdm/defs.h
  *  - BSR E1.37-7 definitions added
  *  - clang-format off directive added
+ *  - E1.33 definitions added
  *
  * Used per the terms of the original copyright notice, which can be found below.
  */
@@ -743,3 +744,45 @@
 #define E137_7_NR_ENDPOINT_NUMBER_INVALID                0x000C /* The specified endpoint is invalid. */
 #define E137_7_NR_INVALID_ENDPOINT_MODE                  0x000D /* The specified endpoint is in an invalid Endpoint Mode for the requested action. */
 #define E137_7_NR_UNKNOWN_UID                            0x000E /* The specified UID is not recognized. */
+
+
+/********************************************************************************************************************************/
+/********************************************************************************************************************************/
+/* ANSI E1.33 DEFINES */
+/********************************************************************************************************************************/
+/********************************************************************************************************************************/
+
+/******************************************************************************
+ * E1.33 Table A-15: RDM Parameter ID Defines
+ *****************************************************************************/
+/* Category - E1.33 Management   */
+#define E133_COMPONENT_SCOPE  0x0800
+#define E133_SEARCH_DOMAIN    0x0801
+#define E133_TCP_COMMS_STATUS 0x0802
+#define E133_BROKER_STATUS    0x0803
+
+/******************************************************************************
+ * E1.33 Table A-16: Additional Response NACK Reason Codes
+ *****************************************************************************/
+#define E133_NR_ACTION_NOT_SUPPORTED       0x000B
+#define E133_NR_UNKNOWN_SCOPE              0x000F
+#define E133_NR_INVALID_STATIC_CONFIG_TYPE 0x0010
+#define E133_NR_INVALID_IPV4_ADDRESS       0x0011
+#define E133_NR_INVALID_IPV6_ADDRESS       0x0012
+#define E133_NR_INVALID_PORT               0x0013
+
+/******************************************************************************
+ * E1.33 Table A-17: Static Config Type Definitions for COMPONENT_SCOPE 
+ * Parameter Message
+ *****************************************************************************/
+#define E133_NO_STATIC_CONFIG   0x00
+#define E133_STATIC_CONFIG_IPV4 0x01
+#define E133_STATIC_CONFIG_IPV6 0x02
+
+/******************************************************************************
+ * E1.33 Table A-18: Broker State Definitions for BROKER_STATUS Parameter
+ * Message
+ *****************************************************************************/
+#define E133_BROKER_DISABLED 0x00
+#define E133_BROKER_ACTIVE   0x01
+#define E133_BROKER_STANDBY  0x02

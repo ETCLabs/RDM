@@ -53,11 +53,11 @@ etcpal_error_t rdmctl_pack_command(const RdmCommand *cmd_data, RdmBuffer *buffer
 
   if (!cmd_data || !buffer || !rdm_cmd_data_valid(cmd_data))
     return kEtcPalErrInvalid;
-  if (cmd_data->datalen > RDM_MAX_PDL)
+  if (cmd_data->parameter_data.datalen > RDM_MAX_PDL)
     return kEtcPalErrMsgSize;
 
   cur_ptr = buffer->data;
-  rdm_length = cmd_data->datalen + RDM_HEADER_SIZE;
+  rdm_length = cmd_data->parameter_data.datalen + RDM_HEADER_SIZE;
 
   *cur_ptr++ = E120_SC_RDM;
   *cur_ptr++ = E120_SC_SUB_MESSAGE;
@@ -78,8 +78,8 @@ etcpal_error_t rdmctl_pack_command(const RdmCommand *cmd_data, RdmBuffer *buffer
   *cur_ptr++ = (uint8_t)cmd_data->command_class;
   etcpal_pack_16b(cur_ptr, cmd_data->param_id);
   cur_ptr += 2;
-  *cur_ptr++ = cmd_data->datalen;
-  memcpy(cur_ptr, cmd_data->data, cmd_data->datalen);
+  *cur_ptr++ = cmd_data->parameter_data.datalen;
+  memcpy(cur_ptr, cmd_data->parameter_data.data, cmd_data->parameter_data.datalen);
 
   /* pack checksum and set packet length */
   rdm_pack_checksum(buffer->data, rdm_length);
@@ -137,8 +137,8 @@ etcpal_error_t rdmctl_unpack_response(const RdmBuffer *buffer, RdmResponse *resp
   resp->command_class = (rdm_command_class_t)*cur_ptr++;
   resp->param_id = etcpal_upack_16b(cur_ptr);
   cur_ptr += 2;
-  resp->datalen = *cur_ptr++;
-  memcpy(resp->data, cur_ptr, resp->datalen);
+  resp->parameter_data.datalen = *cur_ptr++;
+  memcpy(resp->parameter_data.data, cur_ptr, resp->parameter_data.datalen);
   return kEtcPalErrOk;
 }
 
