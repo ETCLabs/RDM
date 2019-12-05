@@ -40,7 +40,7 @@
 
 /*********************** Private function prototypes *************************/
 
-static bool rdm_resp_data_valid(const RdmResponse *resp_data);
+// static bool rdm_resp_data_valid(const RdmResponse *resp_data);
 
 /*************************** Function definitions ****************************/
 
@@ -152,8 +152,10 @@ etcpal_error_t rdmresp_pack_response(const RdmResponse *resp_data, RdmBuffer *bu
 }
 
 /* Do some basic validation on an RDM response provided by a library user. */
+/*
 static bool rdm_resp_data_valid(const RdmResponse *resp_data)
 {
   return (!RDM_UID_IS_BROADCAST(&resp_data->source_uid) && RDMRESP_RESP_TYPE_VALID(resp_data->resp_type) &&
           RDMRESP_COMMAND_CLASS_VALID(resp_data->command_class));
 }
+*/
