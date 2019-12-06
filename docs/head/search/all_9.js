@@ -11,6 +11,7 @@ var searchData=
   ['ketcpalerrconnrefused',['kEtcPalErrConnRefused',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afa4b119ec2231eb8bf73535b1375f5f232',1,]]],
   ['ketcpalerrconnreset',['kEtcPalErrConnReset',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afa15cf4f4905d98d94910c6cc76ae1218f',1,]]],
   ['ketcpalerrexists',['kEtcPalErrExists',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afaeab0ae4d277d52dc56a1d78f81868c2d',1,]]],
+  ['ketcpalerrhostunreach',['kEtcPalErrHostUnreach',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afa9c5af0e9de48f403358d6b9e2ef819b7',1,]]],
   ['ketcpalerrinprogress',['kEtcPalErrInProgress',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afa99aabe562db1ed9acab67c6a2bc777a1',1,]]],
   ['ketcpalerrinvalid',['kEtcPalErrInvalid',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afadb17bb2ec24e7755170e8afbd5b10bc2',1,]]],
   ['ketcpalerrisconn',['kEtcPalErrIsConn',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afa9603628c356775915b437e3c15bdef53',1,]]],
@@ -37,6 +38,7 @@ var searchData=
   ['ketcpallogcreateboth',['kEtcPalLogCreateBoth',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__log.html#gga10855f3c1f3816d0bd5e4687108ea1c5a8d083dc7d2d4359fd9ce6330b9d4c2bb',1,]]],
   ['ketcpallogcreatehumanreadablelog',['kEtcPalLogCreateHumanReadableLog',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__log.html#gga10855f3c1f3816d0bd5e4687108ea1c5ae82eb0e5fc80d2657c033413df36224e',1,]]],
   ['ketcpallogcreatesyslog',['kEtcPalLogCreateSyslog',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__log.html#gga10855f3c1f3816d0bd5e4687108ea1c5a1631725f7a5f65a9fb15767cecec5290',1,]]],
+  ['ketcpalnullmacaddr',['kEtcPalNullMacAddr',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__inet.html#gae648df0d068e3335073224fb0fb45512',1,]]],
   ['ketcpalnulluuid',['kEtcPalNullUuid',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__uuid.html#gae518c32bbc7d2266568ee9a703bb4f5e',1,]]],
   ['krdmnetcontrollerbroadcastuid',['kRdmnetControllerBroadcastUid',['../group__uid.html#ga2440a6426ac165d97dc206069060fd9e',1,'kRdmnetControllerBroadcastUid():&#160;uid.c'],['../group__uid.html#ga2440a6426ac165d97dc206069060fd9e',1,'kRdmnetControllerBroadcastUid():&#160;uid.c']]],
   ['krdmnetdevicebroadcastuid',['kRdmnetDeviceBroadcastUid',['../group__uid.html#ga9a8e7cd056b52e54e8a66d84908b82fe',1,'kRdmnetDeviceBroadcastUid():&#160;uid.c'],['../group__uid.html#ga9a8e7cd056b52e54e8a66d84908b82fe',1,'kRdmnetDeviceBroadcastUid():&#160;uid.c']]]

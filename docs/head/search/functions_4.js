@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['isnull',['IsNull',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_uuid.html#ac4d637a0dec45d546495c1660c9f6047',1,'etcpal::Uuid']]],
-  ['isok',['IsOk',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_result.html#a955b65059e7f9429a5d6041136bc1487',1,'etcpal::Result']]]
+  ['fromstring',['FromString',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_ip_addr.html#a5c2b23004b9bdca3df3142b5f4fbd8ac',1,'etcpal::IpAddr::FromString()'],['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_mac_addr.html#a4ddd74c443669ab0d7c1aefac0e13fd7',1,'etcpal::MacAddr::FromString()'],['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_uuid.html#a348be5fbf7a863c74485b6df0e029fdc',1,'etcpal::Uuid::FromString()']]]
 ];

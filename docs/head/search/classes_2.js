@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['defaultnetint',['DefaultNetint',['http://etclabs.github.io/EtcPal/docs/head/struct_default_netint.html',1,'']]]
+  ['ipaddr',['IpAddr',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_ip_addr.html',1,'etcpal']]]
 ];
