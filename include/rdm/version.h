@@ -45,7 +45,7 @@
  *  @{
  */
 #define RDM_VERSION_STRING "0.2.0.6"
-#define RDM_VERSION_DATESTR "05.Dec.2019"
+#define RDM_VERSION_DATESTR "06.Dec.2019"
 #define RDM_VERSION_COPYRIGHT "Copyright 2019 ETC Inc."
 #define RDM_VERSION_PRODUCTNAME "RDM"
 /*!@}*/
