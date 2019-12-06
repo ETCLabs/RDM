@@ -24,17 +24,19 @@ else()
   set(OPTION_DEFAULTS OFF)
 endif()
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/tools/cmake)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 
 option(RDM_BUILD_MOCK_LIB "Build the RDMMock library" OFF)
 option(RDM_BUILD_TESTS "Build the RDM unit tests" ${OPTION_DEFAULTS})
 
 # Main library
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src)
+add_subdirectory(src)
 
 # Tests
 
 if(RDM_BUILD_TESTS)
-  add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/tests)
+  enable_testing()
+  include(AddGoogleTest)
+  add_subdirectory(tests)
 endif()

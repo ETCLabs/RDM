@@ -16,7 +16,7 @@ def main():
     post_body = {
         "fields": {
             "project": {
-                "key": "ETCPAL"
+                "key": "GHRDM"
             },
             "summary": current_version,
             "description": "{{noformat}}\n{}\n{{noformat}}\n".format(jira_imports),

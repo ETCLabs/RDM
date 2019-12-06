@@ -2,52 +2,84 @@
 
 trigger:
 - develop
+- master
+- release/*
+- refs/tags/v*.*.*.*
 
 pr:
 - develop
 
-jobs:
-# Build and test RDM on Windows using CMake and Visual Studio 2017.
-- job: windows_build
-  displayName: 'Windows Build and Test'
-  pool:
-    vmImage: 'vs2017-win2016'
-  strategy:
-    matrix:
-      Debug:
-        RDM_BUILD_CONFIG: 'Debug'
-      Release:
-        RDM_BUILD_CONFIG: 'Release'
-  steps:
-  - script: |
-      mkdir build
-      cd build
-      cmake --version
-      cmake -G "Visual Studio 15 2017 Win64" ..
-      cmake --build . --config %RDM_BUILD_CONFIG%
-    displayName: 'RDM Windows build'
-  - script: build\tests\%RDM_BUILD_CONFIG%\test_rdm.exe
-    displayName: 'RDM Windows test'
-# Generate documentation with doxygen. Documentation is generated from the
-# develop branch and posted to the 'head' portion of the Github page
-# (etclabs.github.io/RDM)
-- job: docs
-  displayName: 'Deploy documentation'
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
-  pool:
-    vmImage: 'ubuntu-16.04'
-  variables: 
-  - group: github-push-access
-  steps:
-  - script: sudo apt-get install doxygen
-    displayName: 'Install dependencies'
-  - script: |
-      cd tools/ci
-      chmod +x publish_docs.sh
-      ./publish_docs.sh
-    displayName: 'Generate and deploy documentation'
-    env:
-      GH_REPO_NAME: RDM
-      GH_REPO_REF: github.com/ETCLabs/RDM.git
-      GH_REPO_TOKEN: $(GH_ACCESS_TOKEN)
-  
+stages:
+- stage: build_and_test
+  displayName: 'Build and Test RDM'
+  jobs:
+  # Build and test RDM on Windows using CMake and Visual Studio 2017.
+  - job: windows_build
+    displayName: 'Windows'
+    pool:
+      vmImage: 'vs2017-win2016'
+    variables:
+      cmake_generator: 'Visual Studio 15 2017 Win64'
+    steps:
+    - script: |
+        mkdir build
+        cd build
+        cmake --version
+        cmake -G "$(cmake_generator)" ..
+      displayName: 'Configure Project'
+    - task: VSBuild@1
+      displayName: 'Build Project'
+      inputs:
+        solution: $(Build.SourcesDirectory)\build\RDM.sln
+        configuration: Release
+    - script: |
+        cd build
+        ctest -C Release --output-on-failure
+      displayName: 'Run Tests'
+  # Generate documentation with doxygen. Documentation is generated from the
+  # develop branch and posted to the 'head' portion of the Github page
+  # (etclabs.github.io/RDM)
+  - job: docs
+    displayName: 'Deploy Documentation'
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+    pool:
+      # TODO change to ubuntu-latest when this issue is fixed:
+      # https://github.com/microsoft/azure-pipelines-image-generation/issues/1379
+      vmImage: 'ubuntu-18.04'
+    variables: 
+    - group: github-push-access
+    steps:
+    - script: sudo apt-get install doxygen
+      displayName: 'Install Dependencies'
+    - script: |
+        cd tools/ci
+        chmod +x publish_docs.sh
+        ./publish_docs.sh
+      displayName: 'Generate and Push Documentation'
+      env:
+        GH_REPO_NAME: RDM
+        GH_REPO_REF: github.com/ETCLabs/RDM.git
+        GH_REPO_TOKEN: $(GH_ACCESS_TOKEN)
+    
+- stage: deploy
+  displayName: 'Deploy Build Artifacts'
+  condition: and(succeeded('build_and_test'), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+  jobs:
+  - job: create_build_report
+    displayName: 'Create Jira Build Report'
+    pool:
+      vmImage: 'ubuntu-latest'
+    variables:
+    - group: etc_jira
+    steps:
+    - task: UsePythonVersion@0
+      displayName: 'Select Python Version'
+      inputs:
+        versionSpec: '3.x'
+        addToPath: true
+    - script: |
+        python -m pip install requests
+        python tools/ci/create_build_report.py
+      displayName: 'Run Create Build Report Script'
+      env:
+        BUILDNETWORKING_PASSWORD: $(buildnetworking_password)

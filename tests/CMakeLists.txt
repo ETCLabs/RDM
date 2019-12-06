@@ -1,9 +1,6 @@
 ################################### testing ###################################
 
-enable_testing()
-
-message(STATUS "Adding GoogleTest dependency...")
-include(AddGoogleTest)
+include(GoogleTest)
 
 set(TEST_SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/unit)
 
@@ -18,3 +15,4 @@ set_target_properties(test_rdm PROPERTIES
   CXX_STANDARD 14
 )
 target_link_libraries(test_rdm RDM gtest)
+gtest_add_tests(TARGET test_rdm SKIP_DEPENDENCY)
