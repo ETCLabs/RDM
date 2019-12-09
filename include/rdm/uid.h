@@ -25,6 +25,7 @@
 #ifndef RDM_UID_H_
 #define RDM_UID_H_
 
+#include "etcpal/error.h"
 #include "etcpal/int.h"
 
 /*!
@@ -111,6 +112,18 @@ typedef struct RdmUid
     (uidptr)->id = 0;                                     \
   } while (0)
 
+/*!
+ * \brief Initialize an RDMnet Device Manufacturer Broadcast UID with a Manufacturer ID.
+ * \param uidptr Pointer to RdmUid to initialize.
+ * \param manu_val ESTA Manufacturer ID.
+ */
+#define RDMNET_INIT_DEVICE_MANU_BROADCAST(uidptr, manu_val)          \
+  do                                                                 \
+  {                                                                  \
+    (uidptr)->manu = kRdmnetDeviceBroadcastUid.manu;                 \
+    (uidptr)->id = (kRdmnetDeviceBroadcastUid.id & ((manu_val << 16) | 0xffffu)); \
+  } while (0)
+
 /**************************** UID Broadcast Macros ***************************/
 
 /*!
@@ -119,7 +132,7 @@ typedef struct RdmUid
  * \return true (uidptr is equal to BROADCAST_ALL_DEVICES_ID) or false (uidptr is not equal to
  *         BROADCAST_ALL_DEVICES_ID).
  */
-#define RDM_UID_IS_BROADCAST(uidptr) ((uidptr)->manu == kBroadcastUid.manu && (uidptr)->id == kBroadcastUid.id)
+#define RDM_UID_IS_BROADCAST(uidptr) ((uidptr)->manu == kRdmBroadcastUid.manu && (uidptr)->id == kRdmBroadcastUid.id)
 
 /*!
  * \brief Determine whether a UID is the E1.33 value RPT_ALL_CONTROLLERS.
@@ -152,7 +165,7 @@ typedef struct RdmUid
  *         not one of the values defined by RPT_ALL_MID_DEVICES).
  */
 #define RDMNET_UID_IS_DEVICE_MANU_BROADCAST(uidptr) \
-  ((uidptr)->manu == kRdmnetControllerBroadcastUid.manu && (((uidptr)->id & 0xffffu) == 0xffffu))
+  ((uidptr)->manu == kRdmnetDeviceBroadcastUid.manu && (((uidptr)->id & 0xffffu) == 0xffffu))
 
 /*!
  * \brief Determine whether an RDMnet Device Manufacturer Broadcast UID
@@ -182,10 +195,20 @@ typedef struct RdmUid
 /******************************* UID Inspection ******************************/
 
 /*!
+ * \brief Determine if a UID is null.
+ *
+ * A UID is said to be 'null' when it is made up of all 0's.
+ *
+ * \param uidptr Pointer to UID to null-check.
+ * \return true (UID is null) or false (UID is not null).
+ */
+#define RDM_UID_IS_NULL(uidptr) RDM_UID_EQUAL(uidptr, &kRdmNullUid)
+
+/*!
  * \brief Determine whether a UID is a Dynamic UID as defined in ANSI E1.33.
  *
- * Note that !RDMNET_UID_IS_DYNAMIC() does not imply RDMNET_UID_IS_STATIC(), because broadcast UID
- * values are neither dynamic nor static UIDs.
+ * Note that !RDMNET_UID_IS_DYNAMIC() does not imply RDMNET_UID_IS_STATIC(), because broadcast and
+ * null UID values are neither dynamic nor static UIDs.
  *
  * \param uidptr Pointer to RdmUid to check.
  * \return true (UID is an E1.33 Dynamic UID) or false (UID is not an E1.33 Dynamic UID).
@@ -205,13 +228,13 @@ typedef struct RdmUid
 /*!
  * \brief Determine whether a UID is a Static UID as defined in ANSI E1.33.
  *
- * Note that !RDMNET_UID_IS_STATIC() does not imply RDMNET_UID_IS_DYNAMIC(), because broadcast UID
- * values are neither dynamic nor static UIDs.
+ * Note that !RDMNET_UID_IS_STATIC() does not imply RDMNET_UID_IS_DYNAMIC(), because broadcast and
+ * null UID values are neither dynamic nor static UIDs.
  *
  * \param uidptr Pointer to RdmUid to check.
  * \return true (UID is an E1.33 Static UID) or false (UID is not an E1.33 Static UID).
  */
-#define RDMNET_UID_IS_STATIC(uidptr) (((uidptr)->manu & 0x8000u) == 0)
+#define RDMNET_UID_IS_STATIC(uidptr) (!RDM_UID_IS_NULL(uidptr) && ((uidptr)->manu & 0x8000u) == 0)
 
 /*!
  * \brief Get the ESTA Manufacturer ID from a UID.
@@ -227,14 +250,23 @@ typedef struct RdmUid
  */
 #define RDM_GET_DEVICE_ID(uidptr) ((uidptr)->id)
 
+/*! A null (all 0's) UID. */
+extern const RdmUid kRdmNullUid;
+
 /*! A UID that is equal to BROADCAST_ALL_DEVICES_ID as defined in ANSI E1.20. */
-extern const RdmUid kBroadcastUid;
+extern const RdmUid kRdmBroadcastUid;
 
 /*! A UID that is equal to RPT_ALL_CONTROLLERS as defined in ANSI E1.33. */
 extern const RdmUid kRdmnetControllerBroadcastUid;
 
 /*! A UID that is equal to RPT_ALL_DEVICES as defined in ANSI E1.33. */
 extern const RdmUid kRdmnetDeviceBroadcastUid;
+
+/*! The maximum number of bytes for a buffer that can hold a UID string representation. */
+#define RDM_UID_STRING_BYTES 14
+
+etcpal_error_t rdm_uid_to_string(const RdmUid* uid, char* buf);
+etcpal_error_t rdm_string_to_uid(const char* str, RdmUid* uid);
 
 #ifdef __cplusplus
 }
@@ -258,11 +290,6 @@ constexpr bool operator!=(const RdmUid& a, const RdmUid& b) noexcept
 constexpr bool operator<(const RdmUid& a, const RdmUid& b) noexcept
 {
   return ((a.manu == b.manu) ? (a.id < b.id) : (a.manu < b.manu));
-}
-
-constexpr bool operator>(const RdmUid& a, const RdmUid& b) noexcept
-{
-  return b < a;
 }
 
 constexpr bool operator>(const RdmUid& a, const RdmUid& b) noexcept

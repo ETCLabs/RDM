@@ -16,49 +16,69 @@
  * This file is a part of RDM. For more information, go to:
  * https://github.com/ETCLabs/RDM
  ******************************************************************************/
-#include "gtest/gtest.h"
+
 #include "rdm/uid.h"
+#include "gtest/gtest.h"
 
-class UidTest : public ::testing::Test
+TEST(Uid, UidToStringHandlesInvalidCalls)
 {
-};
+  char str_buf[RDM_UID_STRING_BYTES];
+  RdmUid uid = {0x6574u, 0x88888888u};
 
-// Test the operator== and operator!= functions for RdmUid structs
-TEST_F(UidTest, operator_equal)
-{
-  RdmUid uid_1{0, 0};
-  RdmUid uid_2{0, 0};
-
-  EXPECT_EQ(uid_1, uid_2);
-  EXPECT_EQ(uid_2, uid_1);
-
-  uid_1.manu = 1;
-  EXPECT_NE(uid_1, uid_2);
-  EXPECT_NE(uid_2, uid_1);
-
-  uid_1.manu = 0;
-  uid_1.id = 1;
-  EXPECT_NE(uid_1, uid_2);
-  EXPECT_NE(uid_2, uid_1);
+  EXPECT_EQ(kEtcPalErrInvalid, rdm_uid_to_string(nullptr, str_buf));
+  EXPECT_EQ(kEtcPalErrInvalid, rdm_uid_to_string(&uid, nullptr));
+  EXPECT_EQ(kEtcPalErrInvalid, rdm_uid_to_string(nullptr, nullptr));
 }
 
-TEST_F(UidTest, operator_less)
+TEST(Uid, NormalUidToStringWorks)
 {
-  RdmUid uid_1{0, 0};
-  RdmUid uid_2{0, 0};
+  char str_buf[RDM_UID_STRING_BYTES];
+  RdmUid uid = {0x6574u, 0x88884444u};
 
-  EXPECT_FALSE(uid_1 < uid_2);
+  ASSERT_EQ(kEtcPalErrOk, rdm_uid_to_string(&uid, str_buf));
+  EXPECT_STREQ(str_buf, "6574:88884444");
+}
 
-  uid_2.manu = 1;
-  EXPECT_TRUE(uid_1 < uid_2);
-  EXPECT_FALSE(uid_2 < uid_1);
+TEST(Uid, NullUidToStringWorks)
+{
+  char str_buf[RDM_UID_STRING_BYTES];
+  ASSERT_EQ(kEtcPalErrOk, rdm_uid_to_string(&kRdmNullUid, str_buf));
+  EXPECT_STREQ(str_buf, "0000:00000000");
+}
 
-  uid_2.manu = 0;
-  uid_2.id = 1;
-  EXPECT_TRUE(uid_1 < uid_2);
-  EXPECT_FALSE(uid_2 < uid_1);
+TEST(Uid, StringToUidHandlesInvalidCalls)
+{
+  RdmUid uid;
 
-  uid_2.manu = 1;
-  EXPECT_TRUE(uid_1 < uid_2);
-  EXPECT_FALSE(uid_2 < uid_1);
+  EXPECT_EQ(kEtcPalErrInvalid, rdm_string_to_uid(nullptr, &uid));
+  EXPECT_EQ(kEtcPalErrInvalid, rdm_string_to_uid("6574:88888888", nullptr));
+  EXPECT_EQ(kEtcPalErrInvalid, rdm_string_to_uid(nullptr, nullptr));
+}
+
+TEST(Uid, StringToUidConversionWorks)
+{
+  RdmUid uid;
+  ASSERT_EQ(kEtcPalErrOk, rdm_string_to_uid("6574:0a0b0c0d", &uid));
+  EXPECT_EQ(uid.manu, 0x6574u);
+  EXPECT_EQ(uid.id, 0x0a0b0c0du);
+
+  ASSERT_EQ(kEtcPalErrOk, rdm_string_to_uid("65740a0b0c0d", &uid));
+  EXPECT_EQ(uid.manu, 0x6574u);
+  EXPECT_EQ(uid.id, 0x0a0b0c0du);
+}
+
+TEST(Uid, StringToUidConversionRejectsBadStrings)
+{
+  const char* kBadUidStrings[] = {
+    "0a0b:g0112233", // Bad character in the device ID
+    "0a0g:00112233", // Bad character in the manufacturer ID
+    "Not a UID", // Short random string
+    "This is not a UID", // Long random string
+  };
+
+  for (const char* str : kBadUidStrings)
+  {
+    RdmUid uid;
+    EXPECT_EQ(kEtcPalErrInvalid, rdm_string_to_uid(str, &uid)) << "Failed on input: " << str;
+  }
 }

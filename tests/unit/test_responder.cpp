@@ -16,16 +16,13 @@
  * This file is a part of RDM. For more information, go to:
  * https://github.com/ETCLabs/RDM
  ******************************************************************************/
-#include "gtest/gtest.h"
+
 #include "rdm/responder.h"
+#include "gtest/gtest.h"
 #include "etcpal/pack.h"
 
-class ResponderTest : public ::testing::Test
-{
-};
-
 // Test the RDM_CREATE_NACK_* macros
-TEST_F(ResponderTest, create_nack)
+TEST(Responder, create_nack)
 {
   RdmCommand test_cmd{};
   test_cmd.source_uid = {0, 1};
