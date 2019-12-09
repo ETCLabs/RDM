@@ -16,6 +16,7 @@
  * This file is a part of RDM. For more information, go to:
  * https://github.com/ETCLabs/RDM
  ******************************************************************************/
+
 #include "rdm/uid.h"
 
 const RdmUid kBroadcastUid = {0xffffu, 0xffffffffu};

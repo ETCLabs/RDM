@@ -17,44 +17,53 @@
  * https://github.com/ETCLabs/RDM
  ******************************************************************************/
 
-/*! \file rdm/responder.h
- *  \brief Contains functions for unpacking RDM commands and creating responses.
- *  \author Sam Kearney */
-#ifndef _RDM_RESPONDER_H_
-#define _RDM_RESPONDER_H_
+/*!
+ * \file rdm/responder.h
+ * \brief Contains functions for unpacking RDM commands and creating responses.
+ */
+
+#ifndef RDM_RESPONDER_H_
+#define RDM_RESPONDER_H_
 
 #include "etcpal/int.h"
 #include "etcpal/error.h"
 #include "etcpal/pack.h"
 #include "rdm/message.h"
 
-/*! \defgroup responder Responder
- *  \ingroup rdm
- *  \brief Implementation of RDM responder functionality.
+/*!
+ * \defgroup responder Responder
+ * \ingroup rdm
+ * \brief Implementation of RDM responder functionality.
  *
- *  @{
+ * @{
  */
 
-/*! \brief Initialize a NACK_REASON RdmResponse to a received RdmCommand.
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/*!
+ * \brief Initialize a NACK_REASON RdmResponse to a received RdmCommand.
  *
- *  Provide the received command and the NACK reason code.
+ * Provide the received command and the NACK reason code.
  *
- *  \param nack_resp Response to initialize (RdmResponse *).
- *  \param cmd Received command (RdmCommand *).
- *  \param nack_reason NACK Reason code to send (uint16_t).
+ * \param nack_resp Response to initialize (RdmResponse *).
+ * \param cmd Received command (RdmCommand *).
+ * \param nack_reason NACK Reason code to send (uint16_t).
  */
 #define RDM_CREATE_NACK_FROM_COMMAND(nack_resp, cmd, nack_reason) \
   RDM_CREATE_NACK_FROM_COMMAND_WITH_MSG_COUNT(nack_resp, cmd, nack_reason, 0)
 
-/*! \brief Initialize a NACK_REASON RdmResponse indicating a nonzero message count to a received
- *         RdmCommand.
+/*!
+ * \brief Initialize a NACK_REASON RdmResponse indicating a nonzero message count to a received
+ *        RdmCommand.
  *
- *  Provide the received command, the NACK reason code and the message count.
+ * Provide the received command, the NACK reason code and the message count.
  *
- *  \param nack_resp Response to initialize (RdmResponse *).
- *  \param cmd Received command (RdmCommand *).
- *  \param nack_reason NACK Reason code to send (uint16_t).
- *  \param msgcount Message count to send (uint8_t).
+ * \param nack_resp Response to initialize (RdmResponse *).
+ * \param cmd Received command (RdmCommand *).
+ * \param nack_reason NACK Reason code to send (uint16_t).
+ * \param msgcount Message count to send (uint8_t).
  */
 #define RDM_CREATE_NACK_FROM_COMMAND_WITH_MSG_COUNT(nack_resp, cmd, nack_reason, msgcount)                \
   do                                                                                                      \
@@ -69,21 +78,19 @@
         ((cmd)->command_class == kRdmCCSetCommand ? kRdmCCSetCommandResponse : kRdmCCGetCommandResponse); \
     (nack_resp)->param_id = (cmd)->param_id;                                                              \
     (nack_resp)->datalen = 2;                                                                             \
-    etcpal_pack_16b((nack_resp)->data, nack_reason);                                                        \
+    etcpal_pack_16b((nack_resp)->data, nack_reason);                                                      \
   } while (0)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-etcpal_error_t rdmresp_unpack_command(const RdmBuffer *buffer, RdmCommand *cmd);
-bool rdmresp_is_non_disc_command(const RdmBuffer *buffer);
-etcpal_error_t rdmresp_pack_response(const RdmResponse *resp_data, RdmBuffer *buffer);
+etcpal_error_t rdmresp_unpack_command(const RdmBuffer* buffer, RdmCommand* cmd);
+bool rdmresp_is_non_disc_command(const RdmBuffer* buffer);
+etcpal_error_t rdmresp_pack_response(const RdmResponse* resp_data, RdmBuffer* buffer);
 
 #ifdef __cplusplus
 };
 #endif
 
-/*!@}*/
+/*!
+ * @}
+ */
 
-#endif /* _RDM_RESPONDER_H_ */
+#endif /* RDM_RESPONDER_H_ */

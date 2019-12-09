@@ -17,39 +17,54 @@
  * https://github.com/ETCLabs/RDM
  ******************************************************************************/
 
-/*! \file rdm/version.h
- *  \brief Provides the current version of the RDM library.
- *  \author Sam Kearney
+/*
+ * IMPORTANT NOTE: If you change this file, you must also change the template located at
+ * tools/version/templates/version.h.in.
  */
-#ifndef _RDM_VERSION_H_
-#define _RDM_VERSION_H_
+
+/*!
+ * \file rdm/version.h
+ * \brief Provides the current version of the RDM library.
+ */
+
+#ifndef RDM_VERSION_H_
+#define RDM_VERSION_H_
 
 /* clang-format off */
 
-/*! \defgroup rdm RDM
- *  \brief Implementation of the RDM protocol.
+/*!
+ * \defgroup rdm RDM
+ * \brief Implementation of the RDM protocol.
  *
- *  @{
+ * @{
  */
 
-/*! \name RDM version numbers
- *  @{
+/*!
+ * \name RDM version numbers
+ * @{
  */
 #define RDM_VERSION_MAJOR 0 /*!< The major version. */
 #define RDM_VERSION_MINOR 2 /*!< The minor version. */
 #define RDM_VERSION_PATCH 0 /*!< The patch version. */
 #define RDM_VERSION_BUILD 6 /*!< The build number. */
-/*!@}*/
+/*!
+ * @}
+ */
 
-/*! \name RDM version strings
- *  @{
+/*!
+ * \name RDM version strings
+ * @{
  */
 #define RDM_VERSION_STRING "0.2.0.6"
 #define RDM_VERSION_DATESTR "06.Dec.2019"
 #define RDM_VERSION_COPYRIGHT "Copyright 2019 ETC Inc."
 #define RDM_VERSION_PRODUCTNAME "RDM"
-/*!@}*/
+/*!
+ * @}
+ */
 
-/*!@}*/
+/*!
+ * @}
+ */
 
-#endif /* _RDM_VERSION_H_ */
+#endif /* RDM_VERSION_H_ */

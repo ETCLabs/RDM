@@ -17,34 +17,39 @@
  * https://github.com/ETCLabs/RDM
  ******************************************************************************/
 
-/*! \file rdm/controller.h
- *  \brief Contains functions for creating RDM commands and unpacking responses.
- *  \author Sam Kearney */
-#ifndef _RDM_CONTROLLER_H_
-#define _RDM_CONTROLLER_H_
+/*!
+ * \file rdm/controller.h
+ * \brief Contains functions for creating RDM commands and unpacking responses.
+ */
+
+#ifndef RDM_CONTROLLER_H_
+#define RDM_CONTROLLER_H_
 
 #include "etcpal/error.h"
 #include "rdm/message.h"
 
-/*! \defgroup controller Controller
- *  \ingroup rdm
- *  \brief Implementation of RDM controller functionality.
+/*!
+ * \defgroup controller Controller
+ * \ingroup rdm
+ * \brief Implementation of RDM controller functionality.
  *
- *  @{
+ * @{
  */
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-etcpal_error_t rdmctl_pack_command(const RdmCommand *cmd_data, RdmBuffer *buffer);
-bool rdmctl_is_non_disc_response(const RdmBuffer *buffer);
-etcpal_error_t rdmctl_unpack_response(const RdmBuffer *buffer, RdmResponse *resp);
+etcpal_error_t rdmctl_pack_command(const RdmCommand* cmd_data, RdmBuffer* buffer);
+bool rdmctl_is_non_disc_response(const RdmBuffer* buffer);
+etcpal_error_t rdmctl_unpack_response(const RdmBuffer* buffer, RdmResponse* resp);
 
 #ifdef __cplusplus
 }
 #endif
 
-/*!@}*/
+/*!
+ * @}
+ */
 
-#endif /* _RDM_CONTROLLER_H_ */
+#endif /* RDM_CONTROLLER_H_ */

@@ -21,14 +21,14 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 add_subdirectory(external/googletest)
 
 mark_as_advanced(
-gmock_build_tests
-gtest_build_samples
-gtest_build_tests
-gtest_disable_pthreads
-gtest_force_shared_crt
-gtest_hide_internal_symbols
-BUILD_GMOCK
-BUILD_GTEST
+  gmock_build_tests
+  gtest_build_samples
+  gtest_build_tests
+  gtest_disable_pthreads
+  gtest_force_shared_crt
+  gtest_hide_internal_symbols
+  BUILD_GMOCK
+  BUILD_GTEST
 )
 
 set_target_properties(gtest gtest_main gmock gmock_main
