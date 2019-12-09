@@ -11,7 +11,7 @@ add_executable(test_rdm
 )
 set_target_properties(test_rdm PROPERTIES
   FOLDER tests
-  CXX_STANDARD 14
+  CXX_STANDARD 11
 )
 target_link_libraries(test_rdm RDM gtest)
 gtest_add_tests(TARGET test_rdm SKIP_DEPENDENCY)

@@ -6,7 +6,7 @@
 #
 
 find_package(Git QUIET)
-if(GIT_FOUND AND EXISTS ${RDMNET_ROOT}/.git)
+if(GIT_FOUND AND EXISTS ${RDM_ROOT}/.git)
   # Update the submodules to bring in googletest
   execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init
                   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
