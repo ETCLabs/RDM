@@ -33,6 +33,10 @@
  * \ingroup rdm
  * \brief Type and helper functions for the Unique ID (UID) used in the RDM family of protocols.
  *
+ * ```c
+ * #include "rdm/uid.h"
+ * ```
+ *
  * RDM-based protocols use an identifier called a UID to identify an entity that generates or
  * consumes RDM messages.
  *
@@ -59,8 +63,8 @@ extern "C" {
  *  macros are your friend! */
 typedef struct RdmUid
 {
-  uint16_t manu;
-  uint32_t id;
+  uint16_t manu; /*!< The ESTA Manufacturer ID. */
+  uint32_t id;   /*!< The Device ID. */
 } RdmUid;
 
 /*************************** UID Comparison Macros ***************************/
@@ -117,10 +121,10 @@ typedef struct RdmUid
  * \param uidptr Pointer to RdmUid to initialize.
  * \param manu_val ESTA Manufacturer ID.
  */
-#define RDMNET_INIT_DEVICE_MANU_BROADCAST(uidptr, manu_val)          \
-  do                                                                 \
-  {                                                                  \
-    (uidptr)->manu = kRdmnetDeviceBroadcastUid.manu;                 \
+#define RDMNET_INIT_DEVICE_MANU_BROADCAST(uidptr, manu_val)                       \
+  do                                                                              \
+  {                                                                               \
+    (uidptr)->manu = kRdmnetDeviceBroadcastUid.manu;                              \
     (uidptr)->id = (kRdmnetDeviceBroadcastUid.id & ((manu_val << 16) | 0xffffu)); \
   } while (0)
 
@@ -168,8 +172,8 @@ typedef struct RdmUid
   ((uidptr)->manu == kRdmnetDeviceBroadcastUid.manu && (((uidptr)->id & 0xffffu) == 0xffffu))
 
 /*!
- * \brief Determine whether an RDMnet Device Manufacturer Broadcast UID
- *        matches a specific ESTA Manufacturer ID.
+ * \brief Determine whether an RDMnet Device Manufacturer Broadcast UID matches a specific ESTA
+ *        Manufacturer ID.
  *
  * Use RDMNET_UID_IS_DEVICE_MANU_BROADCAST() first to determine whether this UID is an RDMnet
  * Device Manufacturer Broadcast.
