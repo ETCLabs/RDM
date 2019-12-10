@@ -17,15 +17,15 @@ stages:
   - job: windows_build
     displayName: 'Windows'
     pool:
-      vmImage: 'vs2017-win2016'
+      vmImage: 'windows-2019'
     variables:
-      cmake_generator: 'Visual Studio 15 2017 Win64'
+      cmake_generator: 'Visual Studio 16 2019'
     steps:
     - script: |
         mkdir build
         cd build
         cmake --version
-        cmake -G "$(cmake_generator)" ..
+        cmake -G "$(cmake_generator)" -A x64 ..
       displayName: 'Configure Project'
     - task: VSBuild@1
       displayName: 'Build Project'
@@ -36,12 +36,48 @@ stages:
         cd build
         ctest -C Release --output-on-failure
       displayName: 'Run Tests'
+  - job: macos_build
+    displayName: 'macOS'
+    pool:
+      vmImage: 'macos-latest'
+    steps:
+    - script: |
+        mkdir build
+        cd build
+        cmake --version
+        cmake ..
+        cmake --build .
+      displayName: 'Configure and Build Project'
+    - script: |
+        cd build
+        ctest --output-on-failure
+      displayName: 'Run Tests'
+  - job: linux_build
+    displayName: 'Linux'
+    pool:
+      # TODO change to ubuntu-latest when this issue is fixed:
+      # https://github.com/microsoft/azure-pipelines-image-generation/issues/1379
+      vmImage: 'ubuntu-18.04'
+    variables:
+      cmake_generator: 'Unix Makefiles'
+    steps:
+    - script: |
+        mkdir build
+        cd build
+        cmake --version
+        cmake -G "$(cmake_generator)" ..
+        cmake --build .
+      displayName: 'Configure and Build Project'
+    - script: |
+        cd build
+        ctest --verbose
+      displayName: 'Run Tests'
   # Generate documentation with doxygen. Documentation is generated from the
   # develop branch and posted to the 'head' portion of the Github page
   # (etclabs.github.io/RDM)
   - job: docs
     displayName: 'Deploy Documentation'
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+    condition: or(eq(variables['Build.SourceBranch'], 'refs/heads/develop'), startsWith(variables['Build.SourceBranch'], 'refs/pull'))
     pool:
       # TODO change to ubuntu-latest when this issue is fixed:
       # https://github.com/microsoft/azure-pipelines-image-generation/issues/1379
@@ -51,10 +87,14 @@ stages:
     steps:
     - script: sudo apt-get install doxygen
       displayName: 'Install Dependencies'
-    - script: |
-        cd tools/ci
-        chmod +x publish_docs.sh
-        ./publish_docs.sh
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '3.x'
+        addToPath: true
+    - task: ShellScript@2
+      inputs:
+        scriptPath: 'tools/ci/publish_docs.sh'
+        failOnStandardError: false
       displayName: 'Generate and Push Documentation'
       env:
         GH_REPO_NAME: RDM

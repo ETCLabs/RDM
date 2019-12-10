@@ -32,8 +32,8 @@ const RdmUid kRdmnetDeviceBroadcastUid = {0xfffdu, 0xffffffffu};
 /****************************** Private macros *******************************/
 
 #ifdef _MSC_VER
-#define SPRINTF_NO_WARN __pragma(warning(suppress: 4996)) sprintf
-#define SSCANF_NO_WARN __pragma(warning(suppress: 4996)) sscanf
+#define SPRINTF_NO_WARN __pragma(warning(suppress : 4996)) sprintf
+#define SSCANF_NO_WARN __pragma(warning(suppress : 4996)) sscanf
 #else
 #define SPRINTF_NO_WARN sprintf
 #define SSCANF_NO_WARN sscanf
@@ -51,16 +51,15 @@ const RdmUid kRdmnetDeviceBroadcastUid = {0xfffdu, 0xffffffffu};
  * \param[in] uid UID to convert to a string.
  * \param[out] buf Character buffer to which to write the resulting string. Must be at least of
  *                 size #RDM_UID_STRING_BYTES.
- * \return #kEtcPalErrOk: Conversion successful.
- * \return #kEtcPalErrInvalid: Invalid argument.
+ * \return true (conversion successful) or false (invalid argument).
  */
-etcpal_error_t rdm_uid_to_string(const RdmUid* uid, char* buf)
+bool rdm_uid_to_string(const RdmUid* uid, char* buf)
 {
   if (!uid || !buf)
-    return kEtcPalErrInvalid;
+    return false;
 
   SPRINTF_NO_WARN(buf, "%04" PRIx16 ":%08" PRIx32, uid->manu, uid->id);
-  return kEtcPalErrOk;
+  return true;
 }
 
 /*!
@@ -73,18 +72,17 @@ etcpal_error_t rdm_uid_to_string(const RdmUid* uid, char* buf)
  *
  * \param[in] str The null-terminated string to convert.
  * \param[out] uid UID to fill in with the parse result.
- * \return #kEtcPalErrOk: Parse successful.
- * \return #kEtcPalErrInvalid: Invalid argument or parse failure.
+ * \return true (parse successful) or false (invalid argment/parse failure).
  */
-etcpal_error_t rdm_string_to_uid(const char* str, RdmUid* uid)
+bool rdm_string_to_uid(const char* str, RdmUid* uid)
 {
   if (!str || !uid)
-    return kEtcPalErrInvalid;
+    return false;
 
   if (SSCANF_NO_WARN(str, "%4" SCNx16 ":%8" SCNx32, &uid->manu, &uid->id) == 2)
-    return kEtcPalErrOk;
+    return true;
   else if (SSCANF_NO_WARN(str, "%4" SCNx16 "%8" SCNx32, &uid->manu, &uid->id) == 2)
-    return kEtcPalErrOk;
+    return true;
   else
-    return kEtcPalErrInvalid;
+    return false;
 }

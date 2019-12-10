@@ -166,7 +166,7 @@ constexpr uint32_t Uid::device_id() const noexcept
 inline std::string Uid::ToString() const
 {
   char str_buf[RDM_UID_STRING_BYTES];
-  if (rdm_uid_to_string(&uid_, str_buf) == kEtcPalErrOk)
+  if (rdm_uid_to_string(&uid_, str_buf))
     return str_buf;
   else
     return std::string();
@@ -256,7 +256,7 @@ inline void Uid::SetDeviceId(uint32_t id_val) noexcept
 inline Uid Uid::FromString(const std::string& uid_str) noexcept
 {
   Uid uid;
-  if (rdm_string_to_uid(uid_str.c_str(), &uid.uid_) == kEtcPalErrOk)
+  if (rdm_string_to_uid(uid_str.c_str(), &uid.uid_))
     return uid;
   else
     return Uid{};

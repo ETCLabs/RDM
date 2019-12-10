@@ -22,7 +22,7 @@
 #include "etcpal/pack.h"
 
 // Test the RDM_CREATE_NACK_* macros
-TEST(Responder, create_nack)
+TEST(Responder, CreateNack)
 {
   RdmCommand test_cmd{};
   test_cmd.source_uid = {0, 1};

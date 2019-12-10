@@ -25,7 +25,7 @@
 #ifndef RDM_UID_H_
 #define RDM_UID_H_
 
-#include "etcpal/error.h"
+#include "etcpal/bool.h"
 #include "etcpal/int.h"
 
 /*!
@@ -269,8 +269,8 @@ extern const RdmUid kRdmnetDeviceBroadcastUid;
 /*! The maximum number of bytes for a buffer that can hold a UID string representation. */
 #define RDM_UID_STRING_BYTES 14
 
-etcpal_error_t rdm_uid_to_string(const RdmUid* uid, char* buf);
-etcpal_error_t rdm_string_to_uid(const char* str, RdmUid* uid);
+bool rdm_uid_to_string(const RdmUid* uid, char* buf);
+bool rdm_string_to_uid(const char* str, RdmUid* uid);
 
 #ifdef __cplusplus
 }
