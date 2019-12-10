@@ -93,8 +93,6 @@ TEST(Uid, NullUidWorks)
 {
   RdmUid null{};
   EXPECT_TRUE(RDM_UID_IS_NULL(&null));
-
-  EXPECT_TRUE(RDM_UID_IS_NULL(&kRdmNullUid));
 }
 
 TEST(Uid, IsDynamicWorks)
@@ -114,7 +112,8 @@ TEST(Uid, IsStaticWorks)
   RdmUid static_uid = {0x0111u, 0x12345678u};
   EXPECT_TRUE(RDMNET_UID_IS_STATIC(&static_uid));
 
-  EXPECT_FALSE(RDMNET_UID_IS_STATIC(&kRdmNullUid));
+  RdmUid null_uid{};
+  EXPECT_FALSE(RDMNET_UID_IS_STATIC(&null_uid));
 }
 
 TEST(Uid, GettersWork)
@@ -145,8 +144,9 @@ TEST(Uid, NormalUidToStringWorks)
 
 TEST(Uid, NullUidToStringWorks)
 {
+  RdmUid null_uid{};
   char str_buf[RDM_UID_STRING_BYTES];
-  ASSERT_TRUE(rdm_uid_to_string(&kRdmNullUid, str_buf));
+  ASSERT_TRUE(rdm_uid_to_string(&null_uid, str_buf));
   EXPECT_STREQ(str_buf, "0000:00000000");
 }
 

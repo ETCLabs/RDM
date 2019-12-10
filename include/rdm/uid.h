@@ -206,7 +206,7 @@ typedef struct RdmUid
  * \param uidptr Pointer to UID to null-check.
  * \return true (UID is null) or false (UID is not null).
  */
-#define RDM_UID_IS_NULL(uidptr) RDM_UID_EQUAL(uidptr, &kRdmNullUid)
+#define RDM_UID_IS_NULL(uidptr) ((uidptr)->manu == 0 && (uidptr)->id == 0)
 
 /*!
  * \brief Determine whether a UID is a Dynamic UID as defined in ANSI E1.33.
@@ -253,9 +253,6 @@ typedef struct RdmUid
  * \return Device ID.
  */
 #define RDM_GET_DEVICE_ID(uidptr) ((uidptr)->id)
-
-/*! A null (all 0's) UID. */
-extern const RdmUid kRdmNullUid;
 
 /*! A UID that is equal to BROADCAST_ALL_DEVICES_ID as defined in ANSI E1.20. */
 extern const RdmUid kRdmBroadcastUid;

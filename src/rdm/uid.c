@@ -24,7 +24,6 @@
 
 /**************************** Global constants *******************************/
 
-const RdmUid kRdmNullUid = {0x0000u, 0x00000000u};
 const RdmUid kRdmBroadcastUid = {0xffffu, 0xffffffffu};
 const RdmUid kRdmnetControllerBroadcastUid = {0xfffcu, 0xffffffffu};
 const RdmUid kRdmnetDeviceBroadcastUid = {0xfffdu, 0xffffffffu};

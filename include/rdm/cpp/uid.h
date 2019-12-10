@@ -94,10 +94,10 @@ public:
   std::string ToString() const;
 
   constexpr bool IsValid() const noexcept;
-  constexpr bool IsBroadcast() const noexcept;
-  constexpr bool IsControllerBroadcast() const noexcept;
-  constexpr bool IsDeviceBroadcast() const noexcept;
-  constexpr bool IsDeviceManufacturerBroadcast() const noexcept;
+  bool IsBroadcast() const noexcept;
+  bool IsControllerBroadcast() const noexcept;
+  bool IsDeviceBroadcast() const noexcept;
+  bool IsDeviceManufacturerBroadcast() const noexcept;
   constexpr bool BroadcastManufacturerIdMatches(uint16_t manu_val) const noexcept;
   constexpr uint16_t DeviceBroadcastManufacturerId() const noexcept;
 
@@ -179,26 +179,26 @@ constexpr bool Uid::IsValid() const noexcept
 }
 
 /// \brief Determine whether a UID is the E1.20 value BROADCAST_ALL_DEVICES_ID.
-constexpr bool Uid::IsBroadcast() const noexcept
+inline bool Uid::IsBroadcast() const noexcept
 {
   return RDM_UID_IS_BROADCAST(&uid_);
 }
 
 /// \brief Determine whether a UID is the E1.33 value RPT_ALL_CONTROLLERS.
-constexpr bool Uid::IsControllerBroadcast() const noexcept
+inline bool Uid::IsControllerBroadcast() const noexcept
 {
   return RDMNET_UID_IS_CONTROLLER_BROADCAST(&uid_);
 }
 
 /// \brief Determine whether a UID is the E1.33 value RPT_ALL_DEVICES.
-constexpr bool Uid::IsDeviceBroadcast() const noexcept
+inline bool Uid::IsDeviceBroadcast() const noexcept
 {
   return RDMNET_UID_IS_DEVICE_BROADCAST(&uid_);
 }
 
 /// \brief Determine whether a UID is one of the E1.33 values defined by RPT_ALL_MID_DEVICES.
 /// \details See RDMNET_UID_IS_DEVICE_MANU_BROADCAST() for more information.
-constexpr bool Uid::IsDeviceManufacturerBroadcast() const noexcept
+inline bool Uid::IsDeviceManufacturerBroadcast() const noexcept
 {
   return RDMNET_UID_IS_DEVICE_MANU_BROADCAST(&uid_);
 }
