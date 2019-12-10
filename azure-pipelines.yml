@@ -72,7 +72,7 @@ stages:
       displayName: 'Configure and Build Project'
     - script: |
         cd build
-        ctest --verbose
+        ctest --output-on-failure
       displayName: 'Run Tests'
   # Generate documentation with doxygen. Documentation is generated from the
   # develop branch and posted to the 'head' portion of the Github page
