@@ -180,7 +180,7 @@ Macros</h2></td></tr>
 <tr class="memitem:gaa0bde1cfb88ecf6741ab5b088c79d107"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#gaa0bde1cfb88ecf6741ab5b088c79d107">RDMNET_DEVICE_BROADCAST_MANU_ID</a>(uidptr)&#160;&#160;&#160;((uint16_t)((uidptr)-&gt;id &gt;&gt; 16))</td></tr>
 <tr class="memdesc:gaa0bde1cfb88ecf6741ab5b088c79d107"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the ESTA Manufacturer ID from an RDMnet Device Manufacturer Broadcast UID.  <a href="group__uid.html#gaa0bde1cfb88ecf6741ab5b088c79d107">More...</a><br /></td></tr>
 <tr class="separator:gaa0bde1cfb88ecf6741ab5b088c79d107"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1b5ffea9d8b7ae8f0f4cdf5560901254"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga1b5ffea9d8b7ae8f0f4cdf5560901254">RDM_UID_IS_NULL</a>(uidptr)&#160;&#160;&#160;<a class="el" href="group__uid.html#gae538a395a7b22c4fcac46fa0f5554b78">RDM_UID_EQUAL</a>(uidptr, &amp;<a class="el" href="group__uid.html#ga633003aca9dbf6bd06fa1729cf41c6f2">kRdmNullUid</a>)</td></tr>
+<tr class="memitem:ga1b5ffea9d8b7ae8f0f4cdf5560901254"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga1b5ffea9d8b7ae8f0f4cdf5560901254">RDM_UID_IS_NULL</a>(uidptr)&#160;&#160;&#160;((uidptr)-&gt;manu == 0 &amp;&amp; (uidptr)-&gt;id == 0)</td></tr>
 <tr class="memdesc:ga1b5ffea9d8b7ae8f0f4cdf5560901254"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if a UID is null.  <a href="group__uid.html#ga1b5ffea9d8b7ae8f0f4cdf5560901254">More...</a><br /></td></tr>
 <tr class="separator:ga1b5ffea9d8b7ae8f0f4cdf5560901254"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6513e844d7b58f9cdee40244fe5a682f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga6513e844d7b58f9cdee40244fe5a682f">RDMNET_UID_IS_DYNAMIC</a>(uidptr)</td></tr>
@@ -219,9 +219,6 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ga633003aca9dbf6bd06fa1729cf41c6f2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_rdm_uid.html">RdmUid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga633003aca9dbf6bd06fa1729cf41c6f2">kRdmNullUid</a></td></tr>
-<tr class="memdesc:ga633003aca9dbf6bd06fa1729cf41c6f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">A null (all 0's) UID.  <a href="group__uid.html#ga633003aca9dbf6bd06fa1729cf41c6f2">More...</a><br /></td></tr>
-<tr class="separator:ga633003aca9dbf6bd06fa1729cf41c6f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae90bca840cb37b2833f202983f01aa4d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_rdm_uid.html">RdmUid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#gae90bca840cb37b2833f202983f01aa4d">kRdmBroadcastUid</a></td></tr>
 <tr class="memdesc:gae90bca840cb37b2833f202983f01aa4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A UID that is equal to BROADCAST_ALL_DEVICES_ID as defined in ANSI E1.20.  <a href="group__uid.html#gae90bca840cb37b2833f202983f01aa4d">More...</a><br /></td></tr>
 <tr class="separator:gae90bca840cb37b2833f202983f01aa4d"><td class="memSeparator" colspan="2">&#160;</td></tr>

@@ -41,6 +41,5 @@ var searchData=
   ['ketcpalnulluuid',['kEtcPalNullUuid',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__uuid.html#gae518c32bbc7d2266568ee9a703bb4f5e',1,]]],
   ['krdmbroadcastuid',['kRdmBroadcastUid',['../group__uid.html#gae90bca840cb37b2833f202983f01aa4d',1,'kRdmBroadcastUid():&#160;uid.c'],['../group__uid.html#gae90bca840cb37b2833f202983f01aa4d',1,'kRdmBroadcastUid():&#160;uid.c']]],
   ['krdmnetcontrollerbroadcastuid',['kRdmnetControllerBroadcastUid',['../group__uid.html#ga2440a6426ac165d97dc206069060fd9e',1,'kRdmnetControllerBroadcastUid():&#160;uid.c'],['../group__uid.html#ga2440a6426ac165d97dc206069060fd9e',1,'kRdmnetControllerBroadcastUid():&#160;uid.c']]],
-  ['krdmnetdevicebroadcastuid',['kRdmnetDeviceBroadcastUid',['../group__uid.html#ga9a8e7cd056b52e54e8a66d84908b82fe',1,'kRdmnetDeviceBroadcastUid():&#160;uid.c'],['../group__uid.html#ga9a8e7cd056b52e54e8a66d84908b82fe',1,'kRdmnetDeviceBroadcastUid():&#160;uid.c']]],
-  ['krdmnulluid',['kRdmNullUid',['../group__uid.html#ga633003aca9dbf6bd06fa1729cf41c6f2',1,'kRdmNullUid():&#160;uid.c'],['../group__uid.html#ga633003aca9dbf6bd06fa1729cf41c6f2',1,'kRdmNullUid():&#160;uid.c']]]
+  ['krdmnetdevicebroadcastuid',['kRdmnetDeviceBroadcastUid',['../group__uid.html#ga9a8e7cd056b52e54e8a66d84908b82fe',1,'kRdmnetDeviceBroadcastUid():&#160;uid.c'],['../group__uid.html#ga9a8e7cd056b52e54e8a66d84908b82fe',1,'kRdmnetDeviceBroadcastUid():&#160;uid.c']]]
 ];

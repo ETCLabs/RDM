@@ -23,6 +23,5 @@ var uid_8h =
     [ "rdm_uid_to_string", "group__uid.html#ga90190789ec0a4c7262c47e2d7a1fdf43", null ],
     [ "kRdmBroadcastUid", "group__uid.html#gae90bca840cb37b2833f202983f01aa4d", null ],
     [ "kRdmnetControllerBroadcastUid", "group__uid.html#ga2440a6426ac165d97dc206069060fd9e", null ],
-    [ "kRdmnetDeviceBroadcastUid", "group__uid.html#ga9a8e7cd056b52e54e8a66d84908b82fe", null ],
-    [ "kRdmNullUid", "group__uid.html#ga633003aca9dbf6bd06fa1729cf41c6f2", null ]
+    [ "kRdmnetDeviceBroadcastUid", "group__uid.html#ga9a8e7cd056b52e54e8a66d84908b82fe", null ]
 ];
