@@ -52,6 +52,7 @@ extern "C" {
 /*! The maximum length of the Parameter Data in an RDM packet. */
 #define RDM_MAX_PDL 231
 
+/*! The length of the RDM message preceding the Parameter Data. */
 #define RDM_HEADER_SIZE 24
 
 /*!
@@ -77,6 +78,7 @@ extern "C" {
  * @}
  */
 
+/*! An enumeration representing the RDM Command Class (CC) field. */
 typedef enum
 {
   kRdmCCDiscoveryCommand = E120_DISCOVERY_COMMAND,
@@ -87,6 +89,7 @@ typedef enum
   kRdmCCSetCommandResponse = E120_SET_COMMAND_RESPONSE
 } rdm_command_class_t;
 
+/*! An enumeration representing the RDM Response Type field. */
 typedef enum
 {
   kRdmResponseTypeAck = E120_RESPONSE_TYPE_ACK,

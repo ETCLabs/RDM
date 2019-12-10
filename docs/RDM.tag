@@ -173,17 +173,17 @@
       <arglist></arglist>
     </member>
     <member kind="function">
-      <type>etcpal_error_t</type>
+      <type>bool</type>
       <name>rdm_uid_to_string</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>gace8b3955a7fd23efc1077107eb524992</anchor>
+      <anchor>ga90190789ec0a4c7262c47e2d7a1fdf43</anchor>
       <arglist>(const RdmUid *uid, char *buf)</arglist>
     </member>
     <member kind="function">
-      <type>etcpal_error_t</type>
+      <type>bool</type>
       <name>rdm_string_to_uid</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>gae297885e51aa89fb189b29d7bc5129c3</anchor>
+      <anchor>gae4c4bb5385d1982c9b8ed05323a25b2b</anchor>
       <arglist>(const char *str, RdmUid *uid)</arglist>
     </member>
     <member kind="variable">
@@ -246,6 +246,13 @@
     </member>
     <member kind="define">
       <type>#define</type>
+      <name>RDM_HEADER_SIZE</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gaa829a9423b849e07e59d42cf07943e71</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
       <name>RDM_GET_COMMAND_CLASS</name>
       <anchorfile>group__message.html</anchorfile>
       <anchor>ga27ee6d5259d609fa25b83a94014692db</anchor>
@@ -277,6 +284,20 @@
       <name>RdmResponse</name>
       <anchorfile>group__message.html</anchorfile>
       <anchor>gaa98249dee1f0de42cd77642fa18e0517</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>rdm_command_class_t</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gafda6b6d4c08788e755cb3cb6c1ca021b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>rdm_response_type_t</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ga6ecebd42ee8d90fe410cc4001a98e7f0</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -835,6 +856,13 @@
     </member>
     <member kind="define">
       <type>#define</type>
+      <name>RDM_HEADER_SIZE</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gaa829a9423b849e07e59d42cf07943e71</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
       <name>RDM_GET_COMMAND_CLASS</name>
       <anchorfile>group__message.html</anchorfile>
       <anchor>ga27ee6d5259d609fa25b83a94014692db</anchor>
@@ -866,6 +894,20 @@
       <name>RdmResponse</name>
       <anchorfile>group__message.html</anchorfile>
       <anchor>gaa98249dee1f0de42cd77642fa18e0517</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>rdm_command_class_t</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gafda6b6d4c08788e755cb3cb6c1ca021b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>rdm_response_type_t</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ga6ecebd42ee8d90fe410cc4001a98e7f0</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -1062,17 +1104,17 @@
       <arglist></arglist>
     </member>
     <member kind="function">
-      <type>etcpal_error_t</type>
+      <type>bool</type>
       <name>rdm_uid_to_string</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>gace8b3955a7fd23efc1077107eb524992</anchor>
+      <anchor>ga90190789ec0a4c7262c47e2d7a1fdf43</anchor>
       <arglist>(const RdmUid *uid, char *buf)</arglist>
     </member>
     <member kind="function">
-      <type>etcpal_error_t</type>
+      <type>bool</type>
       <name>rdm_string_to_uid</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>gae297885e51aa89fb189b29d7bc5129c3</anchor>
+      <anchor>gae4c4bb5385d1982c9b8ed05323a25b2b</anchor>
       <arglist>(const char *str, RdmUid *uid)</arglist>
     </member>
     <member kind="variable">
