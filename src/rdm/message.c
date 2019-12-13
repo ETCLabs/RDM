@@ -16,6 +16,7 @@
  * This file is a part of RDM. For more information, go to:
  * https://github.com/ETCLabs/RDM
  ******************************************************************************/
+
 #include "rdm/message.h"
 
 #include "etcpal/pack.h"
@@ -23,12 +24,12 @@
 
 /*********************** Private function prototypes *************************/
 
-static uint16_t calc_checksum(const uint8_t *buffer, size_t datalen_without_checksum);
+static uint16_t calc_checksum(const uint8_t* buffer, size_t datalen_without_checksum);
 
 /*************************** Function definitions ****************************/
 
 /* Internal function to calculate the correct checksum of an RDM packet. */
-uint16_t calc_checksum(const uint8_t *buffer, size_t datalen_without_checksum)
+uint16_t calc_checksum(const uint8_t* buffer, size_t datalen_without_checksum)
 {
   size_t i;
   uint16_t sum = 0;
@@ -37,12 +38,13 @@ uint16_t calc_checksum(const uint8_t *buffer, size_t datalen_without_checksum)
   return sum;
 }
 
-/*! \brief Calculate and pack an RDM checksum at the end of an RDM message.
- *  \param[in,out] buffer Buffer representing packed RDM message without checksum. Two-byte
- *                        checksum is packed starting at &buffer[datalen_without_checksum].
- *  \param[in] datalen_without_checksum Length of the RDM message without checksum.
+/*!
+ * \brief Calculate and pack an RDM checksum at the end of an RDM message.
+ * \param[in,out] buffer Buffer representing packed RDM message without checksum. Two-byte
+ *                       checksum is packed starting at &buffer[datalen_without_checksum].
+ * \param[in] datalen_without_checksum Length of the RDM message without checksum.
  */
-void rdm_pack_checksum(uint8_t *buffer, size_t datalen_without_checksum)
+void rdm_pack_checksum(uint8_t* buffer, size_t datalen_without_checksum)
 {
   if (buffer)
   {
@@ -51,15 +53,16 @@ void rdm_pack_checksum(uint8_t *buffer, size_t datalen_without_checksum)
   }
 }
 
-/*! \brief Perform basic validation of an RDM message.
+/*!
+ * \brief Perform basic validation of an RDM message.
  *
- *  Checks that the message has a correctly formed length, the correct start code values, and that
- *  the checksum is correct.
+ * Checks that the message has a correctly formed length, the correct start code values, and that
+ * the checksum is correct.
  *
- *  \param[in] buffer RDM message to validate.
- *  \return true (RDM message is valid) or false (RDM message is invalid).
+ * \param[in] buffer RDM message to validate.
+ * \return true (RDM message is valid) or false (RDM message is invalid).
  */
-bool rdm_validate_msg(const RdmBuffer *buffer)
+bool rdm_validate_msg(const RdmBuffer* buffer)
 {
   uint16_t sum;
 

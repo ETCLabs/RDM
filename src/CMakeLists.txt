@@ -1,4 +1,3 @@
-set(RDM_ROOT ${CMAKE_CURRENT_LIST_DIR}/..)
 set(RDM_INCLUDE ${RDM_ROOT}/include)
 
 ################################# Dependencies ################################

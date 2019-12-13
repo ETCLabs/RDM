@@ -16,6 +16,7 @@
  * This file is a part of RDM. For more information, go to:
  * https://github.com/ETCLabs/RDM
  ******************************************************************************/
+
 #include "rdm/controller.h"
 
 #include <string.h>
@@ -34,21 +35,21 @@
 
 /*********************** Private function prototypes *************************/
 
-static bool rdm_cmd_data_valid(const RdmCommand *cmd_data);
+static bool rdm_cmd_data_valid(const RdmCommand* cmd_data);
 
 /*************************** Function definitions ****************************/
 
-/*! \brief Create a packed RDM command.
- *  \param[in] cmd_data The data that will be used for this RDM command packet.
- *  \param[out] buffer The buffer into which to pack this RDM command.
- *  \return #kEtcPalErrOk: Command created successfully.
- *  \return #kEtcPalErrInvalid: Invalid argument provided (including invalid RDM values in
- *          cmd_data).
- *  \return #kEtcPalErrMsgSize: The parameter data was too long.
+/*!
+ * \brief Create a packed RDM command.
+ * \param[in] cmd_data The data that will be used for this RDM command packet.
+ * \param[out] buffer The buffer into which to pack this RDM command.
+ * \return #kEtcPalErrOk: Command created successfully.
+ * \return #kEtcPalErrInvalid: Invalid argument provided (including invalid RDM values in cmd_data).
+ * \return #kEtcPalErrMsgSize: The parameter data was too long.
  */
-etcpal_error_t rdmctl_pack_command(const RdmCommand *cmd_data, RdmBuffer *buffer)
+etcpal_error_t rdmctl_pack_command(const RdmCommand* cmd_data, RdmBuffer* buffer)
 {
-  uint8_t *cur_ptr;
+  uint8_t* cur_ptr;
   uint8_t rdm_length;
 
   if (!cmd_data || !buffer || !rdm_cmd_data_valid(cmd_data))
@@ -87,16 +88,17 @@ etcpal_error_t rdmctl_pack_command(const RdmCommand *cmd_data, RdmBuffer *buffer
   return kEtcPalErrOk;
 }
 
-/*! \brief Determine whether a packed RDM message is a non-discovery RDM command response.
+/*!
+ * \brief Determine whether a packed RDM message is a non-discovery RDM command response.
  *
- *  More specifically, whether the command class of the response is one of GET_COMMAND_RESPONSE or
- *  SET_COMMAND_RESPONSE.
+ * More specifically, whether the command class of the response is one of GET_COMMAND_RESPONSE or
+ * SET_COMMAND_RESPONSE.
  *
- *  \param[in] buffer The packed RDM message.
- *  \return true (the message is a valid non-discovery RDM command response) or false (the message
- *          is invalid RDM or not a non-discovery command response).
+ * \param[in] buffer The packed RDM message.
+ * \return true (the message is a valid non-discovery RDM command response) or false (the message
+ *         is invalid RDM or not a non-discovery command response).
  */
-bool rdmctl_is_non_disc_response(const RdmBuffer *buffer)
+bool rdmctl_is_non_disc_response(const RdmBuffer* buffer)
 {
   if (buffer && rdm_validate_msg(buffer))
   {
@@ -106,21 +108,22 @@ bool rdmctl_is_non_disc_response(const RdmBuffer *buffer)
   return false;
 }
 
-/*! \brief Unpack an RDM repsonse.
- *  \param[in] buffer The packed RDM response.
- *  \param[out] resp The RDM response data that was unpacked from buffer.
- *  \return #kEtcPalErrOk: Response unpacked successfully.
- *  \return #kEtcPalErrInvalid: Invalid argument provided.
- *  \return #kEtcPalErrProtocol: Packed RDM response was invalid.
+/*!
+ * \brief Unpack an RDM repsonse.
+ * \param[in] buffer The packed RDM response.
+ * \param[out] resp The RDM response data that was unpacked from buffer.
+ * \return #kEtcPalErrOk: Response unpacked successfully.
+ * \return #kEtcPalErrInvalid: Invalid argument provided.
+ * \return #kEtcPalErrProtocol: Packed RDM response was invalid.
  */
-etcpal_error_t rdmctl_unpack_response(const RdmBuffer *buffer, RdmResponse *resp)
+etcpal_error_t rdmctl_unpack_response(const RdmBuffer* buffer, RdmResponse* resp)
 {
   if (!buffer || !resp)
     return kEtcPalErrInvalid;
   if (!rdm_validate_msg(buffer))
     return kEtcPalErrProtocol;
 
-  const uint8_t *cur_ptr = &buffer->data[RDM_OFFSET_DEST_MANUFACTURER];
+  const uint8_t* cur_ptr = &buffer->data[RDM_OFFSET_DEST_MANUFACTURER];
   resp->dest_uid.manu = etcpal_upack_16b(cur_ptr);
   cur_ptr += 2;
   resp->dest_uid.id = etcpal_upack_32b(cur_ptr);
@@ -143,7 +146,7 @@ etcpal_error_t rdmctl_unpack_response(const RdmBuffer *buffer, RdmResponse *resp
 }
 
 /* Do some basic validation on an RDM command provided by a library user. */
-static bool rdm_cmd_data_valid(const RdmCommand *cmd_data)
+static bool rdm_cmd_data_valid(const RdmCommand* cmd_data)
 {
   return (!RDM_UID_IS_BROADCAST(&cmd_data->source_uid) && RDMCMD_PORT_ID_VALID(cmd_data->port_id) &&
           RDMCMD_COMMAND_CLASS_VALID(cmd_data->command_class));

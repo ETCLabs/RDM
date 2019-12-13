@@ -16,49 +16,173 @@
  * This file is a part of RDM. For more information, go to:
  * https://github.com/ETCLabs/RDM
  ******************************************************************************/
-#include "gtest/gtest.h"
+
 #include "rdm/uid.h"
+#include "gtest/gtest.h"
 
-class UidTest : public ::testing::Test
+TEST(Uid, UidComparisonIsCorrect)
 {
-};
+  RdmUid uid_1 = {1, 1};
+  RdmUid uid_1_dup = {1, 1};
+  RdmUid uid_2 = {2, 1};
 
-// Test the operator== and operator!= functions for RdmUid structs
-TEST_F(UidTest, operator_equal)
-{
-  RdmUid uid_1{0, 0};
-  RdmUid uid_2{0, 0};
+  EXPECT_EQ(RDM_UID_CMP(&uid_1, &uid_1_dup), 0);
+  EXPECT_LT(RDM_UID_CMP(&uid_1, &uid_2), 0);
+  EXPECT_GT(RDM_UID_CMP(&uid_2, &uid_1), 0);
 
-  EXPECT_EQ(uid_1, uid_2);
-  EXPECT_EQ(uid_2, uid_1);
-
-  uid_1.manu = 1;
-  EXPECT_NE(uid_1, uid_2);
-  EXPECT_NE(uid_2, uid_1);
-
-  uid_1.manu = 0;
-  uid_1.id = 1;
-  EXPECT_NE(uid_1, uid_2);
-  EXPECT_NE(uid_2, uid_1);
+  EXPECT_TRUE(RDM_UID_EQUAL(&uid_1, &uid_1_dup));
+  EXPECT_FALSE(RDM_UID_EQUAL(&uid_1, &uid_2));
 }
 
-TEST_F(UidTest, operator_less)
+TEST(Uid, UidInitMacrosWork)
 {
-  RdmUid uid_1{0, 0};
-  RdmUid uid_2{0, 0};
+  RdmUid static_uid;
+  RDM_INIT_STATIC_UID(&static_uid, 0x1111u, 0x22222222u);
+  EXPECT_EQ(static_uid.manu, 0x1111u);
+  EXPECT_EQ(static_uid.id, 0x22222222u);
 
-  EXPECT_FALSE(uid_1 < uid_2);
+  RdmUid dynamic_req;
+  RDMNET_INIT_DYNAMIC_UID_REQUEST(&dynamic_req, 0x4888u);
+  EXPECT_EQ(dynamic_req.manu, 0xc888u);
+  EXPECT_EQ(dynamic_req.id, 0u);
 
-  uid_2.manu = 1;
-  EXPECT_TRUE(uid_1 < uid_2);
-  EXPECT_FALSE(uid_2 < uid_1);
+  RdmUid dev_manu_bc;
+  RDMNET_INIT_DEVICE_MANU_BROADCAST(&dev_manu_bc, 0x2222u);
+  EXPECT_EQ(dev_manu_bc.manu, kRdmnetDeviceBroadcastUid.manu);
+  EXPECT_EQ(dev_manu_bc.id, 0x2222ffffu);
+}
 
-  uid_2.manu = 0;
-  uid_2.id = 1;
-  EXPECT_TRUE(uid_1 < uid_2);
-  EXPECT_FALSE(uid_2 < uid_1);
+TEST(Uid, BroadcastIsCorrect)
+{
+  RdmUid bc = kRdmBroadcastUid;
+  EXPECT_TRUE(RDM_UID_IS_BROADCAST(&bc));
+  EXPECT_FALSE(RDMNET_UID_IS_CONTROLLER_BROADCAST(&bc));
+  EXPECT_FALSE(RDMNET_UID_IS_DEVICE_BROADCAST(&bc));
+}
 
-  uid_2.manu = 1;
-  EXPECT_TRUE(uid_1 < uid_2);
-  EXPECT_FALSE(uid_2 < uid_1);
+TEST(Uid, ControllerBroadcastIsCorrect)
+{
+  RdmUid cb = kRdmnetControllerBroadcastUid;
+  EXPECT_TRUE(RDMNET_UID_IS_CONTROLLER_BROADCAST(&cb));
+  EXPECT_FALSE(RDM_UID_IS_BROADCAST(&cb));
+  EXPECT_FALSE(RDMNET_UID_IS_DEVICE_BROADCAST(&cb));
+}
+
+TEST(Uid, DeviceBroadcastIsCorrect)
+{
+  RdmUid db = kRdmnetDeviceBroadcastUid;
+  EXPECT_TRUE(RDMNET_UID_IS_DEVICE_BROADCAST(&db));
+  EXPECT_FALSE(RDM_UID_IS_BROADCAST(&db));
+  EXPECT_FALSE(RDMNET_UID_IS_CONTROLLER_BROADCAST(&db));
+}
+
+TEST(Uid, DeviceManuBroadcastIsCorrect)
+{
+  RdmUid dmb;
+  RDMNET_INIT_DEVICE_MANU_BROADCAST(&dmb, 0x5555);
+  EXPECT_TRUE(RDMNET_UID_IS_DEVICE_MANU_BROADCAST(&dmb));
+  EXPECT_FALSE(RDM_UID_IS_BROADCAST(&dmb));
+  EXPECT_FALSE(RDMNET_UID_IS_CONTROLLER_BROADCAST(&dmb));
+  EXPECT_FALSE(RDMNET_UID_IS_DEVICE_BROADCAST(&dmb));
+
+  EXPECT_EQ(RDMNET_DEVICE_BROADCAST_MANU_ID(&dmb), 0x5555);
+  EXPECT_TRUE(RDMNET_DEVICE_BROADCAST_MANU_MATCHES(&dmb, 0x5555));
+}
+
+TEST(Uid, NullUidWorks)
+{
+  RdmUid null{};
+  EXPECT_TRUE(RDM_UID_IS_NULL(&null));
+}
+
+TEST(Uid, IsDynamicWorks)
+{
+  RdmUid dynamic_uid = {0x8111u, 0x12345678u};
+  EXPECT_TRUE(RDMNET_UID_IS_DYNAMIC(&dynamic_uid));
+
+  RdmUid static_uid = {0x0111u, 0x12345678u};
+  EXPECT_FALSE(RDMNET_UID_IS_DYNAMIC(&static_uid));
+}
+
+TEST(Uid, IsStaticWorks)
+{
+  RdmUid dynamic_uid = {0x8111u, 0x12345678u};
+  EXPECT_FALSE(RDMNET_UID_IS_STATIC(&dynamic_uid));
+
+  RdmUid static_uid = {0x0111u, 0x12345678u};
+  EXPECT_TRUE(RDMNET_UID_IS_STATIC(&static_uid));
+
+  RdmUid null_uid{};
+  EXPECT_FALSE(RDMNET_UID_IS_STATIC(&null_uid));
+}
+
+TEST(Uid, GettersWork)
+{
+  RdmUid uid = {0x8003u, 0x33333333u};
+  EXPECT_EQ(RDM_GET_MANUFACTURER_ID(&uid), 0x0003u);
+  EXPECT_EQ(RDM_GET_DEVICE_ID(&uid), 0x33333333u);
+}
+
+TEST(Uid, UidToStringHandlesInvalidCalls)
+{
+  char str_buf[RDM_UID_STRING_BYTES];
+  RdmUid uid = {0x6574u, 0x88888888u};
+
+  EXPECT_FALSE(rdm_uid_to_string(nullptr, str_buf));
+  EXPECT_FALSE(rdm_uid_to_string(&uid, nullptr));
+  EXPECT_FALSE(rdm_uid_to_string(nullptr, nullptr));
+}
+
+TEST(Uid, NormalUidToStringWorks)
+{
+  char str_buf[RDM_UID_STRING_BYTES];
+  RdmUid uid = {0x6574u, 0x88884444u};
+
+  ASSERT_TRUE(rdm_uid_to_string(&uid, str_buf));
+  EXPECT_STREQ(str_buf, "6574:88884444");
+}
+
+TEST(Uid, NullUidToStringWorks)
+{
+  RdmUid null_uid{};
+  char str_buf[RDM_UID_STRING_BYTES];
+  ASSERT_TRUE(rdm_uid_to_string(&null_uid, str_buf));
+  EXPECT_STREQ(str_buf, "0000:00000000");
+}
+
+TEST(Uid, StringToUidHandlesInvalidCalls)
+{
+  RdmUid uid;
+
+  EXPECT_FALSE(rdm_string_to_uid(nullptr, &uid));
+  EXPECT_FALSE(rdm_string_to_uid("6574:88888888", nullptr));
+  EXPECT_FALSE(rdm_string_to_uid(nullptr, nullptr));
+}
+
+TEST(Uid, StringToUidConversionWorks)
+{
+  RdmUid uid;
+  ASSERT_TRUE(rdm_string_to_uid("6574:0a0b0c0d", &uid));
+  EXPECT_EQ(uid.manu, 0x6574u);
+  EXPECT_EQ(uid.id, 0x0a0b0c0du);
+
+  ASSERT_TRUE(rdm_string_to_uid("65740a0b0c0d", &uid));
+  EXPECT_EQ(uid.manu, 0x6574u);
+  EXPECT_EQ(uid.id, 0x0a0b0c0du);
+}
+
+TEST(Uid, StringToUidConversionRejectsBadStrings)
+{
+  const char* kBadUidStrings[] = {
+      "0a0b:g0112233",      // Bad character in the device ID
+      "0a0g:00112233",      // Bad character in the manufacturer ID
+      "Not a UID",          // Short random string
+      "This is not a UID",  // Long random string
+  };
+
+  for (const char* str : kBadUidStrings)
+  {
+    RdmUid uid;
+    EXPECT_FALSE(rdm_string_to_uid(str, &uid)) << "Failed on input: " << str;
+  }
 }

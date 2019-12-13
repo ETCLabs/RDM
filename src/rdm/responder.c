@@ -16,6 +16,7 @@
  * This file is a part of RDMnet. For more information, go to:
  * https://github.com/ETCLabs/RDMnet
  ******************************************************************************/
+
 #include "rdm/responder.h"
 
 #include <string.h>
@@ -44,16 +45,17 @@
 
 /*************************** Function definitions ****************************/
 
-/*! \brief Unpack an RDM command.
- *  \param[in] buffer The packed RDM command.
- *  \param[out] cmd The RDM command data that was unpacked from buffer.
- *  \return #kEtcPalErrOk: Command unpacked successfully.
- *  \return #kEtcPalErrInvalid: Invalid argument provided.
- *  \return #kEtcPalErrProtocol: Packed RDM command was invalid.
+/*!
+ * \brief Unpack an RDM command.
+ * \param[in] buffer The packed RDM command.
+ * \param[out] cmd The RDM command data that was unpacked from buffer.
+ * \return #kEtcPalErrOk: Command unpacked successfully.
+ * \return #kEtcPalErrInvalid: Invalid argument provided.
+ * \return #kEtcPalErrProtocol: Packed RDM command was invalid.
  */
-etcpal_error_t rdmresp_unpack_command(const RdmBuffer *buffer, RdmCommand *cmd)
+etcpal_error_t rdmresp_unpack_command(const RdmBuffer* buffer, RdmCommand* cmd)
 {
-  const uint8_t *cur_ptr;
+  const uint8_t* cur_ptr;
 
   if (!buffer || !cmd)
     return kEtcPalErrInvalid;
@@ -82,16 +84,17 @@ etcpal_error_t rdmresp_unpack_command(const RdmBuffer *buffer, RdmCommand *cmd)
   return kEtcPalErrOk;
 }
 
-/*! \brief Determine whether a packed RDM message is a non-discovery RDM command.
+/*!
+ * \brief Determine whether a packed RDM message is a non-discovery RDM command.
  *
- *  More specifically, whether the command class of the response is one of GET_COMMAND or
- *  SET_COMMAND.
+ * More specifically, whether the command class of the response is one of GET_COMMAND or
+ * SET_COMMAND.
  *
- *  \param[in] buffer The packed RDM message.
- *  \return true (the message is a valid non-discovery RDM command) or false (the message is invalid
- *          RDM or not a non-discovery command).
+ * \param[in] buffer The packed RDM message.
+ * \return true (the message is a valid non-discovery RDM command) or false (the message is invalid
+ *         RDM or not a non-discovery command).
  */
-bool rdmresp_is_non_disc_command(const RdmBuffer *buffer)
+bool rdmresp_is_non_disc_command(const RdmBuffer* buffer)
 {
   if (buffer && rdm_validate_msg(buffer))
   {
@@ -101,16 +104,17 @@ bool rdmresp_is_non_disc_command(const RdmBuffer *buffer)
   return false;
 }
 
-/*! \brief Create a packed RDM response.
- *  \param[in] resp_data The data that will be used for this RDM response packet.
- *  \param[out] buffer The buffer into which to pack this RDM response.
- *  \return #kEtcPalErrOk: Response created successfully.
- *  \return #kEtcPalErrInvalid: Invalid argument provided.
- *  \return #kEtcPalErrMsgSize: The parameter data was too long.
+/*!
+ * \brief Create a packed RDM response.
+ * \param[in] resp_data The data that will be used for this RDM response packet.
+ * \param[out] buffer The buffer into which to pack this RDM response.
+ * \return #kEtcPalErrOk: Response created successfully.
+ * \return #kEtcPalErrInvalid: Invalid argument provided.
+ * \return #kEtcPalErrMsgSize: The parameter data was too long.
  */
-etcpal_error_t rdmresp_pack_response(const RdmResponse *resp_data, RdmBuffer *buffer)
+etcpal_error_t rdmresp_pack_response(const RdmResponse* resp_data, RdmBuffer* buffer)
 {
-  uint8_t *cur_ptr;
+  uint8_t* cur_ptr;
   uint8_t rdm_length;
 
   /* Check for invalid parameters */

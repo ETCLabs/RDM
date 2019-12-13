@@ -6,7 +6,7 @@
 #
 
 find_package(Git QUIET)
-if(GIT_FOUND AND EXISTS ${RDMNET_ROOT}/.git)
+if(GIT_FOUND AND EXISTS ${RDM_ROOT}/.git)
   # Update the submodules to bring in googletest
   execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init
                   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
@@ -21,14 +21,14 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 add_subdirectory(external/googletest)
 
 mark_as_advanced(
-gmock_build_tests
-gtest_build_samples
-gtest_build_tests
-gtest_disable_pthreads
-gtest_force_shared_crt
-gtest_hide_internal_symbols
-BUILD_GMOCK
-BUILD_GTEST
+  gmock_build_tests
+  gtest_build_samples
+  gtest_build_tests
+  gtest_disable_pthreads
+  gtest_force_shared_crt
+  gtest_hide_internal_symbols
+  BUILD_GMOCK
+  BUILD_GTEST
 )
 
 set_target_properties(gtest gtest_main gmock gmock_main
