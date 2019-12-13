@@ -4,6 +4,8 @@ var searchData=
   ['mutexes',['Mutexes',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__mutex.html',1,'']]],
   ['mac',['mac',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_netint_info.html#a166afed9bf79aa905a870e4a130923ef',1,'EtcPalNetintInfo']]],
   ['macaddr',['MacAddr',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_mac_addr.html',1,'MacAddr'],['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_mac_addr.html#ae745add18e97ed3960a513f993c4fd39',1,'etcpal::MacAddr::MacAddr()=default'],['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_mac_addr.html#ae3a2a6ea57714e57bf4c829449e2f04e',1,'etcpal::MacAddr::MacAddr(const EtcPalMacAddr &amp;c_mac) noexcept'],['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_mac_addr.html#aff3e9838bb257f6f5c09396be07fa4f3',1,'etcpal::MacAddr::MacAddr(const uint8_t *mac_data) noexcept']]],
+  ['manu',['manu',['../struct_rdm_uid.html#a29d588ede91f0ca7c2cf0105990b338a',1,'RdmUid']]],
+  ['manufacturer_5fid',['manufacturer_id',['../classrdm_1_1_uid.html#ad82230ded92e64886e7a5b2ca8f11fca',1,'rdm::Uid']]],
   ['mask',['mask',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_netint_info.html#a155577b467420f0877aa19b7265565f3',1,'EtcPalNetintInfo']]],
   ['message',['Message',['../group__message.html',1,'']]],
   ['message_2eh',['message.h',['../message_8h.html',1,'']]],

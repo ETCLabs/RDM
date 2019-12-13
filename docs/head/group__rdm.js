@@ -1,6 +1,7 @@
 var group__rdm =
 [
     [ "Controller", "group__controller.html", "group__controller" ],
+    [ "UID (C++)", "group__cpp__uid.html", "group__cpp__uid" ],
     [ "Message", "group__message.html", "group__message" ],
     [ "Responder", "group__responder.html", "group__responder" ],
     [ "UID", "group__uid.html", "group__uid" ],

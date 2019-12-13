@@ -127,6 +127,7 @@ $(document).ready(function(){initNavTree('group__uid.html','');});
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">UID<div class="ingroups"><a class="el" href="group__rdm.html">RDM</a></div></div>  </div>
@@ -156,7 +157,10 @@ Macros</h2></td></tr>
 <tr class="memitem:gaad2d26ff7d08e1fcc134c1be979fcdc8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#gaad2d26ff7d08e1fcc134c1be979fcdc8">RDMNET_INIT_DYNAMIC_UID_REQUEST</a>(uidptr,  manu_val)</td></tr>
 <tr class="memdesc:gaad2d26ff7d08e1fcc134c1be979fcdc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize an RDMnet Dynamic UID Request with a Manufacturer ID.  <a href="#gaad2d26ff7d08e1fcc134c1be979fcdc8">More...</a><br /></td></tr>
 <tr class="separator:gaad2d26ff7d08e1fcc134c1be979fcdc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga65209ad8850eef83a6249f93bd215da6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga65209ad8850eef83a6249f93bd215da6">RDM_UID_IS_BROADCAST</a>(uidptr)&#160;&#160;&#160;((uidptr)-&gt;manu == kBroadcastUid.manu &amp;&amp; (uidptr)-&gt;id == kBroadcastUid.id)</td></tr>
+<tr class="memitem:gaa32bb9da2292c2ad817b97919f6a02c5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#gaa32bb9da2292c2ad817b97919f6a02c5">RDMNET_INIT_DEVICE_MANU_BROADCAST</a>(uidptr,  manu_val)</td></tr>
+<tr class="memdesc:gaa32bb9da2292c2ad817b97919f6a02c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize an RDMnet Device Manufacturer Broadcast UID with a Manufacturer ID.  <a href="#gaa32bb9da2292c2ad817b97919f6a02c5">More...</a><br /></td></tr>
+<tr class="separator:gaa32bb9da2292c2ad817b97919f6a02c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga65209ad8850eef83a6249f93bd215da6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga65209ad8850eef83a6249f93bd215da6">RDM_UID_IS_BROADCAST</a>(uidptr)&#160;&#160;&#160;((uidptr)-&gt;manu == kRdmBroadcastUid.manu &amp;&amp; (uidptr)-&gt;id == kRdmBroadcastUid.id)</td></tr>
 <tr class="memdesc:ga65209ad8850eef83a6249f93bd215da6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine whether a UID is the E1.20 value BROADCAST_ALL_DEVICES_ID.  <a href="#ga65209ad8850eef83a6249f93bd215da6">More...</a><br /></td></tr>
 <tr class="separator:ga65209ad8850eef83a6249f93bd215da6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga53c88cbe60ef6f037d8c2a9fdff9894a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga53c88cbe60ef6f037d8c2a9fdff9894a">RDMNET_UID_IS_CONTROLLER_BROADCAST</a>(uidptr)&#160;&#160;&#160;((uidptr)-&gt;manu == kRdmnetControllerBroadcastUid.manu &amp;&amp; (uidptr)-&gt;id == kRdmnetControllerBroadcastUid.id)</td></tr>
@@ -165,7 +169,7 @@ Macros</h2></td></tr>
 <tr class="memitem:ga6f623f06ac3b14f1becf06ec4faf65f6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga6f623f06ac3b14f1becf06ec4faf65f6">RDMNET_UID_IS_DEVICE_BROADCAST</a>(uidptr)&#160;&#160;&#160;((uidptr)-&gt;manu == kRdmnetDeviceBroadcastUid.manu &amp;&amp; (uidptr)-&gt;id == kRdmnetDeviceBroadcastUid.id)</td></tr>
 <tr class="memdesc:ga6f623f06ac3b14f1becf06ec4faf65f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine whether a UID is the E1.33 value RPT_ALL_DEVICES.  <a href="#ga6f623f06ac3b14f1becf06ec4faf65f6">More...</a><br /></td></tr>
 <tr class="separator:ga6f623f06ac3b14f1becf06ec4faf65f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga224755484593f73ac68fe0ad974c192f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga224755484593f73ac68fe0ad974c192f">RDMNET_UID_IS_DEVICE_MANU_BROADCAST</a>(uidptr)&#160;&#160;&#160;((uidptr)-&gt;manu == kRdmnetControllerBroadcastUid.manu &amp;&amp; (((uidptr)-&gt;id &amp; 0xffffu) == 0xffffu))</td></tr>
+<tr class="memitem:ga224755484593f73ac68fe0ad974c192f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga224755484593f73ac68fe0ad974c192f">RDMNET_UID_IS_DEVICE_MANU_BROADCAST</a>(uidptr)&#160;&#160;&#160;((uidptr)-&gt;manu == kRdmnetDeviceBroadcastUid.manu &amp;&amp; (((uidptr)-&gt;id &amp; 0xffffu) == 0xffffu))</td></tr>
 <tr class="memdesc:ga224755484593f73ac68fe0ad974c192f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine whether a UID is one of the E1.33 values defined by RPT_ALL_MID_DEVICES.  <a href="#ga224755484593f73ac68fe0ad974c192f">More...</a><br /></td></tr>
 <tr class="separator:ga224755484593f73ac68fe0ad974c192f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaeaca39dc0f8d229d9966652e53be634f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#gaeaca39dc0f8d229d9966652e53be634f">RDMNET_DEVICE_BROADCAST_MANU_MATCHES</a>(uidptr,  manu_val)&#160;&#160;&#160;(<a class="el" href="group__uid.html#gaa0bde1cfb88ecf6741ab5b088c79d107">RDMNET_DEVICE_BROADCAST_MANU_ID</a>(uidptr) == manu_val)</td></tr>
@@ -174,13 +178,16 @@ Macros</h2></td></tr>
 <tr class="memitem:gaa0bde1cfb88ecf6741ab5b088c79d107"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#gaa0bde1cfb88ecf6741ab5b088c79d107">RDMNET_DEVICE_BROADCAST_MANU_ID</a>(uidptr)&#160;&#160;&#160;((uint16_t)((uidptr)-&gt;id &gt;&gt; 16))</td></tr>
 <tr class="memdesc:gaa0bde1cfb88ecf6741ab5b088c79d107"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the ESTA Manufacturer ID from an RDMnet Device Manufacturer Broadcast UID.  <a href="#gaa0bde1cfb88ecf6741ab5b088c79d107">More...</a><br /></td></tr>
 <tr class="separator:gaa0bde1cfb88ecf6741ab5b088c79d107"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1b5ffea9d8b7ae8f0f4cdf5560901254"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga1b5ffea9d8b7ae8f0f4cdf5560901254">RDM_UID_IS_NULL</a>(uidptr)&#160;&#160;&#160;((uidptr)-&gt;manu == 0 &amp;&amp; (uidptr)-&gt;id == 0)</td></tr>
+<tr class="memdesc:ga1b5ffea9d8b7ae8f0f4cdf5560901254"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if a UID is null.  <a href="#ga1b5ffea9d8b7ae8f0f4cdf5560901254">More...</a><br /></td></tr>
+<tr class="separator:ga1b5ffea9d8b7ae8f0f4cdf5560901254"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6513e844d7b58f9cdee40244fe5a682f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga6513e844d7b58f9cdee40244fe5a682f">RDMNET_UID_IS_DYNAMIC</a>(uidptr)</td></tr>
 <tr class="memdesc:ga6513e844d7b58f9cdee40244fe5a682f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine whether a UID is a Dynamic UID as defined in ANSI E1.33.  <a href="#ga6513e844d7b58f9cdee40244fe5a682f">More...</a><br /></td></tr>
 <tr class="separator:ga6513e844d7b58f9cdee40244fe5a682f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7309e3ce684e0d96d6a5ac019d6b8892"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga7309e3ce684e0d96d6a5ac019d6b8892">RDMNET_UID_IS_DYNAMIC_UID_REQUEST</a>(uidptr)&#160;&#160;&#160;(<a class="el" href="group__uid.html#ga6513e844d7b58f9cdee40244fe5a682f">RDMNET_UID_IS_DYNAMIC</a>(uidptr) &amp;&amp; (uidptr)-&gt;id == 0u)</td></tr>
 <tr class="memdesc:ga7309e3ce684e0d96d6a5ac019d6b8892"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine whether a UID is a Dynamic UID Request as defined in ANSI E1.33.  <a href="#ga7309e3ce684e0d96d6a5ac019d6b8892">More...</a><br /></td></tr>
 <tr class="separator:ga7309e3ce684e0d96d6a5ac019d6b8892"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaaaf8226917bc3e83e12f8b4d51d11ac8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#gaaaf8226917bc3e83e12f8b4d51d11ac8">RDMNET_UID_IS_STATIC</a>(uidptr)&#160;&#160;&#160;(((uidptr)-&gt;manu &amp; 0x8000u) == 0)</td></tr>
+<tr class="memitem:gaaaf8226917bc3e83e12f8b4d51d11ac8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#gaaaf8226917bc3e83e12f8b4d51d11ac8">RDMNET_UID_IS_STATIC</a>(uidptr)&#160;&#160;&#160;(!<a class="el" href="group__uid.html#ga1b5ffea9d8b7ae8f0f4cdf5560901254">RDM_UID_IS_NULL</a>(uidptr) &amp;&amp; ((uidptr)-&gt;manu &amp; 0x8000u) == 0)</td></tr>
 <tr class="memdesc:gaaaf8226917bc3e83e12f8b4d51d11ac8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine whether a UID is a Static UID as defined in ANSI E1.33.  <a href="#gaaaf8226917bc3e83e12f8b4d51d11ac8">More...</a><br /></td></tr>
 <tr class="separator:gaaaf8226917bc3e83e12f8b4d51d11ac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0918dda49918646bc3e77c82f4c04221"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga0918dda49918646bc3e77c82f4c04221">RDM_GET_MANUFACTURER_ID</a>(uidptr)&#160;&#160;&#160;((uidptr)-&gt;manu &amp; 0x7fffu)</td></tr>
@@ -189,6 +196,9 @@ Macros</h2></td></tr>
 <tr class="memitem:gaa014f2b3e799431e08b951b3edb794f8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#gaa014f2b3e799431e08b951b3edb794f8">RDM_GET_DEVICE_ID</a>(uidptr)&#160;&#160;&#160;((uidptr)-&gt;id)</td></tr>
 <tr class="memdesc:gaa014f2b3e799431e08b951b3edb794f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Device ID from a UID.  <a href="#gaa014f2b3e799431e08b951b3edb794f8">More...</a><br /></td></tr>
 <tr class="separator:gaa014f2b3e799431e08b951b3edb794f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaca68c70b4aca047a5b8ff73e9d73b492"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#gaca68c70b4aca047a5b8ff73e9d73b492">RDM_UID_STRING_BYTES</a>&#160;&#160;&#160;14</td></tr>
+<tr class="memdesc:gaca68c70b4aca047a5b8ff73e9d73b492"><td class="mdescLeft">&#160;</td><td class="mdescRight">The maximum number of bytes for a buffer that can hold a UID string representation.  <a href="#gaca68c70b4aca047a5b8ff73e9d73b492">More...</a><br /></td></tr>
+<tr class="separator:gaca68c70b4aca047a5b8ff73e9d73b492"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -196,11 +206,20 @@ Typedefs</h2></td></tr>
 <tr class="memdesc:gad467bfae3ada73c70aaeb29b192ee351"><td class="mdescLeft">&#160;</td><td class="mdescRight">The UID type.  <a href="#gad467bfae3ada73c70aaeb29b192ee351">More...</a><br /></td></tr>
 <tr class="separator:gad467bfae3ada73c70aaeb29b192ee351"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga90190789ec0a4c7262c47e2d7a1fdf43"><td class="memItemLeft" align="right" valign="top"><a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__bool.html#gabb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga90190789ec0a4c7262c47e2d7a1fdf43">rdm_uid_to_string</a> (const <a class="el" href="struct_rdm_uid.html">RdmUid</a> *uid, char *buf)</td></tr>
+<tr class="memdesc:ga90190789ec0a4c7262c47e2d7a1fdf43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a string representation of a UID.  <a href="#ga90190789ec0a4c7262c47e2d7a1fdf43">More...</a><br /></td></tr>
+<tr class="separator:ga90190789ec0a4c7262c47e2d7a1fdf43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae4c4bb5385d1982c9b8ed05323a25b2b"><td class="memItemLeft" align="right" valign="top"><a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__bool.html#gabb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#gae4c4bb5385d1982c9b8ed05323a25b2b">rdm_string_to_uid</a> (const char *str, <a class="el" href="struct_rdm_uid.html">RdmUid</a> *uid)</td></tr>
+<tr class="memdesc:gae4c4bb5385d1982c9b8ed05323a25b2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a UID from a string representation.  <a href="#gae4c4bb5385d1982c9b8ed05323a25b2b">More...</a><br /></td></tr>
+<tr class="separator:gae4c4bb5385d1982c9b8ed05323a25b2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ga5693deeccc02604dcc7dce00f00daeea"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_rdm_uid.html">RdmUid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga5693deeccc02604dcc7dce00f00daeea">kBroadcastUid</a></td></tr>
-<tr class="memdesc:ga5693deeccc02604dcc7dce00f00daeea"><td class="mdescLeft">&#160;</td><td class="mdescRight">A UID that is equal to BROADCAST_ALL_DEVICES_ID as defined in ANSI E1.20.  <a href="#ga5693deeccc02604dcc7dce00f00daeea">More...</a><br /></td></tr>
-<tr class="separator:ga5693deeccc02604dcc7dce00f00daeea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae90bca840cb37b2833f202983f01aa4d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_rdm_uid.html">RdmUid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#gae90bca840cb37b2833f202983f01aa4d">kRdmBroadcastUid</a></td></tr>
+<tr class="memdesc:gae90bca840cb37b2833f202983f01aa4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A UID that is equal to BROADCAST_ALL_DEVICES_ID as defined in ANSI E1.20.  <a href="#gae90bca840cb37b2833f202983f01aa4d">More...</a><br /></td></tr>
+<tr class="separator:gae90bca840cb37b2833f202983f01aa4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2440a6426ac165d97dc206069060fd9e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_rdm_uid.html">RdmUid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga2440a6426ac165d97dc206069060fd9e">kRdmnetControllerBroadcastUid</a></td></tr>
 <tr class="memdesc:ga2440a6426ac165d97dc206069060fd9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">A UID that is equal to RPT_ALL_CONTROLLERS as defined in ANSI E1.33.  <a href="#ga2440a6426ac165d97dc206069060fd9e">More...</a><br /></td></tr>
 <tr class="separator:ga2440a6426ac165d97dc206069060fd9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -210,7 +229,7 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Type and helper functions for the Unique ID (UID) used in the RDM family of protocols. </p>
-<p>RDM-based protocols use an identifier called a UID to identify an entity that generates or consumes RDM messages.</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="uid_8h.html">rdm/uid.h</a>&quot;</span></div></div><!-- fragment --><p>RDM-based protocols use an identifier called a UID to identify an entity that generates or consumes RDM messages.</p>
 <p>The top bit of the UID is reserved for indicating broadcast values, or indicating Dynamic UIDs in ANSI E1.33.</p>
 <p>The next 15 bits is the ESTA Manufacturer ID; each manufacturer of RDM equipment has a unique Manufacturer ID registered with ESTA. The MSB of the UID is reserved for indicating broadcast values, or indicating Dynamic UIDs in ANSI E1.33.</p>
 <p>The remaining 32 bits is the Device ID. The Device ID is unique within a given scope; in the case of a Static UID, it is unique across all products made by the manufacturer indicated by the ESTA Manufacturer ID. In the case of a Dynamic UID, it is unique within its current E1.33 Scope. </p>
@@ -402,7 +421,7 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">uidptr</td><td>)</td>
-          <td>&#160;&#160;&#160;((uidptr)-&gt;manu == kBroadcastUid.manu &amp;&amp; (uidptr)-&gt;id == kBroadcastUid.id)</td>
+          <td>&#160;&#160;&#160;((uidptr)-&gt;manu == kRdmBroadcastUid.manu &amp;&amp; (uidptr)-&gt;id == kRdmBroadcastUid.id)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -415,6 +434,50 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true (uidptr is equal to BROADCAST_ALL_DEVICES_ID) or false (uidptr is not equal to BROADCAST_ALL_DEVICES_ID). </dd></dl>
+
+</div>
+</div>
+<a id="ga1b5ffea9d8b7ae8f0f4cdf5560901254"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1b5ffea9d8b7ae8f0f4cdf5560901254">&#9670;&nbsp;</a></span>RDM_UID_IS_NULL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RDM_UID_IS_NULL</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">uidptr</td><td>)</td>
+          <td>&#160;&#160;&#160;((uidptr)-&gt;manu == 0 &amp;&amp; (uidptr)-&gt;id == 0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determine if a UID is null. </p>
+<p>A UID is said to be 'null' when it is made up of all 0's.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uidptr</td><td>Pointer to UID to null-check. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true (UID is null) or false (UID is not null). </dd></dl>
+
+</div>
+</div>
+<a id="gaca68c70b4aca047a5b8ff73e9d73b492"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaca68c70b4aca047a5b8ff73e9d73b492">&#9670;&nbsp;</a></span>RDM_UID_STRING_BYTES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RDM_UID_STRING_BYTES&#160;&#160;&#160;14</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The maximum number of bytes for a buffer that can hold a UID string representation. </p>
 
 </div>
 </div>
@@ -435,7 +498,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the ESTA Manufacturer ID from an RDMnet Device Manufacturer Broadcast UID. </p>
-<p>Use uid_is_rdmnet_device_manu_broadcast() first to determine whether this UID is an RDMnet Device Manufacturer Broadcast.</p>
+<p>Use <a class="el" href="group__uid.html#ga224755484593f73ac68fe0ad974c192f" title="Determine whether a UID is one of the E1.33 values defined by RPT_ALL_MID_DEVICES. ">RDMNET_UID_IS_DEVICE_MANU_BROADCAST()</a> first to determine whether this UID is an RDMnet Device Manufacturer Broadcast.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uidptr</td><td>Pointer to <a class="el" href="struct_rdm_uid.html" title="The UID type. ">RdmUid</a> from which to get the Broadcast Manufacturer ID. </td></tr>
@@ -473,7 +536,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Determine whether an RDMnet Device Manufacturer Broadcast UID matches a specific ESTA Manufacturer ID. </p>
-<p>Use uid_is_rdmnet_device_manu_broadcast() first to determine whether this UID is an RDMnet Device Manufacturer Broadcast.</p>
+<p>Use <a class="el" href="group__uid.html#ga224755484593f73ac68fe0ad974c192f" title="Determine whether a UID is one of the E1.33 values defined by RPT_ALL_MID_DEVICES. ">RDMNET_UID_IS_DEVICE_MANU_BROADCAST()</a> first to determine whether this UID is an RDMnet Device Manufacturer Broadcast.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uidptr</td><td>Pointer to <a class="el" href="struct_rdm_uid.html" title="The UID type. ">RdmUid</a> to check. </td></tr>
@@ -482,6 +545,46 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true (RDMnet Device Manufacturer Broadcast matches this Manufacturer ID) or false (RDMnet Device Manufacturer Broadcast does not match this Manufacturer ID). </dd></dl>
+
+</div>
+</div>
+<a id="gaa32bb9da2292c2ad817b97919f6a02c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa32bb9da2292c2ad817b97919f6a02c5">&#9670;&nbsp;</a></span>RDMNET_INIT_DEVICE_MANU_BROADCAST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RDMNET_INIT_DEVICE_MANU_BROADCAST</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">uidptr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">manu_val&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span>                                                                              \</div><div class="line">  {                                                                               \</div><div class="line">    (uidptr)-&gt;manu = <a class="code" href="group__uid.html#ga9a8e7cd056b52e54e8a66d84908b82fe">kRdmnetDeviceBroadcastUid</a>.<a class="code" href="struct_rdm_uid.html#a29d588ede91f0ca7c2cf0105990b338a">manu</a>;                              \</div><div class="line">    (uidptr)-&gt;id = (<a class="code" href="group__uid.html#ga9a8e7cd056b52e54e8a66d84908b82fe">kRdmnetDeviceBroadcastUid</a>.<a class="code" href="struct_rdm_uid.html#abaabdc509cdaba7df9f56c6c76f3ae19">id</a> &amp; ((manu_val &lt;&lt; 16) | 0xffffu)); \</div><div class="line">  } <span class="keywordflow">while</span> (0)</div><div class="ttc" id="struct_rdm_uid_html_abaabdc509cdaba7df9f56c6c76f3ae19"><div class="ttname"><a href="struct_rdm_uid.html#abaabdc509cdaba7df9f56c6c76f3ae19">RdmUid::id</a></div><div class="ttdeci">uint32_t id</div><div class="ttdoc">The Device ID. </div><div class="ttdef"><b>Definition:</b> uid.h:67</div></div>
+<div class="ttc" id="struct_rdm_uid_html_a29d588ede91f0ca7c2cf0105990b338a"><div class="ttname"><a href="struct_rdm_uid.html#a29d588ede91f0ca7c2cf0105990b338a">RdmUid::manu</a></div><div class="ttdeci">uint16_t manu</div><div class="ttdoc">The ESTA Manufacturer ID. </div><div class="ttdef"><b>Definition:</b> uid.h:66</div></div>
+<div class="ttc" id="group__uid_html_ga9a8e7cd056b52e54e8a66d84908b82fe"><div class="ttname"><a href="group__uid.html#ga9a8e7cd056b52e54e8a66d84908b82fe">kRdmnetDeviceBroadcastUid</a></div><div class="ttdeci">const RdmUid kRdmnetDeviceBroadcastUid</div><div class="ttdoc">A UID that is equal to RPT_ALL_DEVICES as defined in ANSI E1.33. </div><div class="ttdef"><b>Definition:</b> uid.c:29</div></div>
+</div><!-- fragment -->
+<p>Initialize an RDMnet Device Manufacturer Broadcast UID with a Manufacturer ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uidptr</td><td>Pointer to <a class="el" href="struct_rdm_uid.html" title="The UID type. ">RdmUid</a> to initialize. </td></tr>
+    <tr><td class="paramname">manu_val</td><td>ESTA Manufacturer ID. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -587,7 +690,7 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">uidptr</td><td>)</td>
-          <td>&#160;&#160;&#160;((uidptr)-&gt;manu == kRdmnetControllerBroadcastUid.manu &amp;&amp; (((uidptr)-&gt;id &amp; 0xffffu) == 0xffffu))</td>
+          <td>&#160;&#160;&#160;((uidptr)-&gt;manu == kRdmnetDeviceBroadcastUid.manu &amp;&amp; (((uidptr)-&gt;id &amp; 0xffffu) == 0xffffu))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -619,12 +722,12 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">((((uidptr)-&gt;manu &amp; 0x8000u) != 0) &amp;&amp; !<a class="code" href="group__uid.html#ga53c88cbe60ef6f037d8c2a9fdff9894a">RDMNET_UID_IS_CONTROLLER_BROADCAST</a>(uidptr) &amp;&amp; \</div><div class="line">   !<a class="code" href="group__uid.html#ga224755484593f73ac68fe0ad974c192f">RDMNET_UID_IS_DEVICE_MANU_BROADCAST</a>(uidptr) &amp;&amp; !<a class="code" href="group__uid.html#ga65209ad8850eef83a6249f93bd215da6">RDM_UID_IS_BROADCAST</a>(uidptr))</div><div class="ttc" id="group__uid_html_ga224755484593f73ac68fe0ad974c192f"><div class="ttname"><a href="group__uid.html#ga224755484593f73ac68fe0ad974c192f">RDMNET_UID_IS_DEVICE_MANU_BROADCAST</a></div><div class="ttdeci">#define RDMNET_UID_IS_DEVICE_MANU_BROADCAST(uidptr)</div><div class="ttdoc">Determine whether a UID is one of the E1.33 values defined by RPT_ALL_MID_DEVICES. </div><div class="ttdef"><b>Definition:</b> uid.h:139</div></div>
-<div class="ttc" id="group__uid_html_ga53c88cbe60ef6f037d8c2a9fdff9894a"><div class="ttname"><a href="group__uid.html#ga53c88cbe60ef6f037d8c2a9fdff9894a">RDMNET_UID_IS_CONTROLLER_BROADCAST</a></div><div class="ttdeci">#define RDMNET_UID_IS_CONTROLLER_BROADCAST(uidptr)</div><div class="ttdoc">Determine whether a UID is the E1.33 value RPT_ALL_CONTROLLERS. </div><div class="ttdef"><b>Definition:</b> uid.h:117</div></div>
-<div class="ttc" id="group__uid_html_ga65209ad8850eef83a6249f93bd215da6"><div class="ttname"><a href="group__uid.html#ga65209ad8850eef83a6249f93bd215da6">RDM_UID_IS_BROADCAST</a></div><div class="ttdeci">#define RDM_UID_IS_BROADCAST(uidptr)</div><div class="ttdoc">Determine whether a UID is the E1.20 value BROADCAST_ALL_DEVICES_ID. </div><div class="ttdef"><b>Definition:</b> uid.h:110</div></div>
+<b>Value:</b><div class="fragment"><div class="line">((((uidptr)-&gt;manu &amp; 0x8000u) != 0) &amp;&amp; !<a class="code" href="group__uid.html#ga53c88cbe60ef6f037d8c2a9fdff9894a">RDMNET_UID_IS_CONTROLLER_BROADCAST</a>(uidptr) &amp;&amp; \</div><div class="line">   !<a class="code" href="group__uid.html#ga224755484593f73ac68fe0ad974c192f">RDMNET_UID_IS_DEVICE_MANU_BROADCAST</a>(uidptr) &amp;&amp; !<a class="code" href="group__uid.html#ga65209ad8850eef83a6249f93bd215da6">RDM_UID_IS_BROADCAST</a>(uidptr))</div><div class="ttc" id="group__uid_html_ga224755484593f73ac68fe0ad974c192f"><div class="ttname"><a href="group__uid.html#ga224755484593f73ac68fe0ad974c192f">RDMNET_UID_IS_DEVICE_MANU_BROADCAST</a></div><div class="ttdeci">#define RDMNET_UID_IS_DEVICE_MANU_BROADCAST(uidptr)</div><div class="ttdoc">Determine whether a UID is one of the E1.33 values defined by RPT_ALL_MID_DEVICES. </div><div class="ttdef"><b>Definition:</b> uid.h:171</div></div>
+<div class="ttc" id="group__uid_html_ga53c88cbe60ef6f037d8c2a9fdff9894a"><div class="ttname"><a href="group__uid.html#ga53c88cbe60ef6f037d8c2a9fdff9894a">RDMNET_UID_IS_CONTROLLER_BROADCAST</a></div><div class="ttdeci">#define RDMNET_UID_IS_CONTROLLER_BROADCAST(uidptr)</div><div class="ttdoc">Determine whether a UID is the E1.33 value RPT_ALL_CONTROLLERS. </div><div class="ttdef"><b>Definition:</b> uid.h:147</div></div>
+<div class="ttc" id="group__uid_html_ga65209ad8850eef83a6249f93bd215da6"><div class="ttname"><a href="group__uid.html#ga65209ad8850eef83a6249f93bd215da6">RDM_UID_IS_BROADCAST</a></div><div class="ttdeci">#define RDM_UID_IS_BROADCAST(uidptr)</div><div class="ttdoc">Determine whether a UID is the E1.20 value BROADCAST_ALL_DEVICES_ID. </div><div class="ttdef"><b>Definition:</b> uid.h:139</div></div>
 </div><!-- fragment -->
 <p>Determine whether a UID is a Dynamic UID as defined in ANSI E1.33. </p>
-<p>Note that !RDMNET_UID_IS_DYNAMIC() does not imply <a class="el" href="group__uid.html#gaaaf8226917bc3e83e12f8b4d51d11ac8" title="Determine whether a UID is a Static UID as defined in ANSI E1.33. ">RDMNET_UID_IS_STATIC()</a>, because broadcast UID values are neither dynamic nor static UIDs.</p>
+<p>Note that !RDMNET_UID_IS_DYNAMIC() does not imply <a class="el" href="group__uid.html#gaaaf8226917bc3e83e12f8b4d51d11ac8" title="Determine whether a UID is a Static UID as defined in ANSI E1.33. ">RDMNET_UID_IS_STATIC()</a>, because broadcast and null UID values are neither dynamic nor static UIDs.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uidptr</td><td>Pointer to <a class="el" href="struct_rdm_uid.html" title="The UID type. ">RdmUid</a> to check. </td></tr>
@@ -673,13 +776,13 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">uidptr</td><td>)</td>
-          <td>&#160;&#160;&#160;(((uidptr)-&gt;manu &amp; 0x8000u) == 0)</td>
+          <td>&#160;&#160;&#160;(!<a class="el" href="group__uid.html#ga1b5ffea9d8b7ae8f0f4cdf5560901254">RDM_UID_IS_NULL</a>(uidptr) &amp;&amp; ((uidptr)-&gt;manu &amp; 0x8000u) == 0)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Determine whether a UID is a Static UID as defined in ANSI E1.33. </p>
-<p>Note that !RDMNET_UID_IS_STATIC() does not imply <a class="el" href="group__uid.html#ga6513e844d7b58f9cdee40244fe5a682f" title="Determine whether a UID is a Dynamic UID as defined in ANSI E1.33. ">RDMNET_UID_IS_DYNAMIC()</a>, because broadcast UID values are neither dynamic nor static UIDs.</p>
+<p>Note that !RDMNET_UID_IS_STATIC() does not imply <a class="el" href="group__uid.html#ga6513e844d7b58f9cdee40244fe5a682f" title="Determine whether a UID is a Dynamic UID as defined in ANSI E1.33. ">RDMNET_UID_IS_DYNAMIC()</a>, because broadcast and null UID values are neither dynamic nor static UIDs.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uidptr</td><td>Pointer to <a class="el" href="struct_rdm_uid.html" title="The UID type. ">RdmUid</a> to check. </td></tr>
@@ -708,15 +811,94 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="ga5693deeccc02604dcc7dce00f00daeea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5693deeccc02604dcc7dce00f00daeea">&#9670;&nbsp;</a></span>kBroadcastUid</h2>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="gae4c4bb5385d1982c9b8ed05323a25b2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae4c4bb5385d1982c9b8ed05323a25b2b">&#9670;&nbsp;</a></span>rdm_string_to_uid()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="struct_rdm_uid.html">RdmUid</a> kBroadcastUid</td>
+          <td class="memname"><a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__bool.html#gabb452686968e48b67397da5f97445f5b">bool</a> rdm_string_to_uid </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_rdm_uid.html">RdmUid</a> *&#160;</td>
+          <td class="paramname"><em>uid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a UID from a string representation. </p>
+<p>There is no standard for string representations of UIDs, but two common conventions exist: <code>mmmm:dddddddd</code> and <code>mmmmdddddddd</code>, where <code>mmmm</code> is the 4-digit ESTA manufacturer ID represented in hexadecimal, and <code>dddddddd</code> is the 8-digit device ID represented in hexadecimal. This function accepts either of these forms as input.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">str</td><td>The null-terminated string to convert. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">uid</td><td>UID to fill in with the parse result. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true (parse successful) or false (invalid argment/parse failure). </dd></dl>
+
+</div>
+</div>
+<a id="ga90190789ec0a4c7262c47e2d7a1fdf43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga90190789ec0a4c7262c47e2d7a1fdf43">&#9670;&nbsp;</a></span>rdm_uid_to_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__bool.html#gabb452686968e48b67397da5f97445f5b">bool</a> rdm_uid_to_string </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_rdm_uid.html">RdmUid</a> *&#160;</td>
+          <td class="paramname"><em>uid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buf</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a string representation of a UID. </p>
+<p>The resulting string will be of the form <code>mmmm:dddddddd</code>, where <code>mmmm</code> is the 4-digit ESTA manufacturer ID represented in hexadecimal, and <code>dddddddd</code> is the 8-digit device ID represented in hexadecimal.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">uid</td><td>UID to convert to a string. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">buf</td><td>Character buffer to which to write the resulting string. Must be at least of size <a class="el" href="group__uid.html#gaca68c70b4aca047a5b8ff73e9d73b492" title="The maximum number of bytes for a buffer that can hold a UID string representation. ">RDM_UID_STRING_BYTES</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true (conversion successful) or false (invalid argument). </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="gae90bca840cb37b2833f202983f01aa4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae90bca840cb37b2833f202983f01aa4d">&#9670;&nbsp;</a></span>kRdmBroadcastUid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="struct_rdm_uid.html">RdmUid</a> kRdmBroadcastUid</td>
         </tr>
       </table>
 </div><div class="memdoc">

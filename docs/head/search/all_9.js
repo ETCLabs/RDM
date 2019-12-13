@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['kbroadcastuid',['kBroadcastUid',['../group__uid.html#ga5693deeccc02604dcc7dce00f00daeea',1,'kBroadcastUid():&#160;uid.c'],['../group__uid.html#ga5693deeccc02604dcc7dce00f00daeea',1,'kBroadcastUid():&#160;uid.c']]],
   ['ketcpalerraddrinuse',['kEtcPalErrAddrInUse',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afae27e1c52937b3d1c1993f78160a0a778',1,]]],
   ['ketcpalerraddrnotavail',['kEtcPalErrAddrNotAvail',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afa44ede5b2503ce2b1bb4ccd285d676b50',1,]]],
   ['ketcpalerralready',['kEtcPalErrAlready',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afaa9c6c39f7303953a99c50a981f36dff0',1,]]],
@@ -40,6 +39,7 @@ var searchData=
   ['ketcpallogcreatesyslog',['kEtcPalLogCreateSyslog',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__log.html#gga10855f3c1f3816d0bd5e4687108ea1c5a1631725f7a5f65a9fb15767cecec5290',1,]]],
   ['ketcpalnullmacaddr',['kEtcPalNullMacAddr',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__inet.html#gae648df0d068e3335073224fb0fb45512',1,]]],
   ['ketcpalnulluuid',['kEtcPalNullUuid',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__uuid.html#gae518c32bbc7d2266568ee9a703bb4f5e',1,]]],
+  ['krdmbroadcastuid',['kRdmBroadcastUid',['../group__uid.html#gae90bca840cb37b2833f202983f01aa4d',1,'kRdmBroadcastUid():&#160;uid.c'],['../group__uid.html#gae90bca840cb37b2833f202983f01aa4d',1,'kRdmBroadcastUid():&#160;uid.c']]],
   ['krdmnetcontrollerbroadcastuid',['kRdmnetControllerBroadcastUid',['../group__uid.html#ga2440a6426ac165d97dc206069060fd9e',1,'kRdmnetControllerBroadcastUid():&#160;uid.c'],['../group__uid.html#ga2440a6426ac165d97dc206069060fd9e',1,'kRdmnetControllerBroadcastUid():&#160;uid.c']]],
   ['krdmnetdevicebroadcastuid',['kRdmnetDeviceBroadcastUid',['../group__uid.html#ga9a8e7cd056b52e54e8a66d84908b82fe',1,'kRdmnetDeviceBroadcastUid():&#160;uid.c'],['../group__uid.html#ga9a8e7cd056b52e54e8a66d84908b82fe',1,'kRdmnetDeviceBroadcastUid():&#160;uid.c']]]
 ];
