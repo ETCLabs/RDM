@@ -26,7 +26,7 @@
 #define RDM_UID_H_
 
 #include "etcpal/bool.h"
-#include "etcpal/int.h"
+#include <stdint.h>
 
 /*!
  * \defgroup uid UID

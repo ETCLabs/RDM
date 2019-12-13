@@ -19,8 +19,8 @@
 
 #include "rdm/responder.h"
 
+#include <stdint.h>
 #include <string.h>
-#include "etcpal/int.h"
 #include "etcpal/pack.h"
 #include "rdm/defs.h"
 

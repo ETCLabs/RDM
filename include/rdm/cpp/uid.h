@@ -23,8 +23,8 @@
 #ifndef RDM_CPP_UID_H_
 #define RDM_CPP_UID_H_
 
+#include <cstdint>
 #include <string>
-#include "etcpal/int.h"
 #include "etcpal/cpp/common.h"
 #include "rdm/uid.h"
 

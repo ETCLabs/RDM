@@ -25,7 +25,7 @@
 #ifndef RDM_RESPONDER_H_
 #define RDM_RESPONDER_H_
 
-#include "etcpal/int.h"
+#include <stdint.h>
 #include "etcpal/error.h"
 #include "etcpal/pack.h"
 #include "rdm/message.h"
