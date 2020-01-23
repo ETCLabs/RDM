@@ -248,6 +248,28 @@ public:
   uint8_t datalen() const noexcept;
   const uint8_t* data() const noexcept;
 
+  ETCPAL_CONSTEXPR_14 RdmResponse& get() noexcept;
+  constexpr const RdmResponse& get() const noexcept;
+
+  constexpr bool IsValid() const noexcept;
+
+  Response& SetSourceUid(const Uid& uid) noexcept;
+  Response& SetSourceUid(const RdmUid& uid) noexcept;
+  Response& SetDestUid(const Uid& uid) noexcept;
+  Response& SetDestUid(const RdmUid& uid) noexcept;
+  Response& SetTransactionNum(uint8_t transaction_num) noexcept;
+  Response& SetResponseType(rdm_response_type_t response_type) noexcept;
+  Response& SetMessageCount(uint8_t msg_count) noexcept;
+  Response& SetSubdevice(uint16_t subdevice) noexcept;
+  Response& SetCommandClass(rdm_command_class_t command_class) noexcept;
+  Response& SetParamId(uint16_t param_id) noexcept;
+  Response& SetData(const uint8_t* data, uint8_t datalen) noexcept;
+
+  constexpr size_t PackedSize() const noexcept;
+  bool ToBytes(uint8_t* buf, size_t buflen) const noexcept;
+  bool ToBytes(RdmBuffer& buffer) const;
+  std::vector<uint8_t> ToBytes() const;
+
   static Response Ack(const Command& cmd, uint8_t msg_count = 0, const uint8_t* data = nullptr, uint8_t datalen = 0);
   static Response AckTimer(const Command& cmd, uint8_t msg_count = 0, const uint8_t* data = nullptr,
                            uint8_t datalen = 0);
