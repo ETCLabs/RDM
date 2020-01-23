@@ -35,7 +35,7 @@ TEST(Responder, CreateNack)
   test_cmd.datalen = 20;
 
   RdmResponse nack{};
-  RDM_CREATE_NACK_FROM_COMMAND(&nack, &test_cmd, E120_NR_BUFFER_FULL);
+  rdm_create_nack_from_command(&test_cmd, E120_NR_BUFFER_FULL, &nack);
 
   EXPECT_EQ(nack.dest_uid, RdmUid({0, 1}));
   EXPECT_EQ(nack.source_uid, RdmUid({1, 0}));
@@ -46,15 +46,15 @@ TEST(Responder, CreateNack)
   EXPECT_EQ(nack.command_class, kRdmCCGetCommandResponse);
   EXPECT_EQ(nack.param_id, E120_DMX_START_ADDRESS);
   EXPECT_EQ(nack.datalen, 2);
-  EXPECT_EQ(etcpal_upack_16b(nack.data), E120_NR_BUFFER_FULL);
+  EXPECT_EQ(etcpal_unpack_u16b(nack.data), E120_NR_BUFFER_FULL);
 
-  RDM_CREATE_NACK_FROM_COMMAND_WITH_MSG_COUNT(&nack, &test_cmd, E120_NR_BUFFER_FULL, 20);
+  rdm_create_nack_from_command_with_msg_count(&test_cmd, E120_NR_BUFFER_FULL, 20, &nack);
 
   EXPECT_EQ(nack.msg_count, 20);
 
   test_cmd.command_class = kRdmCCSetCommand;
-  RDM_CREATE_NACK_FROM_COMMAND(&nack, &test_cmd, E120_NR_FORMAT_ERROR);
+  rdm_create_nack_from_command(&test_cmd, E120_NR_FORMAT_ERROR, &nack);
 
   EXPECT_EQ(nack.command_class, kRdmCCSetCommandResponse);
-  EXPECT_EQ(etcpal_upack_16b(nack.data), E120_NR_FORMAT_ERROR);
+  EXPECT_EQ(etcpal_unpack_u16b(nack.data), E120_NR_FORMAT_ERROR);
 }

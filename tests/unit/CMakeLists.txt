@@ -4,9 +4,12 @@ include(GoogleTest)
 
 add_executable(test_rdm
   # RDM unit test sources
+  test_cpp_command.cpp
+  test_cpp_response.cpp
+  test_cpp_uid.cpp
+
   test_responder.cpp
   test_uid.cpp
-  test_cpp_uid.cpp
 )
 set_target_properties(test_rdm PROPERTIES
   FOLDER tests

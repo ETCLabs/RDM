@@ -17,41 +17,38 @@
  * https://github.com/ETCLabs/RDM
  ******************************************************************************/
 
-/*!
- * \file rdm/responder.h
- * \brief Contains functions for unpacking RDM commands and creating responses.
- */
+#include "rdm/cpp/message.h"
+#include "gtest/gtest.h"
 
-#ifndef RDM_RESPONDER_H_
-#define RDM_RESPONDER_H_
+TEST(CppCommand, DefaultConstructorWorks)
+{
+  // Default constructor should set some reasonable "null" or "zero" values
+  rdm::Command cmd;
+  EXPECT_FALSE(cmd.IsValid());
+  EXPECT_FALSE(cmd.source_uid().IsValid());
+  EXPECT_FALSE(cmd.dest_uid().IsValid());
+  EXPECT_EQ(cmd.transaction_num(), 0);
+  EXPECT_EQ(cmd.port_id(), 0);
+  EXPECT_EQ(cmd.subdevice(), 0);
+  EXPECT_EQ(cmd.param_id(), 0);
+  EXPECT_EQ(cmd.datalen(), 0);
+  EXPECT_EQ(cmd.data(), nullptr);
+}
 
-#include <stdint.h>
-#include "etcpal/error.h"
-#include "etcpal/pack.h"
-#include "rdm/message.h"
+TEST(CppCommand, UidSettersWork)
+{
+  rdm::Command cmd;
 
-/*!
- * \defgroup responder Responder
- * \ingroup rdm
- * \brief Implementation of RDM responder functionality.
- *
- * @{
- */
+  RdmUid uid1 = {20, 40};
+  cmd.SetSourceUid(uid1);
+  EXPECT_EQ(cmd.source_uid(), uid1);
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+  cmd.SetDestUid(uid1);
+  EXPECT_EQ(cmd.dest_uid(), uid1);
 
-etcpal_error_t rdmresp_unpack_command(const RdmBuffer* buffer, RdmCommand* cmd);
-bool rdmresp_is_non_disc_command(const RdmBuffer* buffer);
-etcpal_error_t rdmresp_pack_response(const RdmResponse* resp_data, RdmBuffer* buffer);
-
-#ifdef __cplusplus
-};
-#endif
-
-/*!
- * @}
- */
-
-#endif /* RDM_RESPONDER_H_ */
+  rdm::Uid uid2(60, 80);
+  cmd.SetSourceUid(uid2);
+  EXPECT_EQ(cmd.source_uid(), uid2);
+  cmd.SetDestUid(uid2);
+  EXPECT_EQ(cmd.dest_uid(), uid2);
+}

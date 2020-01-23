@@ -49,7 +49,7 @@ void rdm_pack_checksum(uint8_t* buffer, size_t datalen_without_checksum)
   if (buffer)
   {
     uint16_t sum = calc_checksum(buffer, datalen_without_checksum);
-    etcpal_pack_16b(&buffer[datalen_without_checksum], sum);
+    etcpal_pack_u16b(&buffer[datalen_without_checksum], sum);
   }
 }
 
@@ -74,8 +74,51 @@ bool rdm_validate_msg(const RdmBuffer* buffer)
   }
 
   sum = calc_checksum(buffer->data, buffer->datalen - 2);
-  if (sum != etcpal_upack_16b(&buffer->data[buffer->data[RDM_OFFSET_LENGTH]]))
+  if (sum != etcpal_unpack_u16b(&buffer->data[buffer->data[RDM_OFFSET_LENGTH]]))
     return false;
 
   return true;
+}
+
+/*!
+ * \brief Initialize a NACK_REASON RdmResponse to a received RdmCommand.
+ *
+ * Provide the received command and the NACK reason code.
+ *
+ * \param[in] cmd Received command.
+ * \param[in] nack_reason NACK Reason code to send.
+ * \param[out] resp Response to initialize.
+ */
+void rdm_create_nack_from_command(const RdmCommand* cmd, uint16_t nack_reason, RdmResponse* resp)
+{
+  rdm_create_nack_from_command_with_msg_count(cmd, nack_reason, 0, resp);
+}
+
+/*!
+ * \brief Initialize a NACK_REASON RdmResponse to a received RdmCommand, specifying a queued
+ *        message count.
+ *
+ * Provide the received command, the NACK reason code and the message count.
+ *
+ * \param[in] cmd Received command.
+ * \param[in] nack_reason NACK Reason code to send.
+ * \param[in] msg_count Message count to send.
+ * \param[out] resp Response to initialize.
+ */
+void rdm_create_nack_from_command_with_msg_count(const RdmCommand* cmd, uint16_t nack_reason, uint8_t msg_count,
+                                                 RdmResponse* resp)
+{
+  if (!cmd || !resp)
+    return;
+
+  resp->source_uid = cmd->dest_uid;
+  resp->dest_uid = cmd->source_uid;
+  resp->transaction_num = cmd->transaction_num;
+  resp->resp_type = kRdmResponseTypeNackReason;
+  resp->msg_count = msg_count;
+  resp->subdevice = cmd->subdevice;
+  resp->command_class = (cmd->command_class == kRdmCCSetCommand ? kRdmCCSetCommandResponse : kRdmCCGetCommandResponse);
+  resp->param_id = cmd->param_id;
+  resp->datalen = 2;
+  etcpal_pack_u16b(resp->data, nack_reason);
 }

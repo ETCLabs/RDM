@@ -25,9 +25,9 @@
 #ifndef RDM_MESSAGE_H_
 #define RDM_MESSAGE_H_
 
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
-#include "etcpal/bool.h"
 #include "rdm/uid.h"
 #include "rdm/defs.h"
 
@@ -171,6 +171,10 @@ typedef struct RdmResponse
 
 void rdm_pack_checksum(uint8_t* buffer, size_t datalen_without_checksum);
 bool rdm_validate_msg(const RdmBuffer* buffer);
+
+void rdm_create_nack_from_command(const RdmCommand* cmd, uint16_t nack_reason, RdmResponse* resp);
+void rdm_create_nack_from_command_with_msg_count(const RdmCommand* cmd, uint16_t nack_reason, uint8_t msg_count,
+                                                 RdmResponse* resp);
 
 #ifdef __cplusplus
 }

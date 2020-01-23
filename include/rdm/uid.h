@@ -25,7 +25,7 @@
 #ifndef RDM_UID_H_
 #define RDM_UID_H_
 
-#include "etcpal/bool.h"
+#include <stdbool.h>
 #include <stdint.h>
 
 /*!

@@ -17,41 +17,10 @@
  * https://github.com/ETCLabs/RDM
  ******************************************************************************/
 
-/*!
- * \file rdm/responder.h
- * \brief Contains functions for unpacking RDM commands and creating responses.
- */
+#include "rdm/cpp/message.h"
+#include "gtest/gtest.h"
 
-#ifndef RDM_RESPONDER_H_
-#define RDM_RESPONDER_H_
-
-#include <stdint.h>
-#include "etcpal/error.h"
-#include "etcpal/pack.h"
-#include "rdm/message.h"
-
-/*!
- * \defgroup responder Responder
- * \ingroup rdm
- * \brief Implementation of RDM responder functionality.
- *
- * @{
- */
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-etcpal_error_t rdmresp_unpack_command(const RdmBuffer* buffer, RdmCommand* cmd);
-bool rdmresp_is_non_disc_command(const RdmBuffer* buffer);
-etcpal_error_t rdmresp_pack_response(const RdmResponse* resp_data, RdmBuffer* buffer);
-
-#ifdef __cplusplus
-};
-#endif
-
-/*!
- * @}
- */
-
-#endif /* RDM_RESPONDER_H_ */
+TEST(CppResponse, DefaultConstructorWorks)
+{
+  rdm::Response resp;
+}
