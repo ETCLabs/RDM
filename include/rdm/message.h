@@ -172,9 +172,17 @@ typedef struct RdmResponse
 void rdm_pack_checksum(uint8_t* buffer, size_t datalen_without_checksum);
 bool rdm_validate_msg(const RdmBuffer* buffer);
 
-void rdm_create_nack_from_command(const RdmCommand* cmd, uint16_t nack_reason, RdmResponse* resp);
-void rdm_create_nack_from_command_with_msg_count(const RdmCommand* cmd, uint16_t nack_reason, uint8_t msg_count,
-                                                 RdmResponse* resp);
+void rdm_create_response(const RdmCommand* cmd, rdm_response_type_t resp_type, const uint8_t* data, uint8_t datalen,
+                         RdmResponse* resp);
+void rdm_create_response_with_msg_count(const RdmCommand* cmd, rdm_response_type_t resp_type, uint8_t msg_count,
+                                        const uint8_t* data, size_t datalen, RdmResponse* resp);
+void rdm_create_overflow_response(const RdmCommand* cmd, const uint8_t* data, size_t datalen, RdmResponse* resp_buf,
+                                  size_t resp_buf_size);
+void rdm_create_timer_response(const RdmCommand* cmd, uint16_t delay_time_ms);
+void rdm_create_timer_response_with_msg_count(const RdmCommand* cmd, uint8_t msg_count, uint16_t delay_time_ms);
+
+void rdm_create_nack(const RdmCommand* cmd, uint16_t nack_reason, RdmResponse* resp);
+void rdm_create_nack_with_msg_count(const RdmCommand* cmd, uint16_t nack_reason, uint8_t msg_count, RdmResponse* resp);
 
 #ifdef __cplusplus
 }

@@ -24,6 +24,7 @@
 #define RDM_CPP_MESSAGE_H_
 
 #include <algorithm>
+#include <cstddef>
 #include <cstring>
 #include <vector>
 #include "rdm/message.h"
@@ -229,13 +230,13 @@ inline std::vector<uint8_t> Command::ToBytes() const
   return std::vector<uint8_t>{};
 }
 
-class Response
+class SingleResponse
 {
 public:
-  Response() = default;
-  constexpr Response(rdm_command_class_t command_class, rdm_response_type_t response_type, uint16_t param_id,
-                     const Uid& source_uid, const Uid& dest_uid, uint8_t transaction_num, uint16_t subdevice = 0,
-                     uint8_t msg_count = 0, const uint8_t* data = nullptr, uint8_t datalen = 0);
+  SingleResponse() = default;
+  constexpr SingleResponse(rdm_command_class_t command_class, rdm_response_type_t response_type, uint16_t param_id,
+                           const Uid& source_uid, const Uid& dest_uid, uint8_t transaction_num, uint16_t subdevice = 0,
+                           uint8_t msg_count = 0, const uint8_t* data = nullptr, uint8_t datalen = 0);
 
   Uid source_uid() const noexcept;
   Uid dest_uid() const noexcept;
@@ -253,6 +254,55 @@ public:
 
   constexpr bool IsValid() const noexcept;
 
+  SingleResponse& SetSourceUid(const Uid& uid) noexcept;
+  SingleResponse& SetSourceUid(const RdmUid& uid) noexcept;
+  SingleResponse& SetDestUid(const Uid& uid) noexcept;
+  SingleResponse& SetDestUid(const RdmUid& uid) noexcept;
+  SingleResponse& SetTransactionNum(uint8_t transaction_num) noexcept;
+  SingleResponse& SetResponseType(rdm_response_type_t response_type) noexcept;
+  SingleResponse& SetMessageCount(uint8_t msg_count) noexcept;
+  SingleResponse& SetSubdevice(uint16_t subdevice) noexcept;
+  SingleResponse& SetCommandClass(rdm_command_class_t command_class) noexcept;
+  SingleResponse& SetParamId(uint16_t param_id) noexcept;
+  SingleResponse& SetData(const uint8_t* data, uint8_t datalen) noexcept;
+
+  constexpr size_t PackedSize() const noexcept;
+  bool ToBytes(uint8_t* buf, size_t buflen) const noexcept;
+  bool ToBytes(RdmBuffer& buffer) const;
+  std::vector<uint8_t> ToBytes() const;
+
+  static SingleResponse Ack(const Command& cmd, const uint8_t* data = nullptr, uint8_t datalen = 0,
+                            uint8_t msg_count = 0);
+  static SingleResponse AckTimer(const Command& cmd, uint16_t delay_ms, uint8_t msg_count = 0);
+  static SingleResponse AckOverflow(const Command& cmd, const uint8_t* data = nullptr, uint8_t datalen = 0,
+                                    uint8_t msg_count = 0);
+  static SingleResponse Nack(const Command& cmd, uint16_t nack_reason, uint8_t msg_count = 0);
+
+private:
+  RdmResponse resp_{};
+};
+
+class Response
+{
+public:
+  Response() = default;
+  constexpr Response(rdm_command_class_t command_class, rdm_response_type_t response_type, uint16_t param_id,
+                     const Uid& source_uid, const Uid& dest_uid, uint8_t transaction_num, uint16_t subdevice = 0,
+                     uint8_t msg_count = 0, const uint8_t* data = nullptr, size_t datalen = 0);
+
+  Uid source_uid() const noexcept;
+  Uid dest_uid() const noexcept;
+  uint8_t transaction_num() const noexcept;
+  rdm_response_type_t response_type() const noexcept;
+  uint8_t message_count() const noexcept;
+  uint16_t subdevice() const noexcept;
+  rdm_command_class_t command_class() const noexcept;
+  uint16_t param_id() const noexcept;
+  size_t datalen() const noexcept;
+  const uint8_t* data() const noexcept;
+
+  constexpr bool IsValid() const noexcept;
+
   Response& SetSourceUid(const Uid& uid) noexcept;
   Response& SetSourceUid(const RdmUid& uid) noexcept;
   Response& SetDestUid(const Uid& uid) noexcept;
@@ -263,24 +313,32 @@ public:
   Response& SetSubdevice(uint16_t subdevice) noexcept;
   Response& SetCommandClass(rdm_command_class_t command_class) noexcept;
   Response& SetParamId(uint16_t param_id) noexcept;
-  Response& SetData(const uint8_t* data, uint8_t datalen) noexcept;
+  Response& SetData(const uint8_t* data, size_t datalen) noexcept;
 
-  constexpr size_t PackedSize() const noexcept;
-  bool ToBytes(uint8_t* buf, size_t buflen) const noexcept;
-  bool ToBytes(RdmBuffer& buffer) const;
-  std::vector<uint8_t> ToBytes() const;
+  constexpr size_t NumSingleResponsesRequired() const noexcept;
+  bool ToBytes(RdmBuffer* buffers, size_t num_buffers) const noexcept;
+  std::vector<RdmBuffer> ToBytes() const;
+  bool ToSingleResponses(SingleResponse* response_buf, size_t response_buf_size) const noexcept;
+  std::vector<SingleResponse> ToSingleResponses() const;
 
-  static Response Ack(const Command& cmd, uint8_t msg_count = 0, const uint8_t* data = nullptr, uint8_t datalen = 0);
-  static Response AckTimer(const Command& cmd, uint8_t msg_count = 0, const uint8_t* data = nullptr,
-                           uint8_t datalen = 0);
-  static Response AckOverflow(const Command& cmd, uint8_t msg_count = 0, const uint8_t* data = nullptr,
-                              uint8_t datalen = 0);
+  static Response Ack(const Command& cmd, const uint8_t* data = nullptr, size_t datalen = 0, uint8_t msg_count = 0);
+  static Response AckTimer(const Command& cmd, uint16_t delay_ms, uint8_t msg_count = 0);
   static Response Nack(const Command& cmd, uint16_t nack_reason, uint8_t msg_count = 0);
 
 private:
-  RdmResponse resp_{};
+  Uid source_uid_;
+  Uid dest_uid_;
+  uint8_t transaction_num_;
+  rdm_response_type_t resp_type_;
+  uint8_t msg_count_;
+  uint16_t subdevice_;
+  rdm_command_class_t command_class_;
+  uint16_t param_id_;
+  std::vector<uint8_t> data_;
 };
 
 };  // namespace rdm
+}
+;  // namespace rdm
 
 #endif  // RDM_CPP_MESSAGE_H_
