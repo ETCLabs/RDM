@@ -1,2 +1,2 @@
-import RDM/... //GITHUB_RDM/main_latest/...@GHRDM_0.2.0.6
-import EtcPal/... //GITHUB_EtcPal/main_latest/...@EtcPal_0.3.0.7
+import RDM/... //GITHUB_RDM/main_latest/...@GHRDM_0.2.0.7
+import EtcPal/... //GITHUB_EtcPal/main_latest/...@EtcPal_0.3.0.9
