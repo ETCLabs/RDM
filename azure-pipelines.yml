@@ -60,6 +60,7 @@ stages:
       vmImage: 'ubuntu-18.04'
     variables:
       cmake_generator: 'Unix Makefiles'
+      cmake_options_linux: -DCMAKE_C_FLAGS="-fsanitize=address" -DCMAKE_CXX_FLAGS="-fsanitize=address" -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=address"
     steps:
     - script: |
         sudo apt-get update
@@ -67,7 +68,7 @@ stages:
         mkdir build
         cd build
         cmake --version
-        cmake -G "$(cmake_generator)" ..
+        cmake -G "$(cmake_generator)" $(cmake_options_linux) ..
         cmake --build .
       displayName: 'Configure and Build Project'
     - script: |
