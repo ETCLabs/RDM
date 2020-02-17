@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['kdefaultmaxcount',['kDefaultMaxCount',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_semaphore.html#a3486903fdf2712a41832d21fdfd5bc0b',1,'etcpal::Semaphore']]],
   ['ketcpalerraddrinuse',['kEtcPalErrAddrInUse',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afae27e1c52937b3d1c1993f78160a0a778',1,]]],
   ['ketcpalerraddrnotavail',['kEtcPalErrAddrNotAvail',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afa44ede5b2503ce2b1bb4ccd285d676b50',1,]]],
   ['ketcpalerralready',['kEtcPalErrAlready',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afaa9c6c39f7303953a99c50a981f36dff0',1,]]],
@@ -35,7 +36,7 @@ var searchData=
   ['ketcpaliptypev4',['kEtcPalIpTypeV4',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__inet.html#gga847282e3fd17bf75ec83292326c455eea73ea615eceba61f26d92a63f3738f635',1,]]],
   ['ketcpaliptypev6',['kEtcPalIpTypeV6',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__inet.html#gga847282e3fd17bf75ec83292326c455eead480ed8d686b23bdb2e5bfc06b93d7ae',1,]]],
   ['ketcpallogcreateboth',['kEtcPalLogCreateBoth',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__log.html#gga10855f3c1f3816d0bd5e4687108ea1c5a8d083dc7d2d4359fd9ce6330b9d4c2bb',1,]]],
-  ['ketcpallogcreatehumanreadablelog',['kEtcPalLogCreateHumanReadableLog',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__log.html#gga10855f3c1f3816d0bd5e4687108ea1c5ae82eb0e5fc80d2657c033413df36224e',1,]]],
+  ['ketcpallogcreatehumanreadable',['kEtcPalLogCreateHumanReadable',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__log.html#gga10855f3c1f3816d0bd5e4687108ea1c5aa0ece7bdc03dd5b29a3be01c212f6b48',1,]]],
   ['ketcpallogcreatesyslog',['kEtcPalLogCreateSyslog',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__log.html#gga10855f3c1f3816d0bd5e4687108ea1c5a1631725f7a5f65a9fb15767cecec5290',1,]]],
   ['ketcpalnullmacaddr',['kEtcPalNullMacAddr',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__inet.html#gae648df0d068e3335073224fb0fb45512',1,]]],
   ['ketcpalnulluuid',['kEtcPalNullUuid',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__uuid.html#gae518c32bbc7d2266568ee9a703bb4f5e',1,]]],

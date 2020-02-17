@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['red_2dblack_20trees_20_28rbtree_29',['Red-Black Trees (rbtree)',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__rbtree.html',1,'']]],
-  ['read_2dwrite_20locks',['Read-Write Locks',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__rwlock.html',1,'']]],
-  ['rdm',['RDM',['../group__rdm.html',1,'']]],
-  ['responder',['Responder',['../group__responder.html',1,'']]]
+  ['signals',['Signals',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__signal.html',1,'']]],
+  ['socket_20_28network_20socket_20interface_29',['socket (Network Socket Interface)',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__socket.html',1,'']]]
 ];

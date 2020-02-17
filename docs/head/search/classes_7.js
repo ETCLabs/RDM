@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['writeguard',['WriteGuard',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_write_guard.html',1,'etcpal']]]
+  ['semaphore',['Semaphore',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_semaphore.html',1,'etcpal']]],
+  ['signal',['Signal',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_signal.html',1,'etcpal']]],
+  ['sockaddr',['SockAddr',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_sock_addr.html',1,'etcpal']]]
 ];

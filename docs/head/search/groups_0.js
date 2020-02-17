@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['acn_20protocol_20family_20pdus_20_28pdu_29',['ACN Protocol Family PDUs (pdu)',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__pdu.html',1,'']]],
-  ['acn_20root_20layer_20pdus_20_28rootlayerpdu_29',['ACN Root Layer PDUs (rootlayerpdu)',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__rootlayerpdu.html',1,'']]]
+  ['acn_5fpdu_20_28acn_20protocol_20family_20pdus_29',['acn_pdu (ACN Protocol Family PDUs)',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__acn__pdu.html',1,'']]],
+  ['acn_5frlp_20_28acn_20root_20layer_20protocol_29',['acn_rlp (ACN Root Layer Protocol)',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__acn__rlp.html',1,'']]]
 ];
