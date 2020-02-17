@@ -25,9 +25,9 @@
 #ifndef RDM_MESSAGE_H_
 #define RDM_MESSAGE_H_
 
+#include <stdbool.h>
 #include <stddef.h>
-#include "etcpal/int.h"
-#include "etcpal/bool.h"
+#include <stdint.h>
 #include "rdm/uid.h"
 #include "rdm/defs.h"
 

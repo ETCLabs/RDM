@@ -19,8 +19,8 @@
 
 #include "rdm/responder.h"
 
+#include <stdint.h>
 #include <string.h>
-#include "etcpal/int.h"
 #include "etcpal/pack.h"
 #include "rdm/defs.h"
 
@@ -63,21 +63,21 @@ etcpal_error_t rdmresp_unpack_command(const RdmBuffer* buffer, RdmCommand* cmd)
     return kEtcPalErrProtocol;
 
   cur_ptr = &buffer->data[RDM_OFFSET_DEST_MANUFACTURER];
-  cmd->dest_uid.manu = etcpal_upack_16b(cur_ptr);
+  cmd->dest_uid.manu = etcpal_unpack_u16b(cur_ptr);
   cur_ptr += 2;
-  cmd->dest_uid.id = etcpal_upack_32b(cur_ptr);
+  cmd->dest_uid.id = etcpal_unpack_u32b(cur_ptr);
   cur_ptr += 4;
-  cmd->source_uid.manu = etcpal_upack_16b(cur_ptr);
+  cmd->source_uid.manu = etcpal_unpack_u16b(cur_ptr);
   cur_ptr += 2;
-  cmd->source_uid.id = etcpal_upack_32b(cur_ptr);
+  cmd->source_uid.id = etcpal_unpack_u32b(cur_ptr);
   cur_ptr += 4;
   cmd->transaction_num = *cur_ptr++;
   cmd->port_id = *cur_ptr++;
   cur_ptr++; /* Message Count field is ignored */
-  cmd->subdevice = etcpal_upack_16b(cur_ptr);
+  cmd->subdevice = etcpal_unpack_u16b(cur_ptr);
   cur_ptr += 2;
   cmd->command_class = (rdm_command_class_t)*cur_ptr++;
-  cmd->param_id = etcpal_upack_16b(cur_ptr);
+  cmd->param_id = etcpal_unpack_u16b(cur_ptr);
   cur_ptr += 2;
   cmd->datalen = *cur_ptr++;
   memcpy(cmd->data, cur_ptr, cmd->datalen);
@@ -130,21 +130,21 @@ etcpal_error_t rdmresp_pack_response(const RdmResponse* resp_data, RdmBuffer* bu
   *cur_ptr++ = E120_SC_RDM;
   *cur_ptr++ = E120_SC_SUB_MESSAGE;
   *cur_ptr++ = rdm_length;
-  etcpal_pack_16b(cur_ptr, resp_data->dest_uid.manu);
+  etcpal_pack_u16b(cur_ptr, resp_data->dest_uid.manu);
   cur_ptr += 2;
-  etcpal_pack_32b(cur_ptr, resp_data->dest_uid.id);
+  etcpal_pack_u32b(cur_ptr, resp_data->dest_uid.id);
   cur_ptr += 4;
-  etcpal_pack_16b(cur_ptr, resp_data->source_uid.manu);
+  etcpal_pack_u16b(cur_ptr, resp_data->source_uid.manu);
   cur_ptr += 2;
-  etcpal_pack_32b(cur_ptr, resp_data->source_uid.id);
+  etcpal_pack_u32b(cur_ptr, resp_data->source_uid.id);
   cur_ptr += 4;
   *cur_ptr++ = resp_data->transaction_num;
   *cur_ptr++ = (uint8_t)resp_data->resp_type;
   *cur_ptr++ = resp_data->msg_count;
-  etcpal_pack_16b(cur_ptr, resp_data->subdevice);
+  etcpal_pack_u16b(cur_ptr, resp_data->subdevice);
   cur_ptr += 2;
   *cur_ptr++ = (uint8_t)resp_data->command_class;
-  etcpal_pack_16b(cur_ptr, resp_data->param_id);
+  etcpal_pack_u16b(cur_ptr, resp_data->param_id);
   cur_ptr += 2;
   *cur_ptr++ = resp_data->datalen;
   memcpy(cur_ptr, resp_data->data, resp_data->datalen);

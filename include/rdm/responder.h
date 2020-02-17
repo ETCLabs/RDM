@@ -25,7 +25,7 @@
 #ifndef RDM_RESPONDER_H_
 #define RDM_RESPONDER_H_
 
-#include "etcpal/int.h"
+#include <stdint.h>
 #include "etcpal/error.h"
 #include "etcpal/pack.h"
 #include "rdm/message.h"
@@ -78,7 +78,7 @@ extern "C" {
         ((cmd)->command_class == kRdmCCSetCommand ? kRdmCCSetCommandResponse : kRdmCCGetCommandResponse); \
     (nack_resp)->param_id = (cmd)->param_id;                                                              \
     (nack_resp)->datalen = 2;                                                                             \
-    etcpal_pack_16b((nack_resp)->data, nack_reason);                                                      \
+    etcpal_pack_u16b((nack_resp)->data, nack_reason);                                                     \
   } while (0)
 
 etcpal_error_t rdmresp_unpack_command(const RdmBuffer* buffer, RdmCommand* cmd);
