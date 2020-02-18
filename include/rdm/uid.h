@@ -70,18 +70,6 @@ typedef struct RdmUid
 /*************************** UID Comparison Macros ***************************/
 
 /*!
- * \brief Compare two UIDs.
- * \param uidptr1 Pointer to first RdmUid to compare.
- * \param uidptr2 Pointer to second RdmUid to compare.
- * \return < 0 (uidptr1 is less than uidptr2)\n
- *           0 (uidptr1 is equal to uidptr2)\n
- *         > 0 (uidptr1 is greater than uidptr2)
- */
-#define RDM_UID_CMP(uidptr1, uidptr2)                                               \
-  (((uidptr1)->manu == (uidptr2)->manu) ? ((int)(uidptr1)->id - (int)(uidptr2)->id) \
-                                        : ((int)(uidptr1)->manu - (int)(uidptr2)->manu))
-
-/*!
  * \brief Determine if two UIDs are equal.
  * \param uidptr1 Pointer to first RdmUid.
  * \param uidptr2 Pointer to second RdmUid.
@@ -266,6 +254,7 @@ extern const RdmUid kRdmnetDeviceBroadcastUid;
 /*! The maximum number of bytes for a buffer that can hold a UID string representation. */
 #define RDM_UID_STRING_BYTES 14
 
+int rdm_uid_compare(const RdmUid* a, const RdmUid* b);
 bool rdm_uid_to_string(const RdmUid* uid, char* buf);
 bool rdm_string_to_uid(const char* str, RdmUid* uid);
 

@@ -41,6 +41,30 @@ const RdmUid kRdmnetDeviceBroadcastUid = {0xfffdu, 0xffffffffu};
 /*************************** Function definitions ****************************/
 
 /*!
+ * \brief Compare two UIDs.
+ * \param a First RdmUid to compare.
+ * \param b Second RdmUid to compare.
+ * \return < 0 (uidptr1 is less than uidptr2)
+ * \return   0 (uidptr1 is equal to uidptr2)
+ * \return > 0 (uidptr1 is greater than uidptr2)
+ */
+int rdm_uid_compare(const RdmUid* a, const RdmUid* b)
+{
+  if (a && b)
+  {
+    if (a->manu == b->manu)
+    {
+      return (a->id > b->id) - (a->id < b->id);
+    }
+    else
+    {
+      return (a->manu > b->manu) - (a->manu < b->manu);
+    }
+  }
+  return 0;
+}
+
+/*!
  * \brief Create a string representation of a UID.
  *
  * The resulting string will be of the form `mmmm:dddddddd`, where `mmmm` is the 4-digit ESTA
