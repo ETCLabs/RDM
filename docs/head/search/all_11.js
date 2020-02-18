@@ -20,7 +20,7 @@ var searchData=
   ['rdm_5fpack_5fchecksum',['rdm_pack_checksum',['../group__message.html#gabbcd7273b516c2a63692e038698856fd',1,'rdm_pack_checksum(uint8_t *buffer, size_t datalen_without_checksum):&#160;message.c'],['../group__message.html#gabbcd7273b516c2a63692e038698856fd',1,'rdm_pack_checksum(uint8_t *buffer, size_t datalen_without_checksum):&#160;message.c']]],
   ['rdm_5fresponse_5ftype_5ft',['rdm_response_type_t',['../group__message.html#ga6ecebd42ee8d90fe410cc4001a98e7f0',1,'message.h']]],
   ['rdm_5fstring_5fto_5fuid',['rdm_string_to_uid',['../group__uid.html#gae4c4bb5385d1982c9b8ed05323a25b2b',1,'rdm_string_to_uid(const char *str, RdmUid *uid):&#160;uid.c'],['../group__uid.html#gae4c4bb5385d1982c9b8ed05323a25b2b',1,'rdm_string_to_uid(const char *str, RdmUid *uid):&#160;uid.c']]],
-  ['rdm_5fuid_5fcmp',['RDM_UID_CMP',['../group__uid.html#ga7005751d0cd0ae4270cd8e87feccaa5b',1,'uid.h']]],
+  ['rdm_5fuid_5fcompare',['rdm_uid_compare',['../group__uid.html#ga43e676dfc5272c40015061109ea6ed7f',1,'rdm_uid_compare(const RdmUid *a, const RdmUid *b):&#160;uid.c'],['../group__uid.html#ga43e676dfc5272c40015061109ea6ed7f',1,'rdm_uid_compare(const RdmUid *a, const RdmUid *b):&#160;uid.c']]],
   ['rdm_5fuid_5fequal',['RDM_UID_EQUAL',['../group__uid.html#gae538a395a7b22c4fcac46fa0f5554b78',1,'uid.h']]],
   ['rdm_5fuid_5fis_5fbroadcast',['RDM_UID_IS_BROADCAST',['../group__uid.html#ga65209ad8850eef83a6249f93bd215da6',1,'uid.h']]],
   ['rdm_5fuid_5fis_5fnull',['RDM_UID_IS_NULL',['../group__uid.html#ga1b5ffea9d8b7ae8f0f4cdf5560901254',1,'uid.h']]],

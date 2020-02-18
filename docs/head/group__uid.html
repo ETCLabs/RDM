@@ -145,9 +145,6 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga7005751d0cd0ae4270cd8e87feccaa5b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga7005751d0cd0ae4270cd8e87feccaa5b">RDM_UID_CMP</a>(uidptr1,  uidptr2)</td></tr>
-<tr class="memdesc:ga7005751d0cd0ae4270cd8e87feccaa5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare two UIDs.  <a href="#ga7005751d0cd0ae4270cd8e87feccaa5b">More...</a><br /></td></tr>
-<tr class="separator:ga7005751d0cd0ae4270cd8e87feccaa5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae538a395a7b22c4fcac46fa0f5554b78"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#gae538a395a7b22c4fcac46fa0f5554b78">RDM_UID_EQUAL</a>(uidptr1,  uidptr2)&#160;&#160;&#160;((uidptr1)-&gt;manu == (uidptr2)-&gt;manu &amp;&amp; (uidptr1)-&gt;id == (uidptr2)-&gt;id)</td></tr>
 <tr class="memdesc:gae538a395a7b22c4fcac46fa0f5554b78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if two UIDs are equal.  <a href="#gae538a395a7b22c4fcac46fa0f5554b78">More...</a><br /></td></tr>
 <tr class="separator:gae538a395a7b22c4fcac46fa0f5554b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -208,6 +205,9 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga43e676dfc5272c40015061109ea6ed7f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga43e676dfc5272c40015061109ea6ed7f">rdm_uid_compare</a> (const <a class="el" href="struct_rdm_uid.html">RdmUid</a> *a, const <a class="el" href="struct_rdm_uid.html">RdmUid</a> *b)</td></tr>
+<tr class="memdesc:ga43e676dfc5272c40015061109ea6ed7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare two UIDs.  <a href="#ga43e676dfc5272c40015061109ea6ed7f">More...</a><br /></td></tr>
+<tr class="separator:ga43e676dfc5272c40015061109ea6ed7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga90190789ec0a4c7262c47e2d7a1fdf43"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uid.html#ga90190789ec0a4c7262c47e2d7a1fdf43">rdm_uid_to_string</a> (const <a class="el" href="struct_rdm_uid.html">RdmUid</a> *uid, char *buf)</td></tr>
 <tr class="memdesc:ga90190789ec0a4c7262c47e2d7a1fdf43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a string representation of a UID.  <a href="#ga90190789ec0a4c7262c47e2d7a1fdf43">More...</a><br /></td></tr>
 <tr class="separator:ga90190789ec0a4c7262c47e2d7a1fdf43"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -329,46 +329,6 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="ga7005751d0cd0ae4270cd8e87feccaa5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7005751d0cd0ae4270cd8e87feccaa5b">&#9670;&nbsp;</a></span>RDM_UID_CMP</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define RDM_UID_CMP</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">uidptr1, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">uidptr2&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(((uidptr1)-&gt;manu == (uidptr2)-&gt;manu) ? ((<span class="keywordtype">int</span>)(uidptr1)-&gt;<span class="keywordtype">id</span> - (<span class="keywordtype">int</span>)(uidptr2)-&gt;<span class="keywordtype">id</span>) \</div><div class="line">                                        : ((int)(uidptr1)-&gt;manu - (int)(uidptr2)-&gt;manu))</div></div><!-- fragment -->
-<p>Compare two UIDs. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">uidptr1</td><td>Pointer to first <a class="el" href="struct_rdm_uid.html" title="The UID type. ">RdmUid</a> to compare. </td></tr>
-    <tr><td class="paramname">uidptr2</td><td>Pointer to second <a class="el" href="struct_rdm_uid.html" title="The UID type. ">RdmUid</a> to compare. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>&lt; 0 (uidptr1 is less than uidptr2)<br />
- 0 (uidptr1 is equal to uidptr2)<br />
- &gt; 0 (uidptr1 is greater than uidptr2) </dd></dl>
 
 </div>
 </div>
@@ -722,9 +682,9 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">((((uidptr)-&gt;manu &amp; 0x8000u) != 0) &amp;&amp; !<a class="code" href="group__uid.html#ga53c88cbe60ef6f037d8c2a9fdff9894a">RDMNET_UID_IS_CONTROLLER_BROADCAST</a>(uidptr) &amp;&amp; \</div><div class="line">   !<a class="code" href="group__uid.html#ga224755484593f73ac68fe0ad974c192f">RDMNET_UID_IS_DEVICE_MANU_BROADCAST</a>(uidptr) &amp;&amp; !<a class="code" href="group__uid.html#ga65209ad8850eef83a6249f93bd215da6">RDM_UID_IS_BROADCAST</a>(uidptr))</div><div class="ttc" id="group__uid_html_ga224755484593f73ac68fe0ad974c192f"><div class="ttname"><a href="group__uid.html#ga224755484593f73ac68fe0ad974c192f">RDMNET_UID_IS_DEVICE_MANU_BROADCAST</a></div><div class="ttdeci">#define RDMNET_UID_IS_DEVICE_MANU_BROADCAST(uidptr)</div><div class="ttdoc">Determine whether a UID is one of the E1.33 values defined by RPT_ALL_MID_DEVICES. </div><div class="ttdef"><b>Definition:</b> uid.h:171</div></div>
-<div class="ttc" id="group__uid_html_ga53c88cbe60ef6f037d8c2a9fdff9894a"><div class="ttname"><a href="group__uid.html#ga53c88cbe60ef6f037d8c2a9fdff9894a">RDMNET_UID_IS_CONTROLLER_BROADCAST</a></div><div class="ttdeci">#define RDMNET_UID_IS_CONTROLLER_BROADCAST(uidptr)</div><div class="ttdoc">Determine whether a UID is the E1.33 value RPT_ALL_CONTROLLERS. </div><div class="ttdef"><b>Definition:</b> uid.h:147</div></div>
-<div class="ttc" id="group__uid_html_ga65209ad8850eef83a6249f93bd215da6"><div class="ttname"><a href="group__uid.html#ga65209ad8850eef83a6249f93bd215da6">RDM_UID_IS_BROADCAST</a></div><div class="ttdeci">#define RDM_UID_IS_BROADCAST(uidptr)</div><div class="ttdoc">Determine whether a UID is the E1.20 value BROADCAST_ALL_DEVICES_ID. </div><div class="ttdef"><b>Definition:</b> uid.h:139</div></div>
+<b>Value:</b><div class="fragment"><div class="line">((((uidptr)-&gt;manu &amp; 0x8000u) != 0) &amp;&amp; !<a class="code" href="group__uid.html#ga53c88cbe60ef6f037d8c2a9fdff9894a">RDMNET_UID_IS_CONTROLLER_BROADCAST</a>(uidptr) &amp;&amp; \</div><div class="line">   !<a class="code" href="group__uid.html#ga224755484593f73ac68fe0ad974c192f">RDMNET_UID_IS_DEVICE_MANU_BROADCAST</a>(uidptr) &amp;&amp; !<a class="code" href="group__uid.html#ga65209ad8850eef83a6249f93bd215da6">RDM_UID_IS_BROADCAST</a>(uidptr))</div><div class="ttc" id="group__uid_html_ga224755484593f73ac68fe0ad974c192f"><div class="ttname"><a href="group__uid.html#ga224755484593f73ac68fe0ad974c192f">RDMNET_UID_IS_DEVICE_MANU_BROADCAST</a></div><div class="ttdeci">#define RDMNET_UID_IS_DEVICE_MANU_BROADCAST(uidptr)</div><div class="ttdoc">Determine whether a UID is one of the E1.33 values defined by RPT_ALL_MID_DEVICES. </div><div class="ttdef"><b>Definition:</b> uid.h:159</div></div>
+<div class="ttc" id="group__uid_html_ga53c88cbe60ef6f037d8c2a9fdff9894a"><div class="ttname"><a href="group__uid.html#ga53c88cbe60ef6f037d8c2a9fdff9894a">RDMNET_UID_IS_CONTROLLER_BROADCAST</a></div><div class="ttdeci">#define RDMNET_UID_IS_CONTROLLER_BROADCAST(uidptr)</div><div class="ttdoc">Determine whether a UID is the E1.33 value RPT_ALL_CONTROLLERS. </div><div class="ttdef"><b>Definition:</b> uid.h:135</div></div>
+<div class="ttc" id="group__uid_html_ga65209ad8850eef83a6249f93bd215da6"><div class="ttname"><a href="group__uid.html#ga65209ad8850eef83a6249f93bd215da6">RDM_UID_IS_BROADCAST</a></div><div class="ttdeci">#define RDM_UID_IS_BROADCAST(uidptr)</div><div class="ttdoc">Determine whether a UID is the E1.20 value BROADCAST_ALL_DEVICES_ID. </div><div class="ttdef"><b>Definition:</b> uid.h:127</div></div>
 </div><!-- fragment -->
 <p>Determine whether a UID is a Dynamic UID as defined in ANSI E1.33. </p>
 <p>Note that !RDMNET_UID_IS_DYNAMIC() does not imply <a class="el" href="group__uid.html#gaaaf8226917bc3e83e12f8b4d51d11ac8" title="Determine whether a UID is a Static UID as defined in ANSI E1.33. ">RDMNET_UID_IS_STATIC()</a>, because broadcast and null UID values are neither dynamic nor static UIDs.</p>
@@ -848,6 +808,48 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true (parse successful) or false (invalid argment/parse failure). </dd></dl>
+
+</div>
+</div>
+<a id="ga43e676dfc5272c40015061109ea6ed7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga43e676dfc5272c40015061109ea6ed7f">&#9670;&nbsp;</a></span>rdm_uid_compare()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int rdm_uid_compare </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_rdm_uid.html">RdmUid</a> *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_rdm_uid.html">RdmUid</a> *&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compare two UIDs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>First <a class="el" href="struct_rdm_uid.html" title="The UID type. ">RdmUid</a> to compare. </td></tr>
+    <tr><td class="paramname">b</td><td>Second <a class="el" href="struct_rdm_uid.html" title="The UID type. ">RdmUid</a> to compare. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>&lt; 0 (uidptr1 is less than uidptr2) </dd>
+<dd>
+0 (uidptr1 is equal to uidptr2) </dd>
+<dd>
+&gt; 0 (uidptr1 is greater than uidptr2) </dd></dl>
 
 </div>
 </div>
