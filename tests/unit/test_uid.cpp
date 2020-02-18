@@ -20,15 +20,42 @@
 #include "rdm/uid.h"
 #include "gtest/gtest.h"
 
+static int UidCompareHelper(uint16_t manu_a, uint32_t id_a, uint16_t manu_b, uint32_t id_b)
+{
+  RdmUid a{manu_a, id_a};
+  RdmUid b{manu_b, id_b};
+  return rdm_uid_compare(&a, &b);
+}
+
 TEST(Uid, UidComparisonIsCorrect)
+{
+  EXPECT_EQ(UidCompareHelper(1, 1, 1, 1), 0);
+  EXPECT_LT(UidCompareHelper(1, 1, 2, 1), 0);
+  EXPECT_GT(UidCompareHelper(2, 1, 1, 1), 0);
+
+  EXPECT_EQ(UidCompareHelper(0xffff, 0xffffffff, 0xffff, 0xffffffff), 0);
+  EXPECT_LT(UidCompareHelper(0, 0, 0xffff, 0xffffffff), 0);
+  EXPECT_GT(UidCompareHelper(0xffff, 0xffffffff, 0, 0), 0);
+
+  // Test some common boundary comparison issues
+  EXPECT_EQ(UidCompareHelper(0, 0x7fffffff, 0, 0x7fffffff), 0);
+  EXPECT_LT(UidCompareHelper(0, 0x7fffffff, 0, 0x80000000), 0);
+  EXPECT_GT(UidCompareHelper(0, 0x80000000, 0, 0x7fffffff), 0);
+
+  EXPECT_EQ(UidCompareHelper(0, 0x80000000, 0, 0x80000000), 0);
+  EXPECT_LT(UidCompareHelper(0, 0, 0, 0x80000000), 0);
+  EXPECT_GT(UidCompareHelper(0, 0x80000000, 0, 0), 0);
+
+  EXPECT_EQ(UidCompareHelper(0x8000, 0, 0x8000, 0), 0);
+  EXPECT_LT(UidCompareHelper(0, 0, 0x8000, 0), 0);
+  EXPECT_GT(UidCompareHelper(0x8000, 0, 0, 0), 0);
+}
+
+TEST(Uid, UidEqualIsCorrect)
 {
   RdmUid uid_1 = {1, 1};
   RdmUid uid_1_dup = {1, 1};
   RdmUid uid_2 = {2, 1};
-
-  EXPECT_EQ(RDM_UID_CMP(&uid_1, &uid_1_dup), 0);
-  EXPECT_LT(RDM_UID_CMP(&uid_1, &uid_2), 0);
-  EXPECT_GT(RDM_UID_CMP(&uid_2, &uid_1), 0);
 
   EXPECT_TRUE(RDM_UID_EQUAL(&uid_1, &uid_1_dup));
   EXPECT_FALSE(RDM_UID_EQUAL(&uid_1, &uid_2));

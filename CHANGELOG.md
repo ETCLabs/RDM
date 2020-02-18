@@ -4,6 +4,14 @@ All notable changes to the RDM library will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- A C++ UID type, include `rdm/cpp/uid.h`
+
+### Changed
+- RDM_UID_CMP() renamed to rdm_uid_compare()
+
 ## [0.1.0] - 2019-05-29
 ### Added
 - This CHANGELOG file.
