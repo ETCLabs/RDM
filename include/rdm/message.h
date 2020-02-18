@@ -98,6 +98,30 @@ typedef enum
   kRdmResponseTypeAckOverflow = E120_RESPONSE_TYPE_ACK_OVERFLOW
 } rdm_response_type_t;
 
+/*! An enumeration representing an RDM NACK reason. */
+typedef enum
+{
+  kRdmNRUnknownPid = E120_NR_UNKNOWN_PID,
+  kRdmNRFormatError = E120_NR_FORMAT_ERROR,
+  kRdmNRHardwareFault = E120_NR_HARDWARE_FAULT,
+  kRdmNRProxyReject = E120_NR_PROXY_REJECT,
+  kRdmNRWriteProtect = E120_NR_WRITE_PROTECT,
+  kRdmNRUnsupportedCommandClass = E120_NR_UNSUPPORTED_COMMAND_CLASS,
+  kRdmNRDataOutOfRange = E120_NR_DATA_OUT_OF_RANGE,
+  kRdmNRPacketSizeUnsupported = E120_NR_PACKET_SIZE_UNSUPPORTED,
+  kRdmNRSubDeviceOutOfRange = E120_NR_SUB_DEVICE_OUT_OF_RANGE,
+  kRdmNRProxyBufferFull = E120_NR_PROXY_BUFFER_FULL,
+  kRdmNRActionNotSupported = E137_2_NR_ACTION_NOT_SUPPORTED,
+  kRdmNREndpointNumberInvalid = E137_7_NR_ENDPOINT_NUMBER_INVALID,
+  kRdmNRInvalidEndpointMode = E137_7_NR_INVALID_ENDPOINT_MODE,
+  kRdmNRUnknownUid = E137_7_NR_UNKNOWN_UID,
+  kRdmNRUnknownScope = E133_NR_UNKNOWN_SCOPE,
+  kRdmNRInvalidStaticConfigType = E133_NR_INVALID_STATIC_CONFIG_TYPE,
+  kRdmNRInvalidIpv4Address = E133_NR_INVALID_IPV4_ADDRESS,
+  kRdmNRInvalidIpv6Address = E133_NR_INVALID_IPV6_ADDRESS,
+  kRdmNRInvalidPort = E133_NR_INVALID_PORT
+} rdm_nack_reason_t;
+
 /*! A structure that represents a packed RDM message. */
 typedef struct RdmBuffer
 {
@@ -144,7 +168,7 @@ typedef struct RdmCommand
 } RdmCommand;
 
 /*! A structure that represents an RDM response message. */
-typedef struct RdmResponse
+typedef struct RdmSingleResponse
 {
   /*! UID of the responder generating this response. */
   RdmUid source_uid;
@@ -167,22 +191,49 @@ typedef struct RdmResponse
   uint8_t datalen;
   /*! The parameter data. */
   uint8_t data[RDM_MAX_PDL];
+} RdmSingleResponse;
+
+typedef struct RdmResponse
+{
+  /*! UID of the responder generating this response. */
+  RdmUid source_uid;
+  /*! UID of the controller to which this response is addressed. */
+  RdmUid dest_uid;
+  /*! Transaction number, copied from the corresponding command. */
+  uint8_t transaction_num;
+  /*! Response type, indicating the response status. */
+  rdm_response_type_t resp_type;
+  /*! Current count of queued messages waiting to be retrieved. */
+  uint8_t msg_count;
+  /*! The sub-device generating this response, or 0 for the root device. */
+  uint16_t subdevice;
+  /*! The command class for this response. */
+  rdm_command_class_t command_class;
+  /*! The RDM Parameter ID of this response. One of the values from E1.20 Table A-3, or any of the
+   *  relevant extension standards. */
+  uint16_t param_id;
+  /*! The length of the parameter data. */
+  size_t datalen;
+  /*! The parameter data. */
+  uint8_t* data;
 } RdmResponse;
 
 void rdm_pack_checksum(uint8_t* buffer, size_t datalen_without_checksum);
 bool rdm_validate_msg(const RdmBuffer* buffer);
 
 void rdm_create_response(const RdmCommand* cmd, rdm_response_type_t resp_type, const uint8_t* data, uint8_t datalen,
-                         RdmResponse* resp);
+                         RdmSingleResponse* resp);
 void rdm_create_response_with_msg_count(const RdmCommand* cmd, rdm_response_type_t resp_type, uint8_t msg_count,
-                                        const uint8_t* data, size_t datalen, RdmResponse* resp);
-void rdm_create_overflow_response(const RdmCommand* cmd, const uint8_t* data, size_t datalen, RdmResponse* resp_buf,
-                                  size_t resp_buf_size);
-void rdm_create_timer_response(const RdmCommand* cmd, uint16_t delay_time_ms);
-void rdm_create_timer_response_with_msg_count(const RdmCommand* cmd, uint8_t msg_count, uint16_t delay_time_ms);
+                                        const uint8_t* data, size_t datalen, RdmSingleResponse* resp);
+void rdm_create_overflow_response(const RdmCommand* cmd, const uint8_t* data, size_t datalen,
+                                  RdmSingleResponse* resp_buf, size_t resp_buf_size);
+void rdm_create_timer_response(const RdmCommand* cmd, uint16_t delay_time_ms, RdmSingleResponse* resp);
+void rdm_create_timer_response_with_msg_count(const RdmCommand* cmd, uint8_t msg_count, uint16_t delay_time_ms,
+                                              RdmSingleResponse* resp);
 
-void rdm_create_nack(const RdmCommand* cmd, uint16_t nack_reason, RdmResponse* resp);
-void rdm_create_nack_with_msg_count(const RdmCommand* cmd, uint16_t nack_reason, uint8_t msg_count, RdmResponse* resp);
+void rdm_create_nack(const RdmCommand* cmd, uint16_t nack_reason, RdmSingleResponse* resp);
+void rdm_create_nack_with_msg_count(const RdmCommand* cmd, uint16_t nack_reason, uint8_t msg_count,
+                                    RdmSingleResponse* resp);
 
 #ifdef __cplusplus
 }
