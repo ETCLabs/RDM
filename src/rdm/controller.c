@@ -35,58 +35,7 @@
 
 /*********************** Private function prototypes *************************/
 
-static bool rdm_cmd_data_valid(const RdmCommand* cmd_data);
-
 /*************************** Function definitions ****************************/
-
-/*!
- * \brief Create a packed RDM command.
- * \param[in] cmd_data The data that will be used for this RDM command packet.
- * \param[out] buffer The buffer into which to pack this RDM command.
- * \return #kEtcPalErrOk: Command created successfully.
- * \return #kEtcPalErrInvalid: Invalid argument provided (including invalid RDM values in cmd_data).
- * \return #kEtcPalErrMsgSize: The parameter data was too long.
- */
-etcpal_error_t rdmctl_pack_command(const RdmCommand* cmd_data, RdmBuffer* buffer)
-{
-  uint8_t* cur_ptr;
-  uint8_t rdm_length;
-
-  if (!cmd_data || !buffer || !rdm_cmd_data_valid(cmd_data))
-    return kEtcPalErrInvalid;
-  if (cmd_data->datalen > RDM_MAX_PDL)
-    return kEtcPalErrMsgSize;
-
-  cur_ptr = buffer->data;
-  rdm_length = cmd_data->datalen + RDM_HEADER_SIZE;
-
-  *cur_ptr++ = E120_SC_RDM;
-  *cur_ptr++ = E120_SC_SUB_MESSAGE;
-  *cur_ptr++ = rdm_length;
-  etcpal_pack_u16b(cur_ptr, cmd_data->dest_uid.manu);
-  cur_ptr += 2;
-  etcpal_pack_u32b(cur_ptr, cmd_data->dest_uid.id);
-  cur_ptr += 4;
-  etcpal_pack_u16b(cur_ptr, cmd_data->source_uid.manu);
-  cur_ptr += 2;
-  etcpal_pack_u32b(cur_ptr, cmd_data->source_uid.id);
-  cur_ptr += 4;
-  *cur_ptr++ = cmd_data->transaction_num;
-  *cur_ptr++ = cmd_data->port_id;
-  *cur_ptr++ = 0;
-  etcpal_pack_u16b(cur_ptr, cmd_data->subdevice);
-  cur_ptr += 2;
-  *cur_ptr++ = (uint8_t)cmd_data->command_class;
-  etcpal_pack_u16b(cur_ptr, cmd_data->param_id);
-  cur_ptr += 2;
-  *cur_ptr++ = cmd_data->datalen;
-  memcpy(cur_ptr, cmd_data->data, cmd_data->datalen);
-
-  /* pack checksum and set packet length */
-  rdm_pack_checksum(buffer->data, rdm_length);
-  buffer->datalen = rdm_length + 2;
-  return kEtcPalErrOk;
-}
 
 /*!
  * \brief Determine whether a packed RDM message is a non-discovery RDM command response.
@@ -106,48 +55,4 @@ bool rdmctl_is_non_disc_response(const RdmBuffer* buffer)
             buffer->data[RDM_OFFSET_COMMAND_CLASS] == E120_SET_COMMAND_RESPONSE);
   }
   return false;
-}
-
-/*!
- * \brief Unpack an RDM repsonse.
- * \param[in] buffer The packed RDM response.
- * \param[out] resp The RDM response data that was unpacked from buffer.
- * \return #kEtcPalErrOk: Response unpacked successfully.
- * \return #kEtcPalErrInvalid: Invalid argument provided.
- * \return #kEtcPalErrProtocol: Packed RDM response was invalid.
- */
-etcpal_error_t rdmctl_unpack_response(const RdmBuffer* buffer, RdmResponse* resp)
-{
-  if (!buffer || !resp)
-    return kEtcPalErrInvalid;
-  if (!rdm_validate_msg(buffer))
-    return kEtcPalErrProtocol;
-
-  const uint8_t* cur_ptr = &buffer->data[RDM_OFFSET_DEST_MANUFACTURER];
-  resp->dest_uid.manu = etcpal_unpack_u16b(cur_ptr);
-  cur_ptr += 2;
-  resp->dest_uid.id = etcpal_unpack_u32b(cur_ptr);
-  cur_ptr += 4;
-  resp->source_uid.manu = etcpal_unpack_u16b(cur_ptr);
-  cur_ptr += 2;
-  resp->source_uid.id = etcpal_unpack_u32b(cur_ptr);
-  cur_ptr += 4;
-  resp->transaction_num = *cur_ptr++;
-  resp->resp_type = (rdm_response_type_t)*cur_ptr++;
-  resp->msg_count = *cur_ptr++;
-  resp->subdevice = etcpal_unpack_u16b(cur_ptr);
-  cur_ptr += 2;
-  resp->command_class = (rdm_command_class_t)*cur_ptr++;
-  resp->param_id = etcpal_unpack_u16b(cur_ptr);
-  cur_ptr += 2;
-  resp->datalen = *cur_ptr++;
-  memcpy(resp->data, cur_ptr, resp->datalen);
-  return kEtcPalErrOk;
-}
-
-/* Do some basic validation on an RDM command provided by a library user. */
-static bool rdm_cmd_data_valid(const RdmCommand* cmd_data)
-{
-  return (!RDM_UID_IS_BROADCAST(&cmd_data->source_uid) && RDMCMD_PORT_ID_VALID(cmd_data->port_id) &&
-          RDMCMD_COMMAND_CLASS_VALID(cmd_data->command_class));
 }

@@ -42,9 +42,7 @@
 extern "C" {
 #endif
 
-etcpal_error_t rdmresp_unpack_command(const RdmBuffer* buffer, RdmCommand* cmd);
 bool rdmresp_is_non_disc_command(const RdmBuffer* buffer);
-etcpal_error_t rdmresp_pack_response(const RdmResponse* resp_data, RdmBuffer* buffer);
 
 #ifdef __cplusplus
 };

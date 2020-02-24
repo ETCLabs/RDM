@@ -28,6 +28,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include "etcpal/error.h"
 #include "rdm/uid.h"
 #include "rdm/defs.h"
 
@@ -144,7 +145,7 @@ typedef struct RdmBuffer
 #define RDM_GET_TRANSACTION_NUM(rdmbufptr) ((rdmbufptr)->data[RDM_OFFSET_TRANSACTION])
 
 /*! A structure that represents an RDM command message. */
-typedef struct RdmCommand
+typedef struct RdmCommandHeader
 {
   /*! UID of the controller generating this command. */
   RdmUid source_uid;
@@ -161,14 +162,9 @@ typedef struct RdmCommand
   /*! The RDM Parameter ID of this command. One of the values from E1.20 Table A-3, or any of the
    *  relevant extension standards. */
   uint16_t param_id;
-  /*! The length of the parameter data. */
-  uint8_t datalen;
-  /*! The parameter data. */
-  uint8_t data[RDM_MAX_PDL];
-} RdmCommand;
+} RdmCommandHeader;
 
-/*! A structure that represents an RDM response message. */
-typedef struct RdmSingleResponse
+typedef struct RdmResponseHeader
 {
   /*! UID of the responder generating this response. */
   RdmUid source_uid;
@@ -187,53 +183,33 @@ typedef struct RdmSingleResponse
   /*! The RDM Parameter ID of this response. One of the values from E1.20 Table A-3, or any of the
    *  relevant extension standards. */
   uint16_t param_id;
-  /*! The length of the parameter data. */
-  uint8_t datalen;
-  /*! The parameter data. */
-  uint8_t data[RDM_MAX_PDL];
-} RdmSingleResponse;
-
-typedef struct RdmResponse
-{
-  /*! UID of the responder generating this response. */
-  RdmUid source_uid;
-  /*! UID of the controller to which this response is addressed. */
-  RdmUid dest_uid;
-  /*! Transaction number, copied from the corresponding command. */
-  uint8_t transaction_num;
-  /*! Response type, indicating the response status. */
-  rdm_response_type_t resp_type;
-  /*! Current count of queued messages waiting to be retrieved. */
-  uint8_t msg_count;
-  /*! The sub-device generating this response, or 0 for the root device. */
-  uint16_t subdevice;
-  /*! The command class for this response. */
-  rdm_command_class_t command_class;
-  /*! The RDM Parameter ID of this response. One of the values from E1.20 Table A-3, or any of the
-   *  relevant extension standards. */
-  uint16_t param_id;
-  /*! The length of the parameter data. */
-  size_t datalen;
-  /*! The parameter data. */
-  uint8_t* data;
-} RdmResponse;
+} RdmResponseHeader;
 
 void rdm_pack_checksum(uint8_t* buffer, size_t datalen_without_checksum);
 bool rdm_validate_msg(const RdmBuffer* buffer);
 
-void rdm_create_response(const RdmCommand* cmd, rdm_response_type_t resp_type, const uint8_t* data, uint8_t datalen,
-                         RdmSingleResponse* resp);
-void rdm_create_response_with_msg_count(const RdmCommand* cmd, rdm_response_type_t resp_type, uint8_t msg_count,
-                                        const uint8_t* data, size_t datalen, RdmSingleResponse* resp);
-void rdm_create_overflow_response(const RdmCommand* cmd, const uint8_t* data, size_t datalen,
-                                  RdmSingleResponse* resp_buf, size_t resp_buf_size);
-void rdm_create_timer_response(const RdmCommand* cmd, uint16_t delay_time_ms, RdmSingleResponse* resp);
-void rdm_create_timer_response_with_msg_count(const RdmCommand* cmd, uint8_t msg_count, uint16_t delay_time_ms,
-                                              RdmSingleResponse* resp);
+etcpal_error_t rdm_create_command(const RdmCommandHeader* cmd_header, const uint8_t* cmd_data, uint8_t cmd_data_len,
+                                  RdmBuffer* buffer);
 
-void rdm_create_nack(const RdmCommand* cmd, uint16_t nack_reason, RdmSingleResponse* resp);
-void rdm_create_nack_with_msg_count(const RdmCommand* cmd, uint16_t nack_reason, uint8_t msg_count,
-                                    RdmSingleResponse* resp);
+etcpal_error_t rdm_create_response(const RdmCommandHeader* cmd_header, uint8_t msg_count, const uint8_t* response_data,
+                                   uint8_t response_data_len, RdmBuffer* buffer);
+etcpal_error_t rdm_create_overflow_response(const RdmCommandHeader* cmd_header, const uint8_t* response_data,
+                                            uint8_t response_data_len, RdmBuffer* buffer);
+etcpal_error_t rdm_create_nack_response(const RdmCommandHeader* cmd_header, uint8_t msg_count,
+                                        rdm_nack_reason_t nack_reason, RdmBuffer* buffer);
+etcpal_error_t rdm_create_timer_response(const RdmCommandHeader* cmd_header, uint8_t msg_count, uint32_t delay_time_ms,
+                                         RdmBuffer* buffer);
+etcpal_error_t rdm_create_dub_response(const RdmUid* responder_uid, RdmBuffer* buffer);
+
+size_t rdm_get_num_overflow_responses_needed(uint16_t param_id, size_t response_data_len);
+etcpal_error_t rdm_create_full_overflow_response(const RdmCommandHeader* cmd_header, const uint8_t* response_data,
+                                                 size_t response_data_len, RdmBuffer* buffers, size_t num_buffers);
+
+etcpal_error_t rdm_unpack_command(const RdmBuffer* buffer, RdmCommandHeader* cmd_header, const uint8_t** param_data,
+                                  uint8_t* param_data_len);
+etcpal_error_t rdm_unpack_response(const RdmBuffer* buffer, RdmResponseHeader* resp_header, const uint8_t** param_data,
+                                   uint8_t* param_data_len);
+etcpal_error_t rdm_unpack_dub_response(const RdmBuffer* buffer, RdmUid* responder_uid);
 
 #ifdef __cplusplus
 }

@@ -20,7 +20,7 @@
 #include "rdm/cpp/message.h"
 #include "gtest/gtest.h"
 
-TEST(CppResponse, DefaultConstructorWorks)
+TEST(CppRespHeader, DefaultConstructorWorks)
 {
-  rdm::Response resp;
+  rdm::ResponseHeader header;
 }

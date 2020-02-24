@@ -8,6 +8,7 @@ add_executable(test_rdm
   test_cpp_response.cpp
   test_cpp_uid.cpp
 
+  test_message.cpp
   test_responder.cpp
   test_uid.cpp
 )

@@ -26,6 +26,7 @@
 #include <algorithm>
 #include <cstddef>
 #include <cstring>
+#include <memory>
 #include <vector>
 #include "rdm/message.h"
 #include "rdm/cpp/uid.h"
@@ -33,16 +34,15 @@
 
 namespace rdm
 {
-class Command
+class CommandHeader
 {
 public:
-  Command() = default;
-  constexpr Command(rdm_command_class_t command_class, uint16_t param_id, const Uid& source_uid, const Uid& dest_uid,
-                    uint8_t transaction_num, uint8_t port_id, uint16_t subdevice = 0, const uint8_t* data = nullptr,
-                    uint8_t datalen = 0);
+  CommandHeader() = default;
+  constexpr CommandHeader(rdm_command_class_t command_class, uint16_t param_id, const Uid& source_uid,
+                          const Uid& dest_uid, uint8_t transaction_num, uint8_t port_id, uint16_t subdevice = 0);
 
-  constexpr Command(const RdmCommand& c_cmd) noexcept;
-  Command& operator=(const RdmCommand& c_cmd) noexcept;
+  constexpr CommandHeader(const RdmCommandHeader& c_header) noexcept;
+  CommandHeader& operator=(const RdmCommandHeader& c_header) noexcept;
 
   constexpr Uid source_uid() const noexcept;
   constexpr Uid dest_uid() const noexcept;
@@ -51,11 +51,182 @@ public:
   constexpr uint16_t subdevice() const noexcept;
   constexpr rdm_command_class_t command_class() const noexcept;
   constexpr uint16_t param_id() const noexcept;
-  constexpr uint8_t datalen() const noexcept;
-  constexpr const uint8_t* data() const noexcept;
 
-  ETCPAL_CONSTEXPR_14 RdmCommand& get() noexcept;
-  constexpr const RdmCommand& get() const noexcept;
+  ETCPAL_CONSTEXPR_14 RdmCommandHeader& get() noexcept;
+  constexpr const RdmCommandHeader& get() const noexcept;
+
+  constexpr bool IsValid() const noexcept;
+
+  CommandHeader& SetSourceUid(const Uid& uid) noexcept;
+  CommandHeader& SetSourceUid(const RdmUid& uid) noexcept;
+  CommandHeader& SetDestUid(const Uid& uid) noexcept;
+  CommandHeader& SetDestUid(const RdmUid& uid) noexcept;
+  CommandHeader& SetTransactionNum(uint8_t transaction_num) noexcept;
+  CommandHeader& SetPortId(uint8_t port_id) noexcept;
+  CommandHeader& SetSubdevice(uint16_t subdevice) noexcept;
+  CommandHeader& SetCommandHeaderClass(rdm_command_class_t command_class) noexcept;
+  CommandHeader& SetParamId(uint16_t param_id) noexcept;
+
+  constexpr size_t PackedSize(uint8_t datalen = 0) const noexcept;
+  bool ToBytes(uint8_t* buf, size_t buflen, const uint8_t* data = nullptr, uint8_t datalen = 0) const noexcept;
+  bool ToBytes(RdmBuffer& buffer, const uint8_t* data = nullptr, uint8_t datalen = 0) const noexcept;
+  std::vector<uint8_t> ToBytes(const uint8_t* data = nullptr, uint8_t datalen = 0) const;
+
+private:
+  RdmCommandHeader cmd_header_{};
+};
+
+constexpr CommandHeader::CommandHeader(rdm_command_class_t command_class, uint16_t param_id, const Uid& source_uid,
+                                       const Uid& dest_uid, uint8_t transaction_num, uint8_t port_id,
+                                       uint16_t subdevice)
+    : cmd_header_{source_uid.get(), dest_uid.get(), transaction_num, port_id, subdevice, command_class, param_id}
+{
+}
+
+constexpr Uid CommandHeader::source_uid() const noexcept
+{
+  return cmd_header_.source_uid;
+}
+
+constexpr Uid CommandHeader::dest_uid() const noexcept
+{
+  return cmd_header_.dest_uid;
+}
+
+constexpr uint8_t CommandHeader::transaction_num() const noexcept
+{
+  return cmd_header_.transaction_num;
+}
+
+constexpr uint8_t CommandHeader::port_id() const noexcept
+{
+  return cmd_header_.port_id;
+}
+
+constexpr uint16_t CommandHeader::subdevice() const noexcept
+{
+  return cmd_header_.subdevice;
+}
+
+constexpr rdm_command_class_t CommandHeader::command_class() const noexcept
+{
+  return cmd_header_.command_class;
+}
+
+constexpr uint16_t CommandHeader::param_id() const noexcept
+{
+  return cmd_header_.param_id;
+}
+
+ETCPAL_CONSTEXPR_14_OR_INLINE RdmCommandHeader& CommandHeader::get() noexcept
+{
+  return cmd_header_;
+}
+
+constexpr const RdmCommandHeader& CommandHeader::get() const noexcept
+{
+  return cmd_header_;
+}
+
+constexpr bool CommandHeader::IsValid() const noexcept
+{
+  // TODO
+  return false;
+}
+
+inline CommandHeader& CommandHeader::SetSourceUid(const Uid& uid) noexcept
+{
+  return SetSourceUid(uid.get());
+}
+
+inline CommandHeader& CommandHeader::SetSourceUid(const RdmUid& uid) noexcept
+{
+  cmd_header_.source_uid = uid;
+  return *this;
+}
+
+inline CommandHeader& CommandHeader::SetDestUid(const Uid& uid) noexcept
+{
+  return SetDestUid(uid.get());
+}
+
+inline CommandHeader& CommandHeader::SetDestUid(const RdmUid& uid) noexcept
+{
+  cmd_header_.dest_uid = uid;
+  return *this;
+}
+
+inline CommandHeader& CommandHeader::SetTransactionNum(uint8_t transaction_num) noexcept
+{
+  cmd_header_.transaction_num = transaction_num;
+  return *this;
+}
+
+inline CommandHeader& CommandHeader::SetPortId(uint8_t port_id) noexcept
+{
+  cmd_header_.port_id = port_id;
+  return *this;
+}
+
+inline CommandHeader& CommandHeader::SetSubdevice(uint16_t subdevice) noexcept
+{
+  cmd_header_.subdevice = subdevice;
+  return *this;
+}
+
+inline CommandHeader& CommandHeader::SetCommandHeaderClass(rdm_command_class_t command_class) noexcept
+{
+  cmd_header_.command_class = command_class;
+  return *this;
+}
+
+inline CommandHeader& CommandHeader::SetParamId(uint16_t param_id) noexcept
+{
+  cmd_header_.param_id = param_id;
+  return *this;
+}
+
+constexpr size_t CommandHeader::PackedSize(uint8_t datalen) const noexcept
+{
+  return datalen + RDM_HEADER_SIZE;
+}
+
+inline bool CommandHeader::ToBytes(uint8_t* buf, size_t buflen, const uint8_t* data, uint8_t datalen) const noexcept
+{
+  // TODO
+  return false;
+}
+
+inline bool CommandHeader::ToBytes(RdmBuffer& buffer, const uint8_t* data, uint8_t datalen) const noexcept
+{
+  // TODO
+  return false;
+}
+
+inline std::vector<uint8_t> CommandHeader::ToBytes(const uint8_t* data, uint8_t datalen) const
+{
+  // TODO
+  return std::vector<uint8_t>{};
+}
+
+class Command
+{
+public:
+  Command() = default;
+  constexpr Command(rdm_command_class_t command_class, uint16_t param_id, const Uid& source_uid, const Uid& dest_uid,
+                    uint8_t transaction_num, uint8_t port_id, uint16_t subdevice = 0, const uint8_t* data = nullptr,
+                    uint8_t datalen = 0);
+
+  constexpr Uid source_uid() const noexcept;
+  constexpr Uid dest_uid() const noexcept;
+  constexpr uint8_t transaction_num() const noexcept;
+  constexpr uint8_t port_id() const noexcept;
+  constexpr uint16_t subdevice() const noexcept;
+  constexpr rdm_command_class_t command_class() const noexcept;
+  constexpr uint16_t param_id() const noexcept;
+  constexpr CommandHeader& header() const noexcept;
+  constexpr const uint8_t* data() const noexcept;
+  constexpr uint8_t datalen() const noexcept;
 
   constexpr bool IsValid() const noexcept;
 
@@ -68,175 +239,30 @@ public:
   Command& SetSubdevice(uint16_t subdevice) noexcept;
   Command& SetCommandClass(rdm_command_class_t command_class) noexcept;
   Command& SetParamId(uint16_t param_id) noexcept;
-  Command& SetData(const uint8_t* data, uint8_t datalen) noexcept;
+  Command& SetHeader(const CommandHeader& header) noexcept;
+  Command& SetData(const uint8_t* data, size_t size) noexcept;
 
   constexpr size_t PackedSize() const noexcept;
   bool ToBytes(uint8_t* buf, size_t buflen) const noexcept;
-  bool ToBytes(RdmBuffer& buffer) const;
+  bool ToBytes(RdmBuffer& buffer) const noexcept;
   std::vector<uint8_t> ToBytes() const;
 
 private:
-  RdmCommand cmd_{};
+  CommandHeader header_;
+  std::unique_ptr<uint8_t[]> data_;
+  uint8_t datalen_;
 };
 
-constexpr Command::Command(rdm_command_class_t command_class, uint16_t param_id, const Uid& source_uid,
-                           const Uid& dest_uid, uint8_t transaction_num, uint8_t port_id, uint16_t subdevice,
-                           const uint8_t* data, uint8_t datalen)
-    : cmd_{source_uid.get(), dest_uid.get(), transaction_num, port_id, subdevice, command_class, param_id, datalen}
-{
-  if (data && datalen)
-  {
-    uint8_t clamped_datalen = std::min(datalen, static_cast<uint8_t>(RDM_MAX_PDL));
-    std::memcpy(cmd_.data, data, clamped_datalen);
-  }
-}
-
-constexpr Uid Command::source_uid() const noexcept
-{
-  return cmd_.source_uid;
-}
-
-constexpr Uid Command::dest_uid() const noexcept
-{
-  return cmd_.dest_uid;
-}
-
-constexpr uint8_t Command::transaction_num() const noexcept
-{
-  return cmd_.transaction_num;
-}
-
-constexpr uint8_t Command::port_id() const noexcept
-{
-  return cmd_.port_id;
-}
-
-constexpr uint16_t Command::subdevice() const noexcept
-{
-  return cmd_.subdevice;
-}
-
-constexpr rdm_command_class_t Command::command_class() const noexcept
-{
-  return cmd_.command_class;
-}
-
-constexpr uint16_t Command::param_id() const noexcept
-{
-  return cmd_.param_id;
-}
-
-constexpr uint8_t Command::datalen() const noexcept
-{
-  return cmd_.datalen;
-}
-
-constexpr const uint8_t* Command::data() const noexcept
-{
-  return (cmd_.datalen != 0 ? cmd_.data : nullptr);
-}
-
-ETCPAL_CONSTEXPR_14_OR_INLINE RdmCommand& Command::get() noexcept
-{
-  return cmd_;
-}
-
-constexpr const RdmCommand& Command::get() const noexcept
-{
-  return cmd_;
-}
-
-constexpr bool Command::IsValid() const noexcept
-{
-  // TODO
-  return false;
-}
-
-inline Command& Command::SetSourceUid(const Uid& uid) noexcept
-{
-  return SetSourceUid(uid.get());
-}
-
-inline Command& Command::SetSourceUid(const RdmUid& uid) noexcept
-{
-  cmd_.source_uid = uid;
-  return *this;
-}
-
-inline Command& Command::SetDestUid(const Uid& uid) noexcept
-{
-  return SetDestUid(uid.get());
-}
-
-inline Command& Command::SetDestUid(const RdmUid& uid) noexcept
-{
-  cmd_.dest_uid = uid;
-  return *this;
-}
-
-inline Command& Command::SetTransactionNum(uint8_t transaction_num) noexcept
-{
-  cmd_.transaction_num = transaction_num;
-  return *this;
-}
-
-inline Command& Command::SetPortId(uint8_t port_id) noexcept
-{
-  cmd_.port_id = port_id;
-  return *this;
-}
-
-inline Command& Command::SetSubdevice(uint16_t subdevice) noexcept
-{
-  cmd_.subdevice = subdevice;
-  return *this;
-}
-
-inline Command& Command::SetCommandClass(rdm_command_class_t command_class) noexcept
-{
-  cmd_.command_class = command_class;
-  return *this;
-}
-
-inline Command& Command::SetParamId(uint16_t param_id) noexcept
-{
-  cmd_.param_id = param_id;
-  return *this;
-}
-
-inline Command& Command::SetData(const uint8_t* data, uint8_t datalen) noexcept
-{
-  uint8_t datalen_clamped = std::min(datalen, static_cast<uint8_t>(RDM_MAX_PDL));
-  if (data && datalen_clamped)
-    std::memcpy(cmd_.data, data, datalen_clamped);
-  cmd_.datalen = datalen_clamped;
-  return *this;
-}
-
-constexpr size_t Command::PackedSize() const noexcept
-{
-  return cmd_.datalen + RDM_HEADER_SIZE;
-}
-
-inline bool Command::ToBytes(uint8_t* buf, size_t buflen) const noexcept
-{
-  // TODO
-  return false;
-}
-
-inline std::vector<uint8_t> Command::ToBytes() const
-{
-  // TODO
-  return std::vector<uint8_t>{};
-}
-
-class SingleResponse
+class ResponseHeader
 {
 public:
-  SingleResponse() = default;
-  constexpr SingleResponse(rdm_command_class_t command_class, rdm_response_type_t response_type, uint16_t param_id,
+  ResponseHeader() = default;
+  constexpr ResponseHeader(rdm_command_class_t command_class, rdm_response_type_t response_type, uint16_t param_id,
                            const Uid& source_uid, const Uid& dest_uid, uint8_t transaction_num, uint16_t subdevice = 0,
-                           uint8_t msg_count = 0, const uint8_t* data = nullptr, uint8_t datalen = 0);
+                           uint8_t msg_count = 0);
+
+  constexpr ResponseHeader(const RdmResponseHeader& c_header) noexcept;
+  ResponseHeader& operator=(const RdmResponseHeader& c_header) noexcept;
 
   Uid source_uid() const noexcept;
   Uid dest_uid() const noexcept;
@@ -246,40 +272,25 @@ public:
   uint16_t subdevice() const noexcept;
   rdm_command_class_t command_class() const noexcept;
   uint16_t param_id() const noexcept;
-  uint8_t datalen() const noexcept;
-  const uint8_t* data() const noexcept;
 
-  ETCPAL_CONSTEXPR_14 RdmResponse& get() noexcept;
-  constexpr const RdmResponse& get() const noexcept;
+  ETCPAL_CONSTEXPR_14 RdmResponseHeader& get() noexcept;
+  constexpr const RdmResponseHeader& get() const noexcept;
 
   constexpr bool IsValid() const noexcept;
 
-  SingleResponse& SetSourceUid(const Uid& uid) noexcept;
-  SingleResponse& SetSourceUid(const RdmUid& uid) noexcept;
-  SingleResponse& SetDestUid(const Uid& uid) noexcept;
-  SingleResponse& SetDestUid(const RdmUid& uid) noexcept;
-  SingleResponse& SetTransactionNum(uint8_t transaction_num) noexcept;
-  SingleResponse& SetResponseType(rdm_response_type_t response_type) noexcept;
-  SingleResponse& SetMessageCount(uint8_t msg_count) noexcept;
-  SingleResponse& SetSubdevice(uint16_t subdevice) noexcept;
-  SingleResponse& SetCommandClass(rdm_command_class_t command_class) noexcept;
-  SingleResponse& SetParamId(uint16_t param_id) noexcept;
-  SingleResponse& SetData(const uint8_t* data, uint8_t datalen) noexcept;
-
-  constexpr size_t PackedSize() const noexcept;
-  bool ToBytes(uint8_t* buf, size_t buflen) const noexcept;
-  bool ToBytes(RdmBuffer& buffer) const;
-  std::vector<uint8_t> ToBytes() const;
-
-  static SingleResponse Ack(const Command& cmd, const uint8_t* data = nullptr, uint8_t datalen = 0,
-                            uint8_t msg_count = 0);
-  static SingleResponse AckTimer(const Command& cmd, uint16_t delay_ms, uint8_t msg_count = 0);
-  static SingleResponse AckOverflow(const Command& cmd, const uint8_t* data = nullptr, uint8_t datalen = 0,
-                                    uint8_t msg_count = 0);
-  static SingleResponse Nack(const Command& cmd, uint16_t nack_reason, uint8_t msg_count = 0);
+  ResponseHeader& SetSourceUid(const Uid& uid) noexcept;
+  ResponseHeader& SetSourceUid(const RdmUid& uid) noexcept;
+  ResponseHeader& SetDestUid(const Uid& uid) noexcept;
+  ResponseHeader& SetDestUid(const RdmUid& uid) noexcept;
+  ResponseHeader& SetTransactionNum(uint8_t transaction_num) noexcept;
+  ResponseHeader& SetResponseHeaderType(rdm_response_type_t response_type) noexcept;
+  ResponseHeader& SetMessageCount(uint8_t msg_count) noexcept;
+  ResponseHeader& SetSubdevice(uint16_t subdevice) noexcept;
+  ResponseHeader& SetCommandClass(rdm_command_class_t command_class) noexcept;
+  ResponseHeader& SetParamId(uint16_t param_id) noexcept;
 
 private:
-  RdmResponse resp_{};
+  RdmResponseHeader resp_header_;
 };
 
 class Response
@@ -298,8 +309,6 @@ public:
   uint16_t subdevice() const noexcept;
   rdm_command_class_t command_class() const noexcept;
   uint16_t param_id() const noexcept;
-  size_t datalen() const noexcept;
-  const uint8_t* data() const noexcept;
 
   constexpr bool IsValid() const noexcept;
 
@@ -313,32 +322,16 @@ public:
   Response& SetSubdevice(uint16_t subdevice) noexcept;
   Response& SetCommandClass(rdm_command_class_t command_class) noexcept;
   Response& SetParamId(uint16_t param_id) noexcept;
-  Response& SetData(const uint8_t* data, size_t datalen) noexcept;
 
-  constexpr size_t NumSingleResponsesRequired() const noexcept;
-  bool ToBytes(RdmBuffer* buffers, size_t num_buffers) const noexcept;
-  std::vector<RdmBuffer> ToBytes() const;
-  bool ToSingleResponses(SingleResponse* response_buf, size_t response_buf_size) const noexcept;
-  std::vector<SingleResponse> ToSingleResponses() const;
-
-  static Response Ack(const Command& cmd, const uint8_t* data = nullptr, size_t datalen = 0, uint8_t msg_count = 0);
-  static Response AckTimer(const Command& cmd, uint16_t delay_ms, uint8_t msg_count = 0);
-  static Response Nack(const Command& cmd, uint16_t nack_reason, uint8_t msg_count = 0);
+  // bool ToBytes(RdmBuffer* buffers, size_t num_buffers) const noexcept;
+  // std::vector<RdmBuffer> ToBytes() const;
 
 private:
-  Uid source_uid_;
-  Uid dest_uid_;
-  uint8_t transaction_num_;
-  rdm_response_type_t resp_type_;
-  uint8_t msg_count_;
-  uint16_t subdevice_;
-  rdm_command_class_t command_class_;
-  uint16_t param_id_;
-  std::vector<uint8_t> data_;
+  ResponseHeader header_;
+  std::unique_ptr<uint8_t[]> data_;
+  size_t datalen_;
 };
 
 };  // namespace rdm
-}
-;  // namespace rdm
 
 #endif  // RDM_CPP_MESSAGE_H_

@@ -20,35 +20,33 @@
 #include "rdm/cpp/message.h"
 #include "gtest/gtest.h"
 
-TEST(CppCommand, DefaultConstructorWorks)
+TEST(CppCmdHeader, DefaultConstructorWorks)
 {
   // Default constructor should set some reasonable "null" or "zero" values
-  rdm::Command cmd;
-  EXPECT_FALSE(cmd.IsValid());
-  EXPECT_FALSE(cmd.source_uid().IsValid());
-  EXPECT_FALSE(cmd.dest_uid().IsValid());
-  EXPECT_EQ(cmd.transaction_num(), 0);
-  EXPECT_EQ(cmd.port_id(), 0);
-  EXPECT_EQ(cmd.subdevice(), 0);
-  EXPECT_EQ(cmd.param_id(), 0);
-  EXPECT_EQ(cmd.datalen(), 0);
-  EXPECT_EQ(cmd.data(), nullptr);
+  rdm::CommandHeader header;
+  EXPECT_FALSE(header.IsValid());
+  EXPECT_FALSE(header.source_uid().IsValid());
+  EXPECT_FALSE(header.dest_uid().IsValid());
+  EXPECT_EQ(header.transaction_num(), 0);
+  EXPECT_EQ(header.port_id(), 0);
+  EXPECT_EQ(header.subdevice(), 0);
+  EXPECT_EQ(header.param_id(), 0);
 }
 
-TEST(CppCommand, UidSettersWork)
+TEST(CppCmdHeader, UidSettersWork)
 {
-  rdm::Command cmd;
+  rdm::CommandHeader header;
 
   RdmUid uid1 = {20, 40};
-  cmd.SetSourceUid(uid1);
-  EXPECT_EQ(cmd.source_uid(), uid1);
+  header.SetSourceUid(uid1);
+  EXPECT_EQ(header.source_uid(), uid1);
 
-  cmd.SetDestUid(uid1);
-  EXPECT_EQ(cmd.dest_uid(), uid1);
+  header.SetDestUid(uid1);
+  EXPECT_EQ(header.dest_uid(), uid1);
 
   rdm::Uid uid2(60, 80);
-  cmd.SetSourceUid(uid2);
-  EXPECT_EQ(cmd.source_uid(), uid2);
-  cmd.SetDestUid(uid2);
-  EXPECT_EQ(cmd.dest_uid(), uid2);
+  header.SetSourceUid(uid2);
+  EXPECT_EQ(header.source_uid(), uid2);
+  header.SetDestUid(uid2);
+  EXPECT_EQ(header.dest_uid(), uid2);
 }
