@@ -20,6 +20,7 @@
 #include "rdm/message.h"
 
 #include <string.h>
+#include "etcpal/common.h"
 #include "etcpal/pack.h"
 #include "rdm/defs.h"
 
@@ -87,6 +88,10 @@ bool rdm_validate_msg(const RdmBuffer* buffer)
 etcpal_error_t rdm_create_command(const RdmCommandHeader* cmd_header, const uint8_t* cmd_data, uint8_t cmd_data_len,
                                   RdmBuffer* buffer)
 {
+  ETCPAL_UNUSED_ARG(cmd_header);
+  ETCPAL_UNUSED_ARG(cmd_data);
+  ETCPAL_UNUSED_ARG(cmd_data_len);
+  ETCPAL_UNUSED_ARG(buffer);
   return kEtcPalErrNotImpl;
 }
 
@@ -129,6 +134,10 @@ etcpal_error_t rdm_create_response(const RdmCommandHeader* cmd_header, uint8_t m
 etcpal_error_t rdm_create_overflow_response(const RdmCommandHeader* cmd_header, const uint8_t* response_data,
                                             uint8_t response_data_len, RdmBuffer* buffer)
 {
+  ETCPAL_UNUSED_ARG(cmd_header);
+  ETCPAL_UNUSED_ARG(response_data);
+  ETCPAL_UNUSED_ARG(response_data_len);
+  ETCPAL_UNUSED_ARG(buffer);
   return kEtcPalErrNotImpl;
 }
 
@@ -175,7 +184,7 @@ etcpal_error_t rdm_create_nack_response(const RdmCommandHeader* cmd_header, uint
  * \return #kEtcPalErrOk: Response created successfully.
  * \return #kEtcPalErrInvalid: Invalid argument.
  */
-etcpal_error_t rdm_create_timer_response(const RdmCommandHeader* cmd_header, uint8_t msg_count, uint16_t delay_time_ms,
+etcpal_error_t rdm_create_timer_response(const RdmCommandHeader* cmd_header, uint8_t msg_count, uint32_t delay_time_ms,
                                          RdmBuffer* buffer)
 {
   if (!cmd_header || !buffer || !validate_received_cmd_header(cmd_header) || delay_time_ms == 0 ||
@@ -250,29 +259,46 @@ etcpal_error_t rdm_create_dub_response(const RdmUid* responder_uid, RdmBuffer* b
 
 size_t rdm_get_num_overflow_responses_needed(uint16_t param_id, size_t response_data_len)
 {
+  ETCPAL_UNUSED_ARG(param_id);
+  ETCPAL_UNUSED_ARG(response_data_len);
   return 0;
 }
 
 etcpal_error_t rdm_create_full_overflow_response(const RdmCommandHeader* cmd_header, const uint8_t* response_data,
                                                  size_t response_data_len, RdmBuffer* buffers, size_t num_buffers)
 {
+  ETCPAL_UNUSED_ARG(cmd_header);
+  ETCPAL_UNUSED_ARG(response_data);
+  ETCPAL_UNUSED_ARG(response_data_len);
+  ETCPAL_UNUSED_ARG(buffers);
+  ETCPAL_UNUSED_ARG(num_buffers);
   return kEtcPalErrNotImpl;
 }
 
 etcpal_error_t rdm_unpack_command(const RdmBuffer* buffer, RdmCommandHeader* cmd_header, const uint8_t** param_data,
                                   uint8_t* param_data_len)
 {
+  ETCPAL_UNUSED_ARG(buffer);
+  ETCPAL_UNUSED_ARG(cmd_header);
+  ETCPAL_UNUSED_ARG(param_data);
+  ETCPAL_UNUSED_ARG(param_data_len);
   return kEtcPalErrNotImpl;
 }
 
 etcpal_error_t rdm_unpack_response(const RdmBuffer* buffer, RdmResponseHeader* resp_header, const uint8_t** param_data,
                                    uint8_t* param_data_len)
 {
+  ETCPAL_UNUSED_ARG(buffer);
+  ETCPAL_UNUSED_ARG(resp_header);
+  ETCPAL_UNUSED_ARG(param_data);
+  ETCPAL_UNUSED_ARG(param_data_len);
   return kEtcPalErrNotImpl;
 }
 
 etcpal_error_t rdm_unpack_dub_response(const RdmBuffer* buffer, RdmUid* responder_uid)
 {
+  ETCPAL_UNUSED_ARG(buffer);
+  ETCPAL_UNUSED_ARG(responder_uid);
   return kEtcPalErrNotImpl;
 }
 
