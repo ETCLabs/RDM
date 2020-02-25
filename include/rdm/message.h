@@ -159,8 +159,10 @@ typedef struct RdmCommandHeader
   uint16_t subdevice;
   /*! The command class for this command. */
   rdm_command_class_t command_class;
-  /*! The RDM Parameter ID of this command. One of the values from E1.20 Table A-3, or any of the
-   *  relevant extension standards. */
+  /*!
+   * The RDM Parameter ID of this command. One of the values from E1.20 Table A-3, or any of the
+   * relevant extension standards.
+   */
   uint16_t param_id;
 } RdmCommandHeader;
 
@@ -180,8 +182,10 @@ typedef struct RdmResponseHeader
   uint16_t subdevice;
   /*! The command class for this response. */
   rdm_command_class_t command_class;
-  /*! The RDM Parameter ID of this response. One of the values from E1.20 Table A-3, or any of the
-   *  relevant extension standards. */
+  /*!
+   * The RDM Parameter ID of this response. One of the values from E1.20 Table A-3, or any of the
+   * relevant extension standards.
+   */
   uint16_t param_id;
 } RdmResponseHeader;
 
