@@ -4,14 +4,13 @@ set(RDM_INCLUDE ${RDM_ROOT}/include)
 
 include(RdmAddDependency)
 
-rdm_add_dependency(EtcPal etcpal_DIR)
+rdm_add_dependency(EtcPal ETCPAL_DIR)
 
 ################################# RDM library #################################
 
-add_library(RDMInterface INTERFACE)
-target_include_directories(RDMInterface INTERFACE ${RDM_INCLUDE})
+set(RDM_LIB_TARGET_NAME RDM)
 
-add_library(RDM
+add_library(${RDM_LIB_TARGET_NAME}
   # RDM headers
   ${RDM_INCLUDE}/rdm/controller.h
   ${RDM_INCLUDE}/rdm/defs.h
@@ -25,11 +24,18 @@ add_library(RDM
   rdm/responder.c
   rdm/uid.c
 )
-target_link_libraries(RDM PUBLIC RDMInterface EtcPal)
+target_include_directories(${RDM_LIB_TARGET_NAME} PUBLIC ${RDM_INCLUDE})
+target_link_libraries(${RDM_LIB_TARGET_NAME} PUBLIC EtcPal)
+
+# Write a pkg-config file
+set(RDM_PKGCONFIG_INTERMEDIATE_FILE ${CMAKE_BINARY_DIR}/${RDM_LIB_TARGET_NAME}.pc)
+configure_file(${RDM_ROOT}/cmake/RDM.pc.in ${RDM_PKGCONFIG_INTERMEDIATE_FILE} @ONLY)
 
 # Installation
-install(TARGETS RDM ARCHIVE DESTINATION lib)
+install(TARGETS ${RDM_LIB_TARGET_NAME} ARCHIVE DESTINATION lib)
 install(DIRECTORY ${RDM_ROOT}/include/rdm DESTINATION include FILES_MATCHING PATTERN "*.h")
+install(DIRECTORY ${RDM_ROOT}/include/rdm/cpp DESTINATION include/rdm FILES_MATCHING PATTERN "*.h")
+install(FILES ${RDM_PKGCONFIG_INTERMEDIATE_FILE} DESTINATION lib/pkgconfig)
 
 ############################### RDM mock library ##############################
 
@@ -49,5 +55,5 @@ if(RDM_BUILD_MOCK_LIB)
     rdm/responder.c
     rdm/uid.c
   )
-  target_link_libraries(RDMMock PUBLIC RDMInterface EtcPalInterface)
+  target_include_directories(RDMMock PUBLIC ${RDM_INCLUDE})
 endif()
