@@ -88,6 +88,7 @@ typedef enum
   kRdmCCGetCommandResponse = E120_GET_COMMAND_RESPONSE,
   kRdmCCSetCommand = E120_SET_COMMAND,
   kRdmCCSetCommandResponse = E120_SET_COMMAND_RESPONSE
+  // No "num command classes" placeholder here, because the command class values are not contiguous
 } rdm_command_class_t;
 
 /*! An enumeration representing the RDM Response Type field. */
@@ -96,7 +97,8 @@ typedef enum
   kRdmResponseTypeAck = E120_RESPONSE_TYPE_ACK,
   kRdmResponseTypeAckTimer = E120_RESPONSE_TYPE_ACK_TIMER,
   kRdmResponseTypeNackReason = E120_RESPONSE_TYPE_NACK_REASON,
-  kRdmResponseTypeAckOverflow = E120_RESPONSE_TYPE_ACK_OVERFLOW
+  kRdmResponseTypeAckOverflow = E120_RESPONSE_TYPE_ACK_OVERFLOW,
+  kRdmNumResponseTypes
 } rdm_response_type_t;
 
 /*! An enumeration representing a standard RDM NACK reason. */
@@ -109,6 +111,7 @@ typedef enum
   kRdmNRWriteProtect = E120_NR_WRITE_PROTECT,
   kRdmNRUnsupportedCommandClass = E120_NR_UNSUPPORTED_COMMAND_CLASS,
   kRdmNRDataOutOfRange = E120_NR_DATA_OUT_OF_RANGE,
+  kRdmNRBufferFull = E120_NR_BUFFER_FULL,
   kRdmNRPacketSizeUnsupported = E120_NR_PACKET_SIZE_UNSUPPORTED,
   kRdmNRSubDeviceOutOfRange = E120_NR_SUB_DEVICE_OUT_OF_RANGE,
   kRdmNRProxyBufferFull = E120_NR_PROXY_BUFFER_FULL,
@@ -122,14 +125,14 @@ typedef enum
   kRdmNRInvalidIpv6Address = E133_NR_INVALID_IPV6_ADDRESS,
   kRdmNRInvalidPort = E133_NR_INVALID_PORT,
 
-  kRdmMaxStandardNRCodes
+  kRdmNumStandardNRCodes
 } rdm_nack_reason_t;
 
 /*! A structure that represents a packed RDM message. */
 typedef struct RdmBuffer
 {
   uint8_t data[RDM_MAX_BYTES]; /*!< The RDM message bytes. */
-  size_t datalen;              /*!< The length of the RDM message. */
+  size_t data_len;             /*!< The length of the RDM message. */
 } RdmBuffer;
 
 /*!
@@ -198,11 +201,13 @@ typedef struct RdmResponseHeader
   uint16_t param_id;
 } RdmResponseHeader;
 
-void rdm_pack_checksum(uint8_t* buffer, size_t datalen_without_checksum);
+void rdm_pack_checksum(uint8_t* buffer, size_t data_len_without_checksum);
 bool rdm_validate_msg(const RdmBuffer* buffer);
 
 etcpal_error_t rdm_create_command(const RdmCommandHeader* cmd_header, const uint8_t* cmd_data, uint8_t cmd_data_len,
                                   RdmBuffer* buffer);
+etcpal_error_t rdm_create_command_with_custom_buf(const RdmCommandHeader* cmd_header, const uint8_t* cmd_data,
+                                                  uint8_t cmd_data_len, uint8_t* buf, size_t buf_len);
 
 etcpal_error_t rdm_create_response(const RdmCommandHeader* cmd_header, uint8_t msg_count, const uint8_t* response_data,
                                    uint8_t response_data_len, RdmBuffer* buffer);
@@ -223,6 +228,9 @@ etcpal_error_t rdm_unpack_command(const RdmBuffer* buffer, RdmCommandHeader* cmd
 etcpal_error_t rdm_unpack_response(const RdmBuffer* buffer, RdmResponseHeader* resp_header, const uint8_t** param_data,
                                    uint8_t* param_data_len);
 etcpal_error_t rdm_unpack_dub_response(const RdmBuffer* buffer, RdmUid* responder_uid);
+
+unsigned int rdm_get_ack_timer_delay(const uint8_t* param_data);
+rdm_nack_reason_t rdm_get_nack_reason_code(const uint8_t* param_data);
 
 const char* rdm_command_class_to_string(rdm_command_class_t command_class);
 const char* rdm_response_type_to_string(rdm_response_type_t resp_type);

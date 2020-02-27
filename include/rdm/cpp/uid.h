@@ -261,7 +261,7 @@ inline Uid Uid::FromString(const std::string& uid_str) noexcept
 
 /// \brief Create a UID from a string representation.
 /// \details See rdm_string_to_uid() for more information.
-static Uid FromString(const char* uid_str) noexcept
+inline Uid Uid::FromString(const char* uid_str) noexcept
 {
   Uid uid;
   if (rdm_string_to_uid(uid_str, &uid.uid_))

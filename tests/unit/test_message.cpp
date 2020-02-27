@@ -76,7 +76,7 @@ TEST(RdmMessage, CreateResponseTooLong)
 
   // Equal to maximum should succeed
   EXPECT_EQ(rdm_create_response(&cmd_header, 0, data, RDM_MAX_PDL, &response_buf), kEtcPalErrOk);
-  EXPECT_EQ(response_buf.datalen, RDM_MAX_PDL + RDM_HEADER_SIZE + 2);
+  EXPECT_EQ(response_buf.data_len, RDM_MAX_PDL + RDM_HEADER_SIZE + 2);
 
   // One over the maximum should fail
   EXPECT_NE(rdm_create_response(&cmd_header, 0, data, RDM_MAX_PDL + 1, &response_buf), kEtcPalErrOk);
@@ -98,7 +98,7 @@ TEST(RdmMessage, CreateResponseWithData)
   constexpr uint8_t kResponsepackedSize = RDM_HEADER_SIZE + 3;
 
   ASSERT_EQ(rdm_create_response(&cmd_header, 2, &data, 1, &response_buf), kEtcPalErrOk);
-  ASSERT_EQ(response_buf.datalen, kResponsepackedSize);
+  ASSERT_EQ(response_buf.data_len, kResponsepackedSize);
   std::array<uint8_t, kResponsepackedSize> valid_response = {
       0xcc,                       // START code
       0x01,                       // Sub START code
@@ -134,7 +134,7 @@ TEST(RdmMessage, CreateResponseEmpty)
   constexpr uint8_t kResponsePackedSize = RDM_HEADER_SIZE + 2;
 
   ASSERT_EQ(rdm_create_response(&cmd_header, 0, nullptr, 0, &response_buf), kEtcPalErrOk);
-  ASSERT_EQ(response_buf.datalen, kResponsePackedSize);
+  ASSERT_EQ(response_buf.data_len, kResponsePackedSize);
 
   std::array<uint8_t, kResponsePackedSize> valid_response = {
       0xcc,                       // START code
@@ -200,7 +200,7 @@ TEST(RdmMessage, CreateNackResponse)
   constexpr uint8_t kResponsePackedSize = RDM_HEADER_SIZE + 4;
 
   ASSERT_EQ(rdm_create_nack_response(&cmd_header, 0, kRdmNRSubDeviceOutOfRange, &response_buf), kEtcPalErrOk);
-  ASSERT_EQ(response_buf.datalen, kResponsePackedSize);
+  ASSERT_EQ(response_buf.data_len, kResponsePackedSize);
 
   std::array<uint8_t, kResponsePackedSize> nack_response = {
       0xcc,                          // START code

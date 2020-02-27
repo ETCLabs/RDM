@@ -50,3 +50,11 @@ TEST(CppCmdHeader, UidSettersWork)
   header.SetDestUid(uid2);
   EXPECT_EQ(header.dest_uid(), uid2);
 }
+
+TEST(CppCmd, DefaultConstructorWorks)
+{
+  rdm::Command cmd;
+  EXPECT_FALSE(cmd.IsValid());
+  EXPECT_FALSE(cmd.header().IsValid());
+  EXPECT_FALSE(cmd.HasData());
+}
