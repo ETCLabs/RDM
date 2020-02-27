@@ -30,7 +30,7 @@
 
 /*!
  * \defgroup controller Controller
- * \ingroup rdm
+ * \ingroup rdm_c
  * \brief Implementation of RDM controller functionality.
  *
  * @{

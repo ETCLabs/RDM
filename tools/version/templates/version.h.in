@@ -64,6 +64,18 @@
  */
 
 /*!
+ * \defgroup rdm_c
+ * \ingroup rdm
+ * \brief The core RDM interface, in pure C99.
+ */
+
+/*!
+ * \defgroup rdm_cpp
+ * \ingroup rdm
+ * \brief Header-only C++ wrappers for the RDM interface.
+ */
+
+/*!
  * @}
  */
 

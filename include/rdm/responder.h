@@ -32,7 +32,7 @@
 
 /*!
  * \defgroup responder Responder
- * \ingroup rdm
+ * \ingroup rdm_c
  * \brief Implementation of RDM responder functionality.
  *
  * @{

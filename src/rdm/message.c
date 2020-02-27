@@ -184,8 +184,8 @@ etcpal_error_t rdm_create_nack_response(const RdmCommandHeader* cmd_header, uint
  * \return #kEtcPalErrOk: Response created successfully.
  * \return #kEtcPalErrInvalid: Invalid argument.
  */
-etcpal_error_t rdm_create_timer_response(const RdmCommandHeader* cmd_header, uint8_t msg_count, uint32_t delay_time_ms,
-                                         RdmBuffer* buffer)
+etcpal_error_t rdm_create_timer_response(const RdmCommandHeader* cmd_header, uint8_t msg_count,
+                                         unsigned int delay_time_ms, RdmBuffer* buffer)
 {
   if (!cmd_header || !buffer || !validate_received_cmd_header(cmd_header) || delay_time_ms == 0 ||
       delay_time_ms > 6553500)
@@ -197,7 +197,7 @@ etcpal_error_t rdm_create_timer_response(const RdmCommandHeader* cmd_header, uin
   pack_rdm_response_header(cmd_header, rdm_length, kRdmResponseTypeAckTimer, msg_count, buffer->data);
 
   // Calculate the on-wire ACK_TIMER value
-  uint16_t timer_val = delay_time_ms / 100;
+  uint16_t timer_val = (uint16_t)(delay_time_ms / 100);
   // Always round up to the next 100ms
   if (delay_time_ms % 100)
     ++timer_val;

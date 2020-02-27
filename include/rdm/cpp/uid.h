@@ -30,8 +30,8 @@
 
 namespace rdm
 {
-/// \defgroup cpp_uid UID (C++)
-/// \ingroup rdm
+/// \defgroup cpp_uid UID
+/// \ingroup rdm_cpp
 /// \brief C++ utilities for RDM UIDs.
 ///
 /// ```c
@@ -109,6 +109,7 @@ public:
   void SetDeviceId(uint32_t id_val) noexcept;
 
   static Uid FromString(const std::string& uid_str) noexcept;
+  static Uid FromString(const char* uid_str) noexcept;
   static Uid Broadcast() noexcept;
   static Uid ControllerBroadcast() noexcept;
   static Uid DeviceBroadcast() noexcept;
@@ -255,8 +256,15 @@ inline void Uid::SetDeviceId(uint32_t id_val) noexcept
 /// \details See rdm_string_to_uid() for more information.
 inline Uid Uid::FromString(const std::string& uid_str) noexcept
 {
+  return FromString(uid_str.c_str());
+}
+
+/// \brief Create a UID from a string representation.
+/// \details See rdm_string_to_uid() for more information.
+static Uid FromString(const char* uid_str) noexcept
+{
   Uid uid;
-  if (rdm_string_to_uid(uid_str.c_str(), &uid.uid_))
+  if (rdm_string_to_uid(uid_str, &uid.uid_))
     return uid;
   else
     return Uid{};
