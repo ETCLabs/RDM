@@ -180,7 +180,6 @@ TEST(CppUid, DynamicRequestGeneratorWorks)
 {
   const auto dynamic_uid = rdm::Uid::DynamicUidRequest(0x5555);
   EXPECT_TRUE(dynamic_uid.IsValid());
-  EXPECT_TRUE(dynamic_uid.IsDynamic());
   EXPECT_TRUE(dynamic_uid.IsDynamicUidRequest());
   EXPECT_EQ(dynamic_uid.manufacturer_id(), 0x5555u);
 }

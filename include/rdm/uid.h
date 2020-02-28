@@ -197,6 +197,14 @@ typedef struct RdmUid
 #define RDM_UID_IS_NULL(uidptr) ((uidptr)->manu == 0 && (uidptr)->id == 0)
 
 /*!
+ * \brief Determine whether a UID is a Dynamic UID Request as defined in ANSI E1.33.
+ * \param uidptr Pointer to RdmUid to check.
+ * \return true (UID is an E1.33 Dynamic UID Request) or false (UID is not an E1.33 Dynamic UID
+ *         Request).
+ */
+#define RDMNET_UID_IS_DYNAMIC_UID_REQUEST(uidptr) ((((uidptr)->manu & 0x8000u) != 0) && (uidptr)->id == 0u)
+
+/*!
  * \brief Determine whether a UID is a Dynamic UID as defined in ANSI E1.33.
  *
  * Note that !RDMNET_UID_IS_DYNAMIC() does not imply RDMNET_UID_IS_STATIC(), because broadcast and
@@ -207,15 +215,8 @@ typedef struct RdmUid
  */
 #define RDMNET_UID_IS_DYNAMIC(uidptr)                                                  \
   ((((uidptr)->manu & 0x8000u) != 0) && !RDMNET_UID_IS_CONTROLLER_BROADCAST(uidptr) && \
-   !RDMNET_UID_IS_DEVICE_MANU_BROADCAST(uidptr) && !RDM_UID_IS_BROADCAST(uidptr))
-
-/*!
- * \brief Determine whether a UID is a Dynamic UID Request as defined in ANSI E1.33.
- * \param uidptr Pointer to RdmUid to check.
- * \return true (UID is an E1.33 Dynamic UID Request) or false (UID is not an E1.33 Dynamic UID
- *         Request).
- */
-#define RDMNET_UID_IS_DYNAMIC_UID_REQUEST(uidptr) (RDMNET_UID_IS_DYNAMIC(uidptr) && (uidptr)->id == 0u)
+   !RDMNET_UID_IS_DEVICE_MANU_BROADCAST(uidptr) && !RDM_UID_IS_BROADCAST(uidptr) &&    \
+   !RDMNET_UID_IS_DYNAMIC_UID_REQUEST(uidptr))
 
 /*!
  * \brief Determine whether a UID is a Static UID as defined in ANSI E1.33.

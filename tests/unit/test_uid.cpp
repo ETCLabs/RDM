@@ -124,11 +124,53 @@ TEST(Uid, NullUidWorks)
 
 TEST(Uid, IsDynamicWorks)
 {
-  RdmUid dynamic_uid = {0x8111u, 0x12345678u};
-  EXPECT_TRUE(RDMNET_UID_IS_DYNAMIC(&dynamic_uid));
+  // A Dynamic UID is identified by all of the following criteria being true:
 
-  RdmUid static_uid = {0x0111u, 0x12345678u};
-  EXPECT_FALSE(RDMNET_UID_IS_DYNAMIC(&static_uid));
+  // The UID is not equal to BROADCAST_ALL_DEVICES_ID
+  RdmUid broadcast_uid = kRdmBroadcastUid;
+  EXPECT_FALSE(RDMNET_UID_IS_DYNAMIC(&broadcast_uid));
+
+  // The UID is not equal to RPT_ALL_CONTROLLERS
+  RdmUid controller_broadcast_uid = kRdmnetControllerBroadcastUid;
+  EXPECT_FALSE(RDMNET_UID_IS_DYNAMIC(&controller_broadcast_uid));
+
+  // The UID is not equal to RPT_ALL_DEVICES
+  RdmUid device_broadcast_uid = kRdmnetDeviceBroadcastUid;
+  EXPECT_FALSE(RDMNET_UID_IS_DYNAMIC(&device_broadcast_uid));
+
+  // The UID is not equal to RPT_ALL_MID_DEVICES
+  RdmUid device_manu_broadcast_uid = {kRdmnetDeviceBroadcastUid.manu, kRdmnetDeviceBroadcastUid.id & 0xffff};
+  EXPECT_FALSE(RDMNET_UID_IS_DYNAMIC(&device_manu_broadcast_uid));
+
+  // The Dynamic Flag of the UID is set to 1.
+  RdmUid uid_with_dynamic_flag_set = {0x8111u, 0x12345678u};
+  EXPECT_TRUE(RDMNET_UID_IS_DYNAMIC(&uid_with_dynamic_flag_set));
+
+  RdmUid uid_with_dynamic_flag_unset = {0x0111u, 0x12345678u};
+  EXPECT_FALSE(RDMNET_UID_IS_DYNAMIC(&uid_with_dynamic_flag_unset));
+
+  // The UID is not a Dynamic UID Request value as defined in e1.33.
+  RdmUid dynamic_uid_request = {0xE574u, 0x00000000u};
+  EXPECT_FALSE(RDMNET_UID_IS_DYNAMIC(&dynamic_uid_request));
+}
+
+TEST(Uid, IsDynamicUidRequestWorks)
+{
+  // A Dynamic UID Request is identified by all of the following criteria being true:
+
+  // The Dynamic Flag is set to 1.
+  RdmUid dynamic_flag_set = {0x8111u, 0x00000000u};
+  EXPECT_TRUE(RDMNET_UID_IS_DYNAMIC_UID_REQUEST(&dynamic_flag_set));
+
+  RdmUid dynamic_flag_unset = {0x0111u, 0x00000000u};
+  EXPECT_FALSE(RDMNET_UID_IS_DYNAMIC_UID_REQUEST(&dynamic_flag_unset));
+
+  // The Device ID field is all zeros.
+  RdmUid all_zeros = {0x8111u, 0x00000000u};
+  EXPECT_TRUE(RDMNET_UID_IS_DYNAMIC_UID_REQUEST(&all_zeros));
+
+  RdmUid not_all_zeros = {0x8111u, 0x00000001u};
+  EXPECT_FALSE(RDMNET_UID_IS_DYNAMIC_UID_REQUEST(&not_all_zeros));
 }
 
 TEST(Uid, IsStaticWorks)
