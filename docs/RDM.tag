@@ -117,6 +117,12 @@
       <anchor>gaa11fc36923818f02895f40dafd228474</anchor>
       <arglist></arglist>
     </member>
+    <member kind="enumvalue">
+      <name>kRdmNRUnknownPid</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a9ff3ed335721af7014435875e1e46e95</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function">
       <type>void</type>
       <name>rdm_pack_checksum</name>
@@ -342,16 +348,16 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>RDMNET_UID_IS_DYNAMIC</name>
+      <name>RDMNET_UID_IS_DYNAMIC_UID_REQUEST</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga6513e844d7b58f9cdee40244fe5a682f</anchor>
+      <anchor>ga7309e3ce684e0d96d6a5ac019d6b8892</anchor>
       <arglist>(uidptr)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>RDMNET_UID_IS_DYNAMIC_UID_REQUEST</name>
+      <name>RDMNET_UID_IS_DYNAMIC</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga7309e3ce684e0d96d6a5ac019d6b8892</anchor>
+      <anchor>ga6513e844d7b58f9cdee40244fe5a682f</anchor>
       <arglist>(uidptr)</arglist>
     </member>
     <member kind="define">
@@ -2135,6 +2141,12 @@
       <anchor>gaa11fc36923818f02895f40dafd228474</anchor>
       <arglist></arglist>
     </member>
+    <member kind="enumvalue">
+      <name>kRdmNRUnknownPid</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a9ff3ed335721af7014435875e1e46e95</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function">
       <type>void</type>
       <name>rdm_pack_checksum</name>
@@ -2365,16 +2377,16 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>RDMNET_UID_IS_DYNAMIC</name>
+      <name>RDMNET_UID_IS_DYNAMIC_UID_REQUEST</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga6513e844d7b58f9cdee40244fe5a682f</anchor>
+      <anchor>ga7309e3ce684e0d96d6a5ac019d6b8892</anchor>
       <arglist>(uidptr)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>RDMNET_UID_IS_DYNAMIC_UID_REQUEST</name>
+      <name>RDMNET_UID_IS_DYNAMIC</name>
       <anchorfile>group__uid.html</anchorfile>
-      <anchor>ga7309e3ce684e0d96d6a5ac019d6b8892</anchor>
+      <anchor>ga6513e844d7b58f9cdee40244fe5a682f</anchor>
       <arglist>(uidptr)</arglist>
     </member>
     <member kind="define">

@@ -82,11 +82,17 @@ extern "C" {
 /*! An enumeration representing the RDM Command Class (CC) field. */
 typedef enum
 {
+  /*! Messages related to the RDM discovery process. */
   kRdmCCDiscoveryCommand = E120_DISCOVERY_COMMAND,
+  /*! Response from a kRdmCCDiscoveryCommand message. */
   kRdmCCDiscoveryCommandResponse = E120_DISCOVERY_COMMAND_RESPONSE,
+  /*! Request the value or status of a parameter from the device. */
   kRdmCCGetCommand = E120_GET_COMMAND,
+  /*! Response from a kRdmCCGetCommand message. */
   kRdmCCGetCommandResponse = E120_GET_COMMAND_RESPONSE,
+  /*! Change the value of a parameter within the device. */
   kRdmCCSetCommand = E120_SET_COMMAND,
+  /*! Response from a kRdmCCSetCommand message. */
   kRdmCCSetCommandResponse = E120_SET_COMMAND_RESPONSE
   // No "num command classes" placeholder here, because the command class values are not contiguous
 } rdm_command_class_t;
@@ -94,35 +100,69 @@ typedef enum
 /*! An enumeration representing the RDM Response Type field. */
 typedef enum
 {
+  /*! The responder has correctly received the message and is acting upon it. */
   kRdmResponseTypeAck = E120_RESPONSE_TYPE_ACK,
+  /*!
+   * The responder is unable to supply the requested GET information or SET confirmation within the
+   * required response time.
+   */
   kRdmResponseTypeAckTimer = E120_RESPONSE_TYPE_ACK_TIMER,
+  /*!
+   * The responder is unable to reply with the requested GET information or unable to process the
+   * specified SET command.
+   */
   kRdmResponseTypeNackReason = E120_RESPONSE_TYPE_NACK_REASON,
+  /*!
+   * The responder has correctly received the message and is acting upon it, but there is more
+   * response data available than will fit in a single response message.
+   */
   kRdmResponseTypeAckOverflow = E120_RESPONSE_TYPE_ACK_OVERFLOW,
+
   kRdmNumResponseTypes
 } rdm_response_type_t;
 
 /*! An enumeration representing a standard RDM NACK reason. */
 typedef enum
 {
+  /*! The responder cannot comply with request because the message is not implemented in responder. */
   kRdmNRUnknownPid = E120_NR_UNKNOWN_PID,
+  /*! The responder cannot interpret request as controller data was not formatted correctly. */
   kRdmNRFormatError = E120_NR_FORMAT_ERROR,
+  /*! The responder cannot comply due to an internal hardware fault. */
   kRdmNRHardwareFault = E120_NR_HARDWARE_FAULT,
+  /*! Proxy is not the RDM line master and cannot comply with message. */
   kRdmNRProxyReject = E120_NR_PROXY_REJECT,
+  /*! SET Command normally allowed but being blocked currently. */
   kRdmNRWriteProtect = E120_NR_WRITE_PROTECT,
+  /*! Not valid for Command Class attempted. May be used where GET allowed but SET is not supported. */
   kRdmNRUnsupportedCommandClass = E120_NR_UNSUPPORTED_COMMAND_CLASS,
+  /*! Value for given Parameter out of allowable range or not supported. */
   kRdmNRDataOutOfRange = E120_NR_DATA_OUT_OF_RANGE,
+  /*! Buffer or Queue space currently has no free space to store data. */
   kRdmNRBufferFull = E120_NR_BUFFER_FULL,
+  /*! Incoming message exceeds buffer capacity. */
   kRdmNRPacketSizeUnsupported = E120_NR_PACKET_SIZE_UNSUPPORTED,
+  /*! Sub-Device is out of range or unknown. */
   kRdmNRSubDeviceOutOfRange = E120_NR_SUB_DEVICE_OUT_OF_RANGE,
+  /*! The proxy buffer is full and cannot store any more Queued Message or Status Message responses. */
   kRdmNRProxyBufferFull = E120_NR_PROXY_BUFFER_FULL,
+  /*! The specified action is not supported. */
   kRdmNRActionNotSupported = E137_2_NR_ACTION_NOT_SUPPORTED,
+  /*! The specified endpoint is invalid. */
   kRdmNREndpointNumberInvalid = E137_7_NR_ENDPOINT_NUMBER_INVALID,
+  /*! The specified endpoint is in an invalid Endpoint Mode for the requested action. */
   kRdmNRInvalidEndpointMode = E137_7_NR_INVALID_ENDPOINT_MODE,
+  /*! The specified UID is not recognized. */
   kRdmNRUnknownUid = E137_7_NR_UNKNOWN_UID,
+  /*! The Component is not participating in the given Scope. */
   kRdmNRUnknownScope = E133_NR_UNKNOWN_SCOPE,
+  /*! The Static Config Type provided is invalid. */
   kRdmNRInvalidStaticConfigType = E133_NR_INVALID_STATIC_CONFIG_TYPE,
+  /*! The IPv4 Address provided is invalid. */
   kRdmNRInvalidIpv4Address = E133_NR_INVALID_IPV4_ADDRESS,
+  /*! The IPv6 Address provided is invalid. */
   kRdmNRInvalidIpv6Address = E133_NR_INVALID_IPV6_ADDRESS,
+  /*! The transport layer port provided is invalid. */
   kRdmNRInvalidPort = E133_NR_INVALID_PORT,
 
   kRdmNumStandardNRCodes
