@@ -58,3 +58,25 @@ TEST(CppCmd, DefaultConstructorWorks)
   EXPECT_FALSE(cmd.header().IsValid());
   EXPECT_FALSE(cmd.HasData());
 }
+
+TEST(CppCmd, HeaderConstructorWorks)
+{
+  rdm::CommandHeader header(rdm::Uid(0x1234, 0x56789abc), rdm::Uid(0xba98, 0x76543210), 0x22, 1, 0, kRdmCCSetCommand,
+                            E120_IDENTIFY_DEVICE);
+  uint8_t identify_val = 1u;
+  rdm::Command cmd(header, &identify_val, 1);
+
+  EXPECT_TRUE(cmd.IsValid());
+  EXPECT_TRUE(cmd.header().IsValid());
+  EXPECT_TRUE(cmd.HasData());
+  EXPECT_EQ(cmd.data_len(), 1u);
+  EXPECT_EQ(*cmd.data(), 1u);
+
+  // Test the C-style header constructor
+  cmd = rdm::Command(header.get());
+  EXPECT_TRUE(cmd.IsValid());
+  EXPECT_TRUE(cmd.header().IsValid());
+  EXPECT_TRUE(cmd.HasData());
+  EXPECT_EQ(cmd.data_len(), 1u);
+  EXPECT_EQ(*cmd.data(), 1u);
+}

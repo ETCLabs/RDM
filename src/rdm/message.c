@@ -59,7 +59,7 @@ void rdm_pack_checksum(uint8_t* buffer, size_t data_len_without_checksum)
 }
 
 /*!
- * \brief Perform basic validation of an RDM message.
+ * \brief Perform basic validation of a packed RDM message.
  *
  * Checks that the message has a correctly formed length, the correct start code values, and that
  * the checksum is correct.
@@ -83,6 +83,43 @@ bool rdm_validate_msg(const RdmBuffer* buffer)
     return false;
 
   return true;
+}
+
+/*!
+ * \brief Determine whether the values contained in a command header are valid for an RDM command.
+ * \param[in] cmd_header Header to validate.
+ */
+bool rdm_command_header_is_valid(const RdmCommandHeader* cmd_header)
+{
+  if (cmd_header)
+  {
+    return (!RDM_UID_IS_BROADCAST(&cmd_header->source_uid) && (cmd_header->port_id != 0) &&
+            ((cmd_header->command_class == kRdmCCGetCommand) || (cmd_header->command_class == kRdmCCSetCommand) ||
+             (cmd_header->command_class == kRdmCCDiscoveryCommand)) &&
+            (cmd_header->param_id != 0));
+  }
+  return false;
+}
+
+/*!
+ * \brief Determine whether the values contained in a response header are valid for an RDM response.
+ * \param[in] resp_header Header to validate.
+ */
+bool rdm_response_header_is_valid(const RdmResponseHeader* resp_header)
+{
+  if (resp_header)
+  {
+    return (!RDM_UID_IS_BROADCAST(&resp_header->source_uid) &&
+            ((resp_header->resp_type == kRdmResponseTypeAck) ||
+             (resp_header->resp_type == kRdmResponseTypeAckOverflow) ||
+             (resp_header->resp_type == kRdmResponseTypeAckTimer) ||
+             (resp_header->resp_type == kRdmResponseTypeNackReason)) &&
+            ((resp_header->command_class == kRdmCCGetCommandResponse) ||
+             (resp_header->command_class == kRdmCCSetCommandResponse) ||
+             (resp_header->command_class == kRdmCCDiscoveryCommandResponse)) &&
+            (resp_header->param_id != 0));
+  }
+  return false;
 }
 
 /*!

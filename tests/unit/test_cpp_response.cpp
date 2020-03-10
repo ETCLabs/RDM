@@ -18,9 +18,43 @@
  ******************************************************************************/
 
 #include "rdm/cpp/message.h"
+
+#include <array>
+#include <cstring>
 #include "gtest/gtest.h"
 
 TEST(CppRespHeader, DefaultConstructorWorks)
 {
   rdm::ResponseHeader header;
+}
+
+TEST(CppResponse, DefaultConstructorWorks)
+{
+  rdm::Response response;
+  EXPECT_FALSE(response.IsValid());
+  EXPECT_FALSE(response.header().IsValid());
+  EXPECT_FALSE(response.HasData());
+}
+
+TEST(CppResponse, HeaderConstructorWorks)
+{
+  rdm::ResponseHeader header(rdm::Uid(0x1234, 0x56789abc), rdm::Uid(0xcba9, 0x87654321), 0x22, kRdmResponseTypeAck, 0,
+                             0, kRdmCCGetCommandResponse, E120_SUPPORTED_PARAMETERS);
+
+  std::array<uint8_t, 4> resp_data{0, 1, 2, 3};
+  rdm::Response response(header, resp_data.data(), resp_data.size());
+
+  EXPECT_TRUE(response.IsValid());
+  EXPECT_TRUE(response.header().IsValid());
+  EXPECT_TRUE(response.HasData());
+  EXPECT_EQ(response.data_len(), resp_data.size());
+  EXPECT_EQ(0, std::memcmp(response.data(), resp_data.data(), resp_data.size()));
+
+  // Test the C-style header constructor
+  response = rdm::Response(header.get());
+  EXPECT_TRUE(response.IsValid());
+  EXPECT_TRUE(response.header().IsValid());
+  EXPECT_TRUE(response.HasData());
+  EXPECT_EQ(response.data_len(), resp_data.size());
+  EXPECT_EQ(0, std::memcmp(response.data(), resp_data.data(), resp_data.size()));
 }

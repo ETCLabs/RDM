@@ -244,6 +244,9 @@ typedef struct RdmResponseHeader
 void rdm_pack_checksum(uint8_t* buffer, size_t data_len_without_checksum);
 bool rdm_validate_msg(const RdmBuffer* buffer);
 
+bool rdm_command_header_is_valid(const RdmCommandHeader* cmd_header);
+bool rdm_response_header_is_valid(const RdmResponseHeader* resp_header);
+
 etcpal_error_t rdm_create_command(const RdmCommandHeader* cmd_header, const uint8_t* cmd_data, uint8_t cmd_data_len,
                                   RdmBuffer* buffer);
 etcpal_error_t rdm_create_command_with_custom_buf(const RdmCommandHeader* cmd_header, const uint8_t* cmd_data,

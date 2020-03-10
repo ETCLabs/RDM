@@ -315,8 +315,7 @@ ETCPAL_CONSTEXPR_14_OR_INLINE ::RdmCommandHeader& CommandHeader::get() noexcept
 /// \brief Whether the values contained in this command header are valid for an RDM command.
 inline bool CommandHeader::IsValid() const noexcept
 {
-  return (!RDM_UID_IS_BROADCAST(&cmd_header_.source_uid) && (cmd_header_.port_id != 0) &&
-          (IsGet() || IsSet() || IsDiscovery()) && cmd_header_.param_id != 0);
+  return rdm_command_header_is_valid(&cmd_header_);
 }
 
 /// \brief Whether this header represents an RDM GET_COMMAND.
@@ -467,6 +466,8 @@ public:
   Command() = default;
   Command(const Uid& source_uid, const Uid& dest_uid, uint8_t transaction_num, uint8_t port_id, uint16_t subdevice,
           rdm_command_class_t command_class, uint16_t param_id, const uint8_t* data = nullptr, uint8_t data_len = 0);
+  Command(const CommandHeader& header, const uint8_t* data = nullptr, uint8_t data_len = 0);
+  Command(const ::RdmCommandHeader& header, const uint8_t* data = nullptr, uint8_t data_len = 0);
 
   constexpr Uid source_uid() const noexcept;
   constexpr Uid dest_uid() const noexcept;
@@ -534,6 +535,26 @@ inline Command::Command(const Uid& source_uid, const Uid& dest_uid, uint8_t tran
                         uint16_t subdevice, rdm_command_class_t command_class, uint16_t param_id, const uint8_t* data,
                         uint8_t data_len)
     : header_(source_uid, dest_uid, transaction_num, port_id, subdevice, command_class, param_id)
+{
+  SetData(data, data_len);
+}
+
+/// \brief Construct a command from a header and data.
+/// \param header Header to assign to this command.
+/// \param data The RDM parameter data of this command (nullptr for commands with no data).
+/// \param data_len The length of the RDM parameter data (0 for commands with no data).
+inline Command::Command(const CommandHeader& header, const uint8_t* data = nullptr, uint8_t data_len = 0)
+    : header_(header)
+{
+  SetData(data, data_len);
+}
+
+/// \brief Construct a command from a header and data.
+/// \param header Header to assign to this command.
+/// \param data The RDM parameter data of this command (nullptr for commands with no data).
+/// \param data_len The length of the RDM parameter data (0 for commands with no data).
+inline Command::Command(const ::RdmCommandHeader& header, const uint8_t* data = nullptr, uint8_t data_len = 0)
+    : header_(header)
 {
   SetData(data, data_len);
 }
@@ -716,8 +737,7 @@ inline Command& Command::SetData(const uint8_t* data, uint8_t data_len)
   if (data && data_len)
   {
     uint8_t truncated_length = (data_len > RDM_MAX_PDL ? RDM_MAX_PDL : data_len);
-    data_.reserve(truncated_length);
-    std::copy(data, data + truncated_length, std::back_inserter(data_));
+    data_.assign(data, data + truncated_length);
   }
   return *this;
 }
@@ -803,7 +823,8 @@ inline Command Command::Set(uint16_t param_id, const Uid& source_uid, const Uid&
 /// EXPECT_FALSE(invalid_resp.IsValid());
 ///
 /// // Create a valid response
-/// rdm::ResponseHeader set_resp(rdm::Uid(0x6574, 0x87654321), rdm::Uid(0x6574, 0x87654321), 0x22, kRdmResponseTypeAck,
+/// rdm::ResponseHeader set_resp(rdm::Uid(0x6574, 0x87654321), rdm::Uid(0x6574, 0x87654321), 0x22,
+/// kRdmResponseTypeAck,
 ///                              0, 0, kRdmCCSetCommandResponse, E120_IDENTIFY_DEVICE);
 ///
 /// EXPECT_TRUE(set_resp.IsValid());
@@ -958,8 +979,7 @@ ETCPAL_CONSTEXPR_14_OR_INLINE ::RdmResponseHeader& ResponseHeader::get() noexcep
 /// \brief Whether the values contained in this response header are valid for an RDM response.
 inline bool ResponseHeader::IsValid() const noexcept
 {
-  return (!RDM_UID_IS_BROADCAST(&resp_header_.source_uid) && (IsAck() || IsAckOverflow() || IsAckTimer() || IsNack()) &&
-          (IsGetResponse() || IsSetResponse() || IsDiscoveryResponse()) && resp_header_.param_id != 0);
+  return rdm_response_header_is_valid(&resp_header_);
 }
 
 /// \brief Whether this header represents an RDM ACK response.
@@ -1127,6 +1147,8 @@ public:
   Response(const Uid& source_uid, const Uid& dest_uid, uint8_t transaction_num, rdm_response_type_t response_type,
            uint8_t msg_count, uint16_t subdevice, rdm_command_class_t command_class, uint16_t param_id,
            const uint8_t* data = nullptr, size_t data_len = 0);
+  Response(const ResponseHeader& header, const uint8_t* data = nullptr, size_t data_len = 0);
+  Response(const ::RdmResponseHeader& header, const uint8_t* data = nullptr, size_t data_len = 0);
 
   constexpr Uid source_uid() const noexcept;
   constexpr Uid dest_uid() const noexcept;
@@ -1197,6 +1219,26 @@ inline Response::Response(const Uid& source_uid, const Uid& dest_uid, uint8_t tr
                           rdm_response_type_t response_type, uint8_t msg_count, uint16_t subdevice,
                           rdm_command_class_t command_class, uint16_t param_id, const uint8_t* data, size_t data_len)
     : header_(source_uid, dest_uid, transaction_num, response_type, msg_count, subdevice, command_class, param_id)
+{
+  SetData(data, data_len);
+}
+
+/// \brief Construct a response from a header and data.
+/// \param header Header to assign to this response.
+/// \param data The RDM parameter data of this response (nullptr for responses with no data).
+/// \param data_len The length of the RDM parameter data (0 for responses with no data).
+inline Response::Response(const ResponseHeader& header, const uint8_t* data = nullptr, size_t data_len = 0)
+    : header_(header)
+{
+  SetData(data, data_len);
+}
+
+/// \brief Construct a response from a header and data.
+/// \param header Header to assign to this response.
+/// \param data The RDM parameter data of this response (nullptr for responses with no data).
+/// \param data_len The length of the RDM parameter data (0 for responses with no data).
+inline Response::Response(const ::RdmResponseHeader& header, const uint8_t* data = nullptr, size_t data_len = 0)
+    : header_(header)
 {
   SetData(data, data_len);
 }
@@ -1435,10 +1477,7 @@ inline Response& Response::SetHeader(const ResponseHeader& header) noexcept
 inline Response& Response::SetData(const uint8_t* data, size_t data_len)
 {
   if (data && data_len)
-  {
-    data_.reserve(data_len);
-    std::copy(data, data + data_len, std::back_inserter(data_));
-  }
+    data_.assign(data, data + data_len);
   return *this;
 }
 
