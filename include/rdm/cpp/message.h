@@ -543,7 +543,7 @@ inline Command::Command(const Uid& source_uid, const Uid& dest_uid, uint8_t tran
 /// \param header Header to assign to this command.
 /// \param data The RDM parameter data of this command (nullptr for commands with no data).
 /// \param data_len The length of the RDM parameter data (0 for commands with no data).
-inline Command::Command(const CommandHeader& header, const uint8_t* data = nullptr, uint8_t data_len = 0)
+inline Command::Command(const CommandHeader& header, const uint8_t* data, uint8_t data_len)
     : header_(header)
 {
   SetData(data, data_len);
@@ -553,7 +553,7 @@ inline Command::Command(const CommandHeader& header, const uint8_t* data = nullp
 /// \param header Header to assign to this command.
 /// \param data The RDM parameter data of this command (nullptr for commands with no data).
 /// \param data_len The length of the RDM parameter data (0 for commands with no data).
-inline Command::Command(const ::RdmCommandHeader& header, const uint8_t* data = nullptr, uint8_t data_len = 0)
+inline Command::Command(const ::RdmCommandHeader& header, const uint8_t* data, uint8_t data_len)
     : header_(header)
 {
   SetData(data, data_len);
@@ -1227,7 +1227,7 @@ inline Response::Response(const Uid& source_uid, const Uid& dest_uid, uint8_t tr
 /// \param header Header to assign to this response.
 /// \param data The RDM parameter data of this response (nullptr for responses with no data).
 /// \param data_len The length of the RDM parameter data (0 for responses with no data).
-inline Response::Response(const ResponseHeader& header, const uint8_t* data = nullptr, size_t data_len = 0)
+inline Response::Response(const ResponseHeader& header, const uint8_t* data, size_t data_len)
     : header_(header)
 {
   SetData(data, data_len);
@@ -1237,7 +1237,7 @@ inline Response::Response(const ResponseHeader& header, const uint8_t* data = nu
 /// \param header Header to assign to this response.
 /// \param data The RDM parameter data of this response (nullptr for responses with no data).
 /// \param data_len The length of the RDM parameter data (0 for responses with no data).
-inline Response::Response(const ::RdmResponseHeader& header, const uint8_t* data = nullptr, size_t data_len = 0)
+inline Response::Response(const ::RdmResponseHeader& header, const uint8_t* data, size_t data_len)
     : header_(header)
 {
   SetData(data, data_len);
