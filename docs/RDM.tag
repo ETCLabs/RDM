@@ -2,7 +2,7 @@
 <tagfile>
   <compound kind="file">
     <name>controller.h</name>
-    <path>D:/git/ETCLabs/RDMnet/external/RDM/include/rdm/</path>
+    <path>E:/git/ETCLabs/RDMnet/external/RDM/include/rdm/</path>
     <filename>controller_8h</filename>
     <includes id="message_8h" name="message.h" local="yes" imported="no">rdm/message.h</includes>
     <member kind="function">
@@ -15,7 +15,7 @@
   </compound>
   <compound kind="file">
     <name>message.h</name>
-    <path>D:/git/ETCLabs/RDMnet/external/RDM/include/rdm/cpp/</path>
+    <path>E:/git/ETCLabs/RDMnet/external/RDM/include/rdm/cpp/</path>
     <filename>cpp_2message_8h</filename>
     <includes id="message_8h" name="message.h" local="yes" imported="no">rdm/message.h</includes>
     <includes id="cpp_2uid_8h" name="uid.h" local="yes" imported="no">rdm/cpp/uid.h</includes>
@@ -27,7 +27,7 @@
   </compound>
   <compound kind="file">
     <name>message.h</name>
-    <path>D:/git/ETCLabs/RDMnet/external/RDM/include/rdm/</path>
+    <path>E:/git/ETCLabs/RDMnet/external/RDM/include/rdm/</path>
     <filename>message_8h</filename>
     <includes id="uid_8h" name="uid.h" local="yes" imported="no">rdm/uid.h</includes>
     <class kind="struct">RdmBuffer</class>
@@ -103,11 +103,71 @@
       <anchor>gafda6b6d4c08788e755cb3cb6c1ca021b</anchor>
       <arglist></arglist>
     </member>
+    <member kind="enumvalue">
+      <name>kRdmCCDiscoveryCommand</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggafda6b6d4c08788e755cb3cb6c1ca021ba0b0ef646e345b039036b1238a526dcd2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmCCDiscoveryCommandResponse</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggafda6b6d4c08788e755cb3cb6c1ca021ba70eaf32858798b744a732c829bf1a374</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmCCGetCommand</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggafda6b6d4c08788e755cb3cb6c1ca021ba434701b28c3c83f9230b5da6d54e26ab</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmCCGetCommandResponse</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggafda6b6d4c08788e755cb3cb6c1ca021ba7ecfdb6ec568395f6691948051badf3c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmCCSetCommand</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggafda6b6d4c08788e755cb3cb6c1ca021baf16a0108fda7d3470eb281147527ddbf</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmCCSetCommandResponse</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggafda6b6d4c08788e755cb3cb6c1ca021ba0832d12a2fa74545475e135bef44dfe1</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="enumeration">
       <type></type>
       <name>rdm_response_type_t</name>
       <anchorfile>group__message.html</anchorfile>
       <anchor>ga6ecebd42ee8d90fe410cc4001a98e7f0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmResponseTypeAck</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gga6ecebd42ee8d90fe410cc4001a98e7f0a532711bc8c0acf6c938dc2535fb223f0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmResponseTypeAckTimer</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gga6ecebd42ee8d90fe410cc4001a98e7f0ad89f498f1c63ac3274f7547c4277631f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmResponseTypeNackReason</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gga6ecebd42ee8d90fe410cc4001a98e7f0ab2a2bb15aa43e047c469efc21fd7fa8a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmResponseTypeAckOverflow</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gga6ecebd42ee8d90fe410cc4001a98e7f0af7fb4563b24d5aa1bbcd9e52b6fa49ff</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumeration">
@@ -123,6 +183,120 @@
       <anchor>ggaa11fc36923818f02895f40dafd228474a9ff3ed335721af7014435875e1e46e95</anchor>
       <arglist></arglist>
     </member>
+    <member kind="enumvalue">
+      <name>kRdmNRFormatError</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a95ce3af33094fc6a5ca33f8952c58f86</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRHardwareFault</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a0a7b4b20e203d6dec8142b5081e0c5ba</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRProxyReject</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474abbce9e4deaefe0f559cc560704152cb4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRWriteProtect</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a80fd723c651ecb1b2c009e2de9eb612c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRUnsupportedCommandClass</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a119433ed2edf83096329be3d4e87b25f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRDataOutOfRange</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a98240ffd8525a507a932d7672bc8d9f3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRBufferFull</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474ac3e7375e24715b7814a182f641c71b33</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRPacketSizeUnsupported</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474ac393953c3b1859efec106c94e18b578b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRSubDeviceOutOfRange</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474ae32eb05eb785326d7ecdb21d0eec30cf</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRProxyBufferFull</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a211f60cce00bf6a4ae1a1235bb07917b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRActionNotSupported</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474aecb7b47ab8b5938d28703a36f44e10bd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNREndpointNumberInvalid</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474ab9bdca77dea3f6594bd04aacc8490aa3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRInvalidEndpointMode</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a021ed59452fbd2a865f5ac29c642728b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRUnknownUid</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a977b4f85c3ce970389a7d7a4cac53deb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRUnknownScope</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a305743a045dd3cd1e1468345b1c1efd1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRInvalidStaticConfigType</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a39a5696039594168d0e294257878cdb1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRInvalidIpv4Address</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474ab6558933e20fb9d15b813666a228c113</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRInvalidIpv6Address</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a5062467354c83f47abdfbe8a1ab19df8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRInvalidPort</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a6684c51d582615356397c1dbb53e676e</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function">
       <type>void</type>
       <name>rdm_pack_checksum</name>
@@ -136,6 +310,20 @@
       <anchorfile>group__message.html</anchorfile>
       <anchor>gae584f1424d687763fd6e560f4f49583f</anchor>
       <arglist>(const RdmBuffer *buffer)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>rdm_command_header_is_valid</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gae0e5e85c3bc1c0554656d0c3de228b13</anchor>
+      <arglist>(const RdmCommandHeader *cmd_header)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>rdm_response_header_is_valid</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ga9c4a8f96c7002f4bdb3091d0f2279f03</anchor>
+      <arglist>(const RdmResponseHeader *resp_header)</arglist>
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
@@ -259,14 +447,14 @@
   </compound>
   <compound kind="file">
     <name>uid.h</name>
-    <path>D:/git/ETCLabs/RDMnet/external/RDM/include/rdm/cpp/</path>
+    <path>E:/git/ETCLabs/RDMnet/external/RDM/include/rdm/cpp/</path>
     <filename>cpp_2uid_8h</filename>
     <includes id="uid_8h" name="uid.h" local="yes" imported="no">rdm/uid.h</includes>
     <class kind="class">rdm::Uid</class>
   </compound>
   <compound kind="file">
     <name>uid.h</name>
-    <path>D:/git/ETCLabs/RDMnet/external/RDM/include/rdm/</path>
+    <path>E:/git/ETCLabs/RDMnet/external/RDM/include/rdm/</path>
     <filename>uid_8h</filename>
     <class kind="struct">RdmUid</class>
     <member kind="define">
@@ -440,7 +628,7 @@
   </compound>
   <compound kind="file">
     <name>responder.h</name>
-    <path>D:/git/ETCLabs/RDMnet/external/RDM/include/rdm/</path>
+    <path>E:/git/ETCLabs/RDMnet/external/RDM/include/rdm/</path>
     <filename>responder_8h</filename>
     <includes id="message_8h" name="message.h" local="yes" imported="no">rdm/message.h</includes>
     <member kind="function">
@@ -453,7 +641,7 @@
   </compound>
   <compound kind="file">
     <name>version.h</name>
-    <path>D:/git/ETCLabs/RDMnet/external/RDM/include/rdm/</path>
+    <path>E:/git/ETCLabs/RDMnet/external/RDM/include/rdm/</path>
     <filename>version_8h</filename>
     <member kind="define">
       <type>#define</type>
@@ -521,6 +709,20 @@
       <anchorfile>classrdm_1_1_command.html</anchorfile>
       <anchor>a3abf2b4ca8877d7251fc1f4cd232411d</anchor>
       <arglist>(const Uid &amp;source_uid, const Uid &amp;dest_uid, uint8_t transaction_num, uint8_t port_id, uint16_t subdevice, rdm_command_class_t command_class, uint16_t param_id, const uint8_t *data=nullptr, uint8_t data_len=0)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Command</name>
+      <anchorfile>classrdm_1_1_command.html</anchorfile>
+      <anchor>a730eb7558c0cdd013309573275e0595b</anchor>
+      <arglist>(const CommandHeader &amp;header, const uint8_t *data=nullptr, uint8_t data_len=0)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Command</name>
+      <anchorfile>classrdm_1_1_command.html</anchorfile>
+      <anchor>af835b779f862de8c19ae31b2db993bb8</anchor>
+      <arglist>(const ::RdmCommandHeader &amp;header, const uint8_t *data=nullptr, uint8_t data_len=0)</arglist>
     </member>
     <member kind="function">
       <type>constexpr Uid</type>
@@ -1235,6 +1437,20 @@
       <anchorfile>classrdm_1_1_response.html</anchorfile>
       <anchor>a2bc9cf21eb9f62664c21f3bb4c412032</anchor>
       <arglist>(const Uid &amp;source_uid, const Uid &amp;dest_uid, uint8_t transaction_num, rdm_response_type_t response_type, uint8_t msg_count, uint16_t subdevice, rdm_command_class_t command_class, uint16_t param_id, const uint8_t *data=nullptr, size_t data_len=0)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Response</name>
+      <anchorfile>classrdm_1_1_response.html</anchorfile>
+      <anchor>a4d2a28ac8960c93e33024e7d69984eb7</anchor>
+      <arglist>(const ResponseHeader &amp;header, const uint8_t *data=nullptr, size_t data_len=0)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Response</name>
+      <anchorfile>classrdm_1_1_response.html</anchorfile>
+      <anchor>abac526b67f8064c94c5732c3b7fcfc1c</anchor>
+      <arglist>(const ::RdmResponseHeader &amp;header, const uint8_t *data=nullptr, size_t data_len=0)</arglist>
     </member>
     <member kind="function">
       <type>constexpr Uid</type>
@@ -2127,11 +2343,71 @@
       <anchor>gafda6b6d4c08788e755cb3cb6c1ca021b</anchor>
       <arglist></arglist>
     </member>
+    <member kind="enumvalue">
+      <name>kRdmCCDiscoveryCommand</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggafda6b6d4c08788e755cb3cb6c1ca021ba0b0ef646e345b039036b1238a526dcd2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmCCDiscoveryCommandResponse</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggafda6b6d4c08788e755cb3cb6c1ca021ba70eaf32858798b744a732c829bf1a374</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmCCGetCommand</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggafda6b6d4c08788e755cb3cb6c1ca021ba434701b28c3c83f9230b5da6d54e26ab</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmCCGetCommandResponse</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggafda6b6d4c08788e755cb3cb6c1ca021ba7ecfdb6ec568395f6691948051badf3c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmCCSetCommand</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggafda6b6d4c08788e755cb3cb6c1ca021baf16a0108fda7d3470eb281147527ddbf</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmCCSetCommandResponse</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggafda6b6d4c08788e755cb3cb6c1ca021ba0832d12a2fa74545475e135bef44dfe1</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="enumeration">
       <type></type>
       <name>rdm_response_type_t</name>
       <anchorfile>group__message.html</anchorfile>
       <anchor>ga6ecebd42ee8d90fe410cc4001a98e7f0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmResponseTypeAck</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gga6ecebd42ee8d90fe410cc4001a98e7f0a532711bc8c0acf6c938dc2535fb223f0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmResponseTypeAckTimer</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gga6ecebd42ee8d90fe410cc4001a98e7f0ad89f498f1c63ac3274f7547c4277631f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmResponseTypeNackReason</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gga6ecebd42ee8d90fe410cc4001a98e7f0ab2a2bb15aa43e047c469efc21fd7fa8a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmResponseTypeAckOverflow</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gga6ecebd42ee8d90fe410cc4001a98e7f0af7fb4563b24d5aa1bbcd9e52b6fa49ff</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumeration">
@@ -2147,6 +2423,120 @@
       <anchor>ggaa11fc36923818f02895f40dafd228474a9ff3ed335721af7014435875e1e46e95</anchor>
       <arglist></arglist>
     </member>
+    <member kind="enumvalue">
+      <name>kRdmNRFormatError</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a95ce3af33094fc6a5ca33f8952c58f86</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRHardwareFault</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a0a7b4b20e203d6dec8142b5081e0c5ba</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRProxyReject</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474abbce9e4deaefe0f559cc560704152cb4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRWriteProtect</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a80fd723c651ecb1b2c009e2de9eb612c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRUnsupportedCommandClass</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a119433ed2edf83096329be3d4e87b25f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRDataOutOfRange</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a98240ffd8525a507a932d7672bc8d9f3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRBufferFull</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474ac3e7375e24715b7814a182f641c71b33</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRPacketSizeUnsupported</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474ac393953c3b1859efec106c94e18b578b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRSubDeviceOutOfRange</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474ae32eb05eb785326d7ecdb21d0eec30cf</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRProxyBufferFull</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a211f60cce00bf6a4ae1a1235bb07917b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRActionNotSupported</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474aecb7b47ab8b5938d28703a36f44e10bd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNREndpointNumberInvalid</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474ab9bdca77dea3f6594bd04aacc8490aa3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRInvalidEndpointMode</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a021ed59452fbd2a865f5ac29c642728b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRUnknownUid</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a977b4f85c3ce970389a7d7a4cac53deb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRUnknownScope</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a305743a045dd3cd1e1468345b1c1efd1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRInvalidStaticConfigType</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a39a5696039594168d0e294257878cdb1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRInvalidIpv4Address</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474ab6558933e20fb9d15b813666a228c113</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRInvalidIpv6Address</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a5062467354c83f47abdfbe8a1ab19df8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>kRdmNRInvalidPort</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ggaa11fc36923818f02895f40dafd228474a6684c51d582615356397c1dbb53e676e</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function">
       <type>void</type>
       <name>rdm_pack_checksum</name>
@@ -2160,6 +2550,20 @@
       <anchorfile>group__message.html</anchorfile>
       <anchor>gae584f1424d687763fd6e560f4f49583f</anchor>
       <arglist>(const RdmBuffer *buffer)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>rdm_command_header_is_valid</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gae0e5e85c3bc1c0554656d0c3de228b13</anchor>
+      <arglist>(const RdmCommandHeader *cmd_header)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>rdm_response_header_is_valid</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>ga9c4a8f96c7002f4bdb3091d0f2279f03</anchor>
+      <arglist>(const RdmResponseHeader *resp_header)</arglist>
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
