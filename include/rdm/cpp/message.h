@@ -543,8 +543,7 @@ inline Command::Command(const Uid& source_uid, const Uid& dest_uid, uint8_t tran
 /// \param header Header to assign to this command.
 /// \param data The RDM parameter data of this command (nullptr for commands with no data).
 /// \param data_len The length of the RDM parameter data (0 for commands with no data).
-inline Command::Command(const CommandHeader& header, const uint8_t* data, uint8_t data_len)
-    : header_(header)
+inline Command::Command(const CommandHeader& header, const uint8_t* data, uint8_t data_len) : header_(header)
 {
   SetData(data, data_len);
 }
@@ -553,8 +552,7 @@ inline Command::Command(const CommandHeader& header, const uint8_t* data, uint8_
 /// \param header Header to assign to this command.
 /// \param data The RDM parameter data of this command (nullptr for commands with no data).
 /// \param data_len The length of the RDM parameter data (0 for commands with no data).
-inline Command::Command(const ::RdmCommandHeader& header, const uint8_t* data, uint8_t data_len)
-    : header_(header)
+inline Command::Command(const ::RdmCommandHeader& header, const uint8_t* data, uint8_t data_len) : header_(header)
 {
   SetData(data, data_len);
 }
@@ -1184,6 +1182,7 @@ public:
 
   etcpal::Expected<unsigned int> AckTimerDelayMs() const noexcept;
   etcpal::Expected<NackReason> NackReason() const noexcept;
+  std::vector<uint8_t> GetData() const;
 
   Response& SetSourceUid(const Uid& uid) noexcept;
   Response& SetSourceUid(const ::RdmUid& uid) noexcept;
@@ -1197,6 +1196,7 @@ public:
   Response& SetParamId(uint16_t param_id) noexcept;
   Response& SetHeader(const ResponseHeader& header) noexcept;
   Response& SetData(const uint8_t* data, size_t data_len);
+  Response& AppendData(const uint8_t* data, size_t data_len);
   Response& ClearData() noexcept;
 
 private:
@@ -1227,8 +1227,7 @@ inline Response::Response(const Uid& source_uid, const Uid& dest_uid, uint8_t tr
 /// \param header Header to assign to this response.
 /// \param data The RDM parameter data of this response (nullptr for responses with no data).
 /// \param data_len The length of the RDM parameter data (0 for responses with no data).
-inline Response::Response(const ResponseHeader& header, const uint8_t* data, size_t data_len)
-    : header_(header)
+inline Response::Response(const ResponseHeader& header, const uint8_t* data, size_t data_len) : header_(header)
 {
   SetData(data, data_len);
 }
@@ -1237,8 +1236,7 @@ inline Response::Response(const ResponseHeader& header, const uint8_t* data, siz
 /// \param header Header to assign to this response.
 /// \param data The RDM parameter data of this response (nullptr for responses with no data).
 /// \param data_len The length of the RDM parameter data (0 for responses with no data).
-inline Response::Response(const ::RdmResponseHeader& header, const uint8_t* data, size_t data_len)
-    : header_(header)
+inline Response::Response(const ::RdmResponseHeader& header, const uint8_t* data, size_t data_len) : header_(header)
 {
   SetData(data, data_len);
 }
@@ -1393,6 +1391,13 @@ inline etcpal::Expected<NackReason> Response::NackReason() const noexcept
   return kEtcPalErrInvalid;
 }
 
+/// \brief Copy out the data from an RDM response.
+/// \return A copied vector containing any parameter data associated with this response.
+inline std::vector<uint8_t> Response::GetData() const
+{
+  return data_;
+}
+
 /// \brief Set the UID of the responder generating the response.
 inline Response& Response::SetSourceUid(const Uid& uid) noexcept
 {
@@ -1478,6 +1483,14 @@ inline Response& Response::SetData(const uint8_t* data, size_t data_len)
 {
   if (data && data_len)
     data_.assign(data, data + data_len);
+  return *this;
+}
+
+/// \brief Append more data to this response's parameter data.
+inline Response& Response::AppendData(const uint8_t* data, size_t data_len)
+{
+  if (data && data_len)
+    data_.insert(data_.end(), data, data + data_len);
   return *this;
 }
 
