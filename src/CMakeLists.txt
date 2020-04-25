@@ -50,9 +50,9 @@ if(RDM_BUILD_MOCK_LIB)
 
     # RDM sources
     # We will gradually substitute these with mocks as needed
-    rdm/controller.c
-    rdm/message.c
-    rdm/responder.c
+    # rdm/controller.c
+    # rdm/message.c
+    # rdm/responder.c
     rdm/uid.c
   )
   target_include_directories(RDMMock PUBLIC ${RDM_INCLUDE})
