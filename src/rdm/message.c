@@ -389,6 +389,27 @@ etcpal_error_t rdm_create_full_overflow_response(const RdmCommandHeader* cmd_hea
 }
 
 /*!
+ * \brief Add additional parameter data to an already-serialized RDM command.
+ *
+ * This function is useful when building an RDM command progressively. The length and checksum will
+ * be updated.
+ *
+ * \param[in,out] buffer Packed RDM command to which to append data.
+ * \param[in] additional_data Parameter data to append.
+ * \param[in] additional_data_len Length of the parameter data to append.
+ * \return #kEtcPalErrOk: Data appended successfully.
+ * \return #kEtcPalErrInvalid: Invalid argument provided.
+ * \return #kEtcPalErrBufSize: Not enough space in RDM command for additional data.
+ */
+etcpal_error_t rdm_append_parameter_data(RdmBuffer* buffer, const uint8_t* additional_data, uint8_t additional_data_len)
+{
+  ETCPAL_UNUSED_ARG(buffer);
+  ETCPAL_UNUSED_ARG(additional_data);
+  ETCPAL_UNUSED_ARG(additional_data_len);
+  return kEtcPalErrNotImpl;
+}
+
+/*!
  * \brief Deserialize an RDM command from its wire format.
  *
  * \param[in] buffer Buffer holding serialized RDM command data.

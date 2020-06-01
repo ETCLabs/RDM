@@ -266,6 +266,9 @@ size_t rdm_get_num_overflow_responses_needed(uint16_t param_id, size_t response_
 etcpal_error_t rdm_create_full_overflow_response(const RdmCommandHeader* cmd_header, const uint8_t* response_data,
                                                  size_t response_data_len, RdmBuffer* buffers, size_t num_buffers);
 
+etcpal_error_t rdm_append_parameter_data(RdmBuffer* buffer, const uint8_t* additional_data,
+                                         uint8_t additional_data_len);
+
 etcpal_error_t rdm_unpack_command(const RdmBuffer* buffer, RdmCommandHeader* cmd_header, const uint8_t** param_data,
                                   uint8_t* param_data_len);
 etcpal_error_t rdm_unpack_response(const RdmBuffer* buffer, RdmResponseHeader* resp_header, const uint8_t** param_data,
