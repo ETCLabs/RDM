@@ -117,8 +117,6 @@ typedef enum
    * response data available than will fit in a single response message.
    */
   kRdmResponseTypeAckOverflow = E120_RESPONSE_TYPE_ACK_OVERFLOW,
-
-  kRdmNumResponseTypes
 } rdm_response_type_t;
 
 /*! An enumeration representing a standard RDM NACK reason. */
@@ -165,8 +163,13 @@ typedef enum
   /*! The transport layer port provided is invalid. */
   kRdmNRInvalidPort = E133_NR_INVALID_PORT,
 
-  kRdmNumStandardNRCodes
+  /****************************************************************************
+   * UPDATE THE DEFINE BELOW IF ADDING ENUM VALUES
+   ***************************************************************************/
 } rdm_nack_reason_t;
+
+/*! The number of enumerated values in the rdm_nack_reason_t type. */
+#define RDM_NUM_STANDARD_NR_CODES 20
 
 /*! A structure that represents a packed RDM message. */
 typedef struct RdmBuffer
@@ -247,24 +250,24 @@ bool rdm_validate_msg(const RdmBuffer* buffer);
 bool rdm_command_header_is_valid(const RdmCommandHeader* cmd_header);
 bool rdm_response_header_is_valid(const RdmResponseHeader* resp_header);
 
-etcpal_error_t rdm_create_command(const RdmCommandHeader* cmd_header, const uint8_t* cmd_data, uint8_t cmd_data_len,
-                                  RdmBuffer* buffer);
-etcpal_error_t rdm_create_command_with_custom_buf(const RdmCommandHeader* cmd_header, const uint8_t* cmd_data,
-                                                  uint8_t cmd_data_len, uint8_t* buf, size_t buf_len);
+etcpal_error_t rdm_pack_command(const RdmCommandHeader* cmd_header, const uint8_t* cmd_data, uint8_t cmd_data_len,
+                                RdmBuffer* buffer);
+etcpal_error_t rdm_pack_command_with_custom_buf(const RdmCommandHeader* cmd_header, const uint8_t* cmd_data,
+                                                uint8_t cmd_data_len, uint8_t* buf, size_t buf_len);
 
-etcpal_error_t rdm_create_response(const RdmCommandHeader* cmd_header, uint8_t msg_count, const uint8_t* response_data,
-                                   uint8_t response_data_len, RdmBuffer* buffer);
-etcpal_error_t rdm_create_overflow_response(const RdmCommandHeader* cmd_header, const uint8_t* response_data,
-                                            uint8_t response_data_len, RdmBuffer* buffer);
-etcpal_error_t rdm_create_nack_response(const RdmCommandHeader* cmd_header, uint8_t msg_count,
-                                        rdm_nack_reason_t nack_reason, RdmBuffer* buffer);
-etcpal_error_t rdm_create_timer_response(const RdmCommandHeader* cmd_header, uint8_t msg_count,
-                                         unsigned int delay_time_ms, RdmBuffer* buffer);
-etcpal_error_t rdm_create_dub_response(const RdmUid* responder_uid, RdmBuffer* buffer);
+etcpal_error_t rdm_pack_response(const RdmCommandHeader* cmd_header, uint8_t msg_count, const uint8_t* response_data,
+                                 uint8_t response_data_len, RdmBuffer* buffer);
+etcpal_error_t rdm_pack_overflow_response(const RdmCommandHeader* cmd_header, const uint8_t* response_data,
+                                          uint8_t response_data_len, RdmBuffer* buffer);
+etcpal_error_t rdm_pack_nack_response(const RdmCommandHeader* cmd_header, uint8_t msg_count,
+                                      rdm_nack_reason_t nack_reason, RdmBuffer* buffer);
+etcpal_error_t rdm_pack_timer_response(const RdmCommandHeader* cmd_header, uint8_t msg_count,
+                                       unsigned int delay_time_ms, RdmBuffer* buffer);
+etcpal_error_t rdm_pack_dub_response(const RdmUid* responder_uid, RdmBuffer* buffer);
 
 size_t rdm_get_num_overflow_responses_needed(uint16_t param_id, size_t response_data_len);
-etcpal_error_t rdm_create_full_overflow_response(const RdmCommandHeader* cmd_header, const uint8_t* response_data,
-                                                 size_t response_data_len, RdmBuffer* buffers, size_t num_buffers);
+etcpal_error_t rdm_pack_full_overflow_response(const RdmCommandHeader* cmd_header, const uint8_t* response_data,
+                                               size_t response_data_len, RdmBuffer* buffers, size_t num_buffers);
 
 etcpal_error_t rdm_append_parameter_data(RdmBuffer* buffer, const uint8_t* additional_data,
                                          uint8_t additional_data_len);

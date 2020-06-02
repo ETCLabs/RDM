@@ -134,7 +134,7 @@ inline const char* NackReason::ToCString() const noexcept
 /// \brief Whether this instance contains a standard RDM NACK reason code.
 constexpr bool NackReason::IsStandard() const noexcept
 {
-  return code_ < kRdmNumStandardNRCodes;
+  return code_ < RDM_NUM_STANDARD_NR_CODES;
 }
 
 /// \ingroup cpp_message
@@ -414,7 +414,7 @@ constexpr size_t CommandHeader::PackedSize(uint8_t data_len) const noexcept
 /// \return Result of serialize operation.
 inline etcpal::Error CommandHeader::Serialize(RdmBuffer& buffer, const uint8_t* data, uint8_t data_len) const noexcept
 {
-  return rdm_create_command(&cmd_header_, data, data_len, &buffer);
+  return rdm_pack_command(&cmd_header_, data, data_len, &buffer);
 }
 
 /// \brief Convert the header along with accompanying data to the RDM wire format.
@@ -426,7 +426,7 @@ inline etcpal::Error CommandHeader::Serialize(RdmBuffer& buffer, const uint8_t* 
 inline etcpal::Error CommandHeader::Serialize(uint8_t* buf, size_t buf_len, const uint8_t* data, uint8_t data_len) const
     noexcept
 {
-  return rdm_create_command_with_custom_buf(&cmd_header_, data, data_len, buf, buf_len);
+  return rdm_pack_command_with_custom_buf(&cmd_header_, data, data_len, buf, buf_len);
 }
 
 /// \brief Create a header for an RDM GET_COMMAND.

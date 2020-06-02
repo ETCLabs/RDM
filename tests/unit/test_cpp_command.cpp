@@ -69,14 +69,16 @@ TEST(CppCmd, HeaderConstructorWorks)
   EXPECT_TRUE(cmd.IsValid());
   EXPECT_TRUE(cmd.header().IsValid());
   EXPECT_TRUE(cmd.HasData());
-  EXPECT_EQ(cmd.data_len(), 1u);
+
+  ASSERT_EQ(cmd.data_len(), 1u);
   EXPECT_EQ(*cmd.data(), 1u);
 
   // Test the C-style header constructor
-  cmd = rdm::Command(header.get());
+  cmd = rdm::Command(header.get(), &identify_val, 1);
   EXPECT_TRUE(cmd.IsValid());
   EXPECT_TRUE(cmd.header().IsValid());
   EXPECT_TRUE(cmd.HasData());
-  EXPECT_EQ(cmd.data_len(), 1u);
+
+  ASSERT_EQ(cmd.data_len(), 1u);
   EXPECT_EQ(*cmd.data(), 1u);
 }

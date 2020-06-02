@@ -172,6 +172,11 @@
 #define E137_2_DNS_HOSTNAME                               0x070C /* Defined in ANSI E1.37-2                                    */
 #define E137_2_DNS_DOMAIN_NAME                            0x070D /* Defined in ANSI E1.37-2                                    */
 
+/* Category - E1.33 Management   */
+#define E133_COMPONENT_SCOPE                              0x0800 /* Defined in ANSI E1.33                                      */
+#define E133_SEARCH_DOMAIN                                0x0801 /* Defined in ANSI E1.33                                      */
+#define E133_TCP_COMMS_STATUS                             0x0802 /* Defined in ANSI E1.33                                      */
+#define E133_BROKER_STATUS                                0x0803 /* Defined in ANSI E1.33                                      */
 
 /* Category - Control              */
 #define E120_IDENTIFY_DEVICE                              0x1000

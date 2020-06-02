@@ -19,29 +19,69 @@
 
 #include "rdm/message.h"
 
+#include <stdlib.h>
 #include <string.h>
 #include "etcpal/common.h"
 #include "etcpal/pack.h"
 #include "rdm/defs.h"
 
+/****************************** Private types ********************************/
+
+typedef struct MaxPdSize
+{
+  uint16_t pid;
+  uint8_t max_pd;
+} MaxPdSize;
+
+/**************************** Private variables ******************************/
+
+// The value for max_pd should be the maximum parameter data size such that a
+// data unit will not be split between responses in an ACK_OVERFLOW.
+//
+// In other words, the value should be derived as (using integer division):
+// (RDM_MAX_PDL / data_unit_size) * data_unit_size.
+//
+// For example, for E120_PROXIED_DEVICES, the data unit is 6 bytes in size. The
+// max_pd value is calculated as:
+// (231 / 6) * 6 == 228
+//
+// Items should only be added to this table if their max_pd value != 231.
+//
+///////////////////////////////////////////////////////////////////////////////
+// IMPORTANT
+///////////////////////////////////////////////////////////////////////////////
+// This array MUST BE SORTED BY PID VALUE
+///////////////////////////////////////////////////////////////////////////////
+// When adding new elements make sure to insert them in the correct position
+// based on their PID value
+///////////////////////////////////////////////////////////////////////////////
+// IMPORTANT
+///////////////////////////////////////////////////////////////////////////////
+// clang-format off
+static const MaxPdSize kKnownMaxPdSizes[] = {
+    {E120_PROXIED_DEVICES, 228},
+    {E120_STATUS_MESSAGES, 225},
+    {E120_SUPPORTED_PARAMETERS, 230},
+    {E120_LANGUAGE_CAPABILITIES, 230},
+    {E120_SLOT_INFO, 230},
+    {E133_TCP_COMMS_STATUS, 87},
+};
+#define NUM_KNOWN_MAX_PD_SIZES (sizeof(kKnownMaxPdSizes) / sizeof(kKnownMaxPdSizes[0]))
+// clang-format on
+
 /*********************** Private function prototypes *************************/
 
 static bool validate_received_cmd_header(const RdmCommandHeader* header);
+
+static void pack_rdm_command_header(const RdmCommandHeader* cmd_header, uint8_t rdm_length, uint8_t* buffer);
 static void pack_rdm_response_header(const RdmCommandHeader* cmd_header, uint8_t rdm_length,
                                      rdm_response_type_t response_type, uint8_t msg_count, uint8_t* buffer);
+
+static uint8_t get_max_pd_size(uint16_t pid);
+
 static uint16_t calc_checksum(const uint8_t* buffer, size_t data_len_without_checksum);
 
 /*************************** Function definitions ****************************/
-
-/* Internal function to calculate the correct checksum of an RDM packet. */
-uint16_t calc_checksum(const uint8_t* buffer, size_t data_len_without_checksum)
-{
-  size_t i;
-  uint16_t sum = 0;
-  for (i = 0; i < data_len_without_checksum; ++i)
-    sum += buffer[i];
-  return sum;
-}
 
 /*!
  * \brief Calculate and pack an RDM checksum at the end of an RDM message.
@@ -129,17 +169,28 @@ bool rdm_response_header_is_valid(const RdmResponseHeader* resp_header)
  * \param[in] cmd_data The parameter data that accompanies the command, or NULL if no data.
  * \param[in] cmd_data_len Length in bytes of cmd_data, or 0 if no data.
  * \param[out] buffer RdmBuffer struct to hold the serialized command.
- * \return #kEtcPalErrOk: Command created successfully.
+ * \return #kEtcPalErrOk: Command packed successfully.
  * \return #kEtcPalErrInvalid: Invalid argument provided.
  */
-etcpal_error_t rdm_create_command(const RdmCommandHeader* cmd_header, const uint8_t* cmd_data, uint8_t cmd_data_len,
-                                  RdmBuffer* buffer)
+etcpal_error_t rdm_pack_command(const RdmCommandHeader* cmd_header, const uint8_t* cmd_data, uint8_t cmd_data_len,
+                                RdmBuffer* buffer)
 {
-  ETCPAL_UNUSED_ARG(cmd_header);
-  ETCPAL_UNUSED_ARG(cmd_data);
-  ETCPAL_UNUSED_ARG(cmd_data_len);
-  ETCPAL_UNUSED_ARG(buffer);
-  return kEtcPalErrNotImpl;
+  if (!cmd_header || !buffer || !rdm_command_header_is_valid(cmd_header))
+    return kEtcPalErrInvalid;
+  if (cmd_data_len > RDM_MAX_PDL)
+    return kEtcPalErrMsgSize;
+
+  uint8_t rdm_length = cmd_data_len + RDM_HEADER_SIZE;
+  pack_rdm_command_header(cmd_header, rdm_length, buffer->data);
+
+  // Pack the command parameter data, if present
+  if (cmd_data && cmd_data_len)
+    memcpy(&buffer->data[RDM_HEADER_SIZE], cmd_data, cmd_data_len);
+
+  // pack checksum and set packet length
+  rdm_pack_checksum(buffer->data, rdm_length);
+  buffer->data_len = rdm_length + 2;
+  return kEtcPalErrOk;
 }
 
 /*!
@@ -150,12 +201,12 @@ etcpal_error_t rdm_create_command(const RdmCommandHeader* cmd_header, const uint
  * \param[in] cmd_data_len Length in bytes of cmd_data, or 0 if no data.
  * \param[out] buf Data buffer to hold the serialized command.
  * \param[out] buf_len Length in bytes of buf.
- * \return #kEtcPalErrOk: Command created successfully.
+ * \return #kEtcPalErrOk: Command packed successfully.
  * \return #kEtcPalErrInvalid: Invalid argument provided.
  * \return #kEtcPalErrBufSize: Buffer not long enough to hold RDM message.
  */
-etcpal_error_t rdm_create_command_with_custom_buf(const RdmCommandHeader* cmd_header, const uint8_t* cmd_data,
-                                                  uint8_t cmd_data_len, uint8_t* buf, size_t buf_len)
+etcpal_error_t rdm_pack_command_with_custom_buf(const RdmCommandHeader* cmd_header, const uint8_t* cmd_data,
+                                                uint8_t cmd_data_len, uint8_t* buf, size_t buf_len)
 {
   ETCPAL_UNUSED_ARG(cmd_header);
   ETCPAL_UNUSED_ARG(cmd_data);
@@ -166,11 +217,11 @@ etcpal_error_t rdm_create_command_with_custom_buf(const RdmCommandHeader* cmd_he
 }
 
 /*!
- * \brief Create an RDM ACK response to a previously-received command.
+ * \brief Serialize an RDM ACK response to a previously-received command.
  *
  * Creates and serializes the ACK response into a format suitable for sending on the wire. Response
  * data must fit in a single response (must be <= RDM_MAX_PDL); if it doesn't, split the data into
- * N chunks and call rdm_create_overflow_response() for the first N - 1, and this function for the
+ * N chunks and call rdm_pack_overflow_response() for the first N - 1, and this function for the
  * Nth chunk.
  *
  * \param[in] cmd_header Header from the received RDM command.
@@ -178,12 +229,12 @@ etcpal_error_t rdm_create_command_with_custom_buf(const RdmCommandHeader* cmd_he
  * \param[in] response_data (optional) The response parameter data, if any.
  * \param[in] response_data_len (optional) The length of the response parameter data, if any.
  * \param[out] buffer Data buffer filled in with serialized response.
- * \return #kEtcPalErrOk: Response created successfully.
+ * \return #kEtcPalErrOk: Response packed successfully.
  * \return #kEtcPalErrInvalid: Invalid argument.
  * \return #kEtcPalErrMsgSize: Response data too long.
  */
-etcpal_error_t rdm_create_response(const RdmCommandHeader* cmd_header, uint8_t msg_count, const uint8_t* response_data,
-                                   uint8_t response_data_len, RdmBuffer* buffer)
+etcpal_error_t rdm_pack_response(const RdmCommandHeader* cmd_header, uint8_t msg_count, const uint8_t* response_data,
+                                 uint8_t response_data_len, RdmBuffer* buffer)
 {
   if (!cmd_header || !buffer || !validate_received_cmd_header(cmd_header))
     return kEtcPalErrInvalid;
@@ -204,7 +255,7 @@ etcpal_error_t rdm_create_response(const RdmCommandHeader* cmd_header, uint8_t m
 }
 
 /*!
- * \brief Create an RDM ACK_OVERFLOW response to a previously-received command.
+ * \brief Serialize an RDM ACK_OVERFLOW response to a previously-received command.
  *
  * ACK_OVERFLOW responses represent part of an RDM response whose data is too large to send in a
  * single response. Creates and serializes the ACK_OVERFLOW response into a format suitable for
@@ -214,22 +265,33 @@ etcpal_error_t rdm_create_response(const RdmCommandHeader* cmd_header, uint8_t m
  * \param[in] response_data The portion of the response parameter data being sent in this overflow response.
  * \param[in] response_data_len The length of the response_data.
  * \param[out] buffer Data buffer filled in with serialized response.
- * \return #kEtcPalErrOk: Response created successfully.
+ * \return #kEtcPalErrOk: Response packed successfully.
  * \return #kEtcPalErrInvalid: Invalid argument.
  * \return #kEtcPalErrMsgSize: Response data too long.
  */
-etcpal_error_t rdm_create_overflow_response(const RdmCommandHeader* cmd_header, const uint8_t* response_data,
-                                            uint8_t response_data_len, RdmBuffer* buffer)
+etcpal_error_t rdm_pack_overflow_response(const RdmCommandHeader* cmd_header, const uint8_t* response_data,
+                                          uint8_t response_data_len, RdmBuffer* buffer)
 {
-  ETCPAL_UNUSED_ARG(cmd_header);
-  ETCPAL_UNUSED_ARG(response_data);
-  ETCPAL_UNUSED_ARG(response_data_len);
-  ETCPAL_UNUSED_ARG(buffer);
-  return kEtcPalErrNotImpl;
+  if (!cmd_header || !buffer || !validate_received_cmd_header(cmd_header))
+    return kEtcPalErrInvalid;
+  if (response_data_len > RDM_MAX_PDL)
+    return kEtcPalErrMsgSize;
+
+  uint8_t rdm_length = response_data_len + RDM_HEADER_SIZE;
+  pack_rdm_response_header(cmd_header, rdm_length, kRdmResponseTypeAckOverflow, 0, buffer->data);
+
+  // Pack the response parameter data
+  if (response_data && response_data_len)
+    memcpy(&buffer->data[RDM_HEADER_SIZE], response_data, response_data_len);
+
+  // pack checksum and set packet length
+  rdm_pack_checksum(buffer->data, rdm_length);
+  buffer->data_len = rdm_length + 2;
+  return kEtcPalErrOk;
 }
 
 /*!
- * \brief Create an RDM NACK response to a previously-received command.
+ * \brief Serialize an RDM NACK response to a previously-received command.
  *
  * Creates and serializes the NACK response into a format suitable for sending on the wire.
  *
@@ -237,11 +299,11 @@ etcpal_error_t rdm_create_overflow_response(const RdmCommandHeader* cmd_header, 
  * \param[in] msg_count The current queued message count.
  * \param[in] nack_reason The RDM NACK reason to send.
  * \param[out] buffer Data buffer filled in with serialized response.
- * \return #kEtcPalErrOk: Response created successfully.
+ * \return #kEtcPalErrOk: Response packed successfully.
  * \return #kEtcPalErrInvalid: Invalid argument.
  */
-etcpal_error_t rdm_create_nack_response(const RdmCommandHeader* cmd_header, uint8_t msg_count,
-                                        rdm_nack_reason_t nack_reason, RdmBuffer* buffer)
+etcpal_error_t rdm_pack_nack_response(const RdmCommandHeader* cmd_header, uint8_t msg_count,
+                                      rdm_nack_reason_t nack_reason, RdmBuffer* buffer)
 {
   if (!cmd_header || !buffer || !validate_received_cmd_header(cmd_header))
     return kEtcPalErrInvalid;
@@ -259,7 +321,7 @@ etcpal_error_t rdm_create_nack_response(const RdmCommandHeader* cmd_header, uint
 }
 
 /*!
- * \brief Create an RDM ACK_TIMER response to a previously-received command.
+ * \brief Serialize an RDM ACK_TIMER response to a previously-received command.
  *
  * Creates and serializes the ACK_TIMER response into a format suitable for sending on the wire.
  *
@@ -268,11 +330,11 @@ etcpal_error_t rdm_create_nack_response(const RdmCommandHeader* cmd_header, uint
  * \param[in] delay_time_ms The amount of time in milliseconds before the response will be
  *                          available. Must be in the range [1, 6553500].
  * \param[out] buffer Data buffer filled in with serialized response.
- * \return #kEtcPalErrOk: Response created successfully.
+ * \return #kEtcPalErrOk: Response packed successfully.
  * \return #kEtcPalErrInvalid: Invalid argument.
  */
-etcpal_error_t rdm_create_timer_response(const RdmCommandHeader* cmd_header, uint8_t msg_count,
-                                         unsigned int delay_time_ms, RdmBuffer* buffer)
+etcpal_error_t rdm_pack_timer_response(const RdmCommandHeader* cmd_header, uint8_t msg_count,
+                                       unsigned int delay_time_ms, RdmBuffer* buffer)
 {
   if (!cmd_header || !buffer || !validate_received_cmd_header(cmd_header) || delay_time_ms == 0 ||
       delay_time_ms > 6553500)
@@ -297,17 +359,17 @@ etcpal_error_t rdm_create_timer_response(const RdmCommandHeader* cmd_header, uin
 }
 
 /*!
- * \brief Create an RDM DISC_UNIQUE_BRANCH response.
+ * \brief Serialize an RDM DISC_UNIQUE_BRANCH response.
  *
  * The DISC_UNIQUE_BRANCH response does not adhere to the normal RDM packet format and is sent
  * without a break. The only information encoded is this responder's UID.
  *
  * \param[in] responder_uid UID of the responder responding to the DISC_UNIQUE_BRANCH command.
  * \param[out] buffer Data buffer filled in with serialized response.
- * \return #kEtcPalErrOk: Response created successfully.
+ * \return #kEtcPalErrOk: Response packed successfully.
  * \return #kEtcPalErrInvalid: Invalid argument.
  */
-etcpal_error_t rdm_create_dub_response(const RdmUid* responder_uid, RdmBuffer* buffer)
+etcpal_error_t rdm_pack_dub_response(const RdmUid* responder_uid, RdmBuffer* buffer)
 {
   if (!responder_uid || !buffer)
     return kEtcPalErrInvalid;
@@ -358,13 +420,15 @@ etcpal_error_t rdm_create_dub_response(const RdmUid* responder_uid, RdmBuffer* b
  */
 size_t rdm_get_num_overflow_responses_needed(uint16_t param_id, size_t response_data_len)
 {
-  ETCPAL_UNUSED_ARG(param_id);
-  ETCPAL_UNUSED_ARG(response_data_len);
-  return 0;
+  uint8_t max_pd = get_max_pd_size(param_id);
+  size_t num_responses = response_data_len / max_pd;
+  if (response_data_len % max_pd)
+    ++num_responses;
+  return num_responses;
 }
 
 /*!
- * \brief Create a full ACK_OVERFLOW/ACK sequence representing an oversized RDM response.
+ * \brief Serialize a full ACK_OVERFLOW/ACK sequence representing an oversized RDM response.
  *
  * This function is most often used by higher-level protocols like RDMnet.
  *
@@ -373,26 +437,48 @@ size_t rdm_get_num_overflow_responses_needed(uint16_t param_id, size_t response_
  * \param[in] response_data_len The length of the response parameter data.
  * \param[out] buffers Set of buffers into which to pack serialized RDM ACK_OVERFLOW/ACK responses in order.
  * \param[out] num_buffers Size of buffers array.
- * \return #kEtcPalErrOk: ACK_OVERFLOW responses created successfully.
+ * \return #kEtcPalErrOk: ACK_OVERFLOW responses packed successfully.
  * \return #kEtcPalErrInvalid: Invalid argument provided.
  * \return #kEtcPalErrBufSize: Not enough RdmBuffers to hold the response data.
  */
-etcpal_error_t rdm_create_full_overflow_response(const RdmCommandHeader* cmd_header, const uint8_t* response_data,
-                                                 size_t response_data_len, RdmBuffer* buffers, size_t num_buffers)
+etcpal_error_t rdm_pack_full_overflow_response(const RdmCommandHeader* cmd_header, const uint8_t* response_data,
+                                               size_t response_data_len, RdmBuffer* buffers, size_t num_buffers)
 {
-  ETCPAL_UNUSED_ARG(cmd_header);
-  ETCPAL_UNUSED_ARG(response_data);
-  ETCPAL_UNUSED_ARG(response_data_len);
-  ETCPAL_UNUSED_ARG(buffers);
-  ETCPAL_UNUSED_ARG(num_buffers);
-  return kEtcPalErrNotImpl;
+  if (!cmd_header || !response_data || !response_data_len || !buffers || !num_buffers ||
+      !validate_received_cmd_header(cmd_header))
+  {
+    return kEtcPalErrInvalid;
+  }
+
+  size_t num_responses_needed = rdm_get_num_overflow_responses_needed(cmd_header->param_id, response_data_len);
+  if (num_responses_needed > num_buffers)
+    return kEtcPalErrBufSize;
+
+  uint8_t max_pd = get_max_pd_size(cmd_header->param_id);
+  for (size_t i = 0; i < num_responses_needed; ++i)
+  {
+    uint8_t this_resp_pd_length = ((i < (num_responses_needed - 1)) ? max_pd : (response_data_len % max_pd));
+    uint8_t this_resp_rdm_length = this_resp_pd_length + RDM_HEADER_SIZE;
+    pack_rdm_response_header(cmd_header, this_resp_rdm_length,
+                             ((i < (num_responses_needed - 1)) ? kRdmResponseTypeAckOverflow : kRdmResponseTypeAck), 0,
+                             buffers[i].data);
+
+    // Pack the response parameter data, if present
+    if (response_data && response_data_len)
+      memcpy(&buffers[i].data[RDM_HEADER_SIZE], &response_data[max_pd * i], this_resp_pd_length);
+
+    // pack checksum and set packet length
+    rdm_pack_checksum(buffers[i].data, this_resp_rdm_length);
+    buffers[i].data_len = this_resp_rdm_length + 2;
+  }
+  return kEtcPalErrOk;
 }
 
 /*!
  * \brief Add additional parameter data to an already-serialized RDM command.
  *
- * This function is useful when building an RDM command progressively. The length and checksum will
- * be updated.
+ * This function is useful when building an RDM command or response progressively. The length and
+ * checksum will be updated.
  *
  * \param[in,out] buffer Packed RDM command to which to append data.
  * \param[in] additional_data Parameter data to append.
@@ -524,13 +610,6 @@ const char* rdm_command_class_to_string(rdm_command_class_t command_class)
   }
 }
 
-static const char* kResponseTypeStrings[kRdmNumResponseTypes] = {
-    "ACK",          // kRdmResponseTypeAck
-    "ACK_TIMER",    // kRdmResponseTypeAckTimer
-    "NACK_REASON",  // kRdmResponseTypeNackReason
-    "ACK_OVERFLOW"  // kRdmResponseTypeAckOverflow
-};
-
 /*!
  * \brief Get a string representation of an RDM response type.
  * \param[in] resp_type Response type for which to get a string representation.
@@ -538,14 +617,22 @@ static const char* kResponseTypeStrings[kRdmNumResponseTypes] = {
  */
 const char* rdm_response_type_to_string(rdm_response_type_t resp_type)
 {
-  if (resp_type >= 0 && resp_type < kRdmNumResponseTypes)
+  switch (resp_type)
   {
-    return kResponseTypeStrings[resp_type];
+    case kRdmResponseTypeAck:
+      return "ACK";
+    case kRdmResponseTypeAckTimer:
+      return "ACK_TIMER";
+    case kRdmResponseTypeNackReason:
+      return "NACK_REASON";
+    case kRdmResponseTypeAckOverflow:
+      return "ACK_OVERFLOW";
+    default:
+      return "Unknown Response Type";
   }
-  return "Unknown Response Type";
 }
 
-static const char* kNackReasonStrings[kRdmNumStandardNRCodes] = {
+static const char* kNackReasonStrings[RDM_NUM_STANDARD_NR_CODES] = {
     "Unknown or Unsupported PID",                     // kRdmNRUnknownPid
     "Message Format Error",                           // kRdmNRFormatError
     "Internal Hardware Fault",                        // kRdmNRHardwareFault
@@ -576,7 +663,7 @@ static const char* kNackReasonStrings[kRdmNumStandardNRCodes] = {
  */
 const char* rdm_nack_reason_to_string(rdm_nack_reason_t reason_code)
 {
-  if (reason_code >= 0 && reason_code < kRdmNumStandardNRCodes)
+  if (reason_code >= 0 && reason_code < RDM_NUM_STANDARD_NR_CODES)
   {
     return kNackReasonStrings[reason_code];
   }
@@ -589,6 +676,32 @@ bool validate_received_cmd_header(const RdmCommandHeader* header)
           !RDM_UID_EQUAL(&header->dest_uid, &kRdmBroadcastUid) &&
           (header->command_class == kRdmCCDiscoveryCommand || header->command_class == kRdmCCGetCommand ||
            header->command_class == kRdmCCSetCommand));
+}
+
+void pack_rdm_command_header(const RdmCommandHeader* cmd_header, uint8_t rdm_length, uint8_t* buffer)
+{
+  uint8_t* cur_ptr = buffer;
+
+  *cur_ptr++ = E120_SC_RDM;
+  *cur_ptr++ = E120_SC_SUB_MESSAGE;
+  *cur_ptr++ = rdm_length;
+  etcpal_pack_u16b(cur_ptr, cmd_header->dest_uid.manu);
+  cur_ptr += 2;
+  etcpal_pack_u32b(cur_ptr, cmd_header->dest_uid.id);
+  cur_ptr += 4;
+  etcpal_pack_u16b(cur_ptr, cmd_header->source_uid.manu);
+  cur_ptr += 2;
+  etcpal_pack_u32b(cur_ptr, cmd_header->source_uid.id);
+  cur_ptr += 4;
+  *cur_ptr++ = cmd_header->transaction_num;
+  *cur_ptr++ = cmd_header->port_id;
+  *cur_ptr++ = 0;  // Reserved
+  etcpal_pack_u16b(cur_ptr, cmd_header->subdevice);
+  cur_ptr += 2;
+  *cur_ptr++ = (uint8_t)cmd_header->command_class;
+  etcpal_pack_u16b(cur_ptr, cmd_header->param_id);
+  cur_ptr += 2;
+  *cur_ptr++ = rdm_length - RDM_HEADER_SIZE;
 }
 
 void pack_rdm_response_header(const RdmCommandHeader* cmd_header, uint8_t rdm_length, rdm_response_type_t response_type,
@@ -616,4 +729,31 @@ void pack_rdm_response_header(const RdmCommandHeader* cmd_header, uint8_t rdm_le
   etcpal_pack_u16b(cur_ptr, cmd_header->param_id);
   cur_ptr += 2;
   *cur_ptr++ = rdm_length - RDM_HEADER_SIZE;
+}
+
+static int compare_pids(const void* a, const void* b)
+{
+  const MaxPdSize* pd_a = (const MaxPdSize*)a;
+  const MaxPdSize* pd_b = (const MaxPdSize*)b;
+
+  return (pd_a->pid > pd_b->pid) - (pd_a->pid < pd_b->pid);
+}
+
+uint8_t get_max_pd_size(uint16_t pid)
+{
+  MaxPdSize* known_size = bsearch(&pid, kKnownMaxPdSizes, NUM_KNOWN_MAX_PD_SIZES, sizeof(MaxPdSize), compare_pids);
+  if (known_size)
+    return known_size->max_pd;
+  else
+    return RDM_MAX_PDL;
+}
+
+/* Internal function to calculate the correct checksum of an RDM packet. */
+uint16_t calc_checksum(const uint8_t* buffer, size_t data_len_without_checksum)
+{
+  size_t i;
+  uint16_t sum = 0;
+  for (i = 0; i < data_len_without_checksum; ++i)
+    sum += buffer[i];
+  return sum;
 }

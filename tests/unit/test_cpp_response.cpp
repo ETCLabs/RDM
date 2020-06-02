@@ -47,14 +47,16 @@ TEST(CppResponse, HeaderConstructorWorks)
   EXPECT_TRUE(response.IsValid());
   EXPECT_TRUE(response.header().IsValid());
   EXPECT_TRUE(response.HasData());
-  EXPECT_EQ(response.data_len(), resp_data.size());
+
+  ASSERT_EQ(response.data_len(), resp_data.size());
   EXPECT_EQ(0, std::memcmp(response.data(), resp_data.data(), resp_data.size()));
 
   // Test the C-style header constructor
-  response = rdm::Response(header.get());
+  response = rdm::Response(header.get(), resp_data.data(), resp_data.size());
   EXPECT_TRUE(response.IsValid());
   EXPECT_TRUE(response.header().IsValid());
   EXPECT_TRUE(response.HasData());
-  EXPECT_EQ(response.data_len(), resp_data.size());
+
+  ASSERT_EQ(response.data_len(), resp_data.size());
   EXPECT_EQ(0, std::memcmp(response.data(), resp_data.data(), resp_data.size()));
 }
