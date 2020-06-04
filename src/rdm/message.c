@@ -80,6 +80,8 @@ static void pack_rdm_response_header(const RdmCommandHeader* cmd_header, uint8_t
 static uint8_t get_max_pd_size(uint16_t pid);
 
 static uint16_t calc_checksum(const uint8_t* buffer, size_t data_len_without_checksum);
+static uint16_t get_u16_from_dub_response(const uint8_t* buffer);
+static uint32_t get_u32_from_dub_response(const uint8_t* buffer);
 
 /*************************** Function definitions ****************************/
 
@@ -489,10 +491,20 @@ etcpal_error_t rdm_pack_full_overflow_response(const RdmCommandHeader* cmd_heade
  */
 etcpal_error_t rdm_append_parameter_data(RdmBuffer* buffer, const uint8_t* additional_data, uint8_t additional_data_len)
 {
-  ETCPAL_UNUSED_ARG(buffer);
-  ETCPAL_UNUSED_ARG(additional_data);
-  ETCPAL_UNUSED_ARG(additional_data_len);
-  return kEtcPalErrNotImpl;
+  if (!buffer || !additional_data || !additional_data_len || !rdm_validate_msg(buffer))
+    return kEtcPalErrInvalid;
+
+  uint8_t cur_pdl = buffer->data[RDM_OFFSET_PARAM_DATA_LEN];
+  if (((size_t)cur_pdl) + ((size_t)additional_data_len) > RDM_MAX_PDL)
+    return kEtcPalErrBufSize;
+
+  memcpy(&buffer->data[RDM_OFFSET_PARAM_DATA + cur_pdl], additional_data, additional_data_len);
+  buffer->data[RDM_OFFSET_PARAM_DATA_LEN] += additional_data_len;
+  buffer->data[RDM_OFFSET_LENGTH] += additional_data_len;
+  buffer->data_len += additional_data_len;
+
+  rdm_pack_checksum(buffer->data, buffer->data_len - 2);
+  return kEtcPalErrOk;
 }
 
 /*!
@@ -509,11 +521,37 @@ etcpal_error_t rdm_append_parameter_data(RdmBuffer* buffer, const uint8_t* addit
 etcpal_error_t rdm_unpack_command(const RdmBuffer* buffer, RdmCommandHeader* cmd_header, const uint8_t** param_data,
                                   uint8_t* param_data_len)
 {
-  ETCPAL_UNUSED_ARG(buffer);
-  ETCPAL_UNUSED_ARG(cmd_header);
-  ETCPAL_UNUSED_ARG(param_data);
-  ETCPAL_UNUSED_ARG(param_data_len);
-  return kEtcPalErrNotImpl;
+  if (!buffer || !cmd_header || !param_data || !param_data_len)
+    return kEtcPalErrInvalid;
+  if (!rdm_validate_msg(buffer))
+    return kEtcPalErrProtocol;
+
+  // rdm_validate_msg() does length checks, so we do not need to worry here about overrunning the
+  // buffer.
+  const uint8_t* cur_ptr = buffer->data;
+  cur_ptr += 3;  // Start code, sub-start code and length are checked by rdm_validate_msg()
+  cmd_header->dest_uid.manu = etcpal_unpack_u16b(cur_ptr);
+  cur_ptr += 2;
+  cmd_header->dest_uid.id = etcpal_unpack_u32b(cur_ptr);
+  cur_ptr += 4;
+  cmd_header->source_uid.manu = etcpal_unpack_u16b(cur_ptr);
+  cur_ptr += 2;
+  cmd_header->source_uid.id = etcpal_unpack_u32b(cur_ptr);
+  cur_ptr += 4;
+  cmd_header->transaction_num = *cur_ptr++;
+  cmd_header->port_id = *cur_ptr++;
+  ++cur_ptr;  // Reserved
+  cmd_header->subdevice = etcpal_unpack_u16b(cur_ptr);
+  cur_ptr += 2;
+  cmd_header->command_class = (rdm_command_class_t)*cur_ptr++;
+  cmd_header->param_id = etcpal_unpack_u16b(cur_ptr);
+  cur_ptr += 2;
+  *param_data_len = *cur_ptr++;
+  if (*param_data_len == 0)
+    *param_data = NULL;
+  else
+    *param_data = cur_ptr;
+  return kEtcPalErrOk;
 }
 
 /*!
@@ -530,18 +568,44 @@ etcpal_error_t rdm_unpack_command(const RdmBuffer* buffer, RdmCommandHeader* cmd
 etcpal_error_t rdm_unpack_response(const RdmBuffer* buffer, RdmResponseHeader* resp_header, const uint8_t** param_data,
                                    uint8_t* param_data_len)
 {
-  ETCPAL_UNUSED_ARG(buffer);
-  ETCPAL_UNUSED_ARG(resp_header);
-  ETCPAL_UNUSED_ARG(param_data);
-  ETCPAL_UNUSED_ARG(param_data_len);
-  return kEtcPalErrNotImpl;
+  if (!buffer || !resp_header || !param_data || !param_data_len)
+    return kEtcPalErrInvalid;
+  if (!rdm_validate_msg(buffer))
+    return kEtcPalErrProtocol;
+
+  // rdm_validate_msg() does length checks, so we do not need to worry here about overrunning the
+  // buffer.
+  const uint8_t* cur_ptr = buffer->data;
+  cur_ptr += 3;  // Start code, sub-start code and length are checked by rdm_validate_msg()
+  resp_header->dest_uid.manu = etcpal_unpack_u16b(cur_ptr);
+  cur_ptr += 2;
+  resp_header->dest_uid.id = etcpal_unpack_u32b(cur_ptr);
+  cur_ptr += 4;
+  resp_header->source_uid.manu = etcpal_unpack_u16b(cur_ptr);
+  cur_ptr += 2;
+  resp_header->source_uid.id = etcpal_unpack_u32b(cur_ptr);
+  cur_ptr += 4;
+  resp_header->transaction_num = *cur_ptr++;
+  resp_header->resp_type = (rdm_response_type_t)*cur_ptr++;
+  resp_header->msg_count = *cur_ptr++;
+  resp_header->subdevice = etcpal_unpack_u16b(cur_ptr);
+  cur_ptr += 2;
+  resp_header->command_class = (rdm_command_class_t)*cur_ptr++;
+  resp_header->param_id = etcpal_unpack_u16b(cur_ptr);
+  cur_ptr += 2;
+  *param_data_len = *cur_ptr++;
+  if (*param_data_len == 0)
+    *param_data = NULL;
+  else
+    *param_data = cur_ptr;
+  return kEtcPalErrOk;
 }
 
 /*!
  * \brief Deserialize an RDM DISC_UNIQUE_BRANCH from its wire format.
  *
- * DISC_UNIQUE_BRANCH responses have a special format. The only information encoded is the
- * responder's UID.
+ * DISC_UNIQUE_BRANCH (aka DUB) responses have a special format. The only information encoded is
+ * the responder's UID.
  *
  * \param[in] buffer Buffer holding serialized RDM DISC_UNIQUE_BRANCH response data.
  * \param[out] responder_uid Filled in with the RDM responder's UID.
@@ -551,9 +615,31 @@ etcpal_error_t rdm_unpack_response(const RdmBuffer* buffer, RdmResponseHeader* r
  */
 etcpal_error_t rdm_unpack_dub_response(const RdmBuffer* buffer, RdmUid* responder_uid)
 {
-  ETCPAL_UNUSED_ARG(buffer);
-  ETCPAL_UNUSED_ARG(responder_uid);
-  return kEtcPalErrNotImpl;
+  if (!buffer || !responder_uid)
+    return kEtcPalErrInvalid;
+  if (buffer->data_len < 17)  // 17 bytes = encoded UID (16 bytes) + preamble separator (1 byte)
+    return kEtcPalErrProtocol;
+
+  const uint8_t* cur_ptr = buffer->data;
+  // Strip any preamble bytes
+  while (*cur_ptr == 0xfe && cur_ptr - buffer->data < 7)
+    ++cur_ptr;
+  if (*cur_ptr != 0xaa)
+    return kEtcPalErrProtocol;
+
+  ++cur_ptr;
+
+  // Validate the checksum
+  uint16_t expected_sum = calc_checksum(cur_ptr, 12);
+  const uint8_t* checksum_offset = cur_ptr + 12;
+  if (expected_sum != get_u16_from_dub_response(checksum_offset))
+    return kEtcPalErrProtocol;
+
+  // Fill in the responder UID
+  responder_uid->manu = get_u16_from_dub_response(cur_ptr);
+  responder_uid->id = get_u32_from_dub_response(cur_ptr + 4);
+
+  return kEtcPalErrOk;
 }
 
 /*!
@@ -756,4 +842,22 @@ uint16_t calc_checksum(const uint8_t* buffer, size_t data_len_without_checksum)
   for (i = 0; i < data_len_without_checksum; ++i)
     sum += buffer[i];
   return sum;
+}
+
+uint16_t get_u16_from_dub_response(const uint8_t* buffer)
+{
+  uint8_t condensed_buf[2];
+  condensed_buf[0] = buffer[0] & buffer[1];
+  condensed_buf[1] = buffer[2] & buffer[3];
+  return etcpal_unpack_u16b(condensed_buf);
+}
+
+uint32_t get_u32_from_dub_response(const uint8_t* buffer)
+{
+  uint8_t condensed_buf[4];
+  condensed_buf[0] = buffer[0] & buffer[1];
+  condensed_buf[1] = buffer[2] & buffer[3];
+  condensed_buf[2] = buffer[4] & buffer[5];
+  condensed_buf[3] = buffer[6] & buffer[7];
+  return etcpal_unpack_u32b(condensed_buf);
 }
