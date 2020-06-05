@@ -17,39 +17,11 @@
  * https://github.com/ETCLabs/RDM
  ******************************************************************************/
 
-#include "rdm/cpp/message.h"
+#include "rdm/cpp/message_types/command.h"
+
+#include <array>
+#include "message_test_data.h"
 #include "gtest/gtest.h"
-
-TEST(CppCmdHeader, DefaultConstructorWorks)
-{
-  // Default constructor should set some reasonable "null" or "zero" values
-  rdm::CommandHeader header;
-  EXPECT_FALSE(header.IsValid());
-  EXPECT_FALSE(header.source_uid().IsValid());
-  EXPECT_FALSE(header.dest_uid().IsValid());
-  EXPECT_EQ(header.transaction_num(), 0);
-  EXPECT_EQ(header.port_id(), 0);
-  EXPECT_EQ(header.subdevice(), 0);
-  EXPECT_EQ(header.param_id(), 0);
-}
-
-TEST(CppCmdHeader, UidSettersWork)
-{
-  rdm::CommandHeader header;
-
-  RdmUid uid1 = {20, 40};
-  header.SetSourceUid(uid1);
-  EXPECT_EQ(header.source_uid(), uid1);
-
-  header.SetDestUid(uid1);
-  EXPECT_EQ(header.dest_uid(), uid1);
-
-  rdm::Uid uid2(60, 80);
-  header.SetSourceUid(uid2);
-  EXPECT_EQ(header.source_uid(), uid2);
-  header.SetDestUid(uid2);
-  EXPECT_EQ(header.dest_uid(), uid2);
-}
 
 TEST(CppCmd, DefaultConstructorWorks)
 {
@@ -57,6 +29,35 @@ TEST(CppCmd, DefaultConstructorWorks)
   EXPECT_FALSE(cmd.IsValid());
   EXPECT_FALSE(cmd.header().IsValid());
   EXPECT_FALSE(cmd.HasData());
+}
+
+TEST(CppCmd, ValueConstructorWorks)
+{
+  rdm::Command cmd({0x6574, 0x1234}, {0x6574, 0x4321}, 20, 1, 200, kRdmCCGetCommand, E120_SUPPORTED_PARAMETERS);
+
+  EXPECT_TRUE(cmd.IsValid());
+  EXPECT_EQ(cmd.source_uid().manufacturer_id(), 0x6574u);
+  EXPECT_EQ(cmd.source_uid().device_id(), 0x1234u);
+  EXPECT_EQ(cmd.dest_uid().manufacturer_id(), 0x6574u);
+  EXPECT_EQ(cmd.dest_uid().device_id(), 0x4321u);
+  EXPECT_EQ(cmd.transaction_num(), 20u);
+  EXPECT_EQ(cmd.port_id(), 1u);
+  EXPECT_EQ(cmd.subdevice(), 200u);
+  EXPECT_EQ(cmd.command_class(), kRdmCCGetCommand);
+  EXPECT_EQ(cmd.param_id(), E120_SUPPORTED_PARAMETERS);
+
+  EXPECT_FALSE(cmd.HasData());
+  EXPECT_EQ(cmd.data(), nullptr);
+  EXPECT_EQ(cmd.data_len(), 0);
+
+  // Construct a command with parameter data.
+  const uint8_t sens_num = 4;
+  cmd = rdm::Command({0x6574, 0x1234}, {0x6574, 0x4321}, 20, 1, 200, kRdmCCGetCommand, E120_SENSOR_DEFINITION,
+                     &sens_num, 1);
+
+  EXPECT_TRUE(cmd.HasData());
+  ASSERT_EQ(cmd.data_len(), 1);
+  EXPECT_EQ(cmd.data()[0], sens_num);
 }
 
 TEST(CppCmd, HeaderConstructorWorks)
@@ -71,7 +72,7 @@ TEST(CppCmd, HeaderConstructorWorks)
   EXPECT_TRUE(cmd.HasData());
 
   ASSERT_EQ(cmd.data_len(), 1u);
-  EXPECT_EQ(*cmd.data(), 1u);
+  EXPECT_EQ(cmd.data()[0], 1u);
 
   // Test the C-style header constructor
   cmd = rdm::Command(header.get(), &identify_val, 1);
@@ -80,5 +81,48 @@ TEST(CppCmd, HeaderConstructorWorks)
   EXPECT_TRUE(cmd.HasData());
 
   ASSERT_EQ(cmd.data_len(), 1u);
-  EXPECT_EQ(*cmd.data(), 1u);
+  EXPECT_EQ(cmd.data()[0], 1u);
+}
+
+TEST(CppCmd, SettersAndGettersWork)
+{
+  // Construct a command with parameter data.
+  constexpr char kTestDeviceLabel[] = "Test Device Label";
+  auto cmd = rdm::Command({0x6574, 0x1234}, {0x6574, 0x4321}, 20, 1, 0, kRdmCCSetCommand, E120_DEVICE_LABEL,
+                          reinterpret_cast<const uint8_t*>(kTestDeviceLabel), sizeof(kTestDeviceLabel));
+
+  ASSERT_EQ(cmd.data_len(), sizeof(kTestDeviceLabel));
+  EXPECT_STREQ(reinterpret_cast<const char*>(cmd.data()), kTestDeviceLabel);
+
+  cmd.ClearData();
+  EXPECT_FALSE(cmd.HasData());
+  EXPECT_EQ(cmd.data_len(), 0u);
+  EXPECT_EQ(cmd.data(), nullptr);
+
+  cmd.SetData(nullptr, 0);
+  EXPECT_FALSE(cmd.HasData());
+  EXPECT_EQ(cmd.data_len(), 0u);
+  EXPECT_EQ(cmd.data(), nullptr);
+
+  cmd.SetData(reinterpret_cast<const uint8_t*>(kTestDeviceLabel), sizeof(kTestDeviceLabel));
+  EXPECT_TRUE(cmd.HasData());
+  EXPECT_EQ(cmd.data_len(), sizeof(kTestDeviceLabel));
+  EXPECT_STREQ(reinterpret_cast<const char*>(cmd.data()), kTestDeviceLabel);
+}
+
+TEST(CppCmd, SerializeWorks)
+{
+  const auto sensor_def = rdmtest::GetSensorDefinition();
+
+  rdm::Command cmd(sensor_def.cmd_header, sensor_def.cmd_data(), sensor_def.cmd_data_size());
+  EXPECT_TRUE(cmd.HasData());
+  EXPECT_EQ(cmd.PackedSize(), sensor_def.packed_cmd_size());
+
+  RdmBuffer buf;
+  EXPECT_TRUE(cmd.Serialize(buf));
+  EXPECT_EQ(buf, sensor_def.cmd_buf());
+
+  std::array<uint8_t, RDM_MAX_BYTES> raw_buf;
+  EXPECT_TRUE(cmd.Serialize(raw_buf.data(), raw_buf.size()));
+  EXPECT_EQ(std::memcmp(raw_buf.data(), buf.data, buf.data_len), 0);
 }

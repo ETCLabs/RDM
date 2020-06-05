@@ -4,8 +4,10 @@ include(GoogleTest)
 
 add_executable(test_rdm
   # RDM unit test sources
+  test_cpp_command_header.cpp
   test_cpp_command.cpp
   test_cpp_nack_reason.cpp
+  test_cpp_response_header.cpp
   test_cpp_response.cpp
   test_cpp_uid.cpp
 

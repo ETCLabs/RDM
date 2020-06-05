@@ -17,7 +17,7 @@
  * https://github.com/ETCLabs/RDM
  ******************************************************************************/
 
-#include "rdm/cpp/message.h"
+#include "rdm/cpp/message_types/nack_reason.h"
 
 #include <cstring>
 #include <type_traits>

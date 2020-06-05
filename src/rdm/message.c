@@ -173,26 +173,19 @@ bool rdm_response_header_is_valid(const RdmResponseHeader* resp_header)
  * \param[out] buffer RdmBuffer struct to hold the serialized command.
  * \return #kEtcPalErrOk: Command packed successfully.
  * \return #kEtcPalErrInvalid: Invalid argument provided.
+ * \return #kEtcPalErrMsgSize: Parameter data length is too long.
  */
 etcpal_error_t rdm_pack_command(const RdmCommandHeader* cmd_header, const uint8_t* cmd_data, uint8_t cmd_data_len,
                                 RdmBuffer* buffer)
 {
-  if (!cmd_header || !buffer || !rdm_command_header_is_valid(cmd_header))
+  if (!buffer)
     return kEtcPalErrInvalid;
-  if (cmd_data_len > RDM_MAX_PDL)
-    return kEtcPalErrMsgSize;
 
-  uint8_t rdm_length = cmd_data_len + RDM_HEADER_SIZE;
-  pack_rdm_command_header(cmd_header, rdm_length, buffer->data);
-
-  // Pack the command parameter data, if present
-  if (cmd_data && cmd_data_len)
-    memcpy(&buffer->data[RDM_HEADER_SIZE], cmd_data, cmd_data_len);
-
-  // pack checksum and set packet length
-  rdm_pack_checksum(buffer->data, rdm_length);
-  buffer->data_len = rdm_length + 2;
-  return kEtcPalErrOk;
+  etcpal_error_t res =
+      rdm_pack_command_with_custom_buf(cmd_header, cmd_data, cmd_data_len, buffer->data, RDM_MAX_BYTES);
+  if (res == kEtcPalErrOk)
+    buffer->data_len = RDM_PACKED_SIZE(cmd_data_len);
+  return res;
 }
 
 /*!
@@ -205,17 +198,29 @@ etcpal_error_t rdm_pack_command(const RdmCommandHeader* cmd_header, const uint8_
  * \param[out] buf_len Length in bytes of buf.
  * \return #kEtcPalErrOk: Command packed successfully.
  * \return #kEtcPalErrInvalid: Invalid argument provided.
+ * \return #kEtcPalErrMsgSize: Parameter data length is too long.
  * \return #kEtcPalErrBufSize: Buffer not long enough to hold RDM message.
  */
 etcpal_error_t rdm_pack_command_with_custom_buf(const RdmCommandHeader* cmd_header, const uint8_t* cmd_data,
                                                 uint8_t cmd_data_len, uint8_t* buf, size_t buf_len)
 {
-  ETCPAL_UNUSED_ARG(cmd_header);
-  ETCPAL_UNUSED_ARG(cmd_data);
-  ETCPAL_UNUSED_ARG(cmd_data_len);
-  ETCPAL_UNUSED_ARG(buf);
-  ETCPAL_UNUSED_ARG(buf_len);
-  return kEtcPalErrNotImpl;
+  if (!cmd_header || !buf || !buf_len || !rdm_command_header_is_valid(cmd_header))
+    return kEtcPalErrInvalid;
+  if (cmd_data_len > RDM_MAX_PDL)
+    return kEtcPalErrMsgSize;
+  if (buf_len < RDM_PACKED_SIZE(cmd_data_len))
+    return kEtcPalErrBufSize;
+
+  uint8_t rdm_length = cmd_data_len + RDM_HEADER_SIZE;
+  pack_rdm_command_header(cmd_header, rdm_length, buf);
+
+  // Pack the command parameter data, if present
+  if (cmd_data && cmd_data_len)
+    memcpy(&buf[RDM_HEADER_SIZE], cmd_data, cmd_data_len);
+
+  // pack checksum
+  rdm_pack_checksum(buf, rdm_length);
+  return kEtcPalErrOk;
 }
 
 /*!

@@ -244,6 +244,13 @@ typedef struct RdmResponseHeader
   uint16_t param_id;
 } RdmResponseHeader;
 
+/*!
+ * \brief Get the packed size in bytes of an RDM message.
+ * \param data_len Length in bytes of the parameter data that the RDM message will contain.
+ * \return The packed size in bytes.
+ */
+#define RDM_PACKED_SIZE(data_len) (RDM_HEADER_SIZE + (data_len) + 2)
+
 void rdm_pack_checksum(uint8_t* buffer, size_t data_len_without_checksum);
 bool rdm_validate_msg(const RdmBuffer* buffer);
 

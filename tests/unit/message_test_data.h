@@ -28,6 +28,27 @@
 #include "etcpal/pack.h"
 #include "rdm/message.h"
 
+// Some utilities for comparing RDM C structures
+
+inline bool operator==(const RdmCommandHeader& a, const RdmCommandHeader& b)
+{
+  return (a.source_uid == b.source_uid && a.dest_uid == b.dest_uid && a.transaction_num == b.transaction_num &&
+          a.port_id == b.port_id && a.subdevice == b.subdevice && a.command_class == b.command_class &&
+          a.param_id == b.param_id);
+}
+
+inline bool operator==(const RdmResponseHeader& a, const RdmResponseHeader& b)
+{
+  return (a.source_uid == b.source_uid && a.dest_uid == b.dest_uid && a.transaction_num == b.transaction_num &&
+          a.resp_type == b.resp_type && a.msg_count == b.msg_count && a.subdevice == b.subdevice &&
+          a.command_class == b.command_class && a.param_id == b.param_id);
+}
+
+inline bool operator==(const RdmBuffer& a, const RdmBuffer& b)
+{
+  return (a.data_len == b.data_len && (std::memcmp(a.data, b.data, a.data_len) == 0));
+}
+
 // A validation structure for RDM unit testing. Contains a command-response pair with both
 // serialized and non-serialized versions, plus some convenience utilities for inspecting them.
 struct CmdRespPair

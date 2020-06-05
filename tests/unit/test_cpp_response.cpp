@@ -17,16 +17,11 @@
  * https://github.com/ETCLabs/RDM
  ******************************************************************************/
 
-#include "rdm/cpp/message.h"
+#include "rdm/cpp/message_types/response.h"
 
 #include <array>
 #include <cstring>
 #include "gtest/gtest.h"
-
-TEST(CppRespHeader, DefaultConstructorWorks)
-{
-  rdm::ResponseHeader header;
-}
 
 TEST(CppResponse, DefaultConstructorWorks)
 {
@@ -34,6 +29,38 @@ TEST(CppResponse, DefaultConstructorWorks)
   EXPECT_FALSE(response.IsValid());
   EXPECT_FALSE(response.header().IsValid());
   EXPECT_FALSE(response.HasData());
+}
+
+TEST(CppResponse, ValueConstructorWorks)
+{
+  rdm::Response resp({0x1234, 0x56789abc}, {0x1234, 0x87654321}, 0x22, kRdmResponseTypeAck, 3, 200,
+                     kRdmCCSetCommandResponse, E120_DEVICE_LABEL);
+
+  EXPECT_TRUE(resp.IsValid());
+  EXPECT_EQ(resp.source_uid().manufacturer_id(), 0x1234u);
+  EXPECT_EQ(resp.source_uid().device_id(), 0x56789abcu);
+  EXPECT_EQ(resp.dest_uid().manufacturer_id(), 0x1234u);
+  EXPECT_EQ(resp.dest_uid().device_id(), 0x87654321u);
+  EXPECT_EQ(resp.transaction_num(), 0x22u);
+  EXPECT_EQ(resp.response_type(), kRdmResponseTypeAck);
+  EXPECT_EQ(resp.message_count(), 3u);
+  EXPECT_EQ(resp.subdevice(), 200u);
+  EXPECT_EQ(resp.command_class(), kRdmCCSetCommandResponse);
+  EXPECT_EQ(resp.param_id(), E120_DEVICE_LABEL);
+
+  EXPECT_FALSE(resp.HasData());
+  EXPECT_EQ(resp.data(), nullptr);
+  EXPECT_EQ(resp.data_len(), 0);
+
+  // Construct a response with parameter data
+  const std::array<uint8_t, 10> kSupportedParams = {0x00, 0x10, 0x00, 0x20, 0x10, 0x01, 0x10, 0x02, 0x80, 0x01};
+  resp = rdm::Response({0x1234, 0x56789abc}, {0x1234, 0x87654321}, 0x22, kRdmResponseTypeAck, 3, 200,
+                       kRdmCCGetCommandResponse, E120_SUPPORTED_PARAMETERS, kSupportedParams.data(),
+                       kSupportedParams.size());
+
+  EXPECT_TRUE(resp.HasData());
+  ASSERT_EQ(resp.data_len(), kSupportedParams.size());
+  EXPECT_EQ(std::memcmp(resp.data(), kSupportedParams.data(), kSupportedParams.size()), 0);
 }
 
 TEST(CppResponse, HeaderConstructorWorks)
@@ -59,4 +86,31 @@ TEST(CppResponse, HeaderConstructorWorks)
 
   ASSERT_EQ(response.data_len(), resp_data.size());
   EXPECT_EQ(0, std::memcmp(response.data(), resp_data.data(), resp_data.size()));
+}
+
+TEST(CppResponse, SettersAndGettersWork)
+{
+  // Construct a response with parameter data
+  const std::array<uint8_t, 10> kSupportedParams = {0x00, 0x10, 0x00, 0x20, 0x10, 0x01, 0x10, 0x02, 0x80, 0x01};
+  rdm::Response resp({0x1234, 0x56789abc}, {0x1234, 0x87654321}, 0x22, kRdmResponseTypeAck, 3, 200,
+                     kRdmCCGetCommandResponse, E120_SUPPORTED_PARAMETERS, kSupportedParams.data(),
+                     kSupportedParams.size());
+
+  ASSERT_EQ(resp.data_len(), kSupportedParams.size());
+  EXPECT_EQ(std::memcmp(resp.data(), kSupportedParams.data(), kSupportedParams.size()), 0);
+
+  resp.ClearData();
+  EXPECT_FALSE(resp.HasData());
+  EXPECT_EQ(resp.data_len(), 0u);
+  EXPECT_EQ(resp.data(), nullptr);
+
+  resp.SetData(nullptr, 0);
+  EXPECT_FALSE(resp.HasData());
+  EXPECT_EQ(resp.data_len(), 0u);
+  EXPECT_EQ(resp.data(), nullptr);
+
+  resp.SetData(kSupportedParams.data(), kSupportedParams.size());
+  EXPECT_TRUE(resp.HasData());
+  ASSERT_EQ(resp.data_len(), kSupportedParams.size());
+  EXPECT_EQ(std::memcmp(resp.data(), kSupportedParams.data(), kSupportedParams.size()), 0);
 }
