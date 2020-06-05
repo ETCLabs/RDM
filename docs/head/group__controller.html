@@ -123,8 +123,6 @@ $(document).ready(function(){initNavTree('group__controller.html','');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">Controller<div class="ingroups"><a class="el" href="group__rdm.html">RDM</a> &raquo; <a class="el" href="group__rdm__c.html">Core API</a></div></div>  </div>
 </div><!--header-->
@@ -132,44 +130,7 @@ $(document).ready(function(){initNavTree('group__controller.html','');});
 
 <p>Implementation of RDM controller functionality.  
 <a href="#details">More...</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ga62a94b697a099eea6bad03f10a592277"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__controller.html#ga62a94b697a099eea6bad03f10a592277">rdmctl_is_non_disc_response</a> (const <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *buffer)</td></tr>
-<tr class="memdesc:ga62a94b697a099eea6bad03f10a592277"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine whether a packed RDM message is a non-discovery RDM command response.  <a href="#ga62a94b697a099eea6bad03f10a592277">More...</a><br /></td></tr>
-<tr class="separator:ga62a94b697a099eea6bad03f10a592277"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Implementation of RDM controller functionality. </p>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="ga62a94b697a099eea6bad03f10a592277"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga62a94b697a099eea6bad03f10a592277">&#9670;&nbsp;</a></span>rdmctl_is_non_disc_response()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool rdmctl_is_non_disc_response </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *&#160;</td>
-          <td class="paramname"><em>buffer</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Determine whether a packed RDM message is a non-discovery RDM command response. </p>
-<p>More specifically, whether the command class of the response is one of GET_COMMAND_RESPONSE or SET_COMMAND_RESPONSE.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">buffer</td><td>The packed RDM message. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true (the message is a valid non-discovery RDM command response) or false (the message is invalid RDM or not a non-discovery command response). </dd></dl>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
