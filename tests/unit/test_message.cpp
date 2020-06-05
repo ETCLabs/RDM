@@ -467,8 +467,6 @@ TEST(Message, PackFullOverflowResponse)
   // We pack a response representing 150 supported parameters, 300 bytes, which should be split
   // with 230 in the first response and 70 in the second response.
   constexpr size_t kAckOverflowPdSize = 300;
-  constexpr size_t kResponse1PackedSize = RDM_PACKED_SIZE(230);
-  constexpr size_t kResponse2PackedSize = RDM_PACKED_SIZE(70);
 
   // Fill a data buffer with incrementing values
   std::array<uint8_t, kAckOverflowPdSize> pd;
@@ -538,9 +536,6 @@ TEST(Message, AppendParameterData)
 
   constexpr uint8_t kAdditionalPdSize = 4;
   std::array<uint8_t, kAdditionalPdSize> additional_pd = {0x00, 0x60, 0x00, 0x70};
-
-  const size_t modified_response_packed_size =
-      RDM_HEADER_SIZE + supported_params.resp_data_size() + kAdditionalPdSize + 2;
 
   ASSERT_EQ(rdm_append_parameter_data(&response_buf, additional_pd.data(), kAdditionalPdSize), kEtcPalErrOk);
 

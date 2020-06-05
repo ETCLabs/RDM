@@ -61,12 +61,12 @@ namespace rdm
 ///   else if (response.IsAckTimer())
 ///   {
 ///     // Start the timer to wait before re-requesting data.
-///     etcpal::Timer retry_timer(response.AckTimerDelayMs().value());
+///     etcpal::Timer retry_timer(response.GetAckTimerDelayMs().value());
 ///     // Store the timer somewhere...
 ///   }
 ///   else if (response.IsNack())
 ///   {
-///     rdm::NackReason nack_reason = response.NackReason().value();
+///     rdm::NackReason nack_reason = response.GetNackReason().value();
 ///     if (nack_reason.IsStandard())
 ///     {
 ///       Log("Got RDM NACK with reason code %d, description '%s'", nack_reason.code(), nack_reason.ToCString());
@@ -121,8 +121,8 @@ public:
   constexpr bool IsDiscoveryResponse() const noexcept;
   /// @}
 
-  etcpal::Expected<unsigned int> AckTimerDelayMs() const noexcept;
-  etcpal::Expected<NackReason> NackReason() const noexcept;
+  etcpal::Expected<unsigned int> GetAckTimerDelayMs() const noexcept;
+  etcpal::Expected<NackReason> GetNackReason() const noexcept;
   std::vector<uint8_t> GetData() const;
 
   Response& SetSourceUid(const Uid& uid) noexcept;
@@ -312,7 +312,7 @@ constexpr bool Response::IsDiscoveryResponse() const noexcept
 /// \brief Get the ACK_TIMER delay from an ACK_TIMER response.
 /// \return The delay time in milliseconds, if this is an ACK_TIMER response with valid data.
 /// \return #kEtcPalErrInvalid otherwise.
-inline etcpal::Expected<unsigned int> Response::AckTimerDelayMs() const noexcept
+inline etcpal::Expected<unsigned int> Response::GetAckTimerDelayMs() const noexcept
 {
   if (IsAckTimer() && data_.size() == 2)
   {
@@ -324,7 +324,7 @@ inline etcpal::Expected<unsigned int> Response::AckTimerDelayMs() const noexcept
 /// \brief Get the NACK reason code from an NACK_REASON response.
 /// \return The NACK reason, if this is a NACK_REASON response with valid data.
 /// \return #kEtcPalErrInvalid otherwise.
-inline etcpal::Expected<NackReason> Response::NackReason() const noexcept
+inline etcpal::Expected<NackReason> Response::GetNackReason() const noexcept
 {
   if (IsNack() && data_.size() == 2)
   {

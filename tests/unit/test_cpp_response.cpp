@@ -114,3 +114,37 @@ TEST(CppResponse, SettersAndGettersWork)
   ASSERT_EQ(resp.data_len(), kSupportedParams.size());
   EXPECT_EQ(std::memcmp(resp.data(), kSupportedParams.data(), kSupportedParams.size()), 0);
 }
+
+TEST(CppResponse, GetAckTimerDelayWorks)
+{
+  // A default constructed response should return an error for GetAckTimerDelayMs()
+  rdm::Response resp;
+  EXPECT_FALSE(resp.GetAckTimerDelayMs().has_value());
+
+  // Construct an ACK_TIMER response
+  const std::array<uint8_t, 2> kTimerVal{0x22, 0x60};
+  resp = rdm::Response({0x1234, 0x56789abc}, {0x1234, 0x87654321}, 0x22, kRdmResponseTypeAckTimer, 3, 0,
+                       kRdmCCGetCommandResponse, E120_SUPPORTED_PARAMETERS, kTimerVal.data(), kTimerVal.size());
+
+  EXPECT_TRUE(resp.IsAckTimer());
+  auto timer_ms = resp.GetAckTimerDelayMs();
+  ASSERT_TRUE(timer_ms.has_value());
+  EXPECT_EQ(*timer_ms, 880000u);
+}
+
+TEST(CppResponse, GetNackReasonWorks)
+{
+  // A default constructed response should return an error for GetNackReason()
+  rdm::Response resp;
+  EXPECT_FALSE(resp.GetNackReason().has_value());
+
+  // Construct a NACK response
+  const std::array<uint8_t, 2> kNackReason = {0x00, 0x07};
+  resp = rdm::Response({0x1234, 0x56789abc}, {0x1234, 0x87654321}, 0x22, kRdmResponseTypeNackReason, 3, 0,
+                       kRdmCCGetCommandResponse, E120_SUPPORTED_PARAMETERS, kNackReason.data(), kNackReason.size());
+
+  EXPECT_TRUE(resp.IsNack());
+  auto nack_reason = resp.GetNackReason();
+  ASSERT_TRUE(nack_reason.has_value());
+  EXPECT_EQ(nack_reason->code(), kRdmNRBufferFull);
+}
