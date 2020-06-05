@@ -17,9 +17,9 @@
  * https://github.com/ETCLabs/RDM
  *****************************************************************************/
 
-/*!
- * \file rdm/controller.h
- * \brief Contains functions for creating RDM commands and unpacking responses.
+/**
+ * @file rdm/controller.h
+ * @brief Contains functions for creating RDM commands and unpacking responses.
  */
 
 #ifndef RDM_CONTROLLER_H_
@@ -28,10 +28,10 @@
 #include "etcpal/error.h"
 #include "rdm/message.h"
 
-/*!
- * \defgroup controller Controller
- * \ingroup rdm_c
- * \brief Implementation of RDM controller functionality.
+/**
+ * @defgroup controller Controller
+ * @ingroup rdm_c
+ * @brief Implementation of RDM controller functionality.
  *
  * @{
  */
@@ -46,7 +46,7 @@ bool rdmctl_is_non_disc_response(const RdmBuffer* buffer);
 }
 #endif
 
-/*!
+/**
  * @}
  */
 

@@ -17,8 +17,8 @@
  * https://github.com/ETCLabs/RDM
  *****************************************************************************/
 
-/// \file rdm/cpp/message.h
-/// \brief RDM C++ message type definitions
+/// @file rdm/cpp/message.h
+/// @brief RDM C++ message type definitions
 
 #ifndef RDM_CPP_MESSAGE_H_
 #define RDM_CPP_MESSAGE_H_
@@ -26,9 +26,9 @@
 // This monolithic header includes all of the individual message types. This one is used from the
 // other API headers.
 
-/// \defgroup cpp_message Message
-/// \ingroup rdm_cpp
-/// \brief C++ classes representing RDM messages.
+/// @defgroup cpp_message Message
+/// @ingroup rdm_cpp
+/// @brief C++ classes representing RDM messages.
 
 #include "rdm/cpp/message_types/command_header.h"
 #include "rdm/cpp/message_types/command.h"

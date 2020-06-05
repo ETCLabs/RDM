@@ -40,13 +40,13 @@ const RdmUid kRdmnetDeviceBroadcastUid = {0xfffdu, 0xffffffffu};
 
 /*************************** Function definitions ****************************/
 
-/*!
- * \brief Compare two UIDs.
- * \param a First RdmUid to compare.
- * \param b Second RdmUid to compare.
- * \return < 0 (uidptr1 is less than uidptr2)
- * \return   0 (uidptr1 is equal to uidptr2)
- * \return > 0 (uidptr1 is greater than uidptr2)
+/**
+ * @brief Compare two UIDs.
+ * @param a First RdmUid to compare.
+ * @param b Second RdmUid to compare.
+ * @return < 0 (uidptr1 is less than uidptr2)
+ * @return   0 (uidptr1 is equal to uidptr2)
+ * @return > 0 (uidptr1 is greater than uidptr2)
  */
 int rdm_uid_compare(const RdmUid* a, const RdmUid* b)
 {
@@ -64,17 +64,17 @@ int rdm_uid_compare(const RdmUid* a, const RdmUid* b)
   return 0;
 }
 
-/*!
- * \brief Create a string representation of a UID.
+/**
+ * @brief Create a string representation of a UID.
  *
  * The resulting string will be of the form `mmmm:dddddddd`, where `mmmm` is the 4-digit ESTA
  * manufacturer ID represented in hexadecimal, and `dddddddd` is the 8-digit device ID represented
  * in hexadecimal.
  *
- * \param[in] uid UID to convert to a string.
- * \param[out] buf Character buffer to which to write the resulting string. Must be at least of
+ * @param[in] uid UID to convert to a string.
+ * @param[out] buf Character buffer to which to write the resulting string. Must be at least of
  *                 size #RDM_UID_STRING_BYTES.
- * \return true (conversion successful) or false (invalid argument).
+ * @return true (conversion successful) or false (invalid argument).
  */
 bool rdm_uid_to_string(const RdmUid* uid, char* buf)
 {
@@ -85,17 +85,17 @@ bool rdm_uid_to_string(const RdmUid* uid, char* buf)
   return true;
 }
 
-/*!
- * \brief Create a UID from a string representation.
+/**
+ * @brief Create a UID from a string representation.
  *
  * There is no standard for string representations of UIDs, but two common conventions exist:
  * `mmmm:dddddddd` and `mmmmdddddddd`, where `mmmm` is the 4-digit ESTA manufacturer ID represented
  * in hexadecimal, and `dddddddd` is the 8-digit device ID represented in hexadecimal. This
  * function accepts either of these forms as input.
  *
- * \param[in] str The null-terminated string to convert.
- * \param[out] uid UID to fill in with the parse result.
- * \return true (parse successful) or false (invalid argment/parse failure).
+ * @param[in] str The null-terminated string to convert.
+ * @param[out] uid UID to fill in with the parse result.
+ * @return true (parse successful) or false (invalid argment/parse failure).
  */
 bool rdm_string_to_uid(const char* str, RdmUid* uid)
 {

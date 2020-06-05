@@ -17,8 +17,8 @@
  * https://github.com/ETCLabs/RDM
  *****************************************************************************/
 
-/// \file rdm/cpp/message_types/response.h
-/// \brief Definitions for the RDM response type.
+/// @file rdm/cpp/message_types/response.h
+/// @brief Definitions for the RDM response type.
 
 #ifndef RDM_CPP_MESSAGE_TYPES_RESPONSE_H_
 #define RDM_CPP_MESSAGE_TYPES_RESPONSE_H_
@@ -34,8 +34,8 @@
 
 namespace rdm
 {
-/// \ingroup cpp_message
-/// \brief A class representing an RDM response.
+/// @ingroup cpp_message
+/// @brief A class representing an RDM response.
 ///
 /// Similar to ResponseHeader, except that this class heap-allocates a buffer to hold any
 /// accompanying RDM parameter data and thus represents a complete RDM response. Furthermore, this
@@ -47,7 +47,7 @@ namespace rdm
 /// them.
 ///
 /// Example Usage:
-/// \code
+/// @code
 /// void HandleRdmResponse(const rdm::Response& response)
 /// {
 ///   if ((response.IsAck() || response.IsAckOverflow()) && response.HasData())
@@ -77,7 +77,7 @@ namespace rdm
 ///     }
 ///   }
 /// }
-/// \endcode
+/// @endcode
 class Response
 {
 public:
@@ -106,7 +106,7 @@ public:
   bool IsValid() const noexcept;
   bool HasData() const noexcept;
 
-  /// \name Response Type Inspectors
+  /// @name Response Type Inspectors
   /// @{
   constexpr bool IsAck() const noexcept;
   constexpr bool IsAckTimer() const noexcept;
@@ -114,7 +114,7 @@ public:
   constexpr bool IsNack() const noexcept;
   /// @}
 
-  /// \name Command Class Inspectors
+  /// @name Command Class Inspectors
   /// @{
   constexpr bool IsGetResponse() const noexcept;
   constexpr bool IsSetResponse() const noexcept;
@@ -145,17 +145,17 @@ private:
   std::vector<uint8_t> data_;
 };
 
-/// \brief Construct a response from its component values.
-/// \param source_uid The RDM UID of the responder generating this response.
-/// \param dest_uid The RDM UID of the controller to which this response is addressed.
-/// \param transaction_num The RDM transaction number (copied from the corresponding command).
-/// \param response_type The RDM response type of this response.
-/// \param msg_count The current count of queued messages being stored by the responder.
-/// \param subdevice The sub-device from which the response was generated, or 0 for the root device.
-/// \param command_class The RDM command class for this response.
-/// \param param_id The RDM parameter ID (PID) of this response.
-/// \param data The RDM parameter data of this response (nullptr for responses with no data).
-/// \param data_len The length of the RDM parameter data (0 for responses with no data).
+/// @brief Construct a response from its component values.
+/// @param source_uid The RDM UID of the responder generating this response.
+/// @param dest_uid The RDM UID of the controller to which this response is addressed.
+/// @param transaction_num The RDM transaction number (copied from the corresponding command).
+/// @param response_type The RDM response type of this response.
+/// @param msg_count The current count of queued messages being stored by the responder.
+/// @param subdevice The sub-device from which the response was generated, or 0 for the root device.
+/// @param command_class The RDM command class for this response.
+/// @param param_id The RDM parameter ID (PID) of this response.
+/// @param data The RDM parameter data of this response (nullptr for responses with no data).
+/// @param data_len The length of the RDM parameter data (0 for responses with no data).
 inline Response::Response(const Uid& source_uid, const Uid& dest_uid, uint8_t transaction_num,
                           rdm_response_type_t response_type, uint8_t msg_count, uint16_t subdevice,
                           rdm_command_class_t command_class, uint16_t param_id, const uint8_t* data, size_t data_len)
@@ -164,154 +164,154 @@ inline Response::Response(const Uid& source_uid, const Uid& dest_uid, uint8_t tr
   SetData(data, data_len);
 }
 
-/// \brief Construct a response from a header and data.
-/// \param header Header to assign to this response.
-/// \param data The RDM parameter data of this response (nullptr for responses with no data).
-/// \param data_len The length of the RDM parameter data (0 for responses with no data).
+/// @brief Construct a response from a header and data.
+/// @param header Header to assign to this response.
+/// @param data The RDM parameter data of this response (nullptr for responses with no data).
+/// @param data_len The length of the RDM parameter data (0 for responses with no data).
 inline Response::Response(const ResponseHeader& header, const uint8_t* data, size_t data_len) : header_(header)
 {
   SetData(data, data_len);
 }
 
-/// \brief Construct a response from a header and data.
-/// \param header Header to assign to this response.
-/// \param data The RDM parameter data of this response (nullptr for responses with no data).
-/// \param data_len The length of the RDM parameter data (0 for responses with no data).
+/// @brief Construct a response from a header and data.
+/// @param header Header to assign to this response.
+/// @param data The RDM parameter data of this response (nullptr for responses with no data).
+/// @param data_len The length of the RDM parameter data (0 for responses with no data).
 inline Response::Response(const ::RdmResponseHeader& header, const uint8_t* data, size_t data_len) : header_(header)
 {
   SetData(data, data_len);
 }
 
-/// \brief Get the UID of the responder generating the response.
+/// @brief Get the UID of the responder generating the response.
 constexpr Uid Response::source_uid() const noexcept
 {
   return header_.source_uid();
 }
 
-/// \brief Get the UID of the controller to which the response is addressed.
+/// @brief Get the UID of the controller to which the response is addressed.
 constexpr Uid Response::dest_uid() const noexcept
 {
   return header_.dest_uid();
 }
 
-/// \brief Get the transaction number of the response.
+/// @brief Get the transaction number of the response.
 constexpr uint8_t Response::transaction_num() const noexcept
 {
   return header_.transaction_num();
 }
 
-/// \brief Get the RDM response type of the response.
+/// @brief Get the RDM response type of the response.
 constexpr rdm_response_type_t Response::response_type() const noexcept
 {
   return header_.response_type();
 }
 
-/// \brief Get the current count of queued messages being stored by the responder.
+/// @brief Get the current count of queued messages being stored by the responder.
 constexpr uint8_t Response::message_count() const noexcept
 {
   return header_.message_count();
 }
 
-/// \brief Get the sub-device from which the response was generated (0 means the root device).
+/// @brief Get the sub-device from which the response was generated (0 means the root device).
 constexpr uint16_t Response::subdevice() const noexcept
 {
   return header_.subdevice();
 }
 
-/// \brief Get the response's command class.
+/// @brief Get the response's command class.
 constexpr rdm_command_class_t Response::command_class() const noexcept
 {
   return header_.command_class();
 }
 
-/// \brief Get the RDM Parameter ID of the response.
+/// @brief Get the RDM Parameter ID of the response.
 constexpr uint16_t Response::param_id() const noexcept
 {
   return header_.param_id();
 }
 
-/// \brief Get a const reference to the response's header.
+/// @brief Get a const reference to the response's header.
 constexpr const ResponseHeader& Response::header() const noexcept
 {
   return header_;
 }
 
-/// \brief Get a mutable reference to the response's header.
+/// @brief Get a mutable reference to the response's header.
 ETCPAL_CONSTEXPR_14_OR_INLINE ResponseHeader& Response::header() noexcept
 {
   return header_;
 }
 
-/// \brief Get a pointer to the response's parameter data.
-/// \return A pointer to a byte buffer with the parameter data, or nullptr if this response has no data.
+/// @brief Get a pointer to the response's parameter data.
+/// @return A pointer to a byte buffer with the parameter data, or nullptr if this response has no data.
 inline const uint8_t* Response::data() const noexcept
 {
   return (data_.empty() ? nullptr : data_.data());
 }
 
-/// \brief Get the length of the response's parameter data.
+/// @brief Get the length of the response's parameter data.
 inline size_t Response::data_len() const noexcept
 {
   return data_.size();
 }
 
-/// \brief Whether the values contained in this response are valid for an RDM response.
+/// @brief Whether the values contained in this response are valid for an RDM response.
 inline bool Response::IsValid() const noexcept
 {
   return header_.IsValid();
 }
 
-/// \brief Whether this response has parameter data associated with it.
+/// @brief Whether this response has parameter data associated with it.
 inline bool Response::HasData() const noexcept
 {
   return !data_.empty();
 }
 
-/// \brief Whether this is an RDM ACK response.
+/// @brief Whether this is an RDM ACK response.
 constexpr bool Response::IsAck() const noexcept
 {
   return header_.IsAck();
 }
 
-/// \brief Whether this is an RDM ACK_TIMER response.
+/// @brief Whether this is an RDM ACK_TIMER response.
 constexpr bool Response::IsAckTimer() const noexcept
 {
   return header_.IsAckTimer();
 }
 
-/// \brief Whether this is an RDM ACK_OVERFLOW response.
+/// @brief Whether this is an RDM ACK_OVERFLOW response.
 constexpr bool Response::IsAckOverflow() const noexcept
 {
   return header_.IsAckOverflow();
 }
 
-/// \brief Whether this is an RDM NACK_REASON response.
+/// @brief Whether this is an RDM NACK_REASON response.
 constexpr bool Response::IsNack() const noexcept
 {
   return header_.IsNack();
 }
 
-/// \brief Whether this is an RDM GET_COMMAND_RESPONSE
+/// @brief Whether this is an RDM GET_COMMAND_RESPONSE
 constexpr bool Response::IsGetResponse() const noexcept
 {
   return header_.IsGetResponse();
 }
 
-/// \brief Whether this is an RDM SET_COMMAND_RESPONSE
+/// @brief Whether this is an RDM SET_COMMAND_RESPONSE
 constexpr bool Response::IsSetResponse() const noexcept
 {
   return header_.IsSetResponse();
 }
 
-/// \brief Whether this is an RDM DISCOVERY_COMMAND_RESPONSE
+/// @brief Whether this is an RDM DISCOVERY_COMMAND_RESPONSE
 constexpr bool Response::IsDiscoveryResponse() const noexcept
 {
   return header_.IsDiscoveryResponse();
 }
 
-/// \brief Get the ACK_TIMER delay from an ACK_TIMER response.
-/// \return The delay time in milliseconds, if this is an ACK_TIMER response with valid data.
-/// \return #kEtcPalErrInvalid otherwise.
+/// @brief Get the ACK_TIMER delay from an ACK_TIMER response.
+/// @return The delay time in milliseconds, if this is an ACK_TIMER response with valid data.
+/// @return #kEtcPalErrInvalid otherwise.
 inline etcpal::Expected<unsigned int> Response::GetAckTimerDelayMs() const noexcept
 {
   if (IsAckTimer() && data_.size() == 2)
@@ -321,9 +321,9 @@ inline etcpal::Expected<unsigned int> Response::GetAckTimerDelayMs() const noexc
   return kEtcPalErrInvalid;
 }
 
-/// \brief Get the NACK reason code from an NACK_REASON response.
-/// \return The NACK reason, if this is a NACK_REASON response with valid data.
-/// \return #kEtcPalErrInvalid otherwise.
+/// @brief Get the NACK reason code from an NACK_REASON response.
+/// @return The NACK reason, if this is a NACK_REASON response with valid data.
+/// @return #kEtcPalErrInvalid otherwise.
 inline etcpal::Expected<NackReason> Response::GetNackReason() const noexcept
 {
   if (IsNack() && data_.size() == 2)
@@ -333,77 +333,77 @@ inline etcpal::Expected<NackReason> Response::GetNackReason() const noexcept
   return kEtcPalErrInvalid;
 }
 
-/// \brief Copy out the data from an RDM response.
-/// \return A copied vector containing any parameter data associated with this response.
+/// @brief Copy out the data from an RDM response.
+/// @return A copied vector containing any parameter data associated with this response.
 inline std::vector<uint8_t> Response::GetData() const
 {
   return data_;
 }
 
-/// \brief Set the UID of the responder generating the response.
+/// @brief Set the UID of the responder generating the response.
 inline Response& Response::SetSourceUid(const Uid& uid) noexcept
 {
   header_.SetSourceUid(uid);
   return *this;
 }
 
-/// \brief Set the UID of the responder generating the response.
+/// @brief Set the UID of the responder generating the response.
 inline Response& Response::SetSourceUid(const ::RdmUid& uid) noexcept
 {
   header_.SetSourceUid(uid);
   return *this;
 }
 
-/// \brief Set the UID of the controller to which the response is addressed.
+/// @brief Set the UID of the controller to which the response is addressed.
 inline Response& Response::SetDestUid(const Uid& uid) noexcept
 {
   header_.SetDestUid(uid);
   return *this;
 }
 
-/// \brief Set the UID of the controller to which the response is addressed.
+/// @brief Set the UID of the controller to which the response is addressed.
 inline Response& Response::SetDestUid(const ::RdmUid& uid) noexcept
 {
   header_.SetDestUid(uid);
   return *this;
 }
 
-/// \brief Set the transaction number of the response.
+/// @brief Set the transaction number of the response.
 inline Response& Response::SetTransactionNum(uint8_t transaction_num) noexcept
 {
   header_.SetTransactionNum(transaction_num);
   return *this;
 }
 
-/// \brief Set the RDM response type of the response.
+/// @brief Set the RDM response type of the response.
 inline Response& Response::SetResponseType(rdm_response_type_t response_type) noexcept
 {
   header_.SetResponseType(response_type);
   return *this;
 }
 
-/// \brief Set the current count of queued messages being stored by the responder.
+/// @brief Set the current count of queued messages being stored by the responder.
 inline Response& Response::SetMessageCount(uint8_t msg_count) noexcept
 {
   header_.SetMessageCount(msg_count);
   return *this;
 }
 
-/// \brief Set the sub-device from which the response was generated (0 means the root device).
+/// @brief Set the sub-device from which the response was generated (0 means the root device).
 inline Response& Response::SetSubdevice(uint16_t subdevice) noexcept
 {
   header_.SetSubdevice(subdevice);
   return *this;
 }
 
-/// \brief Set the response's command class.
+/// @brief Set the response's command class.
 inline Response& Response::SetCommandClass(rdm_command_class_t command_class) noexcept
 {
   header_.SetCommandClass(command_class);
   return *this;
 }
 
-/// \brief Set the RDM Parameter ID of the response.
+/// @brief Set the RDM Parameter ID of the response.
 ///
 /// Valid values are listed in ANSI E1.20 Table A-3, any of the relevant E1.37 extension standards,
 /// ANSI E1.33 Table A-15, or manufacturer-specific values in the range 0x8000 - 0xffdf.
@@ -413,14 +413,14 @@ inline Response& Response::SetParamId(uint16_t param_id) noexcept
   return *this;
 }
 
-/// \brief Replace the response's header with a new header.
+/// @brief Replace the response's header with a new header.
 inline Response& Response::SetHeader(const ResponseHeader& header) noexcept
 {
   header_ = header;
   return *this;
 }
 
-/// \brief Set the parameter data associated with this response.
+/// @brief Set the parameter data associated with this response.
 inline Response& Response::SetData(const uint8_t* data, size_t data_len)
 {
   if (data && data_len)
@@ -428,7 +428,7 @@ inline Response& Response::SetData(const uint8_t* data, size_t data_len)
   return *this;
 }
 
-/// \brief Append more data to this response's parameter data.
+/// @brief Append more data to this response's parameter data.
 inline Response& Response::AppendData(const uint8_t* data, size_t data_len)
 {
   if (data && data_len)
@@ -436,7 +436,7 @@ inline Response& Response::AppendData(const uint8_t* data, size_t data_len)
   return *this;
 }
 
-/// \brief Remove the parameter data associated with this response.
+/// @brief Remove the parameter data associated with this response.
 inline Response& Response::ClearData() noexcept
 {
   data_.clear();

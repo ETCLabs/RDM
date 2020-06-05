@@ -17,9 +17,9 @@
  * https://github.com/ETCLabs/RDM
  *****************************************************************************/
 
-/*!
- * \file rdm/responder.h
- * \brief Contains functions for unpacking RDM commands and creating responses.
+/**
+ * @file rdm/responder.h
+ * @brief Contains functions for unpacking RDM commands and creating responses.
  */
 
 #ifndef RDM_RESPONDER_H_
@@ -30,10 +30,10 @@
 #include "etcpal/pack.h"
 #include "rdm/message.h"
 
-/*!
- * \defgroup responder Responder
- * \ingroup rdm_c
- * \brief Implementation of RDM responder functionality.
+/**
+ * @defgroup responder Responder
+ * @ingroup rdm_c
+ * @brief Implementation of RDM responder functionality.
  *
  * @{
  */
@@ -48,7 +48,7 @@ bool rdmresp_is_non_disc_command(const RdmBuffer* buffer);
 };
 #endif
 
-/*!
+/**
  * @}
  */
 
