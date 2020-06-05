@@ -32,7 +32,7 @@
 
 /* clang-format off */
 
-/*! 
+/*!
  * \defgroup rdm RDM
  * \brief Implementation of the RDM protocol.
  *
@@ -61,6 +61,18 @@
 #define RDM_VERSION_PRODUCTNAME "RDM"
 /*!
  * @}
+ */
+
+/*!
+ * \defgroup rdm_c Core API
+ * \ingroup rdm
+ * \brief The core RDM interface, in pure C99.
+ */
+
+/*!
+ * \defgroup rdm_cpp C++ API
+ * \ingroup rdm
+ * \brief Header-only C++ wrappers for the RDM interface.
  */
 
 /*!

@@ -17,39 +17,23 @@
  * https://github.com/ETCLabs/RDM
  ******************************************************************************/
 
-/*!
- * \file rdm/responder.h
- * \brief Contains functions for unpacking RDM commands and creating responses.
- */
+/// \file rdm/cpp/message.h
+/// \brief RDM C++ message type definitions
 
-#ifndef RDM_RESPONDER_H_
-#define RDM_RESPONDER_H_
+#ifndef RDM_CPP_MESSAGE_H_
+#define RDM_CPP_MESSAGE_H_
 
-#include <stdint.h>
-#include "etcpal/error.h"
-#include "etcpal/pack.h"
-#include "rdm/message.h"
+// This monolithic header includes all of the individual message types. This one is used from the
+// other API headers.
 
-/*!
- * \defgroup responder Responder
- * \ingroup rdm_c
- * \brief Implementation of RDM responder functionality.
- *
- * @{
- */
+/// \defgroup cpp_message Message
+/// \ingroup rdm_cpp
+/// \brief C++ classes representing RDM messages.
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include "rdm/cpp/message_types/command_header.h"
+#include "rdm/cpp/message_types/command.h"
+#include "rdm/cpp/message_types/nack_reason.h"
+#include "rdm/cpp/message_types/response_header.h"
+#include "rdm/cpp/message_types/response.h"
 
-bool rdmresp_is_non_disc_command(const RdmBuffer* buffer);
-
-#ifdef __cplusplus
-};
-#endif
-
-/*!
- * @}
- */
-
-#endif /* RDM_RESPONDER_H_ */
+#endif  // RDM_CPP_MESSAGE_H_

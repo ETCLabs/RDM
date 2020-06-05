@@ -30,7 +30,7 @@
 
 /*!
  * \defgroup controller Controller
- * \ingroup rdm
+ * \ingroup rdm_c
  * \brief Implementation of RDM controller functionality.
  *
  * @{
@@ -40,9 +40,7 @@
 extern "C" {
 #endif
 
-etcpal_error_t rdmctl_pack_command(const RdmCommand* cmd_data, RdmBuffer* buffer);
 bool rdmctl_is_non_disc_response(const RdmBuffer* buffer);
-etcpal_error_t rdmctl_unpack_response(const RdmBuffer* buffer, RdmResponse* resp);
 
 #ifdef __cplusplus
 }

@@ -172,6 +172,11 @@
 #define E137_2_DNS_HOSTNAME                               0x070C /* Defined in ANSI E1.37-2                                    */
 #define E137_2_DNS_DOMAIN_NAME                            0x070D /* Defined in ANSI E1.37-2                                    */
 
+/* Category - E1.33 Management   */
+#define E133_COMPONENT_SCOPE                              0x0800 /* Defined in ANSI E1.33                                      */
+#define E133_SEARCH_DOMAIN                                0x0801 /* Defined in ANSI E1.33                                      */
+#define E133_TCP_COMMS_STATUS                             0x0802 /* Defined in ANSI E1.33                                      */
+#define E133_BROKER_STATUS                                0x0803 /* Defined in ANSI E1.33                                      */
 
 /* Category - Control              */
 #define E120_IDENTIFY_DEVICE                              0x1000
@@ -644,6 +649,22 @@
                                                                 /* Message or Status Message responses.                         */
 #define E137_2_NR_ACTION_NOT_SUPPORTED                   0x000B /* The parameter data is valid but the SET operation cannot be  */
                                                                 /* performed with the current configuration.                    */
+
+/********************************************************************************************************************************/
+/********************************************************************************************************************************/
+/* ANSI E1.33 DEFINES                                                                                                         */
+/********************************************************************************************************************************/
+/********************************************************************************************************************************/
+
+/********************************************************/
+/* Table A-16: Additional Response NACK Reason Codes    */
+/********************************************************/
+#define E133_NR_UNKNOWN_SCOPE                            0x000F /* The Component is not participating in the given Scope. */
+#define E133_NR_INVALID_STATIC_CONFIG_TYPE               0x0010 /* The Static Config Type provided is invalid. */
+#define E133_NR_INVALID_IPV4_ADDRESS                     0x0011 /* The IPv4 Address provided is invalid. */
+#define E133_NR_INVALID_IPV6_ADDRESS                     0x0012 /* The IPv6 Address provided is invalid. */
+#define E133_NR_INVALID_PORT                             0x0013 /* The transport layer port provided is invalid. */
+
 
 /********************************************************************************************************************************/
 /********************************************************************************************************************************/

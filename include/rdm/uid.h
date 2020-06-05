@@ -30,7 +30,7 @@
 
 /*!
  * \defgroup uid UID
- * \ingroup rdm
+ * \ingroup rdm_c
  * \brief Type and helper functions for the Unique ID (UID) used in the RDM family of protocols.
  *
  * ```c
