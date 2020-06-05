@@ -38,15 +38,7 @@
  * @{
  */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-bool rdmresp_is_non_disc_command(const RdmBuffer* buffer);
-
-#ifdef __cplusplus
-};
-#endif
+// TODO
 
 /**
  * @}

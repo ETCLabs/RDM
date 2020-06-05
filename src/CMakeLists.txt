@@ -12,16 +12,16 @@ set(RDM_LIB_TARGET_NAME RDM)
 
 add_library(${RDM_LIB_TARGET_NAME}
   # RDM headers
-  ${RDM_INCLUDE}/rdm/controller.h
+  # ${RDM_INCLUDE}/rdm/controller.h
   ${RDM_INCLUDE}/rdm/defs.h
   ${RDM_INCLUDE}/rdm/message.h
-  ${RDM_INCLUDE}/rdm/responder.h
+  # ${RDM_INCLUDE}/rdm/responder.h
   ${RDM_INCLUDE}/rdm/uid.h
 
   # RDM sources
-  rdm/controller.c
+  # rdm/controller.c
   rdm/message.c
-  rdm/responder.c
+  # rdm/responder.c
   rdm/uid.c
 )
 target_include_directories(${RDM_LIB_TARGET_NAME} PUBLIC ${RDM_INCLUDE})

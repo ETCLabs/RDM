@@ -36,23 +36,3 @@
 /*********************** Private function prototypes *************************/
 
 /*************************** Function definitions ****************************/
-
-/**
- * @brief Determine whether a packed RDM message is a non-discovery RDM command response.
- *
- * More specifically, whether the command class of the response is one of GET_COMMAND_RESPONSE or
- * SET_COMMAND_RESPONSE.
- *
- * @param[in] buffer The packed RDM message.
- * @return true (the message is a valid non-discovery RDM command response) or false (the message
- *         is invalid RDM or not a non-discovery command response).
- */
-bool rdmctl_is_non_disc_response(const RdmBuffer* buffer)
-{
-  if (buffer && rdm_validate_msg(buffer))
-  {
-    return (buffer->data[RDM_OFFSET_COMMAND_CLASS] == E120_GET_COMMAND_RESPONSE ||
-            buffer->data[RDM_OFFSET_COMMAND_CLASS] == E120_SET_COMMAND_RESPONSE);
-  }
-  return false;
-}
