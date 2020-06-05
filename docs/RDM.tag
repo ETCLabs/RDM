@@ -2,7 +2,7 @@
 <tagfile>
   <compound kind="file">
     <name>controller.h</name>
-    <path>E:/git/ETCLabs/RDMnet/external/RDM/include/rdm/</path>
+    <path>E:/git/ETCLabs/RDM/include/rdm/</path>
     <filename>controller_8h</filename>
     <includes id="message_8h" name="message.h" local="yes" imported="no">rdm/message.h</includes>
     <member kind="function">
@@ -15,19 +15,17 @@
   </compound>
   <compound kind="file">
     <name>message.h</name>
-    <path>E:/git/ETCLabs/RDMnet/external/RDM/include/rdm/cpp/</path>
+    <path>E:/git/ETCLabs/RDM/include/rdm/cpp/</path>
     <filename>cpp_2message_8h</filename>
-    <includes id="message_8h" name="message.h" local="yes" imported="no">rdm/message.h</includes>
-    <includes id="cpp_2uid_8h" name="uid.h" local="yes" imported="no">rdm/cpp/uid.h</includes>
-    <class kind="class">rdm::NackReason</class>
-    <class kind="class">rdm::CommandHeader</class>
-    <class kind="class">rdm::Command</class>
-    <class kind="class">rdm::ResponseHeader</class>
-    <class kind="class">rdm::Response</class>
+    <includes id="command__header_8h" name="command_header.h" local="yes" imported="no">rdm/cpp/message_types/command_header.h</includes>
+    <includes id="command_8h" name="command.h" local="yes" imported="no">rdm/cpp/message_types/command.h</includes>
+    <includes id="nack__reason_8h" name="nack_reason.h" local="yes" imported="no">rdm/cpp/message_types/nack_reason.h</includes>
+    <includes id="response__header_8h" name="response_header.h" local="yes" imported="no">rdm/cpp/message_types/response_header.h</includes>
+    <includes id="response_8h" name="response.h" local="yes" imported="no">rdm/cpp/message_types/response.h</includes>
   </compound>
   <compound kind="file">
     <name>message.h</name>
-    <path>E:/git/ETCLabs/RDMnet/external/RDM/include/rdm/</path>
+    <path>E:/git/ETCLabs/RDM/include/rdm/</path>
     <filename>message_8h</filename>
     <includes id="uid_8h" name="uid.h" local="yes" imported="no">rdm/uid.h</includes>
     <class kind="struct">RdmBuffer</class>
@@ -63,6 +61,13 @@
     </member>
     <member kind="define">
       <type>#define</type>
+      <name>RDM_NUM_STANDARD_NR_CODES</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gabd23c71f2d06a164ee6a83977f6aaf15</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
       <name>RDM_GET_COMMAND_CLASS</name>
       <anchorfile>group__message.html</anchorfile>
       <anchor>ga27ee6d5259d609fa25b83a94014692db</anchor>
@@ -74,6 +79,13 @@
       <anchorfile>group__message.html</anchorfile>
       <anchor>ga1a8181950bf393e5b5287dc025dc55bb</anchor>
       <arglist>(rdmbufptr)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDM_PACKED_SIZE</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gabf72a7fa5dde49b4e559165a28773eac</anchor>
+      <arglist>(data_len)</arglist>
     </member>
     <member kind="typedef">
       <type>struct RdmBuffer</type>
@@ -327,51 +339,51 @@
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
-      <name>rdm_create_command</name>
+      <name>rdm_pack_command</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>gae709204b9084394319ddbbb96e138dda</anchor>
+      <anchor>ga15a06777f4ab333d9ae3e40b38747cd1</anchor>
       <arglist>(const RdmCommandHeader *cmd_header, const uint8_t *cmd_data, uint8_t cmd_data_len, RdmBuffer *buffer)</arglist>
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
-      <name>rdm_create_command_with_custom_buf</name>
+      <name>rdm_pack_command_with_custom_buf</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>gae10f07c3dcd22f596b96f426a30797f9</anchor>
+      <anchor>gaac8e834a006822657d50426cd2180e5b</anchor>
       <arglist>(const RdmCommandHeader *cmd_header, const uint8_t *cmd_data, uint8_t cmd_data_len, uint8_t *buf, size_t buf_len)</arglist>
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
-      <name>rdm_create_response</name>
+      <name>rdm_pack_response</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>ga2ea6c686aa76d05994796d41e7bcf7d5</anchor>
+      <anchor>gac505a929fc48db196c8cb425f70ca206</anchor>
       <arglist>(const RdmCommandHeader *cmd_header, uint8_t msg_count, const uint8_t *response_data, uint8_t response_data_len, RdmBuffer *buffer)</arglist>
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
-      <name>rdm_create_overflow_response</name>
+      <name>rdm_pack_overflow_response</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>ga9f37288ba9a2607f0f8d3b0d6cf6c615</anchor>
+      <anchor>gaae46c569f61cb1818d98cbb502ffb802</anchor>
       <arglist>(const RdmCommandHeader *cmd_header, const uint8_t *response_data, uint8_t response_data_len, RdmBuffer *buffer)</arglist>
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
-      <name>rdm_create_nack_response</name>
+      <name>rdm_pack_nack_response</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>ga49f59fd8adcf7c7f396760db14bd1f9f</anchor>
+      <anchor>ga555626c5ed7bcb0e7f8a904ec98f23c6</anchor>
       <arglist>(const RdmCommandHeader *cmd_header, uint8_t msg_count, rdm_nack_reason_t nack_reason, RdmBuffer *buffer)</arglist>
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
-      <name>rdm_create_timer_response</name>
+      <name>rdm_pack_timer_response</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>gaffcdf5fc31e74fea4b9eee58541b6aaf</anchor>
+      <anchor>gaeea1c73d228ce64c716664531f9a2f0b</anchor>
       <arglist>(const RdmCommandHeader *cmd_header, uint8_t msg_count, unsigned int delay_time_ms, RdmBuffer *buffer)</arglist>
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
-      <name>rdm_create_dub_response</name>
+      <name>rdm_pack_dub_response</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>gaa016ed3a9b2ac887b22cf9ac93b93f7a</anchor>
+      <anchor>gabb821ac360758e1ec1d4fe2ce365dfed</anchor>
       <arglist>(const RdmUid *responder_uid, RdmBuffer *buffer)</arglist>
     </member>
     <member kind="function">
@@ -383,10 +395,17 @@
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
-      <name>rdm_create_full_overflow_response</name>
+      <name>rdm_pack_full_overflow_response</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>gac2afad21e0be8044b15c7310d65422ea</anchor>
+      <anchor>gaffcc4b47ace27ad7c22c7790d552b29c</anchor>
       <arglist>(const RdmCommandHeader *cmd_header, const uint8_t *response_data, size_t response_data_len, RdmBuffer *buffers, size_t num_buffers)</arglist>
+    </member>
+    <member kind="function">
+      <type>etcpal_error_t</type>
+      <name>rdm_append_parameter_data</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gad7dc9011987f10d7bc71052de1ce748d</anchor>
+      <arglist>(RdmBuffer *buffer, const uint8_t *additional_data, uint8_t additional_data_len)</arglist>
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
@@ -446,15 +465,57 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>command.h</name>
+    <path>E:/git/ETCLabs/RDM/include/rdm/cpp/message_types/</path>
+    <filename>command_8h</filename>
+    <includes id="message_8h" name="message.h" local="yes" imported="no">rdm/message.h</includes>
+    <includes id="command__header_8h" name="command_header.h" local="yes" imported="no">rdm/cpp/message_types/command_header.h</includes>
+    <includes id="cpp_2uid_8h" name="uid.h" local="yes" imported="no">rdm/cpp/uid.h</includes>
+    <class kind="class">rdm::Command</class>
+  </compound>
+  <compound kind="file">
+    <name>command_header.h</name>
+    <path>E:/git/ETCLabs/RDM/include/rdm/cpp/message_types/</path>
+    <filename>command__header_8h</filename>
+    <includes id="cpp_2uid_8h" name="uid.h" local="yes" imported="no">rdm/cpp/uid.h</includes>
+    <includes id="message_8h" name="message.h" local="yes" imported="no">rdm/message.h</includes>
+    <class kind="class">rdm::CommandHeader</class>
+  </compound>
+  <compound kind="file">
+    <name>nack_reason.h</name>
+    <path>E:/git/ETCLabs/RDM/include/rdm/cpp/message_types/</path>
+    <filename>nack__reason_8h</filename>
+    <includes id="message_8h" name="message.h" local="yes" imported="no">rdm/message.h</includes>
+    <class kind="class">rdm::NackReason</class>
+  </compound>
+  <compound kind="file">
+    <name>response.h</name>
+    <path>E:/git/ETCLabs/RDM/include/rdm/cpp/message_types/</path>
+    <filename>response_8h</filename>
+    <includes id="nack__reason_8h" name="nack_reason.h" local="yes" imported="no">rdm/cpp/message_types/nack_reason.h</includes>
+    <includes id="response__header_8h" name="response_header.h" local="yes" imported="no">rdm/cpp/message_types/response_header.h</includes>
+    <includes id="cpp_2uid_8h" name="uid.h" local="yes" imported="no">rdm/cpp/uid.h</includes>
+    <includes id="message_8h" name="message.h" local="yes" imported="no">rdm/message.h</includes>
+    <class kind="class">rdm::Response</class>
+  </compound>
+  <compound kind="file">
+    <name>response_header.h</name>
+    <path>E:/git/ETCLabs/RDM/include/rdm/cpp/message_types/</path>
+    <filename>response__header_8h</filename>
+    <includes id="message_8h" name="message.h" local="yes" imported="no">rdm/message.h</includes>
+    <includes id="cpp_2uid_8h" name="uid.h" local="yes" imported="no">rdm/cpp/uid.h</includes>
+    <class kind="class">rdm::ResponseHeader</class>
+  </compound>
+  <compound kind="file">
     <name>uid.h</name>
-    <path>E:/git/ETCLabs/RDMnet/external/RDM/include/rdm/cpp/</path>
+    <path>E:/git/ETCLabs/RDM/include/rdm/cpp/</path>
     <filename>cpp_2uid_8h</filename>
     <includes id="uid_8h" name="uid.h" local="yes" imported="no">rdm/uid.h</includes>
     <class kind="class">rdm::Uid</class>
   </compound>
   <compound kind="file">
     <name>uid.h</name>
-    <path>E:/git/ETCLabs/RDMnet/external/RDM/include/rdm/</path>
+    <path>E:/git/ETCLabs/RDM/include/rdm/</path>
     <filename>uid_8h</filename>
     <class kind="struct">RdmUid</class>
     <member kind="define">
@@ -628,7 +689,7 @@
   </compound>
   <compound kind="file">
     <name>responder.h</name>
-    <path>E:/git/ETCLabs/RDMnet/external/RDM/include/rdm/</path>
+    <path>E:/git/ETCLabs/RDM/include/rdm/</path>
     <filename>responder_8h</filename>
     <includes id="message_8h" name="message.h" local="yes" imported="no">rdm/message.h</includes>
     <member kind="function">
@@ -641,7 +702,7 @@
   </compound>
   <compound kind="file">
     <name>version.h</name>
-    <path>E:/git/ETCLabs/RDMnet/external/RDM/include/rdm/</path>
+    <path>E:/git/ETCLabs/RDM/include/rdm/</path>
     <filename>version_8h</filename>
     <member kind="define">
       <type>#define</type>
@@ -1552,17 +1613,24 @@
     </member>
     <member kind="function">
       <type>etcpal::Expected&lt; unsigned int &gt;</type>
-      <name>AckTimerDelayMs</name>
+      <name>GetAckTimerDelayMs</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>a16f30eee7b817929945e4d641a109256</anchor>
+      <anchor>a2d951a2e8dc79f3c1b74052135797e0a</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
       <type>etcpal::Expected&lt; NackReason &gt;</type>
-      <name>NackReason</name>
+      <name>GetNackReason</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>af43c7b38ce59bd0c3c4203e4d82ebf34</anchor>
+      <anchor>a76d25da53fad66f124e64cc5733313ce</anchor>
       <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; uint8_t &gt;</type>
+      <name>GetData</name>
+      <anchorfile>classrdm_1_1_response.html</anchorfile>
+      <anchor>a0496c8a4f879ccf6f31f79c901deefe5</anchor>
+      <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>Response &amp;</type>
@@ -1646,6 +1714,13 @@
       <name>SetData</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
       <anchor>a54351b187749ef114178931daf4432f6</anchor>
+      <arglist>(const uint8_t *data, size_t data_len)</arglist>
+    </member>
+    <member kind="function">
+      <type>Response &amp;</type>
+      <name>AppendData</name>
+      <anchorfile>classrdm_1_1_response.html</anchorfile>
+      <anchor>a4877caff59ad0d13e5ecc8fdf2d538b1</anchor>
       <arglist>(const uint8_t *data, size_t data_len)</arglist>
     </member>
     <member kind="function">
@@ -2254,11 +2329,11 @@
     <name>cpp_message</name>
     <title>Message</title>
     <filename>group__cpp__message.html</filename>
-    <class kind="class">rdm::NackReason</class>
-    <class kind="class">rdm::CommandHeader</class>
     <class kind="class">rdm::Command</class>
-    <class kind="class">rdm::ResponseHeader</class>
+    <class kind="class">rdm::CommandHeader</class>
+    <class kind="class">rdm::NackReason</class>
     <class kind="class">rdm::Response</class>
+    <class kind="class">rdm::ResponseHeader</class>
   </compound>
   <compound kind="group">
     <name>cpp_uid</name>
@@ -2303,6 +2378,13 @@
     </member>
     <member kind="define">
       <type>#define</type>
+      <name>RDM_NUM_STANDARD_NR_CODES</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gabd23c71f2d06a164ee6a83977f6aaf15</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
       <name>RDM_GET_COMMAND_CLASS</name>
       <anchorfile>group__message.html</anchorfile>
       <anchor>ga27ee6d5259d609fa25b83a94014692db</anchor>
@@ -2314,6 +2396,13 @@
       <anchorfile>group__message.html</anchorfile>
       <anchor>ga1a8181950bf393e5b5287dc025dc55bb</anchor>
       <arglist>(rdmbufptr)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>RDM_PACKED_SIZE</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gabf72a7fa5dde49b4e559165a28773eac</anchor>
+      <arglist>(data_len)</arglist>
     </member>
     <member kind="typedef">
       <type>struct RdmBuffer</type>
@@ -2567,51 +2656,51 @@
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
-      <name>rdm_create_command</name>
+      <name>rdm_pack_command</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>gae709204b9084394319ddbbb96e138dda</anchor>
+      <anchor>ga15a06777f4ab333d9ae3e40b38747cd1</anchor>
       <arglist>(const RdmCommandHeader *cmd_header, const uint8_t *cmd_data, uint8_t cmd_data_len, RdmBuffer *buffer)</arglist>
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
-      <name>rdm_create_command_with_custom_buf</name>
+      <name>rdm_pack_command_with_custom_buf</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>gae10f07c3dcd22f596b96f426a30797f9</anchor>
+      <anchor>gaac8e834a006822657d50426cd2180e5b</anchor>
       <arglist>(const RdmCommandHeader *cmd_header, const uint8_t *cmd_data, uint8_t cmd_data_len, uint8_t *buf, size_t buf_len)</arglist>
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
-      <name>rdm_create_response</name>
+      <name>rdm_pack_response</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>ga2ea6c686aa76d05994796d41e7bcf7d5</anchor>
+      <anchor>gac505a929fc48db196c8cb425f70ca206</anchor>
       <arglist>(const RdmCommandHeader *cmd_header, uint8_t msg_count, const uint8_t *response_data, uint8_t response_data_len, RdmBuffer *buffer)</arglist>
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
-      <name>rdm_create_overflow_response</name>
+      <name>rdm_pack_overflow_response</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>ga9f37288ba9a2607f0f8d3b0d6cf6c615</anchor>
+      <anchor>gaae46c569f61cb1818d98cbb502ffb802</anchor>
       <arglist>(const RdmCommandHeader *cmd_header, const uint8_t *response_data, uint8_t response_data_len, RdmBuffer *buffer)</arglist>
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
-      <name>rdm_create_nack_response</name>
+      <name>rdm_pack_nack_response</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>ga49f59fd8adcf7c7f396760db14bd1f9f</anchor>
+      <anchor>ga555626c5ed7bcb0e7f8a904ec98f23c6</anchor>
       <arglist>(const RdmCommandHeader *cmd_header, uint8_t msg_count, rdm_nack_reason_t nack_reason, RdmBuffer *buffer)</arglist>
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
-      <name>rdm_create_timer_response</name>
+      <name>rdm_pack_timer_response</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>gaffcdf5fc31e74fea4b9eee58541b6aaf</anchor>
+      <anchor>gaeea1c73d228ce64c716664531f9a2f0b</anchor>
       <arglist>(const RdmCommandHeader *cmd_header, uint8_t msg_count, unsigned int delay_time_ms, RdmBuffer *buffer)</arglist>
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
-      <name>rdm_create_dub_response</name>
+      <name>rdm_pack_dub_response</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>gaa016ed3a9b2ac887b22cf9ac93b93f7a</anchor>
+      <anchor>gabb821ac360758e1ec1d4fe2ce365dfed</anchor>
       <arglist>(const RdmUid *responder_uid, RdmBuffer *buffer)</arglist>
     </member>
     <member kind="function">
@@ -2623,10 +2712,17 @@
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
-      <name>rdm_create_full_overflow_response</name>
+      <name>rdm_pack_full_overflow_response</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>gac2afad21e0be8044b15c7310d65422ea</anchor>
+      <anchor>gaffcc4b47ace27ad7c22c7790d552b29c</anchor>
       <arglist>(const RdmCommandHeader *cmd_header, const uint8_t *response_data, size_t response_data_len, RdmBuffer *buffers, size_t num_buffers)</arglist>
+    </member>
+    <member kind="function">
+      <type>etcpal_error_t</type>
+      <name>rdm_append_parameter_data</name>
+      <anchorfile>group__message.html</anchorfile>
+      <anchor>gad7dc9011987f10d7bc71052de1ce748d</anchor>
+      <arglist>(RdmBuffer *buffer, const uint8_t *additional_data, uint8_t additional_data_len)</arglist>
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
