@@ -6,11 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Note: This is a pre-release version. This version changelog is not exhaustive.
+
 ### Added
-- A C++ UID type, include `rdm/cpp/uid.h`
+- C++ types for RDM commands, responses, NACK reasons, and UIDs:
+  + `rdm/cpp/message.h`
+  + `rdm/cpp/message_types/*`
+  + `rdm/cpp/uid.h`
 
 ### Changed
 - RDM_UID_CMP() renamed to rdm_uid_compare()
+- Message packing and unpacking functions moved to rdm/message.h and renamed. RDM controller and
+  responder modules are reserved for eventual addition of RDM controller and responder logic.
 
 ## [0.1.0] - 2019-05-29
 ### Added
