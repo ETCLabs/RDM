@@ -106,7 +106,7 @@ TEST(CppCmd, SettersAndGettersWork)
 
   cmd.SetData(reinterpret_cast<const uint8_t*>(kTestDeviceLabel), sizeof(kTestDeviceLabel));
   EXPECT_TRUE(cmd.HasData());
-  EXPECT_EQ(cmd.data_len(), sizeof(kTestDeviceLabel));
+  ASSERT_EQ(cmd.data_len(), sizeof(kTestDeviceLabel));
   EXPECT_STREQ(reinterpret_cast<const char*>(cmd.data()), kTestDeviceLabel);
 }
 
