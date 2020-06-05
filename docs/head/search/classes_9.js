@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['uid',['Uid',['../classrdm_1_1_uid.html',1,'rdm']]],
-  ['uuid',['Uuid',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_uuid.html',1,'etcpal']]]
+  ['semaphore',['Semaphore',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_semaphore.html',1,'etcpal']]],
+  ['signal',['Signal',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_signal.html',1,'etcpal']]],
+  ['sockaddr',['SockAddr',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_sock_addr.html',1,'etcpal']]]
 ];

@@ -126,7 +126,7 @@ $(document).ready(function(){initNavTree('group__controller.html','');});
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Controller<div class="ingroups"><a class="el" href="group__rdm.html">RDM</a></div></div>  </div>
+<div class="title">Controller<div class="ingroups"><a class="el" href="group__rdm.html">RDM</a> &raquo; <a class="el" href="group__rdm__c.html">Core API</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -135,15 +135,9 @@ $(document).ready(function(){initNavTree('group__controller.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gaf4a73e78411276a6397cf40d14d5aa9c"><td class="memItemLeft" align="right" valign="top"><a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#ga743b0648f0ca798ef29c9f69c6e255af">etcpal_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__controller.html#gaf4a73e78411276a6397cf40d14d5aa9c">rdmctl_pack_command</a> (const <a class="el" href="struct_rdm_command.html">RdmCommand</a> *cmd_data, <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *buffer)</td></tr>
-<tr class="memdesc:gaf4a73e78411276a6397cf40d14d5aa9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a packed RDM command.  <a href="#gaf4a73e78411276a6397cf40d14d5aa9c">More...</a><br /></td></tr>
-<tr class="separator:gaf4a73e78411276a6397cf40d14d5aa9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga62a94b697a099eea6bad03f10a592277"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__controller.html#ga62a94b697a099eea6bad03f10a592277">rdmctl_is_non_disc_response</a> (const <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *buffer)</td></tr>
 <tr class="memdesc:ga62a94b697a099eea6bad03f10a592277"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine whether a packed RDM message is a non-discovery RDM command response.  <a href="#ga62a94b697a099eea6bad03f10a592277">More...</a><br /></td></tr>
 <tr class="separator:ga62a94b697a099eea6bad03f10a592277"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae291206d44f2a98e8de0b2b26203b94d"><td class="memItemLeft" align="right" valign="top"><a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#ga743b0648f0ca798ef29c9f69c6e255af">etcpal_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__controller.html#gae291206d44f2a98e8de0b2b26203b94d">rdmctl_unpack_response</a> (const <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *buffer, <a class="el" href="struct_rdm_response.html">RdmResponse</a> *resp)</td></tr>
-<tr class="memdesc:gae291206d44f2a98e8de0b2b26203b94d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unpack an RDM repsonse.  <a href="#gae291206d44f2a98e8de0b2b26203b94d">More...</a><br /></td></tr>
-<tr class="separator:gae291206d44f2a98e8de0b2b26203b94d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Implementation of RDM controller functionality. </p>
@@ -173,90 +167,6 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true (the message is a valid non-discovery RDM command response) or false (the message is invalid RDM or not a non-discovery command response). </dd></dl>
-
-</div>
-</div>
-<a id="gaf4a73e78411276a6397cf40d14d5aa9c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf4a73e78411276a6397cf40d14d5aa9c">&#9670;&nbsp;</a></span>rdmctl_pack_command()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#ga743b0648f0ca798ef29c9f69c6e255af">etcpal_error_t</a> rdmctl_pack_command </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_rdm_command.html">RdmCommand</a> *&#160;</td>
-          <td class="paramname"><em>cmd_data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *&#160;</td>
-          <td class="paramname"><em>buffer</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Create a packed RDM command. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">cmd_data</td><td>The data that will be used for this RDM command packet. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">buffer</td><td>The buffer into which to pack this RDM command. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afae403d046b4ba4e81dce121266c2cca8d">kEtcPalErrOk</a>: Command created successfully. </dd>
-<dd>
-<a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afadb17bb2ec24e7755170e8afbd5b10bc2">kEtcPalErrInvalid</a>: Invalid argument provided (including invalid RDM values in cmd_data). </dd>
-<dd>
-<a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afaa980a5e26cf5086f916d12a485572f12">kEtcPalErrMsgSize</a>: The parameter data was too long. </dd></dl>
-
-</div>
-</div>
-<a id="gae291206d44f2a98e8de0b2b26203b94d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae291206d44f2a98e8de0b2b26203b94d">&#9670;&nbsp;</a></span>rdmctl_unpack_response()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#ga743b0648f0ca798ef29c9f69c6e255af">etcpal_error_t</a> rdmctl_unpack_response </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *&#160;</td>
-          <td class="paramname"><em>buffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="struct_rdm_response.html">RdmResponse</a> *&#160;</td>
-          <td class="paramname"><em>resp</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Unpack an RDM repsonse. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">buffer</td><td>The packed RDM response. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">resp</td><td>The RDM response data that was unpacked from buffer. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afae403d046b4ba4e81dce121266c2cca8d">kEtcPalErrOk</a>: Response unpacked successfully. </dd>
-<dd>
-<a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afadb17bb2ec24e7755170e8afbd5b10bc2">kEtcPalErrInvalid</a>: Invalid argument provided. </dd>
-<dd>
-<a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afa8396c97054393b3faf3849541fc99c43">kEtcPalErrProtocol</a>: Packed RDM response was invalid. </dd></dl>
 
 </div>
 </div>

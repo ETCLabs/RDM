@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=9" />
   <meta name="generator" content="Doxygen 1.8.13" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>RDM: RdmResponse Struct Reference</title>
+  <title>RDM: RdmResponseHeader Struct Reference</title>
   <link href="tabs.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="jquery.js"></script>
   <script type="text/javascript" src="dynsections.js"></script>
@@ -105,7 +105,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('struct_rdm_response.html','');});
+$(document).ready(function(){initNavTree('struct_rdm_response_header.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -126,48 +126,43 @@ $(document).ready(function(){initNavTree('struct_rdm_response.html','');});
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">RdmResponse Struct Reference<div class="ingroups"><a class="el" href="group__rdm.html">RDM</a> &raquo; <a class="el" href="group__message.html">Message</a></div></div>  </div>
+<div class="title">RdmResponseHeader Struct Reference<div class="ingroups"><a class="el" href="group__rdm.html">RDM</a> &raquo; <a class="el" href="group__rdm__c.html">Core API</a> &raquo; <a class="el" href="group__message.html">Message</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A structure that represents an RDM response message.  
- <a href="struct_rdm_response.html#details">More...</a></p>
+<p>A structure that represents the header fields of an RDM response.  
+ <a href="struct_rdm_response_header.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a40cba7d6d1910fb740982421cf66c5d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_rdm_uid.html">RdmUid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_response.html#a40cba7d6d1910fb740982421cf66c5d6">source_uid</a></td></tr>
+<tr class="memitem:a40cba7d6d1910fb740982421cf66c5d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_rdm_uid.html">RdmUid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_response_header.html#a40cba7d6d1910fb740982421cf66c5d6">source_uid</a></td></tr>
 <tr class="memdesc:a40cba7d6d1910fb740982421cf66c5d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">UID of the responder generating this response.  <a href="#a40cba7d6d1910fb740982421cf66c5d6">More...</a><br /></td></tr>
 <tr class="separator:a40cba7d6d1910fb740982421cf66c5d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa338a4490fb2e2c37a819966f75cc3e9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_rdm_uid.html">RdmUid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_response.html#aa338a4490fb2e2c37a819966f75cc3e9">dest_uid</a></td></tr>
+<tr class="memitem:aa338a4490fb2e2c37a819966f75cc3e9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_rdm_uid.html">RdmUid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_response_header.html#aa338a4490fb2e2c37a819966f75cc3e9">dest_uid</a></td></tr>
 <tr class="memdesc:aa338a4490fb2e2c37a819966f75cc3e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">UID of the controller to which this response is addressed.  <a href="#aa338a4490fb2e2c37a819966f75cc3e9">More...</a><br /></td></tr>
 <tr class="separator:aa338a4490fb2e2c37a819966f75cc3e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94aea5f05dbb840df368f865f4e57cb3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_response.html#a94aea5f05dbb840df368f865f4e57cb3">transaction_num</a></td></tr>
+<tr class="memitem:a94aea5f05dbb840df368f865f4e57cb3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_response_header.html#a94aea5f05dbb840df368f865f4e57cb3">transaction_num</a></td></tr>
 <tr class="memdesc:a94aea5f05dbb840df368f865f4e57cb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transaction number, copied from the corresponding command.  <a href="#a94aea5f05dbb840df368f865f4e57cb3">More...</a><br /></td></tr>
 <tr class="separator:a94aea5f05dbb840df368f865f4e57cb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9241c33b6955e810316a2764d7738d63"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__message.html#ga6ecebd42ee8d90fe410cc4001a98e7f0">rdm_response_type_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_response.html#a9241c33b6955e810316a2764d7738d63">resp_type</a></td></tr>
+<tr class="memitem:a9241c33b6955e810316a2764d7738d63"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__message.html#ga6ecebd42ee8d90fe410cc4001a98e7f0">rdm_response_type_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_response_header.html#a9241c33b6955e810316a2764d7738d63">resp_type</a></td></tr>
 <tr class="memdesc:a9241c33b6955e810316a2764d7738d63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response type, indicating the response status.  <a href="#a9241c33b6955e810316a2764d7738d63">More...</a><br /></td></tr>
 <tr class="separator:a9241c33b6955e810316a2764d7738d63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ddcf8e4afca9fbd2a1c27aa8cfa6651"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_response.html#a7ddcf8e4afca9fbd2a1c27aa8cfa6651">msg_count</a></td></tr>
+<tr class="memitem:a7ddcf8e4afca9fbd2a1c27aa8cfa6651"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_response_header.html#a7ddcf8e4afca9fbd2a1c27aa8cfa6651">msg_count</a></td></tr>
 <tr class="memdesc:a7ddcf8e4afca9fbd2a1c27aa8cfa6651"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current count of queued messages waiting to be retrieved.  <a href="#a7ddcf8e4afca9fbd2a1c27aa8cfa6651">More...</a><br /></td></tr>
 <tr class="separator:a7ddcf8e4afca9fbd2a1c27aa8cfa6651"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08af6f95b61e2695caf7b11ebb8e0953"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_response.html#a08af6f95b61e2695caf7b11ebb8e0953">subdevice</a></td></tr>
+<tr class="memitem:a08af6f95b61e2695caf7b11ebb8e0953"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_response_header.html#a08af6f95b61e2695caf7b11ebb8e0953">subdevice</a></td></tr>
 <tr class="memdesc:a08af6f95b61e2695caf7b11ebb8e0953"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-device generating this response, or 0 for the root device.  <a href="#a08af6f95b61e2695caf7b11ebb8e0953">More...</a><br /></td></tr>
 <tr class="separator:a08af6f95b61e2695caf7b11ebb8e0953"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8627e24459da221d560b593ea2d9f5f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__message.html#gafda6b6d4c08788e755cb3cb6c1ca021b">rdm_command_class_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_response.html#a8627e24459da221d560b593ea2d9f5f6">command_class</a></td></tr>
+<tr class="memitem:a8627e24459da221d560b593ea2d9f5f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__message.html#gafda6b6d4c08788e755cb3cb6c1ca021b">rdm_command_class_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_response_header.html#a8627e24459da221d560b593ea2d9f5f6">command_class</a></td></tr>
 <tr class="memdesc:a8627e24459da221d560b593ea2d9f5f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The command class for this response.  <a href="#a8627e24459da221d560b593ea2d9f5f6">More...</a><br /></td></tr>
 <tr class="separator:a8627e24459da221d560b593ea2d9f5f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43f5e73445b99b42061429682fdc78fc"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_response.html#a43f5e73445b99b42061429682fdc78fc">param_id</a></td></tr>
+<tr class="memitem:a43f5e73445b99b42061429682fdc78fc"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_response_header.html#a43f5e73445b99b42061429682fdc78fc">param_id</a></td></tr>
 <tr class="memdesc:a43f5e73445b99b42061429682fdc78fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The RDM Parameter ID of this response.  <a href="#a43f5e73445b99b42061429682fdc78fc">More...</a><br /></td></tr>
 <tr class="separator:a43f5e73445b99b42061429682fdc78fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace5c23e2acbfc3932b3b282d5bbf59f0"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_response.html#ace5c23e2acbfc3932b3b282d5bbf59f0">datalen</a></td></tr>
-<tr class="memdesc:ace5c23e2acbfc3932b3b282d5bbf59f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The length of the parameter data.  <a href="#ace5c23e2acbfc3932b3b282d5bbf59f0">More...</a><br /></td></tr>
-<tr class="separator:ace5c23e2acbfc3932b3b282d5bbf59f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f9dbe5a4390d94cb28b7b21d2b656d5"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_rdm_response.html#a1f9dbe5a4390d94cb28b7b21d2b656d5">data</a> [<a class="el" href="group__message.html#ga4592ed22b54c1daabb9c506b72a83756">RDM_MAX_PDL</a>]</td></tr>
-<tr class="memdesc:a1f9dbe5a4390d94cb28b7b21d2b656d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parameter data.  <a href="#a1f9dbe5a4390d94cb28b7b21d2b656d5">More...</a><br /></td></tr>
-<tr class="separator:a1f9dbe5a4390d94cb28b7b21d2b656d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A structure that represents an RDM response message. </p>
+<div class="textblock"><p>A structure that represents the header fields of an RDM response. </p>
+<p>This includes everything except the parameter data. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="a8627e24459da221d560b593ea2d9f5f6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8627e24459da221d560b593ea2d9f5f6">&#9670;&nbsp;</a></span>command_class</h2>
@@ -182,38 +177,6 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The command class for this response. </p>
-
-</div>
-</div>
-<a id="a1f9dbe5a4390d94cb28b7b21d2b656d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f9dbe5a4390d94cb28b7b21d2b656d5">&#9670;&nbsp;</a></span>data</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t data[<a class="el" href="group__message.html#ga4592ed22b54c1daabb9c506b72a83756">RDM_MAX_PDL</a>]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The parameter data. </p>
-
-</div>
-</div>
-<a id="ace5c23e2acbfc3932b3b282d5bbf59f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace5c23e2acbfc3932b3b282d5bbf59f0">&#9670;&nbsp;</a></span>datalen</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t datalen</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The length of the parameter data. </p>
 
 </div>
 </div>
@@ -338,7 +301,7 @@ Data Fields</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="struct_rdm_response.html">RdmResponse</a></li>
+    <li class="navelem"><a class="el" href="struct_rdm_response_header.html">RdmResponseHeader</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>

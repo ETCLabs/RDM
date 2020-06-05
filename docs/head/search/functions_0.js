@@ -10,5 +10,6 @@ var searchData=
   ['acn_5fparse_5ftcp_5fpreamble',['acn_parse_tcp_preamble',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__acn__rlp.html#gab2edaace9af15cb4dd54bfb8ad36fe88',1,]]],
   ['acn_5fparse_5fudp_5fpreamble',['acn_parse_udp_preamble',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__acn__rlp.html#ga14db47bbc1098cb4dfa4826f7a121d92',1,]]],
   ['acn_5froot_5flayer_5fbuf_5fsize',['acn_root_layer_buf_size',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__acn__rlp.html#ga76d83773df9894ecbaf8b505647c32e5',1,]]],
-  ['alert',['Alert',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_logger.html#a830c42c8d3d96a385510ae78142831e8',1,'etcpal::Logger::Alert(const char *format,...)'],['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_logger.html#a830c42c8d3d96a385510ae78142831e8',1,'etcpal::Logger::Alert(const char *format,...)']]]
+  ['alert',['Alert',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_logger.html#a830c42c8d3d96a385510ae78142831e8',1,'etcpal::Logger::Alert(const char *format,...)'],['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_logger.html#a830c42c8d3d96a385510ae78142831e8',1,'etcpal::Logger::Alert(const char *format,...)']]],
+  ['appenddata',['AppendData',['../classrdm_1_1_response.html#a4877caff59ad0d13e5ecc8fdf2d538b1',1,'rdm::Response']]]
 ];

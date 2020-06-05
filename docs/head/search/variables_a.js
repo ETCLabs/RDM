@@ -6,5 +6,5 @@ var searchData=
   ['minute',['minute',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_log_timestamp.html#a5edffad982a0566ad01d95005474eae3',1,'EtcPalLogTimestamp']]],
   ['month',['month',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_log_timestamp.html#aedb06abe5aff12fa3e7e0e71a374edfb',1,'EtcPalLogTimestamp']]],
   ['msec',['msec',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_log_timestamp.html#ad957f34cd6e8272740bc231865080b22',1,'EtcPalLogTimestamp']]],
-  ['msg_5fcount',['msg_count',['../struct_rdm_response.html#a7ddcf8e4afca9fbd2a1c27aa8cfa6651',1,'RdmResponse']]]
+  ['msg_5fcount',['msg_count',['../struct_rdm_response_header.html#a7ddcf8e4afca9fbd2a1c27aa8cfa6651',1,'RdmResponseHeader']]]
 ];
