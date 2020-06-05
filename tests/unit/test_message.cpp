@@ -58,8 +58,8 @@ TEST(Message, RdmCmdHeaderIsValidWorks)
 TEST(Message, PackCommandInvalid)
 {
   RdmCommandHeader cmd_header = rdmtest::GetSupportedParams().cmd_header;
-  RdmBuffer buffer{};
-  uint8_t data[2]{};
+  RdmBuffer        buffer{};
+  uint8_t          data[2]{};
 
   EXPECT_EQ(rdm_pack_command(nullptr, data, 2, &buffer), kEtcPalErrInvalid);
   EXPECT_EQ(rdm_pack_command(&cmd_header, data, 2, nullptr), kEtcPalErrInvalid);
@@ -77,8 +77,8 @@ TEST(Message, PackCommandInvalid)
 TEST(Message, PackCommandTooLong)
 {
   RdmCommandHeader cmd_header = rdmtest::GetSupportedParams().cmd_header;
-  RdmBuffer cmd_buf;
-  uint8_t data[RDM_MAX_PDL + 1];
+  RdmBuffer        cmd_buf;
+  uint8_t          data[RDM_MAX_PDL + 1];
 
   // Fill the data buffer with incrementing values
   uint8_t byte = 0;
@@ -95,7 +95,7 @@ TEST(Message, PackCommandTooLong)
 TEST(Message, PackCommandWithData)
 {
   const auto sensor_def_pair = rdmtest::GetSensorDefinition();
-  RdmBuffer cmd_buf;
+  RdmBuffer  cmd_buf;
 
   ASSERT_EQ(rdm_pack_command(&sensor_def_pair.cmd_header, sensor_def_pair.cmd_data(), sensor_def_pair.cmd_data_size(),
                              &cmd_buf),
@@ -108,7 +108,7 @@ TEST(Message, PackCommandWithData)
 TEST(Message, PackCommandEmpty)
 {
   const auto reset_dev_pair = rdmtest::SetResetDevice();
-  RdmBuffer cmd_buf;
+  RdmBuffer  cmd_buf;
 
   ASSERT_EQ(rdm_pack_command(&reset_dev_pair.cmd_header, nullptr, 0, &cmd_buf), kEtcPalErrOk);
   ASSERT_EQ(cmd_buf.data_len, reset_dev_pair.packed_cmd_size());
@@ -118,7 +118,7 @@ TEST(Message, PackCommandEmpty)
 
 TEST(Message, PackCommandWithCustomBuf)
 {
-  const auto sensor_def_pair = rdmtest::GetSensorDefinition();
+  const auto                         sensor_def_pair = rdmtest::GetSensorDefinition();
   std::array<uint8_t, RDM_MAX_BYTES> buf;
 
   ASSERT_EQ(rdm_pack_command_with_custom_buf(&sensor_def_pair.cmd_header, sensor_def_pair.cmd_data(),
@@ -129,7 +129,7 @@ TEST(Message, PackCommandWithCustomBuf)
 
 TEST(Message, PackCommandWithCustomBufInvalid)
 {
-  const auto sensor_def_pair = rdmtest::GetSensorDefinition();
+  const auto                         sensor_def_pair = rdmtest::GetSensorDefinition();
   std::array<uint8_t, RDM_MAX_BYTES> buf;
 
   // Invalid arguments
@@ -153,8 +153,8 @@ TEST(Message, PackCommandWithCustomBufInvalid)
 TEST(Message, PackResponseInvalid)
 {
   RdmCommandHeader cmd_header = rdmtest::GetSupportedParams().cmd_header;
-  RdmBuffer buffer{};
-  uint8_t data[2]{};
+  RdmBuffer        buffer{};
+  uint8_t          data[2]{};
 
   EXPECT_EQ(rdm_pack_response(nullptr, 0, data, 2, &buffer), kEtcPalErrInvalid);
   EXPECT_EQ(rdm_pack_response(&cmd_header, 0, data, 2, nullptr), kEtcPalErrInvalid);
@@ -176,8 +176,8 @@ TEST(Message, PackResponseInvalid)
 
 TEST(Message, PackResponseTooLong)
 {
-  RdmCommandHeader cmd_header = rdmtest::GetSupportedParams().cmd_header;
-  RdmBuffer response_buf;
+  RdmCommandHeader                     cmd_header = rdmtest::GetSupportedParams().cmd_header;
+  RdmBuffer                            response_buf;
   std::array<uint8_t, RDM_MAX_PDL + 1> pd;
 
   // Fill the data buffer with incrementing values
@@ -195,7 +195,7 @@ TEST(Message, PackResponseTooLong)
 TEST(Message, PackResponseWithData)
 {
   const auto identify_pair = rdmtest::GetIdentifyDevice();
-  RdmBuffer response_buf;
+  RdmBuffer  response_buf;
 
   ASSERT_EQ(rdm_pack_response(&identify_pair.cmd_header, identify_pair.RespMessageCount(), identify_pair.resp_data(),
                               identify_pair.resp_data_size(), &response_buf),
@@ -209,7 +209,7 @@ TEST(Message, PackResponseWithData)
 TEST(Message, PackResponseEmpty)
 {
   const auto reset_dev_pair = rdmtest::SetResetDevice();
-  RdmBuffer response_buf;
+  RdmBuffer  response_buf;
 
   ASSERT_EQ(rdm_pack_response(&reset_dev_pair.cmd_header, reset_dev_pair.RespMessageCount(), nullptr, 0, &response_buf),
             kEtcPalErrOk);
@@ -222,7 +222,7 @@ TEST(Message, PackResponseEmpty)
 TEST(Message, PackOverflowResponseInvalid)
 {
   RdmCommandHeader cmd_header = rdmtest::GetSupportedParams().cmd_header;
-  RdmBuffer buffer{};
+  RdmBuffer        buffer{};
 
   EXPECT_EQ(rdm_pack_overflow_response(nullptr, 0, kRdmNRUnsupportedCommandClass, &buffer), kEtcPalErrInvalid);
   EXPECT_EQ(rdm_pack_overflow_response(&cmd_header, 0, kRdmNRUnsupportedCommandClass, nullptr), kEtcPalErrInvalid);
@@ -245,7 +245,7 @@ TEST(Message, PackOverflowResponseInvalid)
 TEST(Message, PackOverflowResponse)
 {
   const auto overflow = rdmtest::GetSupportedParamsWithOverflow();
-  RdmBuffer response_buf;
+  RdmBuffer  response_buf;
 
   // Pack the first segment of the SUPPORTED_PARAMETERS overflow response (230 bytes)
   ASSERT_EQ(rdm_pack_overflow_response(&overflow.cmd_header, overflow.resp_data(), 230, &response_buf), kEtcPalErrOk);
@@ -256,7 +256,7 @@ TEST(Message, PackOverflowResponse)
 TEST(Message, PackNackResponseInvalid)
 {
   RdmCommandHeader cmd_header = rdmtest::GetSupportedParams().cmd_header;
-  RdmBuffer buffer{};
+  RdmBuffer        buffer{};
 
   EXPECT_EQ(rdm_pack_nack_response(nullptr, 0, kRdmNRUnsupportedCommandClass, &buffer), kEtcPalErrInvalid);
   EXPECT_EQ(rdm_pack_nack_response(&cmd_header, 0, kRdmNRUnsupportedCommandClass, nullptr), kEtcPalErrInvalid);
@@ -279,7 +279,7 @@ TEST(Message, PackNackResponseInvalid)
 TEST(Message, PackNackResponse)
 {
   const auto nack_pair = rdmtest::SetResetDeviceNackResponse();
-  RdmBuffer response_buf;
+  RdmBuffer  response_buf;
 
   ASSERT_EQ(rdm_pack_nack_response(&nack_pair.cmd_header, 0, nack_pair.NackReason().value(), &response_buf),
             kEtcPalErrOk);
@@ -291,7 +291,7 @@ TEST(Message, PackNackResponse)
 TEST(Message, PackTimerResponseInvalid)
 {
   RdmCommandHeader cmd_header = rdmtest::GetSupportedParams().cmd_header;
-  RdmBuffer buffer{};
+  RdmBuffer        buffer{};
 
   EXPECT_EQ(rdm_pack_timer_response(nullptr, 0, 200, &buffer), kEtcPalErrInvalid);
   EXPECT_EQ(rdm_pack_timer_response(&cmd_header, 0, 200, nullptr), kEtcPalErrInvalid);
@@ -320,7 +320,7 @@ TEST(Message, PackTimerResponseInvalid)
 TEST(Message, PackTimerResponse)
 {
   const auto timer_pair = rdmtest::GetLampStrikesTimerResponse();
-  RdmBuffer response_buf;
+  RdmBuffer  response_buf;
 
   unsigned int delay_ms = timer_pair.AckTimerDelay().value();
   ASSERT_EQ(rdm_pack_timer_response(&timer_pair.cmd_header, 0, delay_ms - 50, &response_buf), kEtcPalErrOk);
@@ -329,8 +329,8 @@ TEST(Message, PackTimerResponse)
   EXPECT_EQ(0, std::memcmp(timer_pair.first_packed_resp(), response_buf.data, timer_pair.first_packed_resp_size()));
 }
 
-static const RdmUid kValidDubResponseUid{2000, 400000};
-static constexpr size_t kValidDubResponseSize = 24;
+static const RdmUid                                     kValidDubResponseUid{2000, 400000};
+static constexpr size_t                                 kValidDubResponseSize = 24;
 static const std::array<uint8_t, kValidDubResponseSize> kValidDubResponse = {
     0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xaa,
     0xaf,  // uid.manu MSB | 0xaa
@@ -354,7 +354,7 @@ static const std::array<uint8_t, kValidDubResponseSize> kValidDubResponse = {
 
 TEST(Message, PackDubResponseInvalid)
 {
-  RdmUid uid{1, 3};
+  RdmUid    uid{1, 3};
   RdmBuffer buf;
   EXPECT_EQ(rdm_pack_dub_response(nullptr, nullptr), kEtcPalErrInvalid);
   EXPECT_EQ(rdm_pack_dub_response(&uid, nullptr), kEtcPalErrInvalid);
@@ -398,7 +398,7 @@ TEST(Message, UnpackDubResponseInvalid)
 TEST(Message, UnpackDubResponse)
 {
   RdmBuffer dub_buf;
-  RdmUid uid{};
+  RdmUid    uid{};
 
   std::memcpy(dub_buf.data, kValidDubResponse.data(), kValidDubResponseSize);
   dub_buf.data_len = kValidDubResponseSize;
@@ -443,7 +443,7 @@ TEST(Message, GetNumOverflowResponsesNeededWorks)
 TEST(Message, PackFullOverflowResponseInvalid)
 {
   const auto overflow = rdmtest::GetSupportedParamsWithOverflow();
-  RdmBuffer response_buf;
+  RdmBuffer  response_buf;
 
   // Invalid parameters
   EXPECT_EQ(rdm_pack_full_overflow_response(nullptr, overflow.resp_data(), 200, &response_buf, 1), kEtcPalErrInvalid);
@@ -461,7 +461,7 @@ TEST(Message, PackFullOverflowResponseInvalid)
 
 TEST(Message, PackFullOverflowResponse)
 {
-  const auto overflow = rdmtest::GetSupportedParamsWithOverflow();
+  const auto             overflow = rdmtest::GetSupportedParamsWithOverflow();
   std::vector<RdmBuffer> response_bufs(overflow.packed_resps_.size());
 
   // We pack a response representing 150 supported parameters, 300 bytes, which should be split
@@ -470,7 +470,7 @@ TEST(Message, PackFullOverflowResponse)
 
   // Fill a data buffer with incrementing values
   std::array<uint8_t, kAckOverflowPdSize> pd;
-  uint8_t byte = 1;
+  uint8_t                                 byte = 1;
   std::generate(std::begin(pd), std::end(pd), [&]() { return byte++; });
 
   ASSERT_EQ(
@@ -488,7 +488,7 @@ TEST(Message, PackFullOverflowResponse)
 TEST(Message, AppendParameterDataInvalid)
 {
   const auto supported_params = rdmtest::GetSupportedParams();
-  RdmBuffer response_buf;
+  RdmBuffer  response_buf;
   ASSERT_EQ(rdm_pack_response(&supported_params.cmd_header, 0, supported_params.resp_data(),
                               supported_params.resp_data_size(), &response_buf),
             kEtcPalErrOk);
@@ -513,7 +513,7 @@ TEST(Message, AppendParamaterDataTooLong)
             kEtcPalErrOk);
   ASSERT_EQ(response_buf.data_len, supported_params.first_packed_resp_size());
 
-  const size_t additional_pd_size = RDM_MAX_PDL - supported_params.resp_data_size() + 1;
+  const size_t         additional_pd_size = RDM_MAX_PDL - supported_params.resp_data_size() + 1;
   std::vector<uint8_t> additional_pd(additional_pd_size);
   std::iota(additional_pd.begin(), additional_pd.end(), static_cast<uint8_t>(0));
 
@@ -524,7 +524,7 @@ TEST(Message, AppendParamaterDataTooLong)
 TEST(Message, AppendParameterData)
 {
   const auto supported_params = rdmtest::GetSupportedParams();
-  RdmBuffer response_buf;
+  RdmBuffer  response_buf;
 
   ASSERT_EQ(rdm_pack_response(&supported_params.cmd_header, 0, supported_params.resp_data(),
                               supported_params.resp_data_size(), &response_buf),
@@ -534,7 +534,7 @@ TEST(Message, AppendParameterData)
       std::memcmp(supported_params.first_packed_resp(), response_buf.data, supported_params.first_packed_resp_size()),
       0);
 
-  constexpr uint8_t kAdditionalPdSize = 4;
+  constexpr uint8_t                      kAdditionalPdSize = 4;
   std::array<uint8_t, kAdditionalPdSize> additional_pd = {0x00, 0x60, 0x00, 0x70};
 
   ASSERT_EQ(rdm_append_parameter_data(&response_buf, additional_pd.data(), kAdditionalPdSize), kEtcPalErrOk);
@@ -564,11 +564,11 @@ TEST(Message, AppendParameterData)
 TEST(Message, UnpackCommand)
 {
   const auto supported_params = rdmtest::GetSupportedParams();
-  RdmBuffer packed_cmd = supported_params.cmd_buf();
+  RdmBuffer  packed_cmd = supported_params.cmd_buf();
 
   RdmCommandHeader cmd_header;
-  const uint8_t* param_data;
-  uint8_t param_data_len;
+  const uint8_t*   param_data;
+  uint8_t          param_data_len;
 
   EXPECT_EQ(rdm_unpack_command(&packed_cmd, &cmd_header, &param_data, &param_data_len), kEtcPalErrOk);
   EXPECT_EQ(cmd_header, supported_params.cmd_header);
@@ -579,11 +579,11 @@ TEST(Message, UnpackCommand)
 TEST(Message, UnpackCommandWithData)
 {
   const auto sensor_def = rdmtest::GetSensorDefinition();
-  RdmBuffer packed_cmd = sensor_def.cmd_buf();
+  RdmBuffer  packed_cmd = sensor_def.cmd_buf();
 
   RdmCommandHeader cmd_header;
-  const uint8_t* param_data;
-  uint8_t param_data_len;
+  const uint8_t*   param_data;
+  uint8_t          param_data_len;
 
   EXPECT_EQ(rdm_unpack_command(&packed_cmd, &cmd_header, &param_data, &param_data_len), kEtcPalErrOk);
   EXPECT_EQ(cmd_header, sensor_def.cmd_header);
@@ -594,11 +594,11 @@ TEST(Message, UnpackCommandWithData)
 TEST(Message, UnpackResponse)
 {
   const auto reset_device = rdmtest::SetResetDevice();
-  RdmBuffer packed_resp = reset_device.first_resp_buf();
+  RdmBuffer  packed_resp = reset_device.first_resp_buf();
 
   RdmResponseHeader resp_header;
-  const uint8_t* resp_data;
-  uint8_t resp_data_len;
+  const uint8_t*    resp_data;
+  uint8_t           resp_data_len;
 
   EXPECT_EQ(rdm_unpack_response(&packed_resp, &resp_header, &resp_data, &resp_data_len), kEtcPalErrOk);
   EXPECT_EQ(resp_header, reset_device.resp_header);
@@ -609,11 +609,11 @@ TEST(Message, UnpackResponse)
 TEST(Message, UnpackResponseWithData)
 {
   const auto supported_params = rdmtest::GetSupportedParams();
-  RdmBuffer packed_resp = supported_params.first_resp_buf();
+  RdmBuffer  packed_resp = supported_params.first_resp_buf();
 
   RdmResponseHeader resp_header;
-  const uint8_t* resp_data;
-  uint8_t resp_data_len;
+  const uint8_t*    resp_data;
+  uint8_t           resp_data_len;
 
   EXPECT_EQ(rdm_unpack_response(&packed_resp, &resp_header, &resp_data, &resp_data_len), kEtcPalErrOk);
   EXPECT_EQ(resp_header, supported_params.resp_header);

@@ -83,25 +83,32 @@ class Response
 public:
   /// Construct an invalid response by default.
   Response() = default;
-  Response(const Uid& source_uid, const Uid& dest_uid, uint8_t transaction_num, rdm_response_type_t response_type,
-           uint8_t msg_count, uint16_t subdevice, rdm_command_class_t command_class, uint16_t param_id,
-           const uint8_t* data = nullptr, size_t data_len = 0);
+  Response(const Uid&          source_uid,
+           const Uid&          dest_uid,
+           uint8_t             transaction_num,
+           rdm_response_type_t response_type,
+           uint8_t             msg_count,
+           uint16_t            subdevice,
+           rdm_command_class_t command_class,
+           uint16_t            param_id,
+           const uint8_t*      data = nullptr,
+           size_t              data_len = 0);
   Response(const ResponseHeader& header, const uint8_t* data = nullptr, size_t data_len = 0);
   Response(const ::RdmResponseHeader& header, const uint8_t* data = nullptr, size_t data_len = 0);
 
-  constexpr Uid source_uid() const noexcept;
-  constexpr Uid dest_uid() const noexcept;
-  constexpr uint8_t transaction_num() const noexcept;
+  constexpr Uid                 source_uid() const noexcept;
+  constexpr Uid                 dest_uid() const noexcept;
+  constexpr uint8_t             transaction_num() const noexcept;
   constexpr rdm_response_type_t response_type() const noexcept;
-  constexpr uint8_t message_count() const noexcept;
-  constexpr uint16_t subdevice() const noexcept;
+  constexpr uint8_t             message_count() const noexcept;
+  constexpr uint16_t            subdevice() const noexcept;
   constexpr rdm_command_class_t command_class() const noexcept;
-  constexpr uint16_t param_id() const noexcept;
+  constexpr uint16_t            param_id() const noexcept;
 
   constexpr const ResponseHeader& header() const noexcept;
   ETCPAL_CONSTEXPR_14 ResponseHeader& header() noexcept;
-  const uint8_t* data() const noexcept;
-  size_t data_len() const noexcept;
+  const uint8_t*                      data() const noexcept;
+  size_t                              data_len() const noexcept;
 
   bool IsValid() const noexcept;
   bool HasData() const noexcept;
@@ -122,8 +129,8 @@ public:
   /// @}
 
   etcpal::Expected<unsigned int> GetAckTimerDelayMs() const noexcept;
-  etcpal::Expected<NackReason> GetNackReason() const noexcept;
-  std::vector<uint8_t> GetData() const;
+  etcpal::Expected<NackReason>   GetNackReason() const noexcept;
+  std::vector<uint8_t>           GetData() const;
 
   Response& SetSourceUid(const Uid& uid) noexcept;
   Response& SetSourceUid(const ::RdmUid& uid) noexcept;
@@ -141,7 +148,7 @@ public:
   Response& ClearData() noexcept;
 
 private:
-  ResponseHeader header_;
+  ResponseHeader       header_;
   std::vector<uint8_t> data_;
 };
 
@@ -156,9 +163,16 @@ private:
 /// @param param_id The RDM parameter ID (PID) of this response.
 /// @param data The RDM parameter data of this response (nullptr for responses with no data).
 /// @param data_len The length of the RDM parameter data (0 for responses with no data).
-inline Response::Response(const Uid& source_uid, const Uid& dest_uid, uint8_t transaction_num,
-                          rdm_response_type_t response_type, uint8_t msg_count, uint16_t subdevice,
-                          rdm_command_class_t command_class, uint16_t param_id, const uint8_t* data, size_t data_len)
+inline Response::Response(const Uid&          source_uid,
+                          const Uid&          dest_uid,
+                          uint8_t             transaction_num,
+                          rdm_response_type_t response_type,
+                          uint8_t             msg_count,
+                          uint16_t            subdevice,
+                          rdm_command_class_t command_class,
+                          uint16_t            param_id,
+                          const uint8_t*      data,
+                          size_t              data_len)
     : header_(source_uid, dest_uid, transaction_num, response_type, msg_count, subdevice, command_class, param_id)
 {
   SetData(data, data_len);

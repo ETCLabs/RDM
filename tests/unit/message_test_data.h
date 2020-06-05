@@ -53,22 +53,22 @@ inline bool operator==(const RdmBuffer& a, const RdmBuffer& b)
 // serialized and non-serialized versions, plus some convenience utilities for inspecting them.
 struct CmdRespPair
 {
-  RdmCommandHeader cmd_header;
-  std::vector<uint8_t> cmd_data_;
-  std::vector<uint8_t> packed_cmd_;
-  RdmResponseHeader resp_header;
-  std::vector<uint8_t> resp_data_;
+  RdmCommandHeader                  cmd_header;
+  std::vector<uint8_t>              cmd_data_;
+  std::vector<uint8_t>              packed_cmd_;
+  RdmResponseHeader                 resp_header;
+  std::vector<uint8_t>              resp_data_;
   std::vector<std::vector<uint8_t>> packed_resps_;
 
   const uint8_t* cmd_data() const { return cmd_data_.data(); }
-  uint8_t cmd_data_size() const { return static_cast<uint8_t>(cmd_data_.size()); }
+  uint8_t        cmd_data_size() const { return static_cast<uint8_t>(cmd_data_.size()); }
   const uint8_t* packed_cmd() const { return packed_cmd_.data(); }
-  size_t packed_cmd_size() const { return packed_cmd_.size(); }
+  size_t         packed_cmd_size() const { return packed_cmd_.size(); }
   const uint8_t* resp_data() const { return resp_data_.data(); }
-  uint8_t resp_data_size() const { return static_cast<uint8_t>(resp_data_.size()); }
-  size_t overflow_resp_data_size() const { return resp_data_.size(); }
+  uint8_t        resp_data_size() const { return static_cast<uint8_t>(resp_data_.size()); }
+  size_t         overflow_resp_data_size() const { return resp_data_.size(); }
   const uint8_t* first_packed_resp() const { return packed_resps_[0].data(); }
-  size_t first_packed_resp_size() const { return packed_resps_[0].size(); }
+  size_t         first_packed_resp_size() const { return packed_resps_[0].size(); }
 
   RdmBuffer cmd_buf() const
   {

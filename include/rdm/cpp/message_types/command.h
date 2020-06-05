@@ -42,23 +42,30 @@ class Command
 {
 public:
   Command() = default;
-  Command(const Uid& source_uid, const Uid& dest_uid, uint8_t transaction_num, uint8_t port_id, uint16_t subdevice,
-          rdm_command_class_t command_class, uint16_t param_id, const uint8_t* data = nullptr, uint8_t data_len = 0);
+  Command(const Uid&          source_uid,
+          const Uid&          dest_uid,
+          uint8_t             transaction_num,
+          uint8_t             port_id,
+          uint16_t            subdevice,
+          rdm_command_class_t command_class,
+          uint16_t            param_id,
+          const uint8_t*      data = nullptr,
+          uint8_t             data_len = 0);
   Command(const CommandHeader& header, const uint8_t* data = nullptr, uint8_t data_len = 0);
   Command(const ::RdmCommandHeader& header, const uint8_t* data = nullptr, uint8_t data_len = 0);
 
-  constexpr Uid source_uid() const noexcept;
-  constexpr Uid dest_uid() const noexcept;
-  constexpr uint8_t transaction_num() const noexcept;
-  constexpr uint8_t port_id() const noexcept;
-  constexpr uint16_t subdevice() const noexcept;
+  constexpr Uid                 source_uid() const noexcept;
+  constexpr Uid                 dest_uid() const noexcept;
+  constexpr uint8_t             transaction_num() const noexcept;
+  constexpr uint8_t             port_id() const noexcept;
+  constexpr uint16_t            subdevice() const noexcept;
   constexpr rdm_command_class_t command_class() const noexcept;
-  constexpr uint16_t param_id() const noexcept;
+  constexpr uint16_t            param_id() const noexcept;
 
   constexpr const CommandHeader& header() const noexcept;
   ETCPAL_CONSTEXPR_14 CommandHeader& header() noexcept;
-  const uint8_t* data() const noexcept;
-  uint8_t data_len() const noexcept;
+  const uint8_t*                     data() const noexcept;
+  uint8_t                            data_len() const noexcept;
 
   bool IsValid() const noexcept;
   bool HasData() const noexcept;
@@ -80,22 +87,32 @@ public:
   Command& SetData(const uint8_t* data, uint8_t data_len);
   Command& ClearData() noexcept;
 
-  size_t PackedSize() const noexcept;
+  size_t        PackedSize() const noexcept;
   etcpal::Error Serialize(RdmBuffer& buffer) const noexcept;
   etcpal::Error Serialize(uint8_t* buf, size_t buflen) const noexcept;
 
   /// @name High-level command generators
   /// @{
-  static Command Get(uint16_t param_id, const Uid& source_uid, const Uid& dest_uid, uint16_t subdevice = 0,
-                     const uint8_t* data = nullptr, uint8_t data_len = 0, uint8_t transaction_num = 0,
-                     uint8_t port_id = 1);
-  static Command Set(uint16_t param_id, const Uid& source_uid, const Uid& dest_uid, uint16_t subdevice = 0,
-                     const uint8_t* data = nullptr, uint8_t data_len = 0, uint8_t transaction_num = 0,
-                     uint8_t port_id = 1);
+  static Command Get(uint16_t       param_id,
+                     const Uid&     source_uid,
+                     const Uid&     dest_uid,
+                     uint16_t       subdevice = 0,
+                     const uint8_t* data = nullptr,
+                     uint8_t        data_len = 0,
+                     uint8_t        transaction_num = 0,
+                     uint8_t        port_id = 1);
+  static Command Set(uint16_t       param_id,
+                     const Uid&     source_uid,
+                     const Uid&     dest_uid,
+                     uint16_t       subdevice = 0,
+                     const uint8_t* data = nullptr,
+                     uint8_t        data_len = 0,
+                     uint8_t        transaction_num = 0,
+                     uint8_t        port_id = 1);
   /// @}
 
 private:
-  CommandHeader header_;
+  CommandHeader        header_;
   std::vector<uint8_t> data_;
 };
 
@@ -109,9 +126,15 @@ private:
 /// @param param_id The RDM parameter ID (PID) of this command.
 /// @param data The RDM parameter data of this command (nullptr for commands with no data).
 /// @param data_len The length of the RDM parameter data (0 for commands with no data).
-inline Command::Command(const Uid& source_uid, const Uid& dest_uid, uint8_t transaction_num, uint8_t port_id,
-                        uint16_t subdevice, rdm_command_class_t command_class, uint16_t param_id, const uint8_t* data,
-                        uint8_t data_len)
+inline Command::Command(const Uid&          source_uid,
+                        const Uid&          dest_uid,
+                        uint8_t             transaction_num,
+                        uint8_t             port_id,
+                        uint16_t            subdevice,
+                        rdm_command_class_t command_class,
+                        uint16_t            param_id,
+                        const uint8_t*      data,
+                        uint8_t             data_len)
     : header_(source_uid, dest_uid, transaction_num, port_id, subdevice, command_class, param_id)
 {
   SetData(data, data_len);
@@ -358,8 +381,14 @@ inline etcpal::Error Command::Serialize(uint8_t* buf, size_t buf_len) const noex
 /// @param data_len The length of the RDM parameter data (0 for commands with no data).
 /// @param transaction_num The RDM transaction number (should increase monotonically with each command).
 /// @param port_id The port ID of the port on which this command is being sent.
-inline Command Command::Get(uint16_t param_id, const Uid& source_uid, const Uid& dest_uid, uint16_t subdevice,
-                            const uint8_t* data, uint8_t data_len, uint8_t transaction_num, uint8_t port_id)
+inline Command Command::Get(uint16_t       param_id,
+                            const Uid&     source_uid,
+                            const Uid&     dest_uid,
+                            uint16_t       subdevice,
+                            const uint8_t* data,
+                            uint8_t        data_len,
+                            uint8_t        transaction_num,
+                            uint8_t        port_id)
 {
   return Command(source_uid, dest_uid, transaction_num, port_id, subdevice, kRdmCCGetCommand, param_id, data, data_len);
 }
@@ -373,8 +402,14 @@ inline Command Command::Get(uint16_t param_id, const Uid& source_uid, const Uid&
 /// @param data_len The length of the RDM parameter data (0 for commands with no data).
 /// @param transaction_num The RDM transaction number (should increase monotonically with each command).
 /// @param port_id The port ID of the port on which this command is being sent.
-inline Command Command::Set(uint16_t param_id, const Uid& source_uid, const Uid& dest_uid, uint16_t subdevice,
-                            const uint8_t* data, uint8_t data_len, uint8_t transaction_num, uint8_t port_id)
+inline Command Command::Set(uint16_t       param_id,
+                            const Uid&     source_uid,
+                            const Uid&     dest_uid,
+                            uint16_t       subdevice,
+                            const uint8_t* data,
+                            uint8_t        data_len,
+                            uint8_t        transaction_num,
+                            uint8_t        port_id)
 {
   return Command(source_uid, dest_uid, transaction_num, port_id, subdevice, kRdmCCSetCommand, param_id, data, data_len);
 }

@@ -71,14 +71,14 @@ TEST(CppNackReason, RawCodeAssignmentOperatorWorks)
 TEST(CppNackReason, ToStringWorks)
 {
   rdm::NackReason nack_reason(kRdmNRHardwareFault);
-  auto str = nack_reason.ToString();
+  auto            str = nack_reason.ToString();
   EXPECT_FALSE(str.empty());
 }
 
 TEST(CppNackReason, ToCStringWorks)
 {
   rdm::NackReason nack_reason(kRdmNRInvalidIpv4Address);
-  const char* str = nack_reason.ToCString();
+  const char*     str = nack_reason.ToCString();
   ASSERT_NE(str, nullptr);
   EXPECT_GT(std::strlen(str), 0u);
 }

@@ -194,7 +194,7 @@ TEST(Uid, GettersWork)
 
 TEST(Uid, UidToStringHandlesInvalidCalls)
 {
-  char str_buf[RDM_UID_STRING_BYTES];
+  char   str_buf[RDM_UID_STRING_BYTES];
   RdmUid uid = {0x6574u, 0x88888888u};
 
   EXPECT_FALSE(rdm_uid_to_string(nullptr, str_buf));
@@ -204,7 +204,7 @@ TEST(Uid, UidToStringHandlesInvalidCalls)
 
 TEST(Uid, NormalUidToStringWorks)
 {
-  char str_buf[RDM_UID_STRING_BYTES];
+  char   str_buf[RDM_UID_STRING_BYTES];
   RdmUid uid = {0x6574u, 0x88884444u};
 
   ASSERT_TRUE(rdm_uid_to_string(&uid, str_buf));
@@ -214,7 +214,7 @@ TEST(Uid, NormalUidToStringWorks)
 TEST(Uid, NullUidToStringWorks)
 {
   RdmUid null_uid{};
-  char str_buf[RDM_UID_STRING_BYTES];
+  char   str_buf[RDM_UID_STRING_BYTES];
   ASSERT_TRUE(rdm_uid_to_string(&null_uid, str_buf));
   EXPECT_STREQ(str_buf, "0000:00000000");
 }

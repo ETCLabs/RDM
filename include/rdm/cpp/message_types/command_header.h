@@ -75,21 +75,26 @@ class CommandHeader
 public:
   /// Construct an invalid command header by default.
   CommandHeader() = default;
-  constexpr CommandHeader(const Uid& source_uid, const Uid& dest_uid, uint8_t transaction_num, uint8_t port_id,
-                          uint16_t subdevice, rdm_command_class_t command_class, uint16_t param_id) noexcept;
+  constexpr CommandHeader(const Uid&          source_uid,
+                          const Uid&          dest_uid,
+                          uint8_t             transaction_num,
+                          uint8_t             port_id,
+                          uint16_t            subdevice,
+                          rdm_command_class_t command_class,
+                          uint16_t            param_id) noexcept;
 
   constexpr CommandHeader(const ::RdmCommandHeader& c_header) noexcept;
   CommandHeader& operator=(const ::RdmCommandHeader& c_header) noexcept;
 
-  constexpr Uid source_uid() const noexcept;
-  constexpr Uid dest_uid() const noexcept;
-  constexpr uint8_t transaction_num() const noexcept;
-  constexpr uint8_t port_id() const noexcept;
-  constexpr uint16_t subdevice() const noexcept;
+  constexpr Uid                 source_uid() const noexcept;
+  constexpr Uid                 dest_uid() const noexcept;
+  constexpr uint8_t             transaction_num() const noexcept;
+  constexpr uint8_t             port_id() const noexcept;
+  constexpr uint16_t            subdevice() const noexcept;
   constexpr rdm_command_class_t command_class() const noexcept;
-  constexpr uint16_t param_id() const noexcept;
+  constexpr uint16_t            param_id() const noexcept;
 
-  constexpr const ::RdmCommandHeader& get() const noexcept;
+  constexpr const ::RdmCommandHeader&     get() const noexcept;
   ETCPAL_CONSTEXPR_14 ::RdmCommandHeader& get() noexcept;
 
   bool IsValid() const noexcept;
@@ -109,16 +114,24 @@ public:
   CommandHeader& SetParamId(uint16_t param_id) noexcept;
 
   constexpr size_t PackedSize(uint8_t data_len = 0) const noexcept;
-  etcpal::Error Serialize(RdmBuffer& buffer, const uint8_t* data = nullptr, uint8_t data_len = 0) const noexcept;
-  etcpal::Error Serialize(uint8_t* buf, size_t buf_len, const uint8_t* data = nullptr, uint8_t data_len = 0) const
+  etcpal::Error    Serialize(RdmBuffer& buffer, const uint8_t* data = nullptr, uint8_t data_len = 0) const noexcept;
+  etcpal::Error    Serialize(uint8_t* buf, size_t buf_len, const uint8_t* data = nullptr, uint8_t data_len = 0) const
       noexcept;
 
   /// @name High-level command header generators
   /// @{
-  static CommandHeader Get(uint16_t param_id, const Uid& source_uid, const Uid& dest_uid, uint16_t subdevice = 0,
-                           uint8_t transaction_num = 0, uint8_t port_id = 1) noexcept;
-  static CommandHeader Set(uint16_t param_id, const Uid& source_uid, const Uid& dest_uid, uint16_t subdevice = 0,
-                           uint8_t transaction_num = 0, uint8_t port_id = 1) noexcept;
+  static CommandHeader Get(uint16_t   param_id,
+                           const Uid& source_uid,
+                           const Uid& dest_uid,
+                           uint16_t   subdevice = 0,
+                           uint8_t    transaction_num = 0,
+                           uint8_t    port_id = 1) noexcept;
+  static CommandHeader Set(uint16_t   param_id,
+                           const Uid& source_uid,
+                           const Uid& dest_uid,
+                           uint16_t   subdevice = 0,
+                           uint8_t    transaction_num = 0,
+                           uint8_t    port_id = 1) noexcept;
   /// @}
 
 private:
@@ -133,9 +146,13 @@ private:
 /// @param subdevice The sub-device to which this command is addressed, or 0 for the root device.
 /// @param command_class The RDM command class for this command.
 /// @param param_id The RDM parameter ID (PID) of this command.
-constexpr CommandHeader::CommandHeader(const Uid& source_uid, const Uid& dest_uid, uint8_t transaction_num,
-                                       uint8_t port_id, uint16_t subdevice, rdm_command_class_t command_class,
-                                       uint16_t param_id) noexcept
+constexpr CommandHeader::CommandHeader(const Uid&          source_uid,
+                                       const Uid&          dest_uid,
+                                       uint8_t             transaction_num,
+                                       uint8_t             port_id,
+                                       uint16_t            subdevice,
+                                       rdm_command_class_t command_class,
+                                       uint16_t            param_id) noexcept
     : cmd_header_{source_uid.get(), dest_uid.get(), transaction_num, port_id, subdevice, command_class, param_id}
 {
 }
@@ -330,8 +347,12 @@ inline etcpal::Error CommandHeader::Serialize(uint8_t* buf, size_t buf_len, cons
 /// @param subdevice The sub-device to which this command is addressed, or 0 for the root device.
 /// @param transaction_num The RDM transaction number (should increase monotonically with each command).
 /// @param port_id The port ID of the port on which this command is being sent.
-inline CommandHeader CommandHeader::Get(uint16_t param_id, const Uid& source_uid, const Uid& dest_uid,
-                                        uint16_t subdevice, uint8_t transaction_num, uint8_t port_id) noexcept
+inline CommandHeader CommandHeader::Get(uint16_t   param_id,
+                                        const Uid& source_uid,
+                                        const Uid& dest_uid,
+                                        uint16_t   subdevice,
+                                        uint8_t    transaction_num,
+                                        uint8_t    port_id) noexcept
 {
   return CommandHeader(source_uid, dest_uid, transaction_num, port_id, subdevice, kRdmCCGetCommand, param_id);
 }
@@ -343,8 +364,12 @@ inline CommandHeader CommandHeader::Get(uint16_t param_id, const Uid& source_uid
 /// @param subdevice The sub-device to which this command is addressed, or 0 for the root device.
 /// @param transaction_num The RDM transaction number (should increase monotonically with each command).
 /// @param port_id The port ID of the port on which this command is being sent.
-inline CommandHeader CommandHeader::Set(uint16_t param_id, const Uid& source_uid, const Uid& dest_uid,
-                                        uint16_t subdevice, uint8_t transaction_num, uint8_t port_id) noexcept
+inline CommandHeader CommandHeader::Set(uint16_t   param_id,
+                                        const Uid& source_uid,
+                                        const Uid& dest_uid,
+                                        uint16_t   subdevice,
+                                        uint8_t    transaction_num,
+                                        uint8_t    port_id) noexcept
 {
   return CommandHeader(source_uid, dest_uid, transaction_num, port_id, subdevice, kRdmCCSetCommand, param_id);
 }

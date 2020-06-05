@@ -57,23 +57,28 @@ class ResponseHeader
 public:
   /// Construct an invalid response header by default.
   ResponseHeader() = default;
-  constexpr ResponseHeader(const Uid& source_uid, const Uid& dest_uid, uint8_t transaction_num,
-                           rdm_response_type_t response_type, uint8_t msg_count, uint16_t subdevice,
-                           rdm_command_class_t command_class, uint16_t param_id) noexcept;
+  constexpr ResponseHeader(const Uid&          source_uid,
+                           const Uid&          dest_uid,
+                           uint8_t             transaction_num,
+                           rdm_response_type_t response_type,
+                           uint8_t             msg_count,
+                           uint16_t            subdevice,
+                           rdm_command_class_t command_class,
+                           uint16_t            param_id) noexcept;
 
   constexpr ResponseHeader(const ::RdmResponseHeader& c_header) noexcept;
   ResponseHeader& operator=(const ::RdmResponseHeader& c_header) noexcept;
 
-  constexpr Uid source_uid() const noexcept;
-  constexpr Uid dest_uid() const noexcept;
-  constexpr uint8_t transaction_num() const noexcept;
+  constexpr Uid                 source_uid() const noexcept;
+  constexpr Uid                 dest_uid() const noexcept;
+  constexpr uint8_t             transaction_num() const noexcept;
   constexpr rdm_response_type_t response_type() const noexcept;
-  constexpr uint8_t message_count() const noexcept;
-  constexpr uint16_t subdevice() const noexcept;
+  constexpr uint8_t             message_count() const noexcept;
+  constexpr uint16_t            subdevice() const noexcept;
   constexpr rdm_command_class_t command_class() const noexcept;
-  constexpr uint16_t param_id() const noexcept;
+  constexpr uint16_t            param_id() const noexcept;
 
-  constexpr const ::RdmResponseHeader& get() const noexcept;
+  constexpr const ::RdmResponseHeader&     get() const noexcept;
   ETCPAL_CONSTEXPR_14 ::RdmResponseHeader& get() noexcept;
 
   bool IsValid() const noexcept;
@@ -117,9 +122,14 @@ private:
 /// @param subdevice The sub-device generating this response, or 0 for the root device.
 /// @param command_class The RDM command class for this response.
 /// @param param_id The RDM parameter ID (PID) of this response.
-constexpr ResponseHeader::ResponseHeader(const Uid& source_uid, const Uid& dest_uid, uint8_t transaction_num,
-                                         rdm_response_type_t response_type, uint8_t msg_count, uint16_t subdevice,
-                                         rdm_command_class_t command_class, uint16_t param_id) noexcept
+constexpr ResponseHeader::ResponseHeader(const Uid&          source_uid,
+                                         const Uid&          dest_uid,
+                                         uint8_t             transaction_num,
+                                         rdm_response_type_t response_type,
+                                         uint8_t             msg_count,
+                                         uint16_t            subdevice,
+                                         rdm_command_class_t command_class,
+                                         uint16_t            param_id) noexcept
     : resp_header_{source_uid.get(), dest_uid.get(), transaction_num, response_type,
                    msg_count,        subdevice,      command_class,   param_id}
 {

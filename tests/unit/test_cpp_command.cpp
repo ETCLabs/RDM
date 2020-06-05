@@ -64,8 +64,8 @@ TEST(CppCmd, HeaderConstructorWorks)
 {
   rdm::CommandHeader header(rdm::Uid(0x1234, 0x56789abc), rdm::Uid(0xba98, 0x76543210), 0x22, 1, 0, kRdmCCSetCommand,
                             E120_IDENTIFY_DEVICE);
-  uint8_t identify_val = 1u;
-  rdm::Command cmd(header, &identify_val, 1);
+  uint8_t            identify_val = 1u;
+  rdm::Command       cmd(header, &identify_val, 1);
 
   EXPECT_TRUE(cmd.IsValid());
   EXPECT_TRUE(cmd.header().IsValid());
@@ -88,7 +88,7 @@ TEST(CppCmd, SettersAndGettersWork)
 {
   // Construct a command with parameter data.
   constexpr char kTestDeviceLabel[] = "Test Device Label";
-  auto cmd = rdm::Command({0x6574, 0x1234}, {0x6574, 0x4321}, 20, 1, 0, kRdmCCSetCommand, E120_DEVICE_LABEL,
+  auto           cmd = rdm::Command({0x6574, 0x1234}, {0x6574, 0x4321}, 20, 1, 0, kRdmCCSetCommand, E120_DEVICE_LABEL,
                           reinterpret_cast<const uint8_t*>(kTestDeviceLabel), sizeof(kTestDeviceLabel));
 
   ASSERT_EQ(cmd.data_len(), sizeof(kTestDeviceLabel));

@@ -30,7 +30,7 @@
 typedef struct MaxPdSize
 {
   uint16_t pid;
-  uint8_t max_pd;
+  uint8_t  max_pd;
 } MaxPdSize;
 
 /**************************** Private variables ******************************/
@@ -74,8 +74,11 @@ static const MaxPdSize kKnownMaxPdSizes[] = {
 static bool validate_received_cmd_header(const RdmCommandHeader* header);
 
 static void pack_rdm_command_header(const RdmCommandHeader* cmd_header, uint8_t rdm_length, uint8_t* buffer);
-static void pack_rdm_response_header(const RdmCommandHeader* cmd_header, uint8_t rdm_length,
-                                     rdm_response_type_t response_type, uint8_t msg_count, uint8_t* buffer);
+static void pack_rdm_response_header(const RdmCommandHeader* cmd_header,
+                                     uint8_t                 rdm_length,
+                                     rdm_response_type_t     response_type,
+                                     uint8_t                 msg_count,
+                                     uint8_t*                buffer);
 
 static uint8_t get_max_pd_size(uint16_t pid);
 
@@ -175,8 +178,10 @@ bool rdm_response_header_is_valid(const RdmResponseHeader* resp_header)
  * @return #kEtcPalErrInvalid: Invalid argument provided.
  * @return #kEtcPalErrMsgSize: Parameter data length is too long.
  */
-etcpal_error_t rdm_pack_command(const RdmCommandHeader* cmd_header, const uint8_t* cmd_data, uint8_t cmd_data_len,
-                                RdmBuffer* buffer)
+etcpal_error_t rdm_pack_command(const RdmCommandHeader* cmd_header,
+                                const uint8_t*          cmd_data,
+                                uint8_t                 cmd_data_len,
+                                RdmBuffer*              buffer)
 {
   if (!buffer)
     return kEtcPalErrInvalid;
@@ -201,8 +206,11 @@ etcpal_error_t rdm_pack_command(const RdmCommandHeader* cmd_header, const uint8_
  * @return #kEtcPalErrMsgSize: Parameter data length is too long.
  * @return #kEtcPalErrBufSize: Buffer not long enough to hold RDM message.
  */
-etcpal_error_t rdm_pack_command_with_custom_buf(const RdmCommandHeader* cmd_header, const uint8_t* cmd_data,
-                                                uint8_t cmd_data_len, uint8_t* buf, size_t buf_len)
+etcpal_error_t rdm_pack_command_with_custom_buf(const RdmCommandHeader* cmd_header,
+                                                const uint8_t*          cmd_data,
+                                                uint8_t                 cmd_data_len,
+                                                uint8_t*                buf,
+                                                size_t                  buf_len)
 {
   if (!cmd_header || !buf || !buf_len || !rdm_command_header_is_valid(cmd_header))
     return kEtcPalErrInvalid;
@@ -240,8 +248,11 @@ etcpal_error_t rdm_pack_command_with_custom_buf(const RdmCommandHeader* cmd_head
  * @return #kEtcPalErrInvalid: Invalid argument.
  * @return #kEtcPalErrMsgSize: Response data too long.
  */
-etcpal_error_t rdm_pack_response(const RdmCommandHeader* cmd_header, uint8_t msg_count, const uint8_t* response_data,
-                                 uint8_t response_data_len, RdmBuffer* buffer)
+etcpal_error_t rdm_pack_response(const RdmCommandHeader* cmd_header,
+                                 uint8_t                 msg_count,
+                                 const uint8_t*          response_data,
+                                 uint8_t                 response_data_len,
+                                 RdmBuffer*              buffer)
 {
   if (!cmd_header || !buffer || !validate_received_cmd_header(cmd_header))
     return kEtcPalErrInvalid;
@@ -276,8 +287,10 @@ etcpal_error_t rdm_pack_response(const RdmCommandHeader* cmd_header, uint8_t msg
  * @return #kEtcPalErrInvalid: Invalid argument.
  * @return #kEtcPalErrMsgSize: Response data too long.
  */
-etcpal_error_t rdm_pack_overflow_response(const RdmCommandHeader* cmd_header, const uint8_t* response_data,
-                                          uint8_t response_data_len, RdmBuffer* buffer)
+etcpal_error_t rdm_pack_overflow_response(const RdmCommandHeader* cmd_header,
+                                          const uint8_t*          response_data,
+                                          uint8_t                 response_data_len,
+                                          RdmBuffer*              buffer)
 {
   if (!cmd_header || !buffer || !validate_received_cmd_header(cmd_header))
     return kEtcPalErrInvalid;
@@ -309,8 +322,10 @@ etcpal_error_t rdm_pack_overflow_response(const RdmCommandHeader* cmd_header, co
  * @return #kEtcPalErrOk: Response packed successfully.
  * @return #kEtcPalErrInvalid: Invalid argument.
  */
-etcpal_error_t rdm_pack_nack_response(const RdmCommandHeader* cmd_header, uint8_t msg_count,
-                                      rdm_nack_reason_t nack_reason, RdmBuffer* buffer)
+etcpal_error_t rdm_pack_nack_response(const RdmCommandHeader* cmd_header,
+                                      uint8_t                 msg_count,
+                                      rdm_nack_reason_t       nack_reason,
+                                      RdmBuffer*              buffer)
 {
   if (!cmd_header || !buffer || !validate_received_cmd_header(cmd_header))
     return kEtcPalErrInvalid;
@@ -340,8 +355,10 @@ etcpal_error_t rdm_pack_nack_response(const RdmCommandHeader* cmd_header, uint8_
  * @return #kEtcPalErrOk: Response packed successfully.
  * @return #kEtcPalErrInvalid: Invalid argument.
  */
-etcpal_error_t rdm_pack_timer_response(const RdmCommandHeader* cmd_header, uint8_t msg_count,
-                                       unsigned int delay_time_ms, RdmBuffer* buffer)
+etcpal_error_t rdm_pack_timer_response(const RdmCommandHeader* cmd_header,
+                                       uint8_t                 msg_count,
+                                       unsigned int            delay_time_ms,
+                                       RdmBuffer*              buffer)
 {
   if (!cmd_header || !buffer || !validate_received_cmd_header(cmd_header) || delay_time_ms == 0 ||
       delay_time_ms > 6553500)
@@ -428,7 +445,7 @@ etcpal_error_t rdm_pack_dub_response(const RdmUid* responder_uid, RdmBuffer* buf
 size_t rdm_get_num_overflow_responses_needed(uint16_t param_id, size_t response_data_len)
 {
   uint8_t max_pd = get_max_pd_size(param_id);
-  size_t num_responses = response_data_len / max_pd;
+  size_t  num_responses = response_data_len / max_pd;
   if (response_data_len % max_pd)
     ++num_responses;
   return num_responses;
@@ -448,8 +465,11 @@ size_t rdm_get_num_overflow_responses_needed(uint16_t param_id, size_t response_
  * @return #kEtcPalErrInvalid: Invalid argument provided.
  * @return #kEtcPalErrBufSize: Not enough RdmBuffers to hold the response data.
  */
-etcpal_error_t rdm_pack_full_overflow_response(const RdmCommandHeader* cmd_header, const uint8_t* response_data,
-                                               size_t response_data_len, RdmBuffer* buffers, size_t num_buffers)
+etcpal_error_t rdm_pack_full_overflow_response(const RdmCommandHeader* cmd_header,
+                                               const uint8_t*          response_data,
+                                               size_t                  response_data_len,
+                                               RdmBuffer*              buffers,
+                                               size_t                  num_buffers)
 {
   if (!cmd_header || !response_data || !response_data_len || !buffers || !num_buffers ||
       !validate_received_cmd_header(cmd_header))
@@ -523,8 +543,10 @@ etcpal_error_t rdm_append_parameter_data(RdmBuffer* buffer, const uint8_t* addit
  * @return #kEtcPalErrInvalid: Invalid argument provided.
  * @return #kEtcPalErrProtocol: RDM protocol error in packed command.
  */
-etcpal_error_t rdm_unpack_command(const RdmBuffer* buffer, RdmCommandHeader* cmd_header, const uint8_t** param_data,
-                                  uint8_t* param_data_len)
+etcpal_error_t rdm_unpack_command(const RdmBuffer*  buffer,
+                                  RdmCommandHeader* cmd_header,
+                                  const uint8_t**   param_data,
+                                  uint8_t*          param_data_len)
 {
   if (!buffer || !cmd_header || !param_data || !param_data_len)
     return kEtcPalErrInvalid;
@@ -570,8 +592,10 @@ etcpal_error_t rdm_unpack_command(const RdmBuffer* buffer, RdmCommandHeader* cmd
  * @return #kEtcPalErrInvalid: Invalid argument provided.
  * @return #kEtcPalErrProtocol: RDM protocol error in packed response.
  */
-etcpal_error_t rdm_unpack_response(const RdmBuffer* buffer, RdmResponseHeader* resp_header, const uint8_t** param_data,
-                                   uint8_t* param_data_len)
+etcpal_error_t rdm_unpack_response(const RdmBuffer*   buffer,
+                                   RdmResponseHeader* resp_header,
+                                   const uint8_t**    param_data,
+                                   uint8_t*           param_data_len)
 {
   if (!buffer || !resp_header || !param_data || !param_data_len)
     return kEtcPalErrInvalid;
@@ -635,7 +659,7 @@ etcpal_error_t rdm_unpack_dub_response(const RdmBuffer* buffer, RdmUid* responde
   ++cur_ptr;
 
   // Validate the checksum
-  uint16_t expected_sum = calc_checksum(cur_ptr, 12);
+  uint16_t       expected_sum = calc_checksum(cur_ptr, 12);
   const uint8_t* checksum_offset = cur_ptr + 12;
   if (expected_sum != get_u16_from_dub_response(checksum_offset))
     return kEtcPalErrProtocol;
@@ -795,8 +819,11 @@ void pack_rdm_command_header(const RdmCommandHeader* cmd_header, uint8_t rdm_len
   *cur_ptr++ = rdm_length - RDM_HEADER_SIZE;
 }
 
-void pack_rdm_response_header(const RdmCommandHeader* cmd_header, uint8_t rdm_length, rdm_response_type_t response_type,
-                              uint8_t msg_count, uint8_t* buffer)
+void pack_rdm_response_header(const RdmCommandHeader* cmd_header,
+                              uint8_t                 rdm_length,
+                              rdm_response_type_t     response_type,
+                              uint8_t                 msg_count,
+                              uint8_t*                buffer)
 {
   uint8_t* cur_ptr = buffer;
 
@@ -842,7 +869,7 @@ uint8_t get_max_pd_size(uint16_t pid)
 /* Internal function to calculate the correct checksum of an RDM packet. */
 uint16_t calc_checksum(const uint8_t* buffer, size_t data_len_without_checksum)
 {
-  size_t i;
+  size_t   i;
   uint16_t sum = 0;
   for (i = 0; i < data_len_without_checksum; ++i)
     sum += buffer[i];

@@ -89,16 +89,16 @@ public:
 
   constexpr const RdmUid& get() const noexcept;
   ETCPAL_CONSTEXPR_14 RdmUid& get() noexcept;
-  constexpr uint16_t manufacturer_id() const noexcept;
-  constexpr uint32_t device_id() const noexcept;
-  std::string ToString() const;
+  constexpr uint16_t          manufacturer_id() const noexcept;
+  constexpr uint32_t          device_id() const noexcept;
+  std::string                 ToString() const;
 
-  constexpr bool IsValid() const noexcept;
-  bool IsBroadcast() const noexcept;
-  bool IsControllerBroadcast() const noexcept;
-  bool IsDeviceBroadcast() const noexcept;
-  bool IsDeviceManufacturerBroadcast() const noexcept;
-  constexpr bool BroadcastManufacturerIdMatches(uint16_t manu_val) const noexcept;
+  constexpr bool     IsValid() const noexcept;
+  bool               IsBroadcast() const noexcept;
+  bool               IsControllerBroadcast() const noexcept;
+  bool               IsDeviceBroadcast() const noexcept;
+  bool               IsDeviceManufacturerBroadcast() const noexcept;
+  constexpr bool     BroadcastManufacturerIdMatches(uint16_t manu_val) const noexcept;
   constexpr uint16_t DeviceBroadcastManufacturerId() const noexcept;
 
   constexpr bool IsDynamic() const noexcept;

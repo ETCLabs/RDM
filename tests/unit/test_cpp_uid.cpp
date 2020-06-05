@@ -44,7 +44,7 @@ TEST(CppUid, ValueConstructorWorks)
 TEST(CppUid, CopyConstructorsWork)
 {
   // Copy from an RdmUid
-  const RdmUid c_uid{0x5555u, 0x88888888u};
+  const RdmUid   c_uid{0x5555u, 0x88888888u};
   const rdm::Uid uid(c_uid);
   EXPECT_TRUE(uid.IsValid());
   EXPECT_EQ(uid.get(), c_uid);
@@ -63,7 +63,7 @@ TEST(CppUid, CopyConstructorsWork)
 TEST(CppUid, AssignmentOperatorsWork)
 {
   const RdmUid c_uid{0x5555u, 0x88888888u};
-  rdm::Uid uid;
+  rdm::Uid     uid;
 
   // Assign to an RdmUid
   uid = c_uid;
@@ -189,7 +189,7 @@ TEST(CppUid, ComparisonOperatorsWork)
   rdm::Uid uid_1;
   rdm::Uid uid_1_dup;
   rdm::Uid uid_2(0, 1);
-  RdmUid uid_3{1, 0};
+  RdmUid   uid_3{1, 0};
 
   // uid_1 should be equal to uid_1_dup.
   EXPECT_EQ(uid_1, uid_1_dup);       // ==

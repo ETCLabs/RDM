@@ -69,7 +69,7 @@ TEST(CppResponse, HeaderConstructorWorks)
                              0, kRdmCCGetCommandResponse, E120_SUPPORTED_PARAMETERS);
 
   std::array<uint8_t, 4> resp_data{0, 1, 2, 3};
-  rdm::Response response(header, resp_data.data(), resp_data.size());
+  rdm::Response          response(header, resp_data.data(), resp_data.size());
 
   EXPECT_TRUE(response.IsValid());
   EXPECT_TRUE(response.header().IsValid());
@@ -92,7 +92,7 @@ TEST(CppResponse, SettersAndGettersWork)
 {
   // Construct a response with parameter data
   const std::array<uint8_t, 10> kSupportedParams = {0x00, 0x10, 0x00, 0x20, 0x10, 0x01, 0x10, 0x02, 0x80, 0x01};
-  rdm::Response resp({0x1234, 0x56789abc}, {0x1234, 0x87654321}, 0x22, kRdmResponseTypeAck, 3, 200,
+  rdm::Response                 resp({0x1234, 0x56789abc}, {0x1234, 0x87654321}, 0x22, kRdmResponseTypeAck, 3, 200,
                      kRdmCCGetCommandResponse, E120_SUPPORTED_PARAMETERS, kSupportedParams.data(),
                      kSupportedParams.size());
 

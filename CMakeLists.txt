@@ -19,6 +19,19 @@ if(PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
   # Allow folder grouping in generated IDE projects
   set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+  # Add a target to run Clang Format
+  file(GLOB_RECURSE FILES_TO_REFORMAT 
+    include/*.h
+    src/*.c
+    src/*.cpp
+    src/*.h
+    tests/*.c
+    tests/*.cpp
+    tests/*.h
+  )
+  add_custom_target(reformat_all COMMAND clang-format -i ${FILES_TO_REFORMAT})
+  set_target_properties(reformat_all PROPERTIES FOLDER tools)
+
   set(OPTION_DEFAULTS ON)
 else()
   set(OPTION_DEFAULTS OFF)

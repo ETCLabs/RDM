@@ -59,9 +59,9 @@ public:
   NackReason& operator=(uint16_t code) noexcept;
 
   constexpr rdm_nack_reason_t code() const noexcept;
-  constexpr uint16_t raw_code() const noexcept;
-  std::string ToString() const;
-  const char* ToCString() const noexcept;
+  constexpr uint16_t          raw_code() const noexcept;
+  std::string                 ToString() const;
+  const char*                 ToCString() const noexcept;
 
   constexpr bool IsStandard() const noexcept;
 

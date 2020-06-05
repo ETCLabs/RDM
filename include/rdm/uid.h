@@ -255,7 +255,7 @@ extern const RdmUid kRdmnetDeviceBroadcastUid;
 /** The maximum number of bytes for a buffer that can hold a UID string representation. */
 #define RDM_UID_STRING_BYTES 14
 
-int rdm_uid_compare(const RdmUid* a, const RdmUid* b);
+int  rdm_uid_compare(const RdmUid* a, const RdmUid* b);
 bool rdm_uid_to_string(const RdmUid* uid, char* buf);
 bool rdm_string_to_uid(const char* str, RdmUid* uid);
 
