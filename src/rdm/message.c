@@ -452,9 +452,9 @@ size_t rdm_get_num_responses_needed(uint16_t param_id, size_t response_data_len)
 }
 
 /**
- * @brief Serialize a full RDM response, splitting ACK_OVERFLOW responses if necessary.
+ * @brief Serialize a full RDM ACK response, splitting ACK_OVERFLOW responses if necessary.
  *
- * This function will pack a potentially-oversized RDM response into one or more RDM buffers,
+ * This function will pack a potentially-oversized RDM ACK response into one or more RDM buffers,
  * splitting it into ACK_OVERFLOW responses if necessary. It is most often used by higher-level
  * protocols like RDMnet.
  *
@@ -485,7 +485,13 @@ etcpal_error_t rdm_pack_full_response(const RdmCommandHeader* cmd_header,
   uint8_t max_pd = get_max_pd_size(cmd_header->param_id);
   for (size_t i = 0; i < num_responses_needed; ++i)
   {
-    uint8_t this_resp_pd_length = ((i < (num_responses_needed - 1)) ? max_pd : (response_data_len % max_pd));
+    uint8_t this_resp_pd_length = 0;
+
+    if (i < (num_responses_needed - 1) || (response_data_len != 0 && response_data_len % max_pd == 0))
+      this_resp_pd_length = max_pd;
+    else
+      this_resp_pd_length = response_data_len % max_pd;
+
     uint8_t this_resp_rdm_length = this_resp_pd_length + RDM_HEADER_SIZE;
     pack_rdm_response_header(cmd_header, this_resp_rdm_length,
                              ((i < (num_responses_needed - 1)) ? kRdmResponseTypeAckOverflow : kRdmResponseTypeAck), 0,

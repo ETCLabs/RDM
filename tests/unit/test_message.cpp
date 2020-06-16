@@ -477,14 +477,15 @@ TEST(Message, PackFullResponseSingleZeroData)
 
 TEST(Message, PackFullResponseSingleWithData)
 {
-  const auto sensor_def = rdmtest::GetSensorDefinition();
+  const auto tcp_comms_status = rdmtest::GetTcpCommsStatus();
   RdmBuffer  response{};
 
-  ASSERT_EQ(
-      rdm_pack_full_response(&sensor_def.cmd_header, sensor_def.resp_data(), sensor_def.resp_data_size(), &response, 1),
-      kEtcPalErrOk);
-  ASSERT_EQ(response.data_len, sensor_def.first_packed_resp_size());
-  EXPECT_EQ(0, std::memcmp(response.data, sensor_def.first_packed_resp(), sensor_def.first_packed_resp_size()));
+  ASSERT_EQ(rdm_pack_full_response(&tcp_comms_status.cmd_header, tcp_comms_status.resp_data(),
+                                   tcp_comms_status.resp_data_size(), &response, 1),
+            kEtcPalErrOk);
+  ASSERT_EQ(response.data_len, tcp_comms_status.first_packed_resp_size());
+  EXPECT_EQ(
+      0, std::memcmp(response.data, tcp_comms_status.first_packed_resp(), tcp_comms_status.first_packed_resp_size()));
 }
 
 TEST(Message, PackFullResponseOverflow)
