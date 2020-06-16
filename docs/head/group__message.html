@@ -277,9 +277,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga763532316b0ea71f5a04d421566da3f1"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__message.html#ga763532316b0ea71f5a04d421566da3f1">rdm_get_num_responses_needed</a> (uint16_t param_id, size_t response_data_len)</td></tr>
 <tr class="memdesc:ga763532316b0ea71f5a04d421566da3f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of RDM responses needed to send the given response data.  <a href="#ga763532316b0ea71f5a04d421566da3f1">More...</a><br /></td></tr>
 <tr class="separator:ga763532316b0ea71f5a04d421566da3f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaffcc4b47ace27ad7c22c7790d552b29c"><td class="memItemLeft" align="right" valign="top"><a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#ga743b0648f0ca798ef29c9f69c6e255af">etcpal_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__message.html#gaffcc4b47ace27ad7c22c7790d552b29c">rdm_pack_full_overflow_response</a> (const <a class="el" href="struct_rdm_command_header.html">RdmCommandHeader</a> *cmd_header, const uint8_t *response_data, size_t response_data_len, <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *buffers, size_t num_buffers)</td></tr>
-<tr class="memdesc:gaffcc4b47ace27ad7c22c7790d552b29c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serialize a full ACK_OVERFLOW/ACK sequence representing an oversized RDM response.  <a href="#gaffcc4b47ace27ad7c22c7790d552b29c">More...</a><br /></td></tr>
-<tr class="separator:gaffcc4b47ace27ad7c22c7790d552b29c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7753aeaeacc5a6b2f5ac5dbe2a9aa33d"><td class="memItemLeft" align="right" valign="top"><a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#ga743b0648f0ca798ef29c9f69c6e255af">etcpal_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__message.html#ga7753aeaeacc5a6b2f5ac5dbe2a9aa33d">rdm_pack_full_response</a> (const <a class="el" href="struct_rdm_command_header.html">RdmCommandHeader</a> *cmd_header, const uint8_t *response_data, size_t response_data_len, <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *buffers, size_t num_buffers)</td></tr>
+<tr class="memdesc:ga7753aeaeacc5a6b2f5ac5dbe2a9aa33d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serialize a full RDM response, splitting ACK_OVERFLOW responses if necessary.  <a href="#ga7753aeaeacc5a6b2f5ac5dbe2a9aa33d">More...</a><br /></td></tr>
+<tr class="separator:ga7753aeaeacc5a6b2f5ac5dbe2a9aa33d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad7dc9011987f10d7bc71052de1ce748d"><td class="memItemLeft" align="right" valign="top"><a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#ga743b0648f0ca798ef29c9f69c6e255af">etcpal_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__message.html#gad7dc9011987f10d7bc71052de1ce748d">rdm_append_parameter_data</a> (<a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *buffer, const uint8_t *additional_data, uint8_t additional_data_len)</td></tr>
 <tr class="memdesc:gad7dc9011987f10d7bc71052de1ce748d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add additional parameter data to an already-serialized RDM command.  <a href="#gad7dc9011987f10d7bc71052de1ce748d">More...</a><br /></td></tr>
 <tr class="separator:gad7dc9011987f10d7bc71052de1ce748d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1111,14 +1111,14 @@ RDM packet offsets</h2></td></tr>
 
 </div>
 </div>
-<a id="gaffcc4b47ace27ad7c22c7790d552b29c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaffcc4b47ace27ad7c22c7790d552b29c">&#9670;&nbsp;</a></span>rdm_pack_full_overflow_response()</h2>
+<a id="ga7753aeaeacc5a6b2f5ac5dbe2a9aa33d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7753aeaeacc5a6b2f5ac5dbe2a9aa33d">&#9670;&nbsp;</a></span>rdm_pack_full_response()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#ga743b0648f0ca798ef29c9f69c6e255af">etcpal_error_t</a> rdm_pack_full_overflow_response </td>
+          <td class="memname"><a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#ga743b0648f0ca798ef29c9f69c6e255af">etcpal_error_t</a> rdm_pack_full_response </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="struct_rdm_command_header.html">RdmCommandHeader</a> *&#160;</td>
           <td class="paramname"><em>cmd_header</em>, </td>
@@ -1155,8 +1155,8 @@ RDM packet offsets</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Serialize a full ACK_OVERFLOW/ACK sequence representing an oversized RDM response. </p>
-<p>This function is most often used by higher-level protocols like RDMnet.</p>
+<p>Serialize a full RDM response, splitting ACK_OVERFLOW responses if necessary. </p>
+<p>This function will pack a potentially-oversized RDM response into one or more RDM buffers, splitting it into ACK_OVERFLOW responses if necessary. It is most often used by higher-level protocols like RDMnet.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">cmd_header</td><td>Header from the received RDM command. </td></tr>
@@ -1167,7 +1167,7 @@ RDM packet offsets</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afae403d046b4ba4e81dce121266c2cca8d">kEtcPalErrOk</a>: ACK_OVERFLOW responses packed successfully. </dd>
+<dl class="section return"><dt>Returns</dt><dd><a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afae403d046b4ba4e81dce121266c2cca8d">kEtcPalErrOk</a>: Response(s) packed successfully. </dd>
 <dd>
 <a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#gga743b0648f0ca798ef29c9f69c6e255afadb17bb2ec24e7755170e8afbd5b10bc2">kEtcPalErrInvalid</a>: Invalid argument provided. </dd>
 <dd>
