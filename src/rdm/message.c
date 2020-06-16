@@ -431,22 +431,22 @@ etcpal_error_t rdm_pack_dub_response(const RdmUid* responder_uid, RdmBuffer* buf
 }
 
 /**
- * @brief Get the number of RDM ACK_OVERFLOW responses needed to send the given response data.
+ * @brief Get the number of RDM responses needed to send the given response data.
  *
- * This function does not necessarily return (response_data_len / RDM_MAX_PDL); it takes into
- * account parameter data which the RDM standard family requires to be split on specified
- * boundaries.
+ * If this functions returns greater than 1, ACK_OVERFLOW responses must be sent.
+ *
+ * This function takes into account parameter data which the RDM standard family requires to be
+ * split on specified boundaries.
  *
  * @param[in] param_id The RDM parameter ID for the response being generated.
  * @param[in] response_data_len The length in bytes of the requested response data.
- * @return The number of ACK_OVERFLOW responses that will be necessary, or 0 if an invalid argument
- *         was given.
+ * @return The number of responses that will be necessary.
  */
-size_t rdm_get_num_overflow_responses_needed(uint16_t param_id, size_t response_data_len)
+size_t rdm_get_num_responses_needed(uint16_t param_id, size_t response_data_len)
 {
   uint8_t max_pd = get_max_pd_size(param_id);
   size_t  num_responses = response_data_len / max_pd;
-  if (response_data_len % max_pd)
+  if ((response_data_len == 0) || (response_data_len % max_pd))
     ++num_responses;
   return num_responses;
 }
@@ -477,7 +477,7 @@ etcpal_error_t rdm_pack_full_overflow_response(const RdmCommandHeader* cmd_heade
     return kEtcPalErrInvalid;
   }
 
-  size_t num_responses_needed = rdm_get_num_overflow_responses_needed(cmd_header->param_id, response_data_len);
+  size_t num_responses_needed = rdm_get_num_responses_needed(cmd_header->param_id, response_data_len);
   if (num_responses_needed > num_buffers)
     return kEtcPalErrBufSize;
 

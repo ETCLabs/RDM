@@ -418,26 +418,34 @@ TEST(Message, UnpackDubResponse)
   }
 }
 
+TEST(Message, GetNumResponsesNeededNormal)
+{
+  // Test some trivial cases
+  EXPECT_EQ(rdm_get_num_responses_needed(E120_RESET_DEVICE, 0), 1);
+  EXPECT_EQ(rdm_get_num_responses_needed(E120_DEVICE_LABEL, 20), 1);
+  EXPECT_EQ(rdm_get_num_responses_needed(E120_SUPPORTED_PARAMETERS, 300), 2);
+}
+
 // This library's convention is to split ACK_OVERFLOW response data such that atomic units being
 // repeated in the data are not split over message boundaries. This is not fully clear in the
 // standard, but it is a strong convention and is required for some parameter messages.
-TEST(Message, GetNumOverflowResponsesNeededWorks)
+TEST(Message, GetNumResponsesNeededBoundaryConditions)
 {
   // Test some tricky boundaries, e.g. for PID data that could be fit into two messages if items
   // were split, but actually take three, etc.
 
   // PROXIED_DEVICES
-  EXPECT_EQ(rdm_get_num_overflow_responses_needed(E120_PROXIED_DEVICES, 456), 2);
-  EXPECT_EQ(rdm_get_num_overflow_responses_needed(E120_PROXIED_DEVICES, 462), 3);
+  EXPECT_EQ(rdm_get_num_responses_needed(E120_PROXIED_DEVICES, 456), 2);
+  EXPECT_EQ(rdm_get_num_responses_needed(E120_PROXIED_DEVICES, 462), 3);
 
   // STATUS_MESSAGES
-  EXPECT_EQ(rdm_get_num_overflow_responses_needed(E120_STATUS_MESSAGES, 450), 2);
-  EXPECT_EQ(rdm_get_num_overflow_responses_needed(E120_STATUS_MESSAGES, 459), 3);
+  EXPECT_EQ(rdm_get_num_responses_needed(E120_STATUS_MESSAGES, 450), 2);
+  EXPECT_EQ(rdm_get_num_responses_needed(E120_STATUS_MESSAGES, 459), 3);
 
   // TCP_COMMS_STATUS
-  EXPECT_EQ(rdm_get_num_overflow_responses_needed(E133_TCP_COMMS_STATUS, 87), 1);
-  EXPECT_EQ(rdm_get_num_overflow_responses_needed(E133_TCP_COMMS_STATUS, 174), 2);
-  EXPECT_EQ(rdm_get_num_overflow_responses_needed(E133_TCP_COMMS_STATUS, 261), 3);
+  EXPECT_EQ(rdm_get_num_responses_needed(E133_TCP_COMMS_STATUS, 87), 1);
+  EXPECT_EQ(rdm_get_num_responses_needed(E133_TCP_COMMS_STATUS, 174), 2);
+  EXPECT_EQ(rdm_get_num_responses_needed(E133_TCP_COMMS_STATUS, 261), 3);
 }
 
 TEST(Message, PackFullOverflowResponseInvalid)
