@@ -67,7 +67,7 @@ var message_8h =
     [ "rdm_command_header_is_valid", "group__message.html#gae0e5e85c3bc1c0554656d0c3de228b13", null ],
     [ "rdm_get_ack_timer_delay", "group__message.html#gab04c0158f2ce347f244bdf5f6f3f7a1f", null ],
     [ "rdm_get_nack_reason_code", "group__message.html#gaa7a615390f37dfeaf75a9f708ac21362", null ],
-    [ "rdm_get_num_overflow_responses_needed", "group__message.html#gae120f4717f4a02470525ec7b09eee230", null ],
+    [ "rdm_get_num_responses_needed", "group__message.html#ga763532316b0ea71f5a04d421566da3f1", null ],
     [ "rdm_nack_reason_to_string", "group__message.html#ga2f2bc97e71e32fde1388c76fdcb5dd89", null ],
     [ "rdm_pack_checksum", "group__message.html#ga3dacbba8c2e5243ed7556c86d8e20303", null ],
     [ "rdm_pack_command", "group__message.html#ga15a06777f4ab333d9ae3e40b38747cd1", null ],

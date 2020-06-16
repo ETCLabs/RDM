@@ -274,9 +274,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gabb821ac360758e1ec1d4fe2ce365dfed"><td class="memItemLeft" align="right" valign="top"><a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#ga743b0648f0ca798ef29c9f69c6e255af">etcpal_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__message.html#gabb821ac360758e1ec1d4fe2ce365dfed">rdm_pack_dub_response</a> (const <a class="el" href="struct_rdm_uid.html">RdmUid</a> *responder_uid, <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *buffer)</td></tr>
 <tr class="memdesc:gabb821ac360758e1ec1d4fe2ce365dfed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serialize an RDM DISC_UNIQUE_BRANCH response.  <a href="#gabb821ac360758e1ec1d4fe2ce365dfed">More...</a><br /></td></tr>
 <tr class="separator:gabb821ac360758e1ec1d4fe2ce365dfed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae120f4717f4a02470525ec7b09eee230"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__message.html#gae120f4717f4a02470525ec7b09eee230">rdm_get_num_overflow_responses_needed</a> (uint16_t param_id, size_t response_data_len)</td></tr>
-<tr class="memdesc:gae120f4717f4a02470525ec7b09eee230"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of RDM ACK_OVERFLOW responses needed to send the given response data.  <a href="#gae120f4717f4a02470525ec7b09eee230">More...</a><br /></td></tr>
-<tr class="separator:gae120f4717f4a02470525ec7b09eee230"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga763532316b0ea71f5a04d421566da3f1"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__message.html#ga763532316b0ea71f5a04d421566da3f1">rdm_get_num_responses_needed</a> (uint16_t param_id, size_t response_data_len)</td></tr>
+<tr class="memdesc:ga763532316b0ea71f5a04d421566da3f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of RDM responses needed to send the given response data.  <a href="#ga763532316b0ea71f5a04d421566da3f1">More...</a><br /></td></tr>
+<tr class="separator:ga763532316b0ea71f5a04d421566da3f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaffcc4b47ace27ad7c22c7790d552b29c"><td class="memItemLeft" align="right" valign="top"><a class="elRef" doxygen="/home/vsts/work/1/s/external/EtcPal/docs/etcpal.tag:http://etclabs.github.io/EtcPal/docs/head/" href="http://etclabs.github.io/EtcPal/docs/head/group__etcpal__error.html#ga743b0648f0ca798ef29c9f69c6e255af">etcpal_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__message.html#gaffcc4b47ace27ad7c22c7790d552b29c">rdm_pack_full_overflow_response</a> (const <a class="el" href="struct_rdm_command_header.html">RdmCommandHeader</a> *cmd_header, const uint8_t *response_data, size_t response_data_len, <a class="el" href="struct_rdm_buffer.html">RdmBuffer</a> *buffers, size_t num_buffers)</td></tr>
 <tr class="memdesc:gaffcc4b47ace27ad7c22c7790d552b29c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serialize a full ACK_OVERFLOW/ACK sequence representing an oversized RDM response.  <a href="#gaffcc4b47ace27ad7c22c7790d552b29c">More...</a><br /></td></tr>
 <tr class="separator:gaffcc4b47ace27ad7c22c7790d552b29c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -845,14 +845,14 @@ RDM packet offsets</h2></td></tr>
 
 </div>
 </div>
-<a id="gae120f4717f4a02470525ec7b09eee230"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae120f4717f4a02470525ec7b09eee230">&#9670;&nbsp;</a></span>rdm_get_num_overflow_responses_needed()</h2>
+<a id="ga763532316b0ea71f5a04d421566da3f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga763532316b0ea71f5a04d421566da3f1">&#9670;&nbsp;</a></span>rdm_get_num_responses_needed()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">size_t rdm_get_num_overflow_responses_needed </td>
+          <td class="memname">size_t rdm_get_num_responses_needed </td>
           <td>(</td>
           <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname"><em>param_id</em>, </td>
@@ -871,8 +871,9 @@ RDM packet offsets</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get the number of RDM ACK_OVERFLOW responses needed to send the given response data. </p>
-<p>This function does not necessarily return (response_data_len / RDM_MAX_PDL); it takes into account parameter data which the RDM standard family requires to be split on specified boundaries.</p>
+<p>Get the number of RDM responses needed to send the given response data. </p>
+<p>If this functions returns greater than 1, ACK_OVERFLOW responses must be sent.</p>
+<p>This function takes into account parameter data which the RDM standard family requires to be split on specified boundaries.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">param_id</td><td>The RDM parameter ID for the response being generated. </td></tr>
@@ -880,7 +881,7 @@ RDM packet offsets</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of ACK_OVERFLOW responses that will be necessary, or 0 if an invalid argument was given. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of responses that will be necessary. </dd></dl>
 
 </div>
 </div>
