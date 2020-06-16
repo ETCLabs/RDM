@@ -5,13 +5,6 @@
     <path>E:/git/ETCLabs/RDM/include/rdm/</path>
     <filename>controller_8h</filename>
     <includes id="message_8h" name="message.h" local="yes" imported="no">rdm/message.h</includes>
-    <member kind="function">
-      <type>bool</type>
-      <name>rdmctl_is_non_disc_response</name>
-      <anchorfile>group__controller.html</anchorfile>
-      <anchor>ga62a94b697a099eea6bad03f10a592277</anchor>
-      <arglist>(const RdmBuffer *buffer)</arglist>
-    </member>
   </compound>
   <compound kind="file">
     <name>message.h</name>
@@ -388,16 +381,16 @@
     </member>
     <member kind="function">
       <type>size_t</type>
-      <name>rdm_get_num_overflow_responses_needed</name>
+      <name>rdm_get_num_responses_needed</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>gae120f4717f4a02470525ec7b09eee230</anchor>
+      <anchor>ga763532316b0ea71f5a04d421566da3f1</anchor>
       <arglist>(uint16_t param_id, size_t response_data_len)</arglist>
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
-      <name>rdm_pack_full_overflow_response</name>
+      <name>rdm_pack_full_response</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>gaffcc4b47ace27ad7c22c7790d552b29c</anchor>
+      <anchor>ga7753aeaeacc5a6b2f5ac5dbe2a9aa33d</anchor>
       <arglist>(const RdmCommandHeader *cmd_header, const uint8_t *response_data, size_t response_data_len, RdmBuffer *buffers, size_t num_buffers)</arglist>
     </member>
     <member kind="function">
@@ -692,13 +685,6 @@
     <path>E:/git/ETCLabs/RDM/include/rdm/</path>
     <filename>responder_8h</filename>
     <includes id="message_8h" name="message.h" local="yes" imported="no">rdm/message.h</includes>
-    <member kind="function">
-      <type>bool</type>
-      <name>rdmresp_is_non_disc_command</name>
-      <anchorfile>group__responder.html</anchorfile>
-      <anchor>ga4f3587c5330568a286873f8d392d8233</anchor>
-      <arglist>(const RdmBuffer *buffer)</arglist>
-    </member>
   </compound>
   <compound kind="file">
     <name>version.h</name>
@@ -2317,13 +2303,6 @@
     <name>controller</name>
     <title>Controller</title>
     <filename>group__controller.html</filename>
-    <member kind="function">
-      <type>bool</type>
-      <name>rdmctl_is_non_disc_response</name>
-      <anchorfile>group__controller.html</anchorfile>
-      <anchor>ga62a94b697a099eea6bad03f10a592277</anchor>
-      <arglist>(const RdmBuffer *buffer)</arglist>
-    </member>
   </compound>
   <compound kind="group">
     <name>cpp_message</name>
@@ -2705,16 +2684,16 @@
     </member>
     <member kind="function">
       <type>size_t</type>
-      <name>rdm_get_num_overflow_responses_needed</name>
+      <name>rdm_get_num_responses_needed</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>gae120f4717f4a02470525ec7b09eee230</anchor>
+      <anchor>ga763532316b0ea71f5a04d421566da3f1</anchor>
       <arglist>(uint16_t param_id, size_t response_data_len)</arglist>
     </member>
     <member kind="function">
       <type>etcpal_error_t</type>
-      <name>rdm_pack_full_overflow_response</name>
+      <name>rdm_pack_full_response</name>
       <anchorfile>group__message.html</anchorfile>
-      <anchor>gaffcc4b47ace27ad7c22c7790d552b29c</anchor>
+      <anchor>ga7753aeaeacc5a6b2f5ac5dbe2a9aa33d</anchor>
       <arglist>(const RdmCommandHeader *cmd_header, const uint8_t *response_data, size_t response_data_len, RdmBuffer *buffers, size_t num_buffers)</arglist>
     </member>
     <member kind="function">
@@ -2785,13 +2764,6 @@
     <name>responder</name>
     <title>Responder</title>
     <filename>group__responder.html</filename>
-    <member kind="function">
-      <type>bool</type>
-      <name>rdmresp_is_non_disc_command</name>
-      <anchorfile>group__responder.html</anchorfile>
-      <anchor>ga4f3587c5330568a286873f8d392d8233</anchor>
-      <arglist>(const RdmBuffer *buffer)</arglist>
-    </member>
   </compound>
   <compound kind="group">
     <name>uid</name>

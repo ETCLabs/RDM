@@ -452,27 +452,28 @@ size_t rdm_get_num_responses_needed(uint16_t param_id, size_t response_data_len)
 }
 
 /**
- * @brief Serialize a full ACK_OVERFLOW/ACK sequence representing an oversized RDM response.
+ * @brief Serialize a full RDM response, splitting ACK_OVERFLOW responses if necessary.
  *
- * This function is most often used by higher-level protocols like RDMnet.
+ * This function will pack a potentially-oversized RDM response into one or more RDM buffers,
+ * splitting it into ACK_OVERFLOW responses if necessary. It is most often used by higher-level
+ * protocols like RDMnet.
  *
  * @param[in] cmd_header Header from the received RDM command.
  * @param[in] response_data The full response parameter data.
  * @param[in] response_data_len The length of the response parameter data.
  * @param[out] buffers Set of buffers into which to pack serialized RDM ACK_OVERFLOW/ACK responses in order.
  * @param[out] num_buffers Size of buffers array.
- * @return #kEtcPalErrOk: ACK_OVERFLOW responses packed successfully.
+ * @return #kEtcPalErrOk: Response(s) packed successfully.
  * @return #kEtcPalErrInvalid: Invalid argument provided.
  * @return #kEtcPalErrBufSize: Not enough RdmBuffers to hold the response data.
  */
-etcpal_error_t rdm_pack_full_overflow_response(const RdmCommandHeader* cmd_header,
-                                               const uint8_t*          response_data,
-                                               size_t                  response_data_len,
-                                               RdmBuffer*              buffers,
-                                               size_t                  num_buffers)
+etcpal_error_t rdm_pack_full_response(const RdmCommandHeader* cmd_header,
+                                      const uint8_t*          response_data,
+                                      size_t                  response_data_len,
+                                      RdmBuffer*              buffers,
+                                      size_t                  num_buffers)
 {
-  if (!cmd_header || !response_data || !response_data_len || !buffers || !num_buffers ||
-      !validate_received_cmd_header(cmd_header))
+  if (!cmd_header || !buffers || !num_buffers || !validate_received_cmd_header(cmd_header))
   {
     return kEtcPalErrInvalid;
   }

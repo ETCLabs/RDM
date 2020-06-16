@@ -133,7 +133,7 @@ inline CmdRespPair GetSupportedParams()
           0x00,                    // PD Length
           0x01, 0x71               // Checksum
       },
-      {{3, 4}, {1, 2}, 5, kRdmResponseTypeAck, 0, 7, kRdmCCGetCommandResponse, E120_SUPPORTED_PARAMETERS},
+      {{3, 4}, {1, 2}, 5, kRdmResponseTypeAck, 6, 7, kRdmCCGetCommandResponse, E120_SUPPORTED_PARAMETERS},
       {0x00, 0x40, 0x00, 0x50},
       {{
           0xcc,                          // START code
@@ -143,7 +143,7 @@ inline CmdRespPair GetSupportedParams()
           0,    3,    0,    0,    0, 4,  // Source UID
           5,                             // Transaction Number
           0,                             // Response Type (ACK)
-          0,                             // Message Count
+          6,                             // Message Count
           0,    7,                       // Subdevice
           0x21,                          // Command Class (GET Response)
           0x00, 0x50,                    // PID (E120_SUPPORTED_PARAMETERS)
@@ -151,7 +151,7 @@ inline CmdRespPair GetSupportedParams()
 
           0x00, 0x40, 0x00, 0x50,  // Parameter data
 
-          0x02, 0x04  // Checksum
+          0x02, 0x0a  // Checksum
       }}};
 }
 
@@ -329,7 +329,7 @@ inline CmdRespPair SetResetDevice()
                          0x00,                       // PD Length
                          0x02, 0x03                  // Checksum
                      },
-                     {{33, 66}, {22, 44}, 55, kRdmResponseTypeAck, 6, 0, kRdmCCSetCommandResponse, E120_RESET_DEVICE},
+                     {{33, 66}, {22, 44}, 55, kRdmResponseTypeAck, 0, 0, kRdmCCSetCommandResponse, E120_RESET_DEVICE},
                      {},
                      {{
                          0xcc,                       // START code
@@ -339,12 +339,12 @@ inline CmdRespPair SetResetDevice()
                          0,    0x21, 0, 0, 0, 0x42,  // Source UID
                          0x37,                       // Transaction Number
                          0,                          // Response Type (ACK)
-                         6,                          // Message Count
+                         0,                          // Message Count
                          0,    0,                    // Subdevice
                          0x31,                       // Command Class (SET Response)
                          0x10, 0x01,                 // PID (E120_RESET_DEVICE)
                          0x00,                       // PD Length
-                         0x02, 0x09                  // Checksum
+                         0x02, 0x03                  // Checksum
                      }}};
 }
 

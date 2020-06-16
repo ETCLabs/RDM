@@ -287,11 +287,11 @@ etcpal_error_t rdm_pack_timer_response(const RdmCommandHeader* cmd_header,
 etcpal_error_t rdm_pack_dub_response(const RdmUid* responder_uid, RdmBuffer* buffer);
 
 size_t         rdm_get_num_responses_needed(uint16_t param_id, size_t response_data_len);
-etcpal_error_t rdm_pack_full_overflow_response(const RdmCommandHeader* cmd_header,
-                                               const uint8_t*          response_data,
-                                               size_t                  response_data_len,
-                                               RdmBuffer*              buffers,
-                                               size_t                  num_buffers);
+etcpal_error_t rdm_pack_full_response(const RdmCommandHeader* cmd_header,
+                                      const uint8_t*          response_data,
+                                      size_t                  response_data_len,
+                                      RdmBuffer*              buffers,
+                                      size_t                  num_buffers);
 
 etcpal_error_t rdm_append_parameter_data(RdmBuffer*     buffer,
                                          const uint8_t* additional_data,

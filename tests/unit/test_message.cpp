@@ -448,26 +448,46 @@ TEST(Message, GetNumResponsesNeededBoundaryConditions)
   EXPECT_EQ(rdm_get_num_responses_needed(E133_TCP_COMMS_STATUS, 261), 3);
 }
 
-TEST(Message, PackFullOverflowResponseInvalid)
+TEST(Message, PackFullResponseInvalid)
 {
   const auto overflow = rdmtest::GetSupportedParamsWithOverflow();
   RdmBuffer  response_buf;
 
   // Invalid parameters
-  EXPECT_EQ(rdm_pack_full_overflow_response(nullptr, overflow.resp_data(), 200, &response_buf, 1), kEtcPalErrInvalid);
-  EXPECT_EQ(rdm_pack_full_overflow_response(&overflow.cmd_header, nullptr, 0, &response_buf, 1), kEtcPalErrInvalid);
-  EXPECT_EQ(rdm_pack_full_overflow_response(&overflow.cmd_header, overflow.resp_data(), 200, nullptr, 1),
-            kEtcPalErrInvalid);
-  EXPECT_EQ(rdm_pack_full_overflow_response(&overflow.cmd_header, overflow.resp_data(), 200, &response_buf, 0),
+  EXPECT_EQ(rdm_pack_full_response(nullptr, overflow.resp_data(), 200, &response_buf, 1), kEtcPalErrInvalid);
+  EXPECT_EQ(rdm_pack_full_response(&overflow.cmd_header, overflow.resp_data(), 200, nullptr, 1), kEtcPalErrInvalid);
+  EXPECT_EQ(rdm_pack_full_response(&overflow.cmd_header, overflow.resp_data(), 200, &response_buf, 0),
             kEtcPalErrInvalid);
 
   // Short buf
-  EXPECT_EQ(rdm_pack_full_overflow_response(&overflow.cmd_header, overflow.resp_data(),
-                                            overflow.overflow_resp_data_size(), &response_buf, 1),
+  EXPECT_EQ(rdm_pack_full_response(&overflow.cmd_header, overflow.resp_data(), overflow.overflow_resp_data_size(),
+                                   &response_buf, 1),
             kEtcPalErrBufSize);
 }
 
-TEST(Message, PackFullOverflowResponse)
+TEST(Message, PackFullResponseSingleZeroData)
+{
+  const auto reset_device = rdmtest::SetResetDevice();
+  RdmBuffer  response{};
+
+  ASSERT_EQ(rdm_pack_full_response(&reset_device.cmd_header, nullptr, 0, &response, 1), kEtcPalErrOk);
+  ASSERT_EQ(response.data_len, reset_device.first_packed_resp_size());
+  EXPECT_EQ(0, std::memcmp(response.data, reset_device.first_packed_resp(), reset_device.first_packed_resp_size()));
+}
+
+TEST(Message, PackFullResponseSingleWithData)
+{
+  const auto sensor_def = rdmtest::GetSensorDefinition();
+  RdmBuffer  response{};
+
+  ASSERT_EQ(
+      rdm_pack_full_response(&sensor_def.cmd_header, sensor_def.resp_data(), sensor_def.resp_data_size(), &response, 1),
+      kEtcPalErrOk);
+  ASSERT_EQ(response.data_len, sensor_def.first_packed_resp_size());
+  EXPECT_EQ(0, std::memcmp(response.data, sensor_def.first_packed_resp(), sensor_def.first_packed_resp_size()));
+}
+
+TEST(Message, PackFullResponseOverflow)
 {
   const auto             overflow = rdmtest::GetSupportedParamsWithOverflow();
   std::vector<RdmBuffer> response_bufs(overflow.packed_resps_.size());
@@ -481,10 +501,9 @@ TEST(Message, PackFullOverflowResponse)
   uint8_t                                 byte = 1;
   std::generate(std::begin(pd), std::end(pd), [&]() { return byte++; });
 
-  ASSERT_EQ(
-      rdm_pack_full_overflow_response(&overflow.cmd_header, overflow.resp_data(), overflow.overflow_resp_data_size(),
-                                      response_bufs.data(), response_bufs.size()),
-      kEtcPalErrOk);
+  ASSERT_EQ(rdm_pack_full_response(&overflow.cmd_header, overflow.resp_data(), overflow.overflow_resp_data_size(),
+                                   response_bufs.data(), response_bufs.size()),
+            kEtcPalErrOk);
   for (size_t i = 0; i < overflow.packed_resps_.size(); ++i)
   {
     ASSERT_EQ(response_bufs[i].data_len, overflow.packed_resps_[i].size()) << "Failed on iteration " << i;
@@ -534,7 +553,7 @@ TEST(Message, AppendParameterData)
   const auto supported_params = rdmtest::GetSupportedParams();
   RdmBuffer  response_buf;
 
-  ASSERT_EQ(rdm_pack_response(&supported_params.cmd_header, 0, supported_params.resp_data(),
+  ASSERT_EQ(rdm_pack_response(&supported_params.cmd_header, 6, supported_params.resp_data(),
                               supported_params.resp_data_size(), &response_buf),
             kEtcPalErrOk);
   ASSERT_EQ(response_buf.data_len, supported_params.first_packed_resp_size());
@@ -556,7 +575,7 @@ TEST(Message, AppendParameterData)
       0,    3,    0,    0,    0,    4,  // Source UID
       5,                                // Transaction Number
       0,                                // Response Type (ACK)
-      0,                                // Message Count
+      6,                                // Message Count
       0,    7,                          // Subdevice
       0x21,                             // Command Class (GET Response)
       0x00, 0x50,                       // PID (E120_SUPPORTED_PARAMETERS)
@@ -564,7 +583,7 @@ TEST(Message, AppendParameterData)
 
       0x00, 0x40, 0x00, 0x50, 0x00, 0x60, 0x00, 0x70,  // Parameter data
 
-      0x02, 0xdc  // Checksum
+      0x02, 0xe2  // Checksum
   };
   EXPECT_EQ(0, std::memcmp(modified_response.data(), response_buf.data, modified_response.size()));
 }
