@@ -281,8 +281,7 @@ TEST(Message, PackNackResponse)
   const auto nack_pair = rdmtest::SetResetDeviceNackResponse();
   RdmBuffer  response_buf;
 
-  ASSERT_EQ(rdm_pack_nack_response(&nack_pair.cmd_header, 0, nack_pair.NackReason().value(), &response_buf),
-            kEtcPalErrOk);
+  ASSERT_EQ(rdm_pack_nack_response(&nack_pair.cmd_header, 0, nack_pair.NackReason(), &response_buf), kEtcPalErrOk);
   ASSERT_EQ(response_buf.data_len, nack_pair.first_packed_resp_size());
 
   EXPECT_EQ(0, std::memcmp(nack_pair.first_packed_resp(), response_buf.data, nack_pair.first_packed_resp_size()));
@@ -322,7 +321,7 @@ TEST(Message, PackTimerResponse)
   const auto timer_pair = rdmtest::GetLampStrikesTimerResponse();
   RdmBuffer  response_buf;
 
-  unsigned int delay_ms = timer_pair.AckTimerDelay().value();
+  unsigned int delay_ms = timer_pair.AckTimerDelay();
   ASSERT_EQ(rdm_pack_timer_response(&timer_pair.cmd_header, 0, delay_ms - 50, &response_buf), kEtcPalErrOk);
   ASSERT_EQ(response_buf.data_len, timer_pair.first_packed_resp_size());
 
@@ -657,8 +656,7 @@ TEST(Message, GetAckTimerDelay)
   EXPECT_EQ(rdm_get_ack_timer_delay(ack_timer_pd), 880000u);
 
   const auto ack_timer = rdmtest::GetLampStrikesTimerResponse();
-  EXPECT_EQ(rdm_get_ack_timer_delay(&ack_timer.first_packed_resp()[RDM_OFFSET_PARAM_DATA]),
-            ack_timer.AckTimerDelay().value());
+  EXPECT_EQ(rdm_get_ack_timer_delay(&ack_timer.first_packed_resp()[RDM_OFFSET_PARAM_DATA]), ack_timer.AckTimerDelay());
 }
 
 TEST(Message, GetNackReasonCode)
@@ -667,7 +665,7 @@ TEST(Message, GetNackReasonCode)
   EXPECT_EQ(rdm_get_nack_reason_code(nack_reason_pd), kRdmNRBufferFull);
 
   const auto nack = rdmtest::SetResetDeviceNackResponse();
-  EXPECT_EQ(rdm_get_nack_reason_code(&nack.first_packed_resp()[RDM_OFFSET_PARAM_DATA]), nack.NackReason().value());
+  EXPECT_EQ(rdm_get_nack_reason_code(&nack.first_packed_resp()[RDM_OFFSET_PARAM_DATA]), nack.NackReason());
 }
 
 TEST(Message, CommandClassToString)

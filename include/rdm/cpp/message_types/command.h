@@ -54,25 +54,25 @@ public:
   Command(const CommandHeader& header, const uint8_t* data = nullptr, uint8_t data_len = 0);
   Command(const ::RdmCommandHeader& header, const uint8_t* data = nullptr, uint8_t data_len = 0);
 
-  constexpr Uid                 source_uid() const noexcept;
-  constexpr Uid                 dest_uid() const noexcept;
-  constexpr uint8_t             transaction_num() const noexcept;
-  constexpr uint8_t             port_id() const noexcept;
-  constexpr uint16_t            subdevice() const noexcept;
-  constexpr rdm_command_class_t command_class() const noexcept;
-  constexpr uint16_t            param_id() const noexcept;
+  Uid                 source_uid() const noexcept;
+  Uid                 dest_uid() const noexcept;
+  uint8_t             transaction_num() const noexcept;
+  uint8_t             port_id() const noexcept;
+  uint16_t            subdevice() const noexcept;
+  rdm_command_class_t command_class() const noexcept;
+  uint16_t            param_id() const noexcept;
 
-  constexpr const CommandHeader& header() const noexcept;
-  ETCPAL_CONSTEXPR_14 CommandHeader& header() noexcept;
-  const uint8_t*                     data() const noexcept;
-  uint8_t                            data_len() const noexcept;
+  const CommandHeader& header() const noexcept;
+  CommandHeader&       header() noexcept;
+  const uint8_t*       data() const noexcept;
+  uint8_t              data_len() const noexcept;
 
   bool IsValid() const noexcept;
   bool HasData() const noexcept;
 
-  constexpr bool IsGet() const noexcept;
-  constexpr bool IsSet() const noexcept;
-  constexpr bool IsDiscovery() const noexcept;
+  bool IsGet() const noexcept;
+  bool IsSet() const noexcept;
+  bool IsDiscovery() const noexcept;
 
   Command& SetSourceUid(const Uid& uid) noexcept;
   Command& SetSourceUid(const ::RdmUid& uid) noexcept;
@@ -159,37 +159,37 @@ inline Command::Command(const ::RdmCommandHeader& header, const uint8_t* data, u
 }
 
 /// @brief Get the UID of the controller generating the command.
-constexpr Uid Command::source_uid() const noexcept
+inline Uid Command::source_uid() const noexcept
 {
   return header_.source_uid();
 }
 
 /// @brief Get the UID of the responder to which the command is addressed.
-constexpr Uid Command::dest_uid() const noexcept
+inline Uid Command::dest_uid() const noexcept
 {
   return header_.dest_uid();
 }
 
 /// @brief Get the transaction number of the command.
-constexpr uint8_t Command::transaction_num() const noexcept
+inline uint8_t Command::transaction_num() const noexcept
 {
   return header_.transaction_num();
 }
 
 /// @brief Get the port ID of the port on which the command is being sent.
-constexpr uint8_t Command::port_id() const noexcept
+inline uint8_t Command::port_id() const noexcept
 {
   return header_.port_id();
 }
 
 /// @brief Get the sub-device to which the command is addressed (0 means the root device).
-constexpr uint16_t Command::subdevice() const noexcept
+inline uint16_t Command::subdevice() const noexcept
 {
   return header_.subdevice();
 }
 
 /// @brief Get the command's command class.
-constexpr rdm_command_class_t Command::command_class() const noexcept
+inline rdm_command_class_t Command::command_class() const noexcept
 {
   return header_.command_class();
 }
@@ -198,19 +198,19 @@ constexpr rdm_command_class_t Command::command_class() const noexcept
 ///
 /// Valid values are listed in ANSI E1.20 Table A-3, any of the relevant E1.37 extension standards,
 /// ANSI E1.33 Table A-15, or manufacturer-specific values in the range 0x8000 - 0xffdf.
-constexpr uint16_t Command::param_id() const noexcept
+inline uint16_t Command::param_id() const noexcept
 {
   return header_.param_id();
 }
 
 /// @brief Get a const reference to the command's header.
-constexpr const CommandHeader& Command::header() const noexcept
+inline const CommandHeader& Command::header() const noexcept
 {
   return header_;
 }
 
 /// @brief Get a mutable reference to the command's header.
-ETCPAL_CONSTEXPR_14_OR_INLINE CommandHeader& Command::header() noexcept
+inline CommandHeader& Command::header() noexcept
 {
   return header_;
 }
@@ -241,19 +241,19 @@ inline bool Command::HasData() const noexcept
 }
 
 /// @brief Whether this command is an RDM GET_COMMAND.
-constexpr bool Command::IsGet() const noexcept
+inline bool Command::IsGet() const noexcept
 {
   return header_.IsGet();
 }
 
 /// @brief Whether this command is an RDM SET_COMMAND.
-constexpr bool Command::IsSet() const noexcept
+inline bool Command::IsSet() const noexcept
 {
   return header_.IsSet();
 }
 
 /// @brief Whether this command is an RDM DISCOVERY_COMMAND.
-constexpr bool Command::IsDiscovery() const noexcept
+inline bool Command::IsDiscovery() const noexcept
 {
   return header_.IsDiscovery();
 }

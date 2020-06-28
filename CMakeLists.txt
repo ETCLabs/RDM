@@ -31,10 +31,6 @@ if(PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
   )
   add_custom_target(reformat_all COMMAND clang-format -i ${FILES_TO_REFORMAT})
   set_target_properties(reformat_all PROPERTIES FOLDER tools)
-
-  set(OPTION_DEFAULTS ON)
-else()
-  set(OPTION_DEFAULTS OFF)
 endif()
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
@@ -42,7 +38,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 set(RDM_ROOT ${CMAKE_CURRENT_LIST_DIR})
 
 option(RDM_BUILD_MOCK_LIB "Build the RDMMock library" OFF)
-option(RDM_BUILD_TESTS "Build the RDM unit tests" ${OPTION_DEFAULTS})
+option(RDM_BUILD_TESTS "Build the RDM unit tests" OFF)
 
 # Main library
 

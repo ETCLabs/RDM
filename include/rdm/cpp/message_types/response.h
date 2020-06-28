@@ -96,36 +96,36 @@ public:
   Response(const ResponseHeader& header, const uint8_t* data = nullptr, size_t data_len = 0);
   Response(const ::RdmResponseHeader& header, const uint8_t* data = nullptr, size_t data_len = 0);
 
-  constexpr Uid                 source_uid() const noexcept;
-  constexpr Uid                 dest_uid() const noexcept;
-  constexpr uint8_t             transaction_num() const noexcept;
-  constexpr rdm_response_type_t response_type() const noexcept;
-  constexpr uint8_t             message_count() const noexcept;
-  constexpr uint16_t            subdevice() const noexcept;
-  constexpr rdm_command_class_t command_class() const noexcept;
-  constexpr uint16_t            param_id() const noexcept;
+  Uid                 source_uid() const noexcept;
+  Uid                 dest_uid() const noexcept;
+  uint8_t             transaction_num() const noexcept;
+  rdm_response_type_t response_type() const noexcept;
+  uint8_t             message_count() const noexcept;
+  uint16_t            subdevice() const noexcept;
+  rdm_command_class_t command_class() const noexcept;
+  uint16_t            param_id() const noexcept;
 
-  constexpr const ResponseHeader& header() const noexcept;
-  ETCPAL_CONSTEXPR_14 ResponseHeader& header() noexcept;
-  const uint8_t*                      data() const noexcept;
-  size_t                              data_len() const noexcept;
+  const ResponseHeader& header() const noexcept;
+  ResponseHeader&       header() noexcept;
+  const uint8_t*        data() const noexcept;
+  size_t                data_len() const noexcept;
 
   bool IsValid() const noexcept;
   bool HasData() const noexcept;
 
   /// @name Response Type Inspectors
   /// @{
-  constexpr bool IsAck() const noexcept;
-  constexpr bool IsAckTimer() const noexcept;
-  constexpr bool IsAckOverflow() const noexcept;
-  constexpr bool IsNack() const noexcept;
+  bool IsAck() const noexcept;
+  bool IsAckTimer() const noexcept;
+  bool IsAckOverflow() const noexcept;
+  bool IsNack() const noexcept;
   /// @}
 
   /// @name Command Class Inspectors
   /// @{
-  constexpr bool IsGetResponse() const noexcept;
-  constexpr bool IsSetResponse() const noexcept;
-  constexpr bool IsDiscoveryResponse() const noexcept;
+  bool IsGetResponse() const noexcept;
+  bool IsSetResponse() const noexcept;
+  bool IsDiscoveryResponse() const noexcept;
   /// @}
 
   etcpal::Expected<unsigned int> GetAckTimerDelayMs() const noexcept;
@@ -197,61 +197,61 @@ inline Response::Response(const ::RdmResponseHeader& header, const uint8_t* data
 }
 
 /// @brief Get the UID of the responder generating the response.
-constexpr Uid Response::source_uid() const noexcept
+inline Uid Response::source_uid() const noexcept
 {
   return header_.source_uid();
 }
 
 /// @brief Get the UID of the controller to which the response is addressed.
-constexpr Uid Response::dest_uid() const noexcept
+inline Uid Response::dest_uid() const noexcept
 {
   return header_.dest_uid();
 }
 
 /// @brief Get the transaction number of the response.
-constexpr uint8_t Response::transaction_num() const noexcept
+inline uint8_t Response::transaction_num() const noexcept
 {
   return header_.transaction_num();
 }
 
 /// @brief Get the RDM response type of the response.
-constexpr rdm_response_type_t Response::response_type() const noexcept
+inline rdm_response_type_t Response::response_type() const noexcept
 {
   return header_.response_type();
 }
 
 /// @brief Get the current count of queued messages being stored by the responder.
-constexpr uint8_t Response::message_count() const noexcept
+inline uint8_t Response::message_count() const noexcept
 {
   return header_.message_count();
 }
 
 /// @brief Get the sub-device from which the response was generated (0 means the root device).
-constexpr uint16_t Response::subdevice() const noexcept
+inline uint16_t Response::subdevice() const noexcept
 {
   return header_.subdevice();
 }
 
 /// @brief Get the response's command class.
-constexpr rdm_command_class_t Response::command_class() const noexcept
+inline rdm_command_class_t Response::command_class() const noexcept
 {
   return header_.command_class();
 }
 
 /// @brief Get the RDM Parameter ID of the response.
-constexpr uint16_t Response::param_id() const noexcept
+inline uint16_t Response::param_id() const noexcept
 {
   return header_.param_id();
 }
 
 /// @brief Get a const reference to the response's header.
-constexpr const ResponseHeader& Response::header() const noexcept
+inline const ResponseHeader& Response::header() const noexcept
 {
   return header_;
 }
 
 /// @brief Get a mutable reference to the response's header.
-ETCPAL_CONSTEXPR_14_OR_INLINE ResponseHeader& Response::header() noexcept
+inline ResponseHeader& Response::header() noexcept
 {
   return header_;
 }
@@ -282,43 +282,43 @@ inline bool Response::HasData() const noexcept
 }
 
 /// @brief Whether this is an RDM ACK response.
-constexpr bool Response::IsAck() const noexcept
+inline bool Response::IsAck() const noexcept
 {
   return header_.IsAck();
 }
 
 /// @brief Whether this is an RDM ACK_TIMER response.
-constexpr bool Response::IsAckTimer() const noexcept
+inline bool Response::IsAckTimer() const noexcept
 {
   return header_.IsAckTimer();
 }
 
 /// @brief Whether this is an RDM ACK_OVERFLOW response.
-constexpr bool Response::IsAckOverflow() const noexcept
+inline bool Response::IsAckOverflow() const noexcept
 {
   return header_.IsAckOverflow();
 }
 
 /// @brief Whether this is an RDM NACK_REASON response.
-constexpr bool Response::IsNack() const noexcept
+inline bool Response::IsNack() const noexcept
 {
   return header_.IsNack();
 }
 
 /// @brief Whether this is an RDM GET_COMMAND_RESPONSE
-constexpr bool Response::IsGetResponse() const noexcept
+inline bool Response::IsGetResponse() const noexcept
 {
   return header_.IsGetResponse();
 }
 
 /// @brief Whether this is an RDM SET_COMMAND_RESPONSE
-constexpr bool Response::IsSetResponse() const noexcept
+inline bool Response::IsSetResponse() const noexcept
 {
   return header_.IsSetResponse();
 }
 
 /// @brief Whether this is an RDM DISCOVERY_COMMAND_RESPONSE
-constexpr bool Response::IsDiscoveryResponse() const noexcept
+inline bool Response::IsDiscoveryResponse() const noexcept
 {
   return header_.IsDiscoveryResponse();
 }

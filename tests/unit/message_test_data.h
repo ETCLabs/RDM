@@ -23,10 +23,12 @@
 #include <array>
 #include <cstdint>
 #include <cstring>
-#include <optional>
+#include <limits>
+#include <type_traits>
 #include <vector>
 #include "etcpal/pack.h"
 #include "rdm/message.h"
+#include "gtest/gtest.h"
 
 // Some utilities for comparing RDM C structures
 
@@ -86,18 +88,30 @@ struct CmdRespPair
     return to_return;
   }
 
-  std::optional<unsigned int> AckTimerDelay() const
+  unsigned int AckTimerDelay() const
   {
     if (resp_header.resp_type == kRdmResponseTypeAckTimer && resp_data_.size() >= 2)
+    {
       return etcpal_unpack_u16b(resp_data_.data()) * 100;
-    return {};
+    }
+    else
+    {
+      ADD_FAILURE() << "CmdRespPair::AckTimerDelay() called on non-ACK_TIMER message.";
+      return 0;
+    }
   }
 
-  std::optional<rdm_nack_reason_t> NackReason() const
+  rdm_nack_reason_t NackReason() const
   {
     if (resp_header.resp_type == kRdmResponseTypeNackReason && resp_data_.size() >= 2)
+    {
       return static_cast<rdm_nack_reason_t>(etcpal_unpack_u16b(resp_data_.data()));
-    return {};
+    }
+    else
+    {
+      ADD_FAILURE() << "CmdRespPair::NackReason() called on non-NACK_REASON message.";
+      return static_cast<rdm_nack_reason_t>(std::numeric_limits<std::underlying_type<rdm_nack_reason_t>::type>::max());
+    }
   }
 
   uint8_t RespMessageCount() const { return first_packed_resp()[RDM_OFFSET_MSGCOUNT]; }
