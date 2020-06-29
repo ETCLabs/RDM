@@ -128,7 +128,7 @@ typedef enum
   kRdmNRFormatError = E120_NR_FORMAT_ERROR,
   /** The responder cannot comply due to an internal hardware fault. */
   kRdmNRHardwareFault = E120_NR_HARDWARE_FAULT,
-  /** Proxy is not the RDM line transmitter and cannot comply with message. */
+  /** Proxy is not the RDM line master and cannot comply with message. */
   kRdmNRProxyReject = E120_NR_PROXY_REJECT,
   /** SET Command normally allowed but being blocked currently. */
   kRdmNRWriteProtect = E120_NR_WRITE_PROTECT,
