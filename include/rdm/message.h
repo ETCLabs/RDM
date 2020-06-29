@@ -45,16 +45,16 @@ extern "C" {
 #endif
 
 /** The maximum size for an RDM packet, including the two checksum bytes. */
-#define RDM_MAX_BYTES 257
+#define RDM_MAX_BYTES 257u
 
 /** The minimum size for an RDM packet. */
-#define RDM_MIN_BYTES 26
+#define RDM_MIN_BYTES 26u
 
 /** The maximum length of the Parameter Data in an RDM packet. */
-#define RDM_MAX_PDL 231
+#define RDM_MAX_PDL 231u
 
 /** The length of the RDM message preceding the Parameter Data. */
-#define RDM_HEADER_SIZE 24
+#define RDM_HEADER_SIZE 24u
 
 /**
  * @name RDM packet offsets
@@ -249,7 +249,7 @@ typedef struct RdmResponseHeader
  * @param data_len Length in bytes of the parameter data that the RDM message will contain.
  * @return The packed size in bytes.
  */
-#define RDM_PACKED_SIZE(data_len) (RDM_HEADER_SIZE + (data_len) + 2)
+#define RDM_PACKED_SIZE(data_len) (RDM_HEADER_SIZE + (data_len) + 2u)
 
 void rdm_pack_checksum(uint8_t* buffer, size_t data_len_without_checksum);
 bool rdm_validate_msg(const RdmBuffer* buffer);
