@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['scope_5fid',['scope_id',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_ip_addr.html#a14185dd1b4566147495318504a551034',1,'etcpal::IpAddr']]],
+  ['scope_5fid',['scope_id',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_ip_addr.html#a14185dd1b4566147495318504a551034',1,'etcpal::IpAddr::scope_id()'],['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_sock_addr.html#a14185dd1b4566147495318504a551034',1,'etcpal::SockAddr::scope_id()']]],
   ['semaphore',['Semaphore',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_semaphore.html#a7afb6e444c74ed583a47dc7bc8bd45e3',1,'etcpal::Semaphore']]],
   ['serialize',['Serialize',['../classrdm_1_1_command.html#a4f5bc4dc2d3e90361bafa7a4f3e659c3',1,'rdm::Command::Serialize(RdmBuffer &amp;buffer) const noexcept'],['../classrdm_1_1_command.html#a1dfee1cb21be0a3e537db03b28f2ae98',1,'rdm::Command::Serialize(uint8_t *buf, size_t buflen) const noexcept'],['../classrdm_1_1_command_header.html#a4ef4fdfd9a81b10b604cca8af2f0d78a',1,'rdm::CommandHeader::Serialize(RdmBuffer &amp;buffer, const uint8_t *data=nullptr, uint8_t data_len=0) const noexcept'],['../classrdm_1_1_command_header.html#a583ce7ba5a9bad416b8e490f78c20771',1,'rdm::CommandHeader::Serialize(uint8_t *buf, size_t buf_len, const uint8_t *data=nullptr, uint8_t data_len=0) const noexcept']]],
   ['set',['Set',['../classrdm_1_1_command.html#ad0ef94c7d26352edcbcb5772fc852946',1,'rdm::Command::Set()'],['../classrdm_1_1_command_header.html#a156b1f12bb1192a8599849955f1d04f6',1,'rdm::CommandHeader::Set()']]],
