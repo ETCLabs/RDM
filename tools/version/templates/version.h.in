@@ -64,13 +64,13 @@
  */
 
 /**
- * @defgroup rdm_c
+ * @defgroup rdm_c Core API
  * @ingroup rdm
  * @brief The core RDM interface, in pure C99.
  */
 
 /**
- * @defgroup rdm_cpp
+ * @defgroup rdm_cpp C++ API
  * @ingroup rdm
  * @brief Header-only C++ wrappers for the RDM interface.
  */
