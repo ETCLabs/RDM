@@ -129,7 +129,16 @@ $(document).ready(function(){initNavTree('index.html','');});
 <div class="contents">
 <div class="textblock"><h2>Introduction</h2>
 <p>RDM is a lightweight library that provides type definitions and message parsing utilities for the Remote Device Management (RDM) protocol, defined in ANSI E1.20. More information about RDM can be found <a href="http://www.rdmprotocol.org">here</a>.</p>
-<p>To jump right into the documentation, check out the <a class="el" href="group__rdm.html">Modules Overview</a>.</p>
+<p> 
+To jump right into the documentation, check out the <a href="modules.html">Modules Overview</a>.
+
+</p>
+<h2>Platforms</h2>
+<p>RDM supports all platforms targeted by <a href="https://github.com/ETCLabs/EtcPal">EtcPal</a>, including Microsoft Windows, macOS, Linux and several embedded RTOS platforms.</p>
+<h2>Dependencies</h2>
+<h3>EtcPal</h3>
+<p>RDM depends on the ETC's Platform Abstraction Layer (EtcPal) so that it can be platform-neutral. By default, EtcPal is included as a submodule in the <code>external</code> directory. The CMake configuration will automatically update and pull the submodule before building.</p>
+<p>See the <a href="https://etclabs.github.io/EtcPal">documentation for EtcPal</a>.</p>
 <h2>Building RDM for Your Platform</h2>
 <p>RDM is built with <a href="https://cmake.org">CMake</a>, a popular cross-platform build system generator. CMake can also be used to include RDM as a dependency to other projects, i.e. using the <code>add_subdirectory()</code> command.</p>
 <p>To configure and build RDM on its own using CMake, follow these steps:</p>
@@ -137,14 +146,10 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li><a href="https://cmake.org/download/">Download and install</a> CMake version 3.3 or higher.</li>
 <li>Create a directory in your location of choice to hold your build projects or Makefiles: <div class="fragment"><div class="line">$ mkdir build</div><div class="line">$ cd build</div></div><!-- fragment --> This directory can be inside or outside the RDM repository.</li>
 <li>Run CMake to configure the RDM project: <div class="fragment"><div class="line">$ cmake path/to/RDM/root</div></div><!-- fragment --> You can optionally specify your build system with the <code>-G</code> option; otherwise, CMake will choose a system-appropriate default. Use <code>cmake --help</code> to see all available options.</li>
-<li>Use CMake to invoke the generated build system to build the RDM library and unit tests: <div class="fragment"><div class="line">$ cmake --build .</div></div><!-- fragment --> If you are generating IDE project files, you can use CMake to open the projects in the IDE: <div class="fragment"><div class="line">$ cmake --open .</div></div><!-- fragment --></li>
-<li>To run the unit tests after building: <div class="fragment"><div class="line"># On Windows</div><div class="line">&gt; .\test\[Build_Configuration]\test_rdm.exe</div><div class="line"></div><div class="line"># Elsewhere</div><div class="line">$ ./test/test_rdm</div></div><!-- fragment --> Or, if you are generating IDE project files, simply run the test_rdm project from your IDE.</li>
+<li>Use CMake to invoke the generated build system to build the RDM library and any extras you have enabled: <div class="fragment"><div class="line">$ cmake --build .</div></div><!-- fragment --> If you are generating IDE project files, you can use CMake to open the projects in the IDE: <div class="fragment"><div class="line">$ cmake --open .</div></div><!-- fragment --></li>
+<li>Use CMake's installation target to install the built binaries and headers. This usually shows up as another project called "INSTALL" inside an IDE or a target called "install" (e.g. <code>make install</code> for a Makefile generator). You can also do it manually from the command line in the build directory: <div class="fragment"><div class="line">$ cmake -P cmake_install.cmake</div></div><!-- fragment --></li>
 </ol>
-<p>Alternatively, if you don't want to use CMake, your project can simply build in the RDM sources directly using the src/ and include/ directories.</p>
-<h2>Dependencies</h2>
-<h3>EtcPal</h3>
-<p>RDM depends on the ETC's Platform Abstraction Layer (EtcPal) so that it can be platform-neutral. By default, EtcPal is included as a submodule in the <code>external</code> directory. The CMake configuration will automatically update and pull the submodule before building.</p>
-<p>If you want to develop EtcPal simultaneously alongside RDM, simply clone the EtcPal repository at the same level as the RDM repository, like so: </p><div class="fragment"><div class="line">|- RDM/</div><div class="line">|- EtcPal/</div></div><!-- fragment --><p>The RDM CMakeLists.txt file contains directives to try to find EtcPal at that location before using the submodule. </p>
+<p>Alternatively, if you don't want to use CMake, your project can simply build in the RDM sources directly using the src/ and include/ directories. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
