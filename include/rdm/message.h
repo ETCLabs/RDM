@@ -45,16 +45,16 @@ extern "C" {
 #endif
 
 /** The maximum size for an RDM packet, including the two checksum bytes. */
-#define RDM_MAX_BYTES 257u
+#define RDM_MAX_BYTES 257
 
 /** The minimum size for an RDM packet. */
-#define RDM_MIN_BYTES 26u
+#define RDM_MIN_BYTES 26
 
 /** The maximum length of the Parameter Data in an RDM packet. */
-#define RDM_MAX_PDL 231u
+#define RDM_MAX_PDL 231
 
 /** The length of the RDM message preceding the Parameter Data. */
-#define RDM_HEADER_SIZE 24u
+#define RDM_HEADER_SIZE 24
 
 /**
  * @name RDM packet offsets
