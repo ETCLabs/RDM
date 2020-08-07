@@ -129,6 +129,7 @@ typedef enum
   /** The responder cannot comply due to an internal hardware fault. */
   kRdmNRHardwareFault = E120_NR_HARDWARE_FAULT,
   /** Proxy is not the RDM line master and cannot comply with message. */
+  // TODO: Change "line master" to different terminology once it's changed in the standard.
   kRdmNRProxyReject = E120_NR_PROXY_REJECT,
   /** SET Command normally allowed but being blocked currently. */
   kRdmNRWriteProtect = E120_NR_WRITE_PROTECT,

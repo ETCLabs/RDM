@@ -636,6 +636,7 @@
 #define E120_NR_FORMAT_ERROR                             0x0001 /* The responder cannot interpret request as controller data
                                                                    was not formatted correctly.                                 */
 #define E120_NR_HARDWARE_FAULT                           0x0002 /* The responder cannot comply due to an internal hardware fault*/
+// TODO: Change "line master" to different terminology once it's changed in the standard.
 #define E120_NR_PROXY_REJECT                             0x0003 /* Proxy is not the RDM line master and cannot comply with message.*/
 #define E120_NR_WRITE_PROTECT                            0x0004 /* SET Command normally allowed but being blocked currently.    */
 #define E120_NR_UNSUPPORTED_COMMAND_CLASS                0x0005 /* Not valid for Command Class attempted. May be used where
