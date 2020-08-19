@@ -8,11 +8,10 @@
       additions
 - [ ] Generate docs for the version
   * Update `TAGFILES` in Doxyfile to refer to correct versions of dependencies
-  * Follow `tools/ci/publish_docs.sh` manually, except replace "head" with version number in the
-    form "vM.m"
+  * Follow `tools/ci/publish_docs.sh` manually, except do
+    `python generate_doxygen.py -r [3-digit release number]`
   * Add the version number to `versions.txt` on the `gh-pages` branch and mark it as latest
-  * `PROJECT_NUMBER` in the Doxyfile should be correct but might need to be updated for patch
-    versions
+  * Prune any unused stage/ directories on the `gh-pages` branch.
   * Commit the updated `RDM.tag` file on the current branch (`develop` or `release/v*`)
 - [ ] Merge changes to `stable`
   * `git checkout stable`

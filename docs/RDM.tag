@@ -772,66 +772,66 @@
       <arglist>(const ::RdmCommandHeader &amp;header, const uint8_t *data=nullptr, uint8_t data_len=0)</arglist>
     </member>
     <member kind="function">
-      <type>constexpr Uid</type>
+      <type>Uid</type>
       <name>source_uid</name>
       <anchorfile>classrdm_1_1_command.html</anchorfile>
-      <anchor>a682c0a8d49eb0d987c57655bce549a52</anchor>
+      <anchor>a7e4f7e9724a581b180f3a9bc6008be1a</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr Uid</type>
+      <type>Uid</type>
       <name>dest_uid</name>
       <anchorfile>classrdm_1_1_command.html</anchorfile>
-      <anchor>adae90f696c7c8e936f66772609da8354</anchor>
+      <anchor>ac965954bacd7fd469ac7e0b3354ba7ce</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr uint8_t</type>
+      <type>uint8_t</type>
       <name>transaction_num</name>
       <anchorfile>classrdm_1_1_command.html</anchorfile>
-      <anchor>a2e59122799c69eaaeaff36fd65f20266</anchor>
+      <anchor>a23757b43702ad2cb0135e2c9015d768e</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr uint8_t</type>
+      <type>uint8_t</type>
       <name>port_id</name>
       <anchorfile>classrdm_1_1_command.html</anchorfile>
-      <anchor>ae572d68bc9ea407bff471326407839e7</anchor>
+      <anchor>adea6d6413a08c9b329b3ce55c94fa787</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr uint16_t</type>
+      <type>uint16_t</type>
       <name>subdevice</name>
       <anchorfile>classrdm_1_1_command.html</anchorfile>
-      <anchor>ace76a3360a4ca27564b266d231844fe2</anchor>
+      <anchor>a0c0ff353a00e0ec26d25092dbf52e5da</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr rdm_command_class_t</type>
+      <type>rdm_command_class_t</type>
       <name>command_class</name>
       <anchorfile>classrdm_1_1_command.html</anchorfile>
-      <anchor>a59f11046e01fbfe627604b2eb966e5d6</anchor>
+      <anchor>a148f4a098eec32593023bd987edf09c1</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr uint16_t</type>
+      <type>uint16_t</type>
       <name>param_id</name>
       <anchorfile>classrdm_1_1_command.html</anchorfile>
-      <anchor>aeb06b87b7d84f9dcb290a7ac38a9f326</anchor>
+      <anchor>ad467b36ffee9333cfcf3f5ef152d616d</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr const CommandHeader &amp;</type>
+      <type>const CommandHeader &amp;</type>
       <name>header</name>
       <anchorfile>classrdm_1_1_command.html</anchorfile>
-      <anchor>a83c1feb57ef346adfcf07c10fd8b6738</anchor>
+      <anchor>a68147a03b07fa793cc8284b20a9e50d7</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>ETCPAL_CONSTEXPR_14 CommandHeader &amp;</type>
+      <type>CommandHeader &amp;</type>
       <name>header</name>
       <anchorfile>classrdm_1_1_command.html</anchorfile>
-      <anchor>affb148e488e87da609a36e684b6e5e7b</anchor>
+      <anchor>a903662477a55167eeee5d5e0a007b76d</anchor>
       <arglist>() noexcept</arglist>
     </member>
     <member kind="function">
@@ -863,24 +863,24 @@
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr bool</type>
+      <type>bool</type>
       <name>IsGet</name>
       <anchorfile>classrdm_1_1_command.html</anchorfile>
-      <anchor>a24e38683dabb26fcffff5ff569c24451</anchor>
+      <anchor>a436744097f119231a0a70808b2ce4f7e</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr bool</type>
+      <type>bool</type>
       <name>IsSet</name>
       <anchorfile>classrdm_1_1_command.html</anchorfile>
-      <anchor>ac07548ce2bdda1e5eaa95c647aadd52f</anchor>
+      <anchor>a92747b9a94057cd2f275abccb5f180a4</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr bool</type>
+      <type>bool</type>
       <name>IsDiscovery</name>
       <anchorfile>classrdm_1_1_command.html</anchorfile>
-      <anchor>a920e16df3ae45e4ab784247198dd2821</anchor>
+      <anchor>ac8641282ef74d05e2e307c3ad04cac92</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
@@ -1500,73 +1500,73 @@
       <arglist>(const ::RdmResponseHeader &amp;header, const uint8_t *data=nullptr, size_t data_len=0)</arglist>
     </member>
     <member kind="function">
-      <type>constexpr Uid</type>
+      <type>Uid</type>
       <name>source_uid</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>a682c0a8d49eb0d987c57655bce549a52</anchor>
+      <anchor>a7e4f7e9724a581b180f3a9bc6008be1a</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr Uid</type>
+      <type>Uid</type>
       <name>dest_uid</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>adae90f696c7c8e936f66772609da8354</anchor>
+      <anchor>ac965954bacd7fd469ac7e0b3354ba7ce</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr uint8_t</type>
+      <type>uint8_t</type>
       <name>transaction_num</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>a2e59122799c69eaaeaff36fd65f20266</anchor>
+      <anchor>a23757b43702ad2cb0135e2c9015d768e</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr rdm_response_type_t</type>
+      <type>rdm_response_type_t</type>
       <name>response_type</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>ae9f6a7406164ccb9de417e5076acd282</anchor>
+      <anchor>adf7f1d49ed5bccae7817b782dedc0847</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr uint8_t</type>
+      <type>uint8_t</type>
       <name>message_count</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>a333eace5c7218040ce4c10d860cb72d1</anchor>
+      <anchor>a6db447f8cbfe190fa0220c9e9e25a222</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr uint16_t</type>
+      <type>uint16_t</type>
       <name>subdevice</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>ace76a3360a4ca27564b266d231844fe2</anchor>
+      <anchor>a0c0ff353a00e0ec26d25092dbf52e5da</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr rdm_command_class_t</type>
+      <type>rdm_command_class_t</type>
       <name>command_class</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>a59f11046e01fbfe627604b2eb966e5d6</anchor>
+      <anchor>a148f4a098eec32593023bd987edf09c1</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr uint16_t</type>
+      <type>uint16_t</type>
       <name>param_id</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>aeb06b87b7d84f9dcb290a7ac38a9f326</anchor>
+      <anchor>ad467b36ffee9333cfcf3f5ef152d616d</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr const ResponseHeader &amp;</type>
+      <type>const ResponseHeader &amp;</type>
       <name>header</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>a68498029ff139cf84536206b938e0944</anchor>
+      <anchor>a725eec048b48095bcb136acf6274ead3</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>ETCPAL_CONSTEXPR_14 ResponseHeader &amp;</type>
+      <type>ResponseHeader &amp;</type>
       <name>header</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>ac25ca2c171e05bda6dcba17f693f48fd</anchor>
+      <anchor>aead53ad16dda3d192d28da8a6de3a432</anchor>
       <arglist>() noexcept</arglist>
     </member>
     <member kind="function">
@@ -1717,101 +1717,101 @@
       <arglist>() noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr bool</type>
+      <type>bool</type>
       <name>IsAck</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>ad5e6bce9eb1450e7ec0362515cf3f784</anchor>
+      <anchor>aee525fd418dd6450116133f03393e503</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr bool</type>
+      <type>bool</type>
       <name>IsAckTimer</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>ad1e133ce784a66ce3da5acf534cec6fb</anchor>
+      <anchor>a95adccacd9e3b340219cabff6d86b998</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr bool</type>
+      <type>bool</type>
       <name>IsAckOverflow</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>aea6f10e1640d67645ee1db0b2d4d7a2a</anchor>
+      <anchor>a3a288b3c24c3dc80e21924ada1118c2f</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr bool</type>
+      <type>bool</type>
       <name>IsNack</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>a3d45f293500f5fa046a60eaf157de6a3</anchor>
+      <anchor>ab8d643ebfe75aeabd7e56dcd5f3f4de4</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr bool</type>
+      <type>bool</type>
       <name>IsGetResponse</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>aa276224c97735e6a4f04dc94934c5084</anchor>
+      <anchor>a1f40fbdb3a381a202a64af46273ff2d5</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr bool</type>
+      <type>bool</type>
       <name>IsSetResponse</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>ac6d444f5f4aafdf6e55e791da7268cd5</anchor>
+      <anchor>a256a7c1713b23c8e15e7ffd4344c5752</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr bool</type>
+      <type>bool</type>
       <name>IsDiscoveryResponse</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>a9d3025538c187363f2e0091c30ff25c4</anchor>
+      <anchor>a18363f881652622596ba208cab029560</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr bool</type>
+      <type>bool</type>
       <name>IsAck</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>ad5e6bce9eb1450e7ec0362515cf3f784</anchor>
+      <anchor>aee525fd418dd6450116133f03393e503</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr bool</type>
+      <type>bool</type>
       <name>IsAckTimer</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>ad1e133ce784a66ce3da5acf534cec6fb</anchor>
+      <anchor>a95adccacd9e3b340219cabff6d86b998</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr bool</type>
+      <type>bool</type>
       <name>IsAckOverflow</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>aea6f10e1640d67645ee1db0b2d4d7a2a</anchor>
+      <anchor>a3a288b3c24c3dc80e21924ada1118c2f</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr bool</type>
+      <type>bool</type>
       <name>IsNack</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>a3d45f293500f5fa046a60eaf157de6a3</anchor>
+      <anchor>ab8d643ebfe75aeabd7e56dcd5f3f4de4</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr bool</type>
+      <type>bool</type>
       <name>IsGetResponse</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>aa276224c97735e6a4f04dc94934c5084</anchor>
+      <anchor>a1f40fbdb3a381a202a64af46273ff2d5</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr bool</type>
+      <type>bool</type>
       <name>IsSetResponse</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>ac6d444f5f4aafdf6e55e791da7268cd5</anchor>
+      <anchor>a256a7c1713b23c8e15e7ffd4344c5752</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>constexpr bool</type>
+      <type>bool</type>
       <name>IsDiscoveryResponse</name>
       <anchorfile>classrdm_1_1_response.html</anchorfile>
-      <anchor>a9d3025538c187363f2e0091c30ff25c4</anchor>
+      <anchor>a18363f881652622596ba208cab029560</anchor>
       <arglist>() const noexcept</arglist>
     </member>
   </compound>
