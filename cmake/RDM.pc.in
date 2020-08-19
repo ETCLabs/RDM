@@ -1,0 +1,12 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+includedir=${prefix}/include
+libdir=${exec_prefix}/lib
+
+Name: @PROJECT_NAME@
+Description: Implementation of the RDM protocol
+Version: @PROJECT_VERSION@
+URL: https://github.com/ETCLabs/RDM
+Requires: EtcPal >= 0.3
+Cflags: -I${includedir}
+Libs: -L${libdir} -l@RDM_LIB_TARGET_NAME@

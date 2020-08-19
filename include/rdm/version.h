@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright 2019 ETC Inc.
+ * Copyright 2020 ETC Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,44 +12,71 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************
+ ******************************************************************************
  * This file is a part of RDM. For more information, go to:
  * https://github.com/ETCLabs/RDM
- ******************************************************************************/
+ *****************************************************************************/
 
-/*! \file rdm/version.h
- *  \brief Provides the current version of the RDM library.
- *  \author Sam Kearney
+/*
+ * IMPORTANT NOTE: If you change this file, you must also change the template located at
+ * tools/version/templates/version.h.in.
  */
-#ifndef _RDM_VERSION_H_
-#define _RDM_VERSION_H_
+
+/**
+ * @file rdm/version.h
+ * @brief Provides the current version of the RDM library.
+ */
+
+#ifndef RDM_VERSION_H_
+#define RDM_VERSION_H_
 
 /* clang-format off */
 
-/*! \defgroup rdm RDM
- *  \brief Implementation of the RDM protocol.
+/** 
+ * @defgroup rdm RDM
+ * @brief Implementation of the RDM protocol.
  *
- *  @{
+ * @{
  */
 
-/*! \name RDM version numbers
- *  @{
+/**
+ * @name RDM version numbers
+ * @{
  */
-#define RDM_VERSION_MAJOR 0 /*!< The major version. */
-#define RDM_VERSION_MINOR 1 /*!< The minor version. */
-#define RDM_VERSION_PATCH 0 /*!< The patch version. */
-#define RDM_VERSION_BUILD 2 /*!< The build number. */
-/*!@}*/
+#define RDM_VERSION_MAJOR 0 /**< The major version. */
+#define RDM_VERSION_MINOR 2 /**< The minor version. */
+#define RDM_VERSION_PATCH 0 /**< The patch version. */
+#define RDM_VERSION_BUILD 9 /**< The build number. */
+/**
+ * @}
+ */
 
-/*! \name RDM version strings
- *  @{
+/**
+ * @name RDM version strings
+ * @{
  */
-#define RDM_VERSION_STRING "0.1.0.2"
-#define RDM_VERSION_DATESTR "29.May.2019"
-#define RDM_VERSION_COPYRIGHT "Copyright 2019 ETC Inc."
+#define RDM_VERSION_STRING "0.2.0.9"
+#define RDM_VERSION_DATESTR "02.Jul.2020"
+#define RDM_VERSION_COPYRIGHT "Copyright 2020 ETC Inc."
 #define RDM_VERSION_PRODUCTNAME "RDM"
-/*!@}*/
+/**
+ * @}
+ */
 
-/*!@}*/
+/**
+ * @defgroup rdm_c Core API
+ * @ingroup rdm
+ * @brief The core RDM interface, in pure C99.
+ */
 
-#endif /* _RDM_VERSION_H_ */
+/**
+ * @defgroup rdm_cpp C++ API
+ * @ingroup rdm
+ * @brief Header-only C++ wrappers for the RDM interface.
+ */
+
+/**
+ * @}
+ */
+
+#endif /* RDM_VERSION_H_ */

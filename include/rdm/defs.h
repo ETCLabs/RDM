@@ -2,7 +2,8 @@
  * http://www.rdmprotocol.org. The file has the following changes from the original version:
  *
  *  - File renamed to rdm/defs.h
- *  - BSR E1.37-7 definitions added (NOTE: DRAFT VALUES, WILL CHANGE, USE WITH CAUTION)
+ *  - BSR E1.37-7 definitions added
+ *  - clang-format off directive added
  *
  * Used per the terms of the original copyright notice, which can be found below.
  */
@@ -29,6 +30,8 @@
 /* Permission to use, copy, modify, and distribute this software */
 /* is freely granted, provided that this notice is preserved.    */
 /*****************************************************************/
+
+/* clang-format off */
 
 /* Protocol version. */
 #define E120_PROTOCOL_VERSION                             0x0100
@@ -169,6 +172,11 @@
 #define E137_2_DNS_HOSTNAME                               0x070C /* Defined in ANSI E1.37-2                                    */
 #define E137_2_DNS_DOMAIN_NAME                            0x070D /* Defined in ANSI E1.37-2                                    */
 
+/* Category - E1.33 Management   */
+#define E133_COMPONENT_SCOPE                              0x0800 /* Defined in ANSI E1.33                                      */
+#define E133_SEARCH_DOMAIN                                0x0801 /* Defined in ANSI E1.33                                      */
+#define E133_TCP_COMMS_STATUS                             0x0802 /* Defined in ANSI E1.33                                      */
+#define E133_BROKER_STATUS                                0x0803 /* Defined in ANSI E1.33                                      */
 
 /* Category - Control              */
 #define E120_IDENTIFY_DEVICE                              0x1000
@@ -628,6 +636,7 @@
 #define E120_NR_FORMAT_ERROR                             0x0001 /* The responder cannot interpret request as controller data
                                                                    was not formatted correctly.                                 */
 #define E120_NR_HARDWARE_FAULT                           0x0002 /* The responder cannot comply due to an internal hardware fault*/
+// TODO: Change "line master" to different terminology once it's changed in the standard.
 #define E120_NR_PROXY_REJECT                             0x0003 /* Proxy is not the RDM line master and cannot comply with message.*/
 #define E120_NR_WRITE_PROTECT                            0x0004 /* SET Command normally allowed but being blocked currently.    */
 #define E120_NR_UNSUPPORTED_COMMAND_CLASS                0x0005 /* Not valid for Command Class attempted. May be used where
@@ -641,6 +650,22 @@
                                                                 /* Message or Status Message responses.                         */
 #define E137_2_NR_ACTION_NOT_SUPPORTED                   0x000B /* The parameter data is valid but the SET operation cannot be  */
                                                                 /* performed with the current configuration.                    */
+
+/********************************************************************************************************************************/
+/********************************************************************************************************************************/
+/* ANSI E1.33 DEFINES                                                                                                         */
+/********************************************************************************************************************************/
+/********************************************************************************************************************************/
+
+/********************************************************/
+/* Table A-16: Additional Response NACK Reason Codes    */
+/********************************************************/
+#define E133_NR_UNKNOWN_SCOPE                            0x000F /* The Component is not participating in the given Scope. */
+#define E133_NR_INVALID_STATIC_CONFIG_TYPE               0x0010 /* The Static Config Type provided is invalid. */
+#define E133_NR_INVALID_IPV4_ADDRESS                     0x0011 /* The IPv4 Address provided is invalid. */
+#define E133_NR_INVALID_IPV6_ADDRESS                     0x0012 /* The IPv6 Address provided is invalid. */
+#define E133_NR_INVALID_PORT                             0x0013 /* The transport layer port provided is invalid. */
+
 
 /********************************************************************************************************************************/
 /********************************************************************************************************************************/
@@ -682,29 +707,29 @@
 
 /********************************************************************************************************************************/
 /********************************************************************************************************************************/
-/* BSR E1.37-7 DEFINES */
+/* ANSI E1.37-7 DEFINES */
 /********************************************************************************************************************************/
 /********************************************************************************************************************************/
 
 /********************************************************/
 /* E1.37-7 Table A-1: RDM Parameter ID Defines          */
 /********************************************************/
-#define E137_7_ENDPOINT_LIST                             0x7FD3
-#define E137_7_ENDPOINT_LIST_CHANGE                      0x7FEE
-#define E137_7_IDENTIFY_ENDPOINT                         0x7FE9
-#define E137_7_ENDPOINT_TO_UNIVERSE                      0x7FE1
-#define E137_7_RDM_TRAFFIC_ENABLE                        0x7FE2
-#define E137_7_ENDPOINT_MODE                             0x7FE3
-#define E137_7_ENDPOINT_LABEL                            0x7FE4
-#define E137_7_DISCOVERY_STATE                           0x7FE5
-#define E137_7_BACKGROUND_DISCOVERY                      0x7FEA
-#define E137_7_ENDPOINT_TIMING                           0x7FE6
-#define E137_7_ENDPOINT_TIMING_DESCRIPTION               0x7FE7
-#define E137_7_ENDPOINT_RESPONDER_LIST_CHANGE            0x7FEB
-#define E137_7_ENDPOINT_RESPONDERS                       0x7FEC
-#define E137_7_BINDING_AND_CONTROL_FIELDS                0x7FE8
-#define E137_7_BACKGROUND_QUEUED_STATUS_POLICY           0x7FD0
-#define E137_7_BACKGROUND_QUEUED_STATUS_POLICY_DESCRIPTION 0x7FD1
+#define E137_7_ENDPOINT_LIST                             0x0900
+#define E137_7_ENDPOINT_LIST_CHANGE                      0x0901
+#define E137_7_IDENTIFY_ENDPOINT                         0x0902
+#define E137_7_ENDPOINT_TO_UNIVERSE                      0x0903
+#define E137_7_ENDPOINT_MODE                             0x0904
+#define E137_7_ENDPOINT_LABEL                            0x0905
+#define E137_7_RDM_TRAFFIC_ENABLE                        0x0906
+#define E137_7_DISCOVERY_STATE                           0x0907
+#define E137_7_BACKGROUND_DISCOVERY                      0x0908
+#define E137_7_ENDPOINT_TIMING                           0x0909
+#define E137_7_ENDPOINT_TIMING_DESCRIPTION               0x090A
+#define E137_7_ENDPOINT_RESPONDERS                       0x090B
+#define E137_7_ENDPOINT_RESPONDER_LIST_CHANGE            0x090C
+#define E137_7_BINDING_CONTROL_FIELDS                    0x090D
+#define E137_7_BACKGROUND_QUEUED_STATUS_POLICY           0x090E
+#define E137_7_BACKGROUND_QUEUED_STATUS_POLICY_DESCRIPTION 0x090F
 
 /********************************************************/
 /* E1.37-7 Table A-2: Discovery State Defines           */
@@ -715,7 +740,13 @@
 #define E137_7_DISCOVERY_NOT_ACTIVE                      0x04
 
 /********************************************************/
-/* Table A-11: Endpoint Mode Defines                    */
+/* E1.37-7 Table A-3: Discovery Status Defines          */
+/********************************************************/
+#define E137_7_DISCOVERY_COUNT_INCOMPLETE                0x0000
+#define E137_7_DISCOVERY_COUNT_UNKNOWN                   0xFFFF
+
+/********************************************************/
+/* E1.37-7 Table A-4: Endpoint Mode Defines             */
 /********************************************************/
 #define E137_7_ENDPOINT_MODE_DISABLED                    0x00
 #define E137_7_ENDPOINT_MODE_INPUT                       0x01
@@ -732,5 +763,5 @@
 /********************************************************/
 #define E137_7_NR_ACTION_NOT_SUPPORTED                   0x000B /* The specified action is not supported. */
 #define E137_7_NR_ENDPOINT_NUMBER_INVALID                0x000C /* The specified endpoint is invalid. */
-#define E137_7_NR_INVALID_ENDPOINT_MODE                  0x000D
-#define E137_7_NR_UNKNOWN_UID                            0x000E
+#define E137_7_NR_INVALID_ENDPOINT_MODE                  0x000D /* The specified endpoint is in an invalid Endpoint Mode for the requested action. */
+#define E137_7_NR_UNKNOWN_UID                            0x000E /* The specified UID is not recognized. */

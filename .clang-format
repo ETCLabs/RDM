@@ -1,4 +1,4 @@
-# This file is written for ClangFormat 7.0.0 or higher.
+# This file is written for ClangFormat 9.0.0 or higher.
 
 Language: Cpp
 BasedOnStyle: Google
@@ -6,6 +6,7 @@ BasedOnStyle: Google
 # Brace wrapping: Allman style, except for extern "C" blocks.
 BreakBeforeBraces: Custom
 BraceWrapping:
+  AfterCaseLabel: true
   AfterClass: true
   AfterControlStatement: true
   AfterEnum: true
@@ -24,7 +25,8 @@ BraceWrapping:
 # Misc other options
 AccessModifierOffset: -2
 AlignAfterOpenBracket: Align
-AlignConsecutiveDeclarations: false
+AlignConsecutiveDeclarations: true
+BinPackParameters: false
 AlignOperands: true
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortBlocksOnASingleLine: false
@@ -35,7 +37,7 @@ AllowShortLoopsOnASingleLine: false
 BreakConstructorInitializers: BeforeComma
 ColumnLimit: 120
 DerivePointerAlignment: false
-PointerAlignment: Right
+PointerAlignment: Left
 SortIncludes: false
 
 # Leave Doxygen directives alone

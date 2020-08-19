@@ -19,9 +19,15 @@ except ImportError as ie:
     sys.exit(1)
 
 
-VERSION_H_IN_FILE_REL_PATH = os.path.join('tools', 'version', 'templates', 'version.h.in')
-VERSION_H_OUT_FILE_REL_PATH = os.path.join('include', 'rdm', 'version.h')
-CURRENT_VERSION_TXT_FILE_REL_PATH = os.path.join('tools', 'version', 'current_version.txt')
+FILE_TEMPLATE_DIR = os.path.join('tools', 'version', 'templates')
+FILE_IN_PATHS = [
+    os.path.join(FILE_TEMPLATE_DIR, 'version.h.in'),
+    os.path.join(FILE_TEMPLATE_DIR, 'current_version.txt.in')
+]
+FILE_OUT_PATHS = [
+    os.path.join('include', 'rdm', 'version.h'),
+    os.path.join('tools', 'version', 'current_version.txt')
+]
 COMMIT_MSG_TEMPLATE = 'Update version files for RDM build {}'
 TAG_MSG_TEMPLATE = 'RDM version {}'
 RELEASE_TAG_MSG_TEMPLATE = 'RDM release version {}'
@@ -45,44 +51,67 @@ def parse_version(vers_string):
 
     return [major, minor, patch, build]
 
+IMPORTS = {
+    'EtcPal': '@ETCPAL_VERSION_STRING@'
+}
+IMPORT_TEMPLATE_FILE = os.path.join(FILE_TEMPLATE_DIR, 'imports.txt.in')
+IMPORT_OUT_FILE = os.path.join('tools', 'version', 'imports.txt')
+
+def resolve_import_versions(repo_root, version):
+    """Update the version record of the submodule dependencies."""
+    version_str = '{}.{}.{}.{}'.format(version[0], version[1], version[2], version[3])
+
+    with open(os.path.join(repo_root, IMPORT_TEMPLATE_FILE), 'r') as import_file:
+        import_file_contents = import_file.read()
+
+    import_file_contents = import_file_contents.replace('@RDM_VERSION_STRING@', version_str)
+
+    for import_name, import_var in IMPORTS.items():
+        import_version_file_path = os.path.join(repo_root, 'external', import_name, 'tools',
+                                                'version', 'current_version.txt')
+        with open(import_version_file_path, 'r') as import_version_file:
+            import_version = import_version_file.read().strip()
+            import_file_contents = import_file_contents.replace(import_var, import_version)
+
+    with open(os.path.join(repo_root, IMPORT_OUT_FILE), 'w') as out_file:
+        out_file.write(import_file_contents)
+
 
 def update_version_files(repo_root, version):
     """Update the version header rdm/version.h and the current_version.txt file with the new
     version information. Returns True on success, false otherwise."""
 
-    version_h_in_file_path = os.path.join(repo_root, VERSION_H_IN_FILE_REL_PATH)
-    version_h_out_file_path = os.path.join(repo_root, VERSION_H_OUT_FILE_REL_PATH)
-    current_version_txt_file_path = os.path.join(repo_root, CURRENT_VERSION_TXT_FILE_REL_PATH)
+    in_file_handles = []
+    out_file_handles = []
 
-    # Copy the template file to the output file, replacing the flagged values.
-    try:
-        version_h_in_file = open(version_h_in_file_path, mode='r', encoding='utf8')
-        version_h_out_file = open(version_h_out_file_path, mode='w', encoding='utf8')
-        current_version_txt_file = open(current_version_txt_file_path, mode='w', encoding='utf8')
-    except OSError:
-        print('Failed to open the version header.')
-        return False
+    # First make sure we can open each file for reading or writing as appropriate.
+    for in_file, out_file in zip(FILE_IN_PATHS, FILE_OUT_PATHS):
+        in_file_path = os.path.join(repo_root, in_file)
+        out_file_path = os.path.join(repo_root, out_file)
+        try:
+            in_file_handles.append(open(in_file_path, mode='r', encoding='utf8'))
+            out_file_handles.append(open(out_file_path, mode='w', encoding='utf8'))
+        except OSError as e:
+            print('Error while trying to open files {} and {}: {}'.format(in_file_path,
+                                                                          out_file_path, e))
+            return False
 
     today = datetime.date.today()
-    version_str = '{}.{}.{}.{}'.format(
-        version[0], version[1], version[2], version[3])
+    version_str = '{}.{}.{}.{}'.format(version[0], version[1], version[2], version[3])
 
-    for line in version_h_in_file.readlines():
-        line = line.replace('@RDM_VERSION_MAJOR@', str(version[0]))
-        line = line.replace('@RDM_VERSION_MINOR@', str(version[1]))
-        line = line.replace('@RDM_VERSION_PATCH@', str(version[2]))
-        line = line.replace('@RDM_VERSION_BUILD@', str(version[3]))
-        line = line.replace('@RDM_VERSION_STRING@', version_str)
-        line = line.replace('@RDM_VERSION_DATESTR@', today.strftime('%d.%b.%Y'))
-        line = line.replace('@RDM_VERSION_COPYRIGHT@', 'Copyright ' + str(today.year) + ' ETC Inc.')
+    for in_file, out_file in zip(in_file_handles, out_file_handles):
+        for line in in_file.readlines():
+            line = line.replace('@RDM_VERSION_MAJOR@', str(version[0]))
+            line = line.replace('@RDM_VERSION_MINOR@', str(version[1]))
+            line = line.replace('@RDM_VERSION_PATCH@', str(version[2]))
+            line = line.replace('@RDM_VERSION_BUILD@', str(version[3]))
+            line = line.replace('@RDM_VERSION_STRING@', version_str)
+            line = line.replace('@RDM_VERSION_DATESTR@', today.strftime('%d.%b.%Y'))
+            line = line.replace('@RDM_VERSION_COPYRIGHT@', 'Copyright ' + str(today.year) + ' ETC Inc.')
+            out_file.write(line)
+        in_file.close()
+        out_file.close()
 
-        version_h_out_file.write(line)
-
-    current_version_txt_file.write(version_str + '\n')
-
-    version_h_in_file.close()
-    version_h_out_file.close()
-    current_version_txt_file.close()
     return True
 
 
@@ -97,8 +126,11 @@ def prompt_to_continue():
 def commit_and_tag(repo, new_version, release_build):
     """Commit the updated version files and tag the version."""
     index = repo.index
-    index.add([os.path.join(repo.working_tree_dir, VERSION_H_OUT_FILE_REL_PATH),
-               os.path.join(repo.working_tree_dir, CURRENT_VERSION_TXT_FILE_REL_PATH)])
+
+    # Add all of our version files
+    out_file_abs_paths = [os.path.join(repo.working_tree_dir, out_file) for out_file in FILE_OUT_PATHS]
+    out_file_abs_paths.append(os.path.join(repo.working_tree_dir, IMPORT_OUT_FILE))
+    index.add(out_file_abs_paths)
 
     vers_string_long = '{}.{}.{}.{}'.format(new_version[0], new_version[1], new_version[2], new_version[3])
     vers_string_short = '{}.{}.{}'.format(new_version[0], new_version[1], new_version[2])
@@ -131,6 +163,8 @@ def main():
 
     if not update_version_files(repo_root, new_version):
         sys.exit(1)
+
+    resolve_import_versions(repo_root, new_version)
 
     if not prompt_to_continue():
         sys.exit(0)
