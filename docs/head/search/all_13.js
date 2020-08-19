@@ -7,6 +7,7 @@ var searchData=
   ['targeting_20freertos',['Targeting FreeRTOS',['http://etclabs.github.io/EtcPal/docs/head/targeting_freertos.html',1,'']]],
   ['targeting_20lwip',['Targeting lwIP',['http://etclabs.github.io/EtcPal/docs/head/targeting_lwip.html',1,'']]],
   ['targeting_20mqx',['Targeting MQX',['http://etclabs.github.io/EtcPal/docs/head/targeting_mqx.html',1,'']]],
+  ['terminate',['Terminate',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_thread.html#a07e5d2b8f7fce024200c4ec8a41c6570',1,'etcpal::Thread']]],
   ['thread',['Thread',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_thread.html',1,'Thread'],['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_thread.html#acf0ebde1823ff6854a4add729b40a0c4',1,'etcpal::Thread::Thread()=default'],['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_thread.html#a7d7f5dbaad78386dbac48435086454ca',1,'etcpal::Thread::Thread(Function &amp;&amp;func, Args &amp;&amp;... args)'],['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_thread.html#a6fb67adc8253034f42e5a43df0df0662',1,'etcpal::Thread::Thread(Thread &amp;&amp;other) noexcept'],['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_thread.html#a856d2ee521709c03d8499d926783117b',1,'etcpal::Thread::Thread(const Thread &amp;other)=delete']]],
   ['thread_2eh',['thread.h',['http://etclabs.github.io/EtcPal/docs/head/cpp_2thread_8h.html',1,'']]],
   ['thread_5fname',['thread_name',['http://etclabs.github.io/EtcPal/docs/head/struct_etc_pal_thread_params.html#af081a07b0c5074db7c1896da8fb72e81',1,'EtcPalThreadParams']]],

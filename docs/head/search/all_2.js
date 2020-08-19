@@ -16,6 +16,8 @@ var searchData=
   ['controller_2eh',['controller.h',['../controller_8h.html',1,'']]],
   ['controllerbroadcast',['ControllerBroadcast',['../classrdm_1_1_uid.html#aa58c75a03749f4c8f00f32b2f5015d21',1,'rdm::Uid']]],
   ['critical',['Critical',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_logger.html#a1c8920f98f8e58c892f8db1b07309c34',1,'etcpal::Logger::Critical(const char *format,...)'],['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_logger.html#a1c8920f98f8e58c892f8db1b07309c34',1,'etcpal::Logger::Critical(const char *format,...)']]],
+  ['core_20modules',['Core Modules',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__core.html',1,'']]],
+  ['c_2b_2b_20wrappers',['C++ Wrappers',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__cpp.html',1,'']]],
   ['counting_20semaphores',['Counting Semaphores',['http://etclabs.github.io/EtcPal/docs/head/group__etcpal__sem.html',1,'']]],
   ['core_20api',['Core API',['../group__rdm__c.html',1,'']]],
   ['c_2b_2b_20api',['C++ API',['../group__rdm__cpp.html',1,'']]]

@@ -17,6 +17,8 @@ var searchData=
   ['isdiscoveryresponse',['IsDiscoveryResponse',['../classrdm_1_1_response.html#a18363f881652622596ba208cab029560',1,'rdm::Response::IsDiscoveryResponse()'],['../classrdm_1_1_response_header.html#a9d3025538c187363f2e0091c30ff25c4',1,'rdm::ResponseHeader::IsDiscoveryResponse()']]],
   ['isdynamic',['IsDynamic',['../classrdm_1_1_uid.html#ab1affd5b2613fc51ad89a38272bff137',1,'rdm::Uid']]],
   ['isdynamicuidrequest',['IsDynamicUidRequest',['../classrdm_1_1_uid.html#a3d5604d188fdfc7e8e755a9ecb27e1f1',1,'rdm::Uid']]],
+  ['isempty',['IsEmpty',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_queue.html#a8e12342fc420701fbffd97025421575a',1,'etcpal::Queue']]],
+  ['isemptyfromisr',['IsEmptyFromIsr',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_queue.html#a9cc49246382de0eeb66f493207fb4dbc',1,'etcpal::Queue']]],
   ['isexpired',['IsExpired',['http://etclabs.github.io/EtcPal/docs/head/classetcpal_1_1_timer.html#a3a79feefa8df553fd15b9997d0c3a719',1,'etcpal::Timer']]],
   ['isget',['IsGet',['../classrdm_1_1_command.html#a436744097f119231a0a70808b2ce4f7e',1,'rdm::Command::IsGet()'],['../classrdm_1_1_command_header.html#a24e38683dabb26fcffff5ff569c24451',1,'rdm::CommandHeader::IsGet()']]],
   ['isgetresponse',['IsGetResponse',['../classrdm_1_1_response.html#a1f40fbdb3a381a202a64af46273ff2d5',1,'rdm::Response::IsGetResponse()'],['../classrdm_1_1_response_header.html#aa276224c97735e6a4f04dc94934c5084',1,'rdm::ResponseHeader::IsGetResponse()']]],
