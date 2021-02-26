@@ -147,6 +147,13 @@ public:
   Response& AppendData(const uint8_t* data, size_t data_len);
   Response& ClearData() noexcept;
 
+  size_t        PackedSize() const noexcept;
+  etcpal::Error Serialize(RdmBuffer& buffer);
+  etcpal::Error Serialize(uint8_t* buf, size_t buflen);
+
+  static etcpal::Expected<Response> Deserialize(const RdmBuffer& buffer);
+  static etcpal::Expected<Response> Deserialize(const uint8_t* data, uint8_t data_len);
+
 private:
   ResponseHeader       header_;
   std::vector<uint8_t> data_;
@@ -456,6 +463,38 @@ inline Response& Response::ClearData() noexcept
   data_.clear();
   return *this;
 }
+
+/// @brief Unpack a response from the RDM wire format.
+/// @param buffer RdmBuffer holding the serialized command to unpack.
+/// @return The unpacked command if parsing was successful; an error code otherwise.
+inline etcpal::Expected<Response> Deserialize(const RdmBuffer& buffer)
+{
+  RdmResponseHeader resp_header;
+  const uint8_t*    param_data;
+  uint8_t           param_data_len;
+  etcpal_error_t    res = rdm_buf_unpack_response(&buffer, &resp_header, &param_data, &param_data_len);
+  if (res == kEtcPalErrOk)
+    return Response(resp_header, param_data, param_data_len);
+  else
+    return res;
+}
+
+/// @brief Unpack a response from the RDM wire format.
+/// @param data Raw data buffer holding the serialized command to unpack.
+/// @param data_len Length of the serialized command data.
+/// @return The unpacked command if parsing was successful; an error code otherwise.
+inline etcpal::Expected<Response> Deserialize(const uint8_t* data, uint8_t data_len)
+{
+  RdmResponseHeader resp_header;
+  const uint8_t*    param_data;
+  uint8_t           param_data_len;
+  etcpal_error_t    res = rdm_unpack_response(data, data_len, &resp_header, &param_data, &param_data_len);
+  if (res == kEtcPalErrOk)
+    return Response(resp_header, param_data, param_data_len);
+  else
+    return res;
+}
+
 };  // namespace rdm
 
 #endif  // RDM_CPP_MESSAGE_TYPES_RESPONSE_H_

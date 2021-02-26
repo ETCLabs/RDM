@@ -17,39 +17,16 @@
  * https://github.com/ETCLabs/RDM
  *****************************************************************************/
 
-/**
- * @file rdm/responder.h
- * @brief Contains functions for unpacking RDM commands and creating responses.
+/*
+ * Utilities used by multiple RDM code modules.
  */
 
-#ifndef RDM_RESPONDER_H_
-#define RDM_RESPONDER_H_
+#ifndef RDM_PRIVATE_UTIL_H_
+#define RDM_PRIVATE_UTIL_H_
 
+#include <stddef.h>
 #include <stdint.h>
-#include "etcpal/error.h"
-#include "etcpal/pack.h"
-#include "rdm/message.h"
 
-/**
- * @defgroup responder Responder
- * @ingroup rdm_c
- * @brief Implementation of RDM responder functionality.
- *
- * @{
- */
+uint16_t calc_rdm_checksum(const uint8_t* buffer, size_t data_len_without_checksum);
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-etcpal_error_t rdm_responder_pack_dub_response(const RdmUid* responder_uid, RdmBuffer* buffer);
-
-#ifdef __cplusplus
-}
-#endif
-
-/**
- * @}
- */
-
-#endif /* RDM_RESPONDER_H_ */
+#endif /* RDM_PRIVATE_UTIL_H_ */

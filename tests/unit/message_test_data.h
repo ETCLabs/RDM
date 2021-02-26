@@ -21,6 +21,7 @@
 #define TEST_MESSAGE_DATA_H_
 
 #include <array>
+#include <cstddef>
 #include <cstdint>
 #include <cstring>
 #include <limits>
@@ -28,6 +29,7 @@
 #include <vector>
 #include "etcpal/pack.h"
 #include "rdm/message.h"
+#include "rdm/uid.h"
 #include "gtest/gtest.h"
 
 // Some utilities for comparing RDM C structures
@@ -115,6 +117,12 @@ struct CmdRespPair
   }
 
   uint8_t RespMessageCount() const { return first_packed_resp()[RDM_OFFSET_MSGCOUNT]; }
+};
+
+struct ValidDubResponse
+{
+  RdmUid                  uid;
+  std::array<uint8_t, 24> message;
 };
 
 namespace rdmtest
@@ -616,6 +624,31 @@ inline CmdRespPair GetTcpCommsStatus()
 
           0x07, 0xc6  // Checksum
       }}};
+}
+
+inline ValidDubResponse GetValidDubResponse()
+{
+  return ValidDubResponse{{2000, 400000},
+                          {
+                              0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xaa,
+                              0xaf,  // uid.manu MSB | 0xaa
+                              0x57,  // uid.manu MSB | 0x55
+                              0xfa,  // uid.manu LSB | 0xaa
+                              0xd5,  // uid.manu LSB | 0x55
+                              0xaa,  // uid.id MSB | 0xaa
+                              0x55,  // uid.id MSB | 0x55
+                              0xae,  // uid.id byte 2 | 0xaa
+                              0x57,  // uid.id byte 2 | 0x55
+                              0xba,  // uid.id byte 1 | 0xaa
+                              0x5f,  // uid.id byte 1 | 0x55
+                              0xaa,  // uid.id LSB | 0xaa
+                              0xd5,  // uid.id LSB | 0x55
+                              // Checksum = 0x0771
+                              0xaf,  // Checkum MSB | 0xaa
+                              0x57,  // Checksum MSB | 0x55
+                              0xfb,  // Checksum LSB | 0xaa
+                              0x75,  // Checksum LSB | 0x55
+                          }};
 }
 };  // namespace rdmtest
 

@@ -36,8 +36,10 @@ endif()
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 
 set(RDM_ROOT ${CMAKE_CURRENT_LIST_DIR})
+set(RDM_INCLUDE ${RDM_ROOT}/include)
+set(RDM_SRC ${RDM_ROOT}/src)
 
-option(RDM_BUILD_MOCK_LIB "Build the RDMMock library" OFF)
+# option(RDM_BUILD_MOCK_LIB "Build the RDMMock library" OFF)
 option(RDM_BUILD_TESTS "Build the RDM unit tests" OFF)
 
 # Main library

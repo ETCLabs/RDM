@@ -29,6 +29,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include "etcpal/error.h"
+#include "etcpal/pack.h"
 #include "rdm/uid.h"
 #include "rdm/defs.h"
 
@@ -180,18 +181,37 @@ typedef struct RdmBuffer
 } RdmBuffer;
 
 /**
+ * @name RDM buffer inspection macros
+ * @{
+ */
+
+#define RDM_BUF_GET_SOURCE_MANU_ID(rdmbufptr) etcpal_unpack_u16b(&(rdmbufptr)->data[RDM_OFFSET_SRC_MANUFACTURER])
+#define RDM_BUF_GET_SOURCE_DEV_ID(rdmbufptr) etcpal_unpack_u32b(&(rdmbufptr)->data[RDM_OFFSET_SRC_DEVICE])
+#define RDM_BUF_GET_DEST_MANU_ID(rdmbufptr) etcpal_unpack_u16b(&(rdmbufptr)->data[RDM_OFFSET_DEST_MANUFACTURER])
+#define RDM_BUF_GET_DEST_DEV_ID(rdmbufptr) etcpal_unpack_u32b(&(rdmbufptr)->data[RDM_OFFSET_DEST_DEVICE])
+
+/**
  * @brief Get the command class value from a packed RDM command.
  * @param rdmbufptr Pointer to RdmBuffer containing the packed RDM command.
  * @return Command class (uint8_t).
  */
-#define RDM_GET_COMMAND_CLASS(rdmbufptr) ((rdmbufptr)->data[RDM_OFFSET_COMMAND_CLASS])
+#define RDM_BUF_GET_COMMAND_CLASS(rdmbufptr) ((rdmbufptr)->data[RDM_OFFSET_COMMAND_CLASS])
+
+/**
+ * @brief Get the command class value from a packed RDM command.
+ * @param rdmbufptr Pointer to RdmBuffer containing the packed RDM command.
+ * @return Command class (uint8_t).
+ */
+#define RDM_BUF_GET_COMMAND_CLASS(rdmbufptr) ((rdmbufptr)->data[RDM_OFFSET_COMMAND_CLASS])
 
 /**
  * @brief Get the RDM transaction number from a packed RDM command.
  * @param rdmbufptr Pointer to RdmBuffer containing the packed RDM command.
  * @return Transaction number (uint8_t).
  */
-#define RDM_GET_TRANSACTION_NUM(rdmbufptr) ((rdmbufptr)->data[RDM_OFFSET_TRANSACTION])
+#define RDM_BUF_GET_TRANSACTION_NUM(rdmbufptr) ((rdmbufptr)->data[RDM_OFFSET_TRANSACTION])
+
+#define RDM_BUF_GET_PARAM_ID(rdmbufptr) etcpal_unpack_u16b(&(rdmbufptr)->data[RDM_OFFSET_PARAM_ID])
 
 /**
  * A structure that represents the header fields of an RDM command. This includes everything except
@@ -252,64 +272,99 @@ typedef struct RdmResponseHeader
  */
 #define RDM_PACKED_SIZE(data_len) (RDM_HEADER_SIZE + (data_len) + 2u)
 
-void rdm_pack_checksum(uint8_t* buffer, size_t data_len_without_checksum);
-bool rdm_validate_msg(const RdmBuffer* buffer);
-
-bool rdm_command_header_is_valid(const RdmCommandHeader* cmd_header);
-bool rdm_response_header_is_valid(const RdmResponseHeader* resp_header);
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// RDM message pack/unpack functions (raw buffer versions)
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 etcpal_error_t rdm_pack_command(const RdmCommandHeader* cmd_header,
                                 const uint8_t*          cmd_data,
                                 uint8_t                 cmd_data_len,
-                                RdmBuffer*              buffer);
-etcpal_error_t rdm_pack_command_with_custom_buf(const RdmCommandHeader* cmd_header,
-                                                const uint8_t*          cmd_data,
-                                                uint8_t                 cmd_data_len,
-                                                uint8_t*                buf,
-                                                size_t                  buf_len);
-
+                                uint8_t*                buf,
+                                size_t                  buf_len);
 etcpal_error_t rdm_pack_response(const RdmCommandHeader* cmd_header,
                                  uint8_t                 msg_count,
                                  const uint8_t*          response_data,
                                  uint8_t                 response_data_len,
-                                 RdmBuffer*              buffer);
-etcpal_error_t rdm_pack_overflow_response(const RdmCommandHeader* cmd_header,
-                                          const uint8_t*          response_data,
-                                          uint8_t                 response_data_len,
-                                          RdmBuffer*              buffer);
-etcpal_error_t rdm_pack_nack_response(const RdmCommandHeader* cmd_header,
-                                      uint8_t                 msg_count,
-                                      rdm_nack_reason_t       nack_reason,
-                                      RdmBuffer*              buffer);
-etcpal_error_t rdm_pack_timer_response(const RdmCommandHeader* cmd_header,
-                                       uint8_t                 msg_count,
-                                       unsigned int            delay_time_ms,
-                                       RdmBuffer*              buffer);
-etcpal_error_t rdm_pack_dub_response(const RdmUid* responder_uid, RdmBuffer* buffer);
-
-size_t         rdm_get_num_responses_needed(uint16_t param_id, size_t response_data_len);
-etcpal_error_t rdm_pack_full_response(const RdmCommandHeader* cmd_header,
-                                      const uint8_t*          response_data,
-                                      size_t                  response_data_len,
-                                      RdmBuffer*              buffers,
-                                      size_t                  num_buffers);
-
-etcpal_error_t rdm_append_parameter_data(RdmBuffer*     buffer,
-                                         const uint8_t* additional_data,
-                                         uint8_t        additional_data_len);
-
-etcpal_error_t rdm_unpack_command(const RdmBuffer*  buffer,
+                                 uint8_t*                buf,
+                                 size_t                  buf_len);
+etcpal_error_t rdm_unpack_command(const uint8_t*    data,
+                                  uint8_t           data_size,
                                   RdmCommandHeader* cmd_header,
                                   const uint8_t**   param_data,
                                   uint8_t*          param_data_len);
-etcpal_error_t rdm_unpack_response(const RdmBuffer*   buffer,
+etcpal_error_t rdm_unpack_response(const uint8_t*     data,
+                                   uint8_t            data_size,
                                    RdmResponseHeader* resp_header,
                                    const uint8_t**    param_data,
                                    uint8_t*           param_data_len);
-etcpal_error_t rdm_unpack_dub_response(const RdmBuffer* buffer, RdmUid* responder_uid);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// RdmBuffer message pack/unpack functions
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+etcpal_error_t rdm_buf_pack_command(const RdmCommandHeader* cmd_header,
+                                    const uint8_t*          cmd_data,
+                                    uint8_t                 cmd_data_len,
+                                    RdmBuffer*              buffer);
+
+etcpal_error_t rdm_buf_pack_response(const RdmCommandHeader* cmd_header,
+                                     uint8_t                 msg_count,
+                                     const uint8_t*          response_data,
+                                     uint8_t                 response_data_len,
+                                     RdmBuffer*              buffer);
+etcpal_error_t rdm_buf_pack_overflow_response(const RdmCommandHeader* cmd_header,
+                                              const uint8_t*          response_data,
+                                              uint8_t                 response_data_len,
+                                              RdmBuffer*              buffer);
+etcpal_error_t rdm_buf_pack_nack_response(const RdmCommandHeader* cmd_header,
+                                          uint8_t                 msg_count,
+                                          rdm_nack_reason_t       nack_reason,
+                                          RdmBuffer*              buffer);
+etcpal_error_t rdm_buf_pack_timer_response(const RdmCommandHeader* cmd_header,
+                                           uint8_t                 msg_count,
+                                           unsigned int            delay_time_ms,
+                                           RdmBuffer*              buffer);
+
+etcpal_error_t rdm_buf_pack_full_response(const RdmCommandHeader* cmd_header,
+                                          const uint8_t*          response_data,
+                                          size_t                  response_data_len,
+                                          RdmBuffer*              buffers,
+                                          size_t                  num_buffers);
+
+etcpal_error_t rdm_buf_append_parameter_data(RdmBuffer*     buffer,
+                                             const uint8_t* additional_data,
+                                             uint8_t        additional_data_len);
+
+etcpal_error_t rdm_buf_unpack_command(const RdmBuffer*  buffer,
+                                      RdmCommandHeader* cmd_header,
+                                      const uint8_t**   param_data,
+                                      uint8_t*          param_data_len);
+etcpal_error_t rdm_buf_unpack_response(const RdmBuffer*   buffer,
+                                       RdmResponseHeader* resp_header,
+                                       const uint8_t**    param_data,
+                                       uint8_t*           param_data_len);
+
+void rdm_buf_update_transaction_num(RdmBuffer* buffer, uint8_t new_transaction_num);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Misc. message functions
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+size_t rdm_get_num_responses_needed(uint16_t param_id, size_t response_data_len);
+
+bool rdm_validate_msg(const RdmBuffer* buffer);
 
 unsigned int      rdm_get_ack_timer_delay(const uint8_t* param_data);
 rdm_nack_reason_t rdm_get_nack_reason_code(const uint8_t* param_data);
+
+bool rdm_command_header_is_valid(const RdmCommandHeader* cmd_header);
+bool rdm_response_header_is_valid(const RdmResponseHeader* resp_header);
+
+void rdm_pack_checksum(uint8_t* buffer, size_t data_len_without_checksum);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Enum/String functions
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 const char* rdm_command_class_to_string(rdm_command_class_t command_class);
 const char* rdm_response_type_to_string(rdm_response_type_t resp_type);

@@ -38,10 +38,19 @@ namespace rdm
 ///
 /// Similar to CommandHeader, except that this class heap-allocates a buffer to hold any
 /// accompanying RDM parameter data and thus represents a complete RDM command.
+///
+/// Like the CommandHeader, a Command has two forms, depending on whether certain "low-level"
+/// fields are included. See the CommandHeader documentation for more information.
 class Command
 {
 public:
   Command() = default;
+  Command(const Uid&          dest_uid,
+          rdm_command_class_t command_class,
+          uint16_t            param_id,
+          uint16_t            subdevice = 0,
+          const uint8_t*      data = nullptr,
+          uint8_t             data_len = 0) noexcept;
   Command(const Uid&          source_uid,
           const Uid&          dest_uid,
           uint8_t             transaction_num,
@@ -73,6 +82,7 @@ public:
   bool IsGet() const noexcept;
   bool IsSet() const noexcept;
   bool IsDiscovery() const noexcept;
+  bool HasLowLevelFields() const noexcept;
 
   Command& SetSourceUid(const Uid& uid) noexcept;
   Command& SetSourceUid(const ::RdmUid& uid) noexcept;
@@ -91,24 +101,21 @@ public:
   etcpal::Error Serialize(RdmBuffer& buffer) const noexcept;
   etcpal::Error Serialize(uint8_t* buf, size_t buflen) const noexcept;
 
+  static etcpal::Expected<Command> Deserialize(const RdmBuffer& buffer);
+  static etcpal::Expected<Command> Deserialize(const uint8_t* data, uint8_t data_len);
+
   /// @name High-level command generators
   /// @{
-  static Command Get(uint16_t       param_id,
-                     const Uid&     source_uid,
-                     const Uid&     dest_uid,
+  static Command Get(const Uid&     dest_uid,
+                     uint16_t       param_id,
                      uint16_t       subdevice = 0,
                      const uint8_t* data = nullptr,
-                     uint8_t        data_len = 0,
-                     uint8_t        transaction_num = 0,
-                     uint8_t        port_id = 1);
-  static Command Set(uint16_t       param_id,
-                     const Uid&     source_uid,
-                     const Uid&     dest_uid,
+                     uint8_t        data_len = 0);
+  static Command Set(const Uid&     dest_uid,
+                     uint16_t       param_id,
                      uint16_t       subdevice = 0,
                      const uint8_t* data = nullptr,
-                     uint8_t        data_len = 0,
-                     uint8_t        transaction_num = 0,
-                     uint8_t        port_id = 1);
+                     uint8_t        data_len = 0);
   /// @}
 
 private:

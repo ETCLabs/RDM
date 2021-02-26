@@ -18,5 +18,25 @@
  *****************************************************************************/
 
 #include "rdm/responder.h"
+
 #include "gtest/gtest.h"
-#include "etcpal/pack.h"
+#include "message_test_data.h"
+
+TEST(Responder, PackDubResponseInvalid)
+{
+  RdmUid    uid{1, 3};
+  RdmBuffer buf;
+  EXPECT_EQ(rdm_responder_pack_dub_response(nullptr, nullptr), kEtcPalErrInvalid);
+  EXPECT_EQ(rdm_responder_pack_dub_response(&uid, nullptr), kEtcPalErrInvalid);
+  EXPECT_EQ(rdm_responder_pack_dub_response(nullptr, &buf), kEtcPalErrInvalid);
+}
+
+TEST(Responder, PackDubResponse)
+{
+  auto valid_dub_response = rdmtest::GetValidDubResponse();
+
+  RdmBuffer dub_buffer;
+  EXPECT_EQ(rdm_responder_pack_dub_response(&valid_dub_response.uid, &dub_buffer), kEtcPalErrOk);
+  ASSERT_EQ(dub_buffer.data_len, valid_dub_response.message.size());
+  EXPECT_EQ(0, std::memcmp(valid_dub_response.message.data(), dub_buffer.data, valid_dub_response.message.size()));
+}

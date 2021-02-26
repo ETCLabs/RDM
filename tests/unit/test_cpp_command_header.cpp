@@ -30,24 +30,38 @@ TEST(CppCmdHeader, DefaultConstructorWorks)
   EXPECT_FALSE(header.IsValid());
   EXPECT_FALSE(header.source_uid().IsValid());
   EXPECT_FALSE(header.dest_uid().IsValid());
-  EXPECT_EQ(header.transaction_num(), 0);
-  EXPECT_EQ(header.port_id(), 0);
   EXPECT_EQ(header.subdevice(), 0);
   EXPECT_EQ(header.param_id(), 0);
 }
 
-TEST(CppCmdHeader, ValueConstructorWorks)
+TEST(CppCmdHeader, LowLevelConstructorWorks)
 {
   rdm::CommandHeader header({0x6574, 0x1234}, {0x6574, 0x4321}, 20, 1, 200, kRdmCCGetCommand,
                             E120_SUPPORTED_PARAMETERS);
 
   EXPECT_TRUE(header.IsValid());
+  EXPECT_TRUE(header.HasLowLevelFields());
+
   EXPECT_EQ(header.source_uid().manufacturer_id(), 0x6574u);
   EXPECT_EQ(header.source_uid().device_id(), 0x1234u);
   EXPECT_EQ(header.dest_uid().manufacturer_id(), 0x6574u);
   EXPECT_EQ(header.dest_uid().device_id(), 0x4321u);
   EXPECT_EQ(header.transaction_num(), 20u);
   EXPECT_EQ(header.port_id(), 1u);
+  EXPECT_EQ(header.subdevice(), 200u);
+  EXPECT_EQ(header.command_class(), kRdmCCGetCommand);
+  EXPECT_EQ(header.param_id(), E120_SUPPORTED_PARAMETERS);
+}
+
+TEST(CppCmdHeader, HighLevelConstructorWorks)
+{
+  rdm::CommandHeader header({0x6574, 0x4321}, kRdmCCGetCommand, E120_SUPPORTED_PARAMETERS, 200);
+
+  EXPECT_TRUE(header.IsValid());
+  EXPECT_FALSE(header.HasLowLevelFields());
+
+  EXPECT_EQ(header.dest_uid().manufacturer_id(), 0x6574u);
+  EXPECT_EQ(header.dest_uid().device_id(), 0x4321u);
   EXPECT_EQ(header.subdevice(), 200u);
   EXPECT_EQ(header.command_class(), kRdmCCGetCommand);
   EXPECT_EQ(header.param_id(), E120_SUPPORTED_PARAMETERS);
@@ -82,6 +96,33 @@ TEST(CppCmdHeader, SettersAndGettersWork)
   EXPECT_EQ(header.command_class(), kRdmCCSetCommand);
   header.SetParamId(0x1000);
   EXPECT_EQ(header.param_id(), 0x1000u);
+}
+
+// Test that setting low-level fields causes a high-level command to become low-level
+class CppCmdHeaderLowLevelFields : public testing::Test
+{
+protected:
+  rdm::CommandHeader header_{rdm::CommandHeader::Get({0x6574, 0x1234}, E120_DEVICE_LABEL)};
+
+  void SetUp() override { ASSERT_FALSE(header_.HasLowLevelFields()); }
+};
+
+TEST_F(CppCmdHeaderLowLevelFields, SourceUid)
+{
+  header_.SetSourceUid(rdm::Uid(100, 200));
+  EXPECT_TRUE(header_.HasLowLevelFields());
+}
+
+TEST_F(CppCmdHeaderLowLevelFields, TransactionNum)
+{
+  header_.SetTransactionNum(20);
+  EXPECT_TRUE(header_.HasLowLevelFields());
+}
+
+TEST_F(CppCmdHeaderLowLevelFields, PortId)
+{
+  header_.SetPortId(1);
+  EXPECT_TRUE(header_.HasLowLevelFields());
 }
 
 TEST(CppCmdHeader, IsValidWorks)
@@ -142,17 +183,24 @@ TEST(CppCmdHeader, SerializeWorks)
   EXPECT_EQ(std::memcmp(raw_buf.data(), buf.data, buf.data_len), 0);
 }
 
+TEST(CppCmdHeader, SerializeDoesNotWorkWithHighLevel)
+{
+  const auto header = rdm::CommandHeader::Get({0x6574, 0x4321}, E120_DEVICE_INFO);
+
+  RdmBuffer buf;
+  EXPECT_EQ(header.Serialize(buf), kEtcPalErrInvalid);
+  EXPECT_EQ(header.Serialize(buf.data, RDM_MAX_BYTES), kEtcPalErrInvalid);
+}
+
 TEST(CppCmdHeader, StaticGetWorks)
 {
-  const auto header =
-      rdm::CommandHeader::Get(E120_SUPPORTED_PARAMETERS, {0x6574, 0x1234}, {0x6574, 0x4321}, 200, 20, 1);
+  const auto header = rdm::CommandHeader::Get({0x6574, 0x4321}, E120_SUPPORTED_PARAMETERS, 200);
+
   EXPECT_TRUE(header.IsValid());
-  EXPECT_EQ(header.source_uid().manufacturer_id(), 0x6574u);
-  EXPECT_EQ(header.source_uid().device_id(), 0x1234u);
+  EXPECT_FALSE(header.HasLowLevelFields());
+
   EXPECT_EQ(header.dest_uid().manufacturer_id(), 0x6574u);
   EXPECT_EQ(header.dest_uid().device_id(), 0x4321u);
-  EXPECT_EQ(header.transaction_num(), 20u);
-  EXPECT_EQ(header.port_id(), 1u);
   EXPECT_EQ(header.subdevice(), 200u);
   EXPECT_EQ(header.command_class(), kRdmCCGetCommand);
   EXPECT_EQ(header.param_id(), E120_SUPPORTED_PARAMETERS);
@@ -160,14 +208,13 @@ TEST(CppCmdHeader, StaticGetWorks)
 
 TEST(CppCmdHeader, StaticSetWorks)
 {
-  const auto header = rdm::CommandHeader::Set(E120_RESET_DEVICE, {0x6574, 0x1234}, {0x6574, 0x4321}, 200, 20, 1);
+  const auto header = rdm::CommandHeader::Set({0x6574, 0x4321}, E120_RESET_DEVICE, 200);
+
   EXPECT_TRUE(header.IsValid());
-  EXPECT_EQ(header.source_uid().manufacturer_id(), 0x6574u);
-  EXPECT_EQ(header.source_uid().device_id(), 0x1234u);
+  EXPECT_FALSE(header.HasLowLevelFields());
+
   EXPECT_EQ(header.dest_uid().manufacturer_id(), 0x6574u);
   EXPECT_EQ(header.dest_uid().device_id(), 0x4321u);
-  EXPECT_EQ(header.transaction_num(), 20u);
-  EXPECT_EQ(header.port_id(), 1u);
   EXPECT_EQ(header.subdevice(), 200u);
   EXPECT_EQ(header.command_class(), kRdmCCSetCommand);
   EXPECT_EQ(header.param_id(), E120_RESET_DEVICE);
