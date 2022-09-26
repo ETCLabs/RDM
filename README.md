@@ -11,10 +11,12 @@ A helper library for the ANSI E1.20 (RDM) protocol.
 This C-language library is intended to be a very lightweight RDM implementation.
 
 **Current Features:**
+
 * RDM type definitions and message formats
 * Functions for building and parsing RDM messages
 
 **Planned Features:**
+
 * Implementation of controller logic for RDM discovery
 * Implementation of RDM responder logic
 * RDM parameter data packing and unpacking functions
@@ -28,7 +30,31 @@ encourage posting on the [issues page](https://github.com/ETCLabs/RDM/issues) of
 Before posting an issue or opening a pull request, please read the
 [contribution guidelines](./CONTRIBUTING.md).
 
-## Building
+## Quality Gates
+
+### Code Reviews
+
+* At least 2 developers must approve all code changes made before they can be merged into the integration branch.
+* API and major functionality reviews typically include application developers as well.
+
+### Automated testing
+
+* Some unit testing is provided.
+
+### Continuous Integration
+
+* This project uses GitHub Azure Pipelines to run unit testing and generate build documentation.
+
+## Documentation
 
 For instructions on building the RDM library, please see the
 [documentation](https://etclabs.github.io/RDM).
+
+## Revision Control
+
+RDM development is using Git for revision control.
+
+## License
+
+RDM is licensed under the Apache License 2.0. RDM also incorporates some third-party software with different license terms, disclosed in ThirdPartySoftware.txt in the directory containing this
+README file.
