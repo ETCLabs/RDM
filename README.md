@@ -37,7 +37,7 @@ Before posting an issue or opening a pull request, please read the
 * At least 2 developers must approve all code changes made before they can be merged into the integration branch.
 * API and major functionality reviews typically include application developers as well.
 
-### Automated testing
+### Automated Testing
 
 * Some unit testing is provided.
 
