@@ -1,11 +1,5 @@
 set(RDM_INCLUDE ${RDM_ROOT}/include)
 
-################################# Dependencies ################################
-
-include(RdmAddDependency)
-
-rdm_add_dependency(EtcPal ETCPAL_DIR)
-
 ################################# RDM library #################################
 
 set(RDM_LIB_TARGET_NAME RDM)

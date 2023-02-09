@@ -1,14 +1,12 @@
 # RDM
 
-[![Build Status](https://dev.azure.com/ETCLabs/RDM/_apis/build/status/ETCLabs.RDM?branchName=develop)](https://dev.azure.com/ETCLabs/RDM/_build/latest?definitionId=3&branchName=develop)
-
 A helper library for the ANSI E1.20 (RDM) protocol.
 
 *RDM* is an ANSI standard for remotely configuring devices which are controlled via
 [DMX512](https://en.wikipedia.org/wiki/DMX512). More information about RDM can be found
 [here](http://www.rdmprotocol.org).
 
-This C-language library is intended to be a very lightweight RDM implementation.
+This C/C++ library is intended to be a very lightweight RDM implementation.
 
 **Current Features:**
 
@@ -41,14 +39,31 @@ Before posting an issue or opening a pull request, please read the
 
 * Some unit testing is provided.
 
+### Automated Static Analysis
+
+* Treating warnings as errors is enabled on all platforms.
+* Adding Clang Tidy (in phases) is on the TODO list. Once implemented, refer to
+.clang-tidy to see which rulesets have been added.
+
+### Automated Style Checking
+
+* Clang format is enabled – currently this follows the style guidelines established for our libraries,
+ and it may be updated from time to time. See .clang-format for more details.
+* Non-conformance to .clang-format will result in pipeline failures.  The code is not automatically re-formatted.
+
 ### Continuous Integration
 
-* This project uses GitHub Azure Pipelines to run unit testing and generate build documentation.
+* A GitLab CI pipeline is being used to run builds and tests that enforce all supported quality gates for all merge
+requests, and for generating new library builds from main. See .gitlab-ci.yml for details.
+
+### Automated Dynamic Analysis
+
+* ASAN is currently being used when running all automated tests on Linux to catch various memory errors during runtime.
 
 ## Documentation
 
 For instructions on building the RDM library, please see the
-[documentation](https://etclabs.github.io/RDM).
+[documentation](https://etclabs.github.io/RDMDocs).
 
 ## Revision Control
 

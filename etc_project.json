@@ -1,0 +1,62 @@
+{
+  "dependencies": [
+    {
+      "name": "EtcPal",
+      "gitlabPath": "etc/common-tech/general/etcpal",
+      "version": "0.5.0.12"
+    },
+    {
+      "name": "googletest",
+      "gitlabPath": "mirrors/thirdparty/google/googletest",
+      "gitTag": "6b74da4757a549563d7c37c8fae3e704662a043b",
+      "devOnly": true
+    }
+  ],
+  "devToolConfig": {
+    "version": {
+      "fileTemplates": {
+        "tools/templates/version.h.in": "include/rdm/version.h"
+      },
+      "jira": {
+        "project": "GHRDM"
+      }
+    },
+    "docs": {
+      "input": {
+        "unprocessed": [
+          "include/rdm",
+          "include/rdm/cpp",
+          "src/rdm"
+        ],
+        "processed": [
+          "docs/pages"
+        ]
+      },
+      "tags": [
+        {
+          "name": "EtcPal",
+          "site": "https://etclabs.github.io/EtcPalDocs"
+        },
+        {
+          "webPath": "https://upload.cppreference.com/mwiki/images/f/f8/cppreference-doxygen-web.tag.xml",
+          "site": "https://en.cppreference.com/w"
+        }
+      ],
+      "multiVersion": {
+        "enabled": true,
+        "htmlRoot": "/RDMDocs",
+        "versions": []
+      }
+    },
+    "release-lib": {
+      "projectName": "RDM",
+      "jira": {
+        "project": "GHRDM"
+      },
+      "legacyP4Mirror": {
+        "name": "GITHUB_RDM",
+        "labelPrefix": "GHRDM"
+      }
+    }
+  }
+}
