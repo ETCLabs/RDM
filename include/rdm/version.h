@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright 2020 ETC Inc.
+ * Copyright 2023 ETC Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,12 @@
  * https://github.com/ETCLabs/RDM
  *****************************************************************************/
 
-/*
- * IMPORTANT NOTE: If you change this file, you must also change the template located at
- * tools/version/templates/version.h.in.
- */
-
 /**
  * @file rdm/version.h
  * @brief Provides the current version of the RDM library.
+ *
+ * This file is provided for application use; the values defined in this file are not used
+ * internally by the library.
  */
 
 #ifndef RDM_VERSION_H_
@@ -44,9 +42,9 @@
  * @{
  */
 #define RDM_VERSION_MAJOR 0 /**< The major version. */
-#define RDM_VERSION_MINOR 2 /**< The minor version. */
+#define RDM_VERSION_MINOR 3 /**< The minor version. */
 #define RDM_VERSION_PATCH 0 /**< The patch version. */
-#define RDM_VERSION_BUILD 10 /**< The build number. */
+#define RDM_VERSION_BUILD 1 /**< The build number. */
 /**
  * @}
  */
@@ -55,24 +53,12 @@
  * @name RDM version strings
  * @{
  */
-#define RDM_VERSION_STRING "0.2.0.10"
-#define RDM_VERSION_DATESTR "19.Aug.2020"
-#define RDM_VERSION_COPYRIGHT "Copyright 2020 ETC Inc."
-#define RDM_VERSION_PRODUCTNAME "RDM"
+#define RDM_VERSION_STRING      "0.3.0.1" /**< The 4-digit version string. */
+#define RDM_VERSION_DATESTR     "09.Feb.2023" /**< The date this version was released (dd.Mm.yyyy). */
+#define RDM_VERSION_COPYRIGHT   "Copyright 2023 ETC Inc." /**< The version's copyright string. */
+#define RDM_VERSION_PRODUCTNAME "RDM" /**< The version's product name. */
 /**
  * @}
- */
-
-/**
- * @defgroup rdm_c Core API
- * @ingroup rdm
- * @brief The core RDM interface, in pure C99.
- */
-
-/**
- * @defgroup rdm_cpp C++ API
- * @ingroup rdm
- * @brief Header-only C++ wrappers for the RDM interface.
  */
 
 /**
