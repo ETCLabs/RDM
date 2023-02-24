@@ -4,22 +4,19 @@ set(RDM_INCLUDE ${RDM_ROOT}/include)
 
 set(RDM_LIB_TARGET_NAME RDM)
 
-add_library(${RDM_LIB_TARGET_NAME}
-  # RDM headers
-  # ${RDM_INCLUDE}/rdm/controller.h
-  ${RDM_INCLUDE}/rdm/defs.h
-  ${RDM_INCLUDE}/rdm/message.h
-  # ${RDM_INCLUDE}/rdm/responder.h
-  ${RDM_INCLUDE}/rdm/uid.h
+# Get the local source variables
+include(rdm/sources.cmake)
 
-  # RDM sources
-  # rdm/controller.c
-  rdm/message.c
-  # rdm/responder.c
-  rdm/uid.c
+add_library(${RDM_LIB_TARGET_NAME}
+  ${RDM_HEADERS}
+  ${RDM_SOURCES}
 )
 target_include_directories(${RDM_LIB_TARGET_NAME} PUBLIC ${RDM_INCLUDE})
 target_link_libraries(${RDM_LIB_TARGET_NAME} PUBLIC EtcPal)
+
+# Organize sources in IDEs
+source_group(TREE ${RDM_ROOT}/src/rdm PREFIX src FILES ${RDM_SOURCES})
+source_group(TREE ${RDM_ROOT}/include/rdm PREFIX include FILES ${RDM_HEADERS})
 
 # Write a pkg-config file
 set(RDM_PKGCONFIG_INTERMEDIATE_FILE ${CMAKE_BINARY_DIR}/${RDM_LIB_TARGET_NAME}.pc)
