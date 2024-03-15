@@ -44,7 +44,7 @@
 #define RDM_VERSION_MAJOR 0 /**< The major version. */
 #define RDM_VERSION_MINOR 3 /**< The minor version. */
 #define RDM_VERSION_PATCH 0 /**< The patch version. */
-#define RDM_VERSION_BUILD 1 /**< The build number. */
+#define RDM_VERSION_BUILD 2 /**< The build number. */
 /**
  * @}
  */
@@ -53,9 +53,9 @@
  * @name RDM version strings
  * @{
  */
-#define RDM_VERSION_STRING      "0.3.0.1" /**< The 4-digit version string. */
-#define RDM_VERSION_DATESTR     "09.Feb.2023" /**< The date this version was released (dd.Mm.yyyy). */
-#define RDM_VERSION_COPYRIGHT   "Copyright 2023 ETC Inc." /**< The version's copyright string. */
+#define RDM_VERSION_STRING      "0.3.0.2" /**< The 4-digit version string. */
+#define RDM_VERSION_DATESTR     "15.Mar.2024" /**< The date this version was released (dd.Mm.yyyy). */
+#define RDM_VERSION_COPYRIGHT   "Copyright 2024 ETC Inc." /**< The version's copyright string. */
 #define RDM_VERSION_PRODUCTNAME "RDM" /**< The version's product name. */
 /**
  * @}
