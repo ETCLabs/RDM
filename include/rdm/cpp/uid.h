@@ -26,6 +26,7 @@
 #include <cstdint>
 #include <string>
 #include "etcpal/cpp/common.h"
+#include "etcpal/cpp/hash.h"
 #include "rdm/uid.h"
 
 namespace rdm
@@ -376,5 +377,34 @@ constexpr bool operator>=(const Uid& a, const Uid& b) noexcept
 /// @}
 
 };  // namespace rdm
+
+/// @cond std namespace specializations
+
+// Inject a new std::hash specialization for rdm::Uid, so that it can be used in hash-based containers (e.g.
+// unordered_map and unordered_set) without a user needing to create a hash specialization.
+//
+// The std::hash specialization uses an efficient combination of hashes of the underlying data.
+namespace std
+{
+template <>
+struct hash<::rdm::Uid>
+{
+  std::size_t operator()(const ::rdm::Uid& uid) const noexcept
+  {
+    // Use .get() for manu & id so the static bit isn't filtered out.
+#if SIZE_MAX >= 0xFFFFFFFFFFFF  // Can the hash hold all 48 bits of the UID?
+    return (static_cast<size_t>(uid.get().manu) << 32) | uid.get().id;
+#else
+    size_t seed = 0u;
+    ::etcpal::HashCombine(seed, uid.get().manu);
+    ::etcpal::HashCombine(seed, uid.get().id);
+
+    return seed;
+#endif
+  }
+};
+};  // namespace std
+
+/// @endcond
 
 #endif  // RDM_CPP_UID_H_

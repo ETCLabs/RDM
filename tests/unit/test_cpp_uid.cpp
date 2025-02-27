@@ -19,6 +19,8 @@
 
 #include "rdm/cpp/uid.h"
 #include "gtest/gtest.h"
+#include <unordered_set>
+#include <vector>
 
 TEST(CppUid, DefaultConstructorWorks)
 {
@@ -270,4 +272,25 @@ TEST(CppUid, RdmUidComparisonOperatorsWork)
   EXPECT_FALSE(uid_2 > uid_3);   // >
   EXPECT_LE(uid_2, uid_3);       // <=
   EXPECT_FALSE(uid_2 >= uid_3);  // >=
+}
+
+TEST(CppUid, HashWorks)
+{
+  std::hash<rdm::Uid> uid_hash;
+
+  std::vector<size_t> hashes = {uid_hash({0x1234u, 0x56789ABCu}), uid_hash({0xCBA9u, 0x87654321u}),
+                                uid_hash({0x0000u, 0x00000000u}), uid_hash({0x8000u, 0x00000000u}),
+                                uid_hash({0x7FFFu, 0xFFFFFFFFu}), uid_hash({0xFFFFu, 0xFFFFFFFFu})};
+
+#if SIZE_MAX >= 0xFFFFFFFFFFFF
+  EXPECT_EQ(hashes[0], 0x123456789ABCu);
+  EXPECT_EQ(hashes[1], 0xCBA987654321u);
+  EXPECT_EQ(hashes[2], 0x000000000000u);
+  EXPECT_EQ(hashes[3], 0x800000000000u);
+  EXPECT_EQ(hashes[4], 0x7FFFFFFFFFFFu);
+  EXPECT_EQ(hashes[5], 0xFFFFFFFFFFFFu);
+#endif
+
+  std::unordered_set<size_t> unique_hashes(hashes.begin(), hashes.end());
+  EXPECT_EQ(unique_hashes.size(), hashes.size());
 }
