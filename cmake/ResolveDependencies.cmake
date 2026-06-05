@@ -12,10 +12,10 @@ if(COMPILING_AS_OSS)
   endif()
 else()
   include(${CMAKE_TOOLS_MODULES}/DependencyManagement.cmake)
-  add_project_dependencies()
+  add_project_dependencies(SOURCE_DIR ${RDM_EXTERNAL})
 
   if(RDM_BUILD_TESTS)
-    add_project_dependency(googletest)
+    add_project_dependency(googletest SOURCE_DIR ${RDM_EXTERNAL}/googletest)
   endif()
 endif()
 

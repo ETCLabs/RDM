@@ -15,6 +15,9 @@ lib/
 # CMake
 build/
 
+# Ignore dependencies that are fetched by CMake
+external/*
+
 # MSVC2015 and Qt
 *.VC.db
 *.vcxproj.user
